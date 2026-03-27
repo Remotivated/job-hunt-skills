@@ -46,6 +46,8 @@ Skills that produce PDFs use HTML with embedded CSS styling. If that doesn't wor
 - **Google Docs**: Paste the markdown content, export as PDF
 - **Pandoc** (if installed): `pandoc resume.md -o resume.pdf`
 
+> 💡 **Tip:** The markdown files are the source of truth. Generate PDFs whenever you need to submit, but do your editing in `.md` format.
+
 ---
 
 ## For Claude.ai / ChatGPT / Gemini Users
@@ -82,7 +84,7 @@ Prompts work in any LLM, but compared to skills they lack:
 - **Web browsing** — Paste content directly instead of providing URLs
 - **Multi-turn workflow** — Each prompt is a single interaction
 
-Same methodology, you just handle the file management yourself.
+Same methodology, you just handle the **file management** yourself.
 
 ---
 
@@ -110,10 +112,10 @@ my-documents/
 
 ### Key rules
 
-- **`resume-builder`** is the only skill that writes to canonical files (`my-documents/resume.md`, `my-documents/coverletter.md`)
-- **`resume-tailor`** reads canonicals and writes to `my-documents/applications/{company}-{role}/`
-- **`resume-auditor`** is read-only — it never modifies files
-- **Other skills** read from canonicals as needed
+- **`resume-builder` owns the canonicals** — it's the only skill that writes to `my-documents/resume.md` and `my-documents/coverletter.md`
+- **`resume-tailor` creates application folders** — reads canonicals and writes to `my-documents/applications/{company}-{role}/`
+- **`resume-auditor` is read-only** — it never modifies files
+- **Other skills read from canonicals** as needed
 
 ### Updating your canonical resume
 
@@ -129,28 +131,35 @@ It reads your existing canonical files, asks what's changed, and produces update
 
 The [`guides/`](guides/) directory is the "why" behind the skills. Worth reading before you dive in:
 
-- Start with [Remote Job Market](guides/remote-job-market.md) to understand the landscape
-- Read [Resume Philosophy](guides/resume-philosophy.md) before building or auditing
-- Check [ATS Myths](guides/ats-myths.md) to stop worrying about the wrong things
-- Browse the rest as they become relevant to your search stage
+- **Start with** [Remote Job Market](guides/remote-job-market.md) to understand the landscape
+- **Read** [Resume Philosophy](guides/resume-philosophy.md) before building or auditing
+- **Check** [ATS Myths](guides/ats-myths.md) to stop worrying about the wrong things
+- **Browse the rest** as they become relevant to your search stage
 
 ---
 
 ## Recommended Workflow
 
 ### Week 1: Build your foundation
-1. `resume-builder` -- create your canonical resume and cover letter
+
+1. `resume-builder` -- create your **canonical resume** and cover letter
 2. `resume-auditor` -- get honest feedback (it won't be gentle)
-3. Iterate until you're mostly seeing STRONG ratings
+3. Iterate until you're mostly seeing **STRONG ratings**
 4. `linkedin-optimizer` -- align your LinkedIn with your resume
 
+---
+
 ### Week 2+: Start applying with intent
-1. `company-radar` -- vet the company before you invest time
+
+1. `company-radar` -- **vet the company** before you invest time
 2. `resume-tailor` -- customize for good fits
 3. `interview-coach` -- prep when you land interviews
 4. Follow the [Sustainable Search](guides/sustainable-search.md) weekly rhythm so you don't burn out
 
+---
+
 ### Ongoing
+
 - Update canonicals when your experience changes
-- `proof-asset-creator` -- build case studies that show, not tell
+- `proof-asset-creator` -- build case studies that **show, not tell**
 - [Networking Guide](guides/networking-guide.md) -- the 3/1/1 rhythm that compounds

@@ -2,9 +2,9 @@
 
 Let's start with the obvious: most networking advice makes you feel like a used car salesman. "Reach out to people and ask for things." Great. No wonder everyone hates it.
 
-Here's what actually works. It starts with giving, takes longer to kick in, and produces conversion rates that make cold applications look like a joke.
+Here's what actually works. It starts with giving, takes longer to kick in, and produces **conversion rates** that make cold applications look like a joke.
 
-A warm introduction converts at roughly 10-20x the rate of a cold application. That's not a typo. If you're spending all your time on job boards and zero time on relationships, your math is off.
+A warm introduction converts at roughly **10-20x the rate** of a cold application. That's not a typo. If you're spending all your time on job boards and zero time on relationships, your math is off.
 
 ---
 
@@ -12,13 +12,19 @@ A warm introduction converts at roughly 10-20x the rate of a cold application. T
 
 This is the minimum effective dose. Each week:
 
-**3 meaningful comments** on posts from people at target companies or in your field. Not "Great post!" -- that's the LinkedIn equivalent of a participation trophy. A meaningful comment adds a perspective, asks a real question, shares a relevant experience, or respectfully pushes back. Two to three sentences that prove you actually read the thing.
+| Action | What It Means | Time |
+|--------|--------------|------|
+| **3** meaningful comments | Add perspective, ask real questions, share experience | 15-30 min |
+| **1** thoughtful DM | No ask -- just connection, compliment, or shared interest | 5-10 min |
+| **1** give-first action | Share a lead, make an intro, send a useful resource | 10-20 min |
 
-**1 thoughtful DM** that doesn't ask for anything. This is counterintuitive. You're reaching out to someone without a request. You're sharing something relevant to them, complimenting specific work they've done, or connecting on a shared interest. The entire goal is to start a conversation, not extract a favor.
+**3 meaningful comments** on posts from people at target companies or in your field. Not "Great post!" -- that's the LinkedIn equivalent of a participation trophy. A meaningful comment adds a perspective, asks a real question, shares a relevant experience, or respectfully pushes back. **Two to three sentences** that prove you actually read the thing.
+
+**1 thoughtful DM** that doesn't ask for anything. This is counterintuitive. You're reaching out to someone without a request. You're sharing something relevant to them, complimenting specific work they've done, or connecting on a shared interest. The entire goal is to **start a conversation**, not extract a favor.
 
 **1 give-first action**. Share a job lead with someone in your network. Make an introduction between two people who should know each other. Send someone a resource that's relevant to a challenge they mentioned. Help without being asked.
 
-Total time: 30-60 minutes per week. The return on this investment compounds over time.
+**Total time: 30-60 minutes per week.** The return on this investment compounds over time.
 
 ---
 
@@ -26,9 +32,9 @@ Total time: 30-60 minutes per week. The return on this investment compounds over
 
 This is strategy, not altruism.
 
-When you've built relationships before you need them, referrals happen naturally. People refer people they know, like, and trust. You can't manufacture that in a single DM. You build it over weeks and months of showing up.
+When you've built relationships before you need them, **referrals happen naturally**. People refer people they know, like, and trust. You can't manufacture that in a single DM. You build it over weeks and months of showing up.
 
-The give-first approach works because it reverses the typical dynamic. Instead of being one of dozens of people asking someone for help, you become someone who shows up with value. When you eventually mention you're exploring new opportunities, people want to help -- because you've already helped them.
+The give-first approach works because it **reverses the typical dynamic**. Instead of being one of dozens of people asking someone for help, you become someone who shows up with value. When you eventually mention you're exploring new opportunities, people want to help -- because you've already helped them.
 
 This doesn't mean being a doormat or giving away your expertise for free. It means being someone other professionals actually want to hear from.
 
@@ -38,9 +44,13 @@ This doesn't mean being a doormat or giving away your expertise for free. It mea
 
 Most people get this wrong. Here's what that looks like.
 
-**Don't do this**: "Hi! I'm looking for a role at [Company] and wondering if you could refer me?"
+> **Bad DM:**
+> "Hi! I'm looking for a role at [Company] and wondering if you could refer me?"
 
-Sent cold to someone you've never interacted with, this gets maybe a 2% response rate. You're asking someone to spend their social capital on a complete stranger. Most people ignore it. The nice ones send a polite deflection.
+Sent cold to someone you've never interacted with, this gets maybe a **2% response rate**. You're asking someone to spend their social capital on a complete stranger. Most people ignore it. The nice ones send a polite deflection.
+
+> **Good DM:**
+> "Hey [Name], I've been following your posts on [topic] -- your take on [specific thing] really resonated. I'm curious how that played out at [Company]. Would love to hear more if you're open to it."
 
 **Do this instead**:
 
@@ -49,7 +59,7 @@ Sent cold to someone you've never interacted with, this gets maybe a 2% response
 3. **Have a real conversation.** Respond to what they say. Be curious. Be human.
 4. **Mention exploring opportunities only after rapport exists.** "I've been exploring roles in [area] and noticed [Company] is doing interesting work in this space. Would love to hear your perspective on the team/culture." This works because there's now context for the ask.
 
-The timeline for this is typically 2-4 weeks per relationship. That's why you start before you urgently need a job.
+The timeline for this is typically **2-4 weeks per relationship**. That's why you start before you urgently need a job.
 
 ---
 
@@ -71,15 +81,17 @@ The timeline for this is typically 2-4 weeks per relationship. That's why you st
 
 If you don't have a professional network, join the club. Here's where to begin:
 
-**LinkedIn.** Follow people at companies you're interested in. Follow thought leaders in your field. Start commenting before you start messaging. Your comments are public proof that you're thoughtful and engaged.
+**LinkedIn.** Follow people at companies you're interested in. Follow thought leaders in your field. Start commenting before you start messaging. Your comments are **public proof** that you're thoughtful and engaged.
 
 **Slack and Discord communities.** Most industries have active communities. Remote work communities are particularly strong (Remotivated, Remote OK, various industry Slacks). Show up, answer questions, share resources. This is networking without the awkwardness of cold DMs.
 
 **Virtual events and webinars.** Attend, participate in the chat, and follow up with people you connected with during the event. "Hey, we were both at [event] and I really liked your question about X" is a natural conversation starter.
 
-**Newsletters and blogs.** Comment on posts from people whose work you respect. Many writers and creators actively engage with their comment sections. This is an underused way to get on someone's radar.
+**Newsletters and blogs.** Comment on posts from people whose work you respect. Many writers and creators actively engage with their comment sections. This is an **underused way** to get on someone's radar.
 
-You don't need hundreds of connections. You need 20-30 real relationships with people in your field or at companies you're interested in. Twenty people who'd respond to your DM beats 2,000 connections who wouldn't.
+> Twenty people who'd respond to your DM beats 2,000 connections who wouldn't.
+
+You don't need hundreds of connections. You need **20-30 real relationships** with people in your field or at companies you're interested in.
 
 ---
 
@@ -87,9 +99,9 @@ You don't need hundreds of connections. You need 20-30 real relationships with p
 
 The best time to build a network was two years ago. The second best time is today.
 
-If you're reading this mid-search, start the 3/1/1 rhythm now. Expect results in about 8 weeks. That feels brutal when you need a job yesterday, but those 8 weeks are passing regardless. You can spend them only applying to jobs (low conversion), or you can apply AND build relationships at the same time.
+If you're reading this mid-search, start the 3/1/1 rhythm now. Expect results in about **8 weeks**. That feels brutal when you need a job yesterday, but those 8 weeks are passing regardless. You can spend them only applying to jobs (low conversion), or you can apply AND build relationships at the same time.
 
-This is infrastructure. Not just for this search, but for the next one. And the one after that.
+> **This is infrastructure.** Not just for this search, but for the next one. And the one after that.
 
 The people who never seem to struggle finding jobs? They're not lucky. They've been doing some version of this for years.
 

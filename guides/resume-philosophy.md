@@ -10,7 +10,9 @@ That's what hiring managers are scanning for. Not your responsibilities. Not you
 
 The single biggest mistake on resumes is listing activities instead of outcomes. "Managed a team" tells me you had direct reports. It tells me nothing about whether the team shipped anything, whether they grew, or whether you were any good at it.
 
-Six to eight seconds. That's the average initial resume scan. In that window, hiring managers are pattern-matching for signals: numbers, outcomes, velocity, scope. Give them what they're looking for.
+> Six to eight seconds. That's the average initial resume scan.
+
+In that window, hiring managers are **pattern-matching for signals**: numbers, outcomes, velocity, scope. Give them what they're looking for.
 
 **The pattern is simple:**
 
@@ -26,28 +28,17 @@ That's it. Every bullet point on your resume should follow this structure. Not e
 
 Here's what the shift looks like in practice, across different roles:
 
-**Generic:** "Managed a team of 5"
-**Compelling:** "Led a team of 5 that shipped the v2 billing system in 8 weeks, eliminating 200+ monthly support tickets"
+| Generic | Compelling |
+| --- | --- |
+| "Managed a team of 5" | "Led a team of 5 that shipped the v2 billing system in 8 weeks, eliminating 200+ monthly support tickets" |
+| "Worked on marketing campaigns" | "Designed and executed email nurture campaign that generated $140K in pipeline over 6 weeks" |
+| "Responsible for customer success" | "Increased customer retention by 23% through proactive outreach program targeting at-risk accounts" |
+| "Developed new features for the platform" | "Built real-time notification system serving 50K daily active users, reducing missed-event rate by 60%" |
+| "Managed project timelines and deliverables" | "Coordinated cross-functional launch of enterprise tier across engineering, design, and sales -- delivered 2 weeks ahead of schedule" |
+| "Handled operations and process improvement" | "Automated invoice reconciliation process, cutting monthly close time from 5 days to 1.5 days and eliminating manual errors" |
+| "Provided technical support to customers" | "Resolved 95% of Tier 2 escalations within 4 hours, contributing to team achieving highest CSAT score in company history (4.8/5.0)" |
 
-**Generic:** "Worked on marketing campaigns"
-**Compelling:** "Designed and executed email nurture campaign that generated $140K in pipeline over 6 weeks"
-
-**Generic:** "Responsible for customer success"
-**Compelling:** "Increased customer retention by 23% through proactive outreach program targeting at-risk accounts"
-
-**Generic:** "Developed new features for the platform"
-**Compelling:** "Built real-time notification system serving 50K daily active users, reducing missed-event rate by 60%"
-
-**Generic:** "Managed project timelines and deliverables"
-**Compelling:** "Coordinated cross-functional launch of enterprise tier across engineering, design, and sales -- delivered 2 weeks ahead of schedule"
-
-**Generic:** "Handled operations and process improvement"
-**Compelling:** "Automated invoice reconciliation process, cutting monthly close time from 5 days to 1.5 days and eliminating manual errors"
-
-**Generic:** "Provided technical support to customers"
-**Compelling:** "Resolved 95% of Tier 2 escalations within 4 hours, contributing to team achieving highest CSAT score in company history (4.8/5.0)"
-
-Notice the pattern. The "generic" versions describe a role. The "compelling" versions describe what happened because you were in that role. That's the difference between a resume that gets skimmed and one that gets a call.
+Notice the pattern. The "generic" versions describe a role. The "compelling" versions describe **what happened because you were in that role**. That's the difference between a resume that gets skimmed and one that gets a call.
 
 ---
 
@@ -66,6 +57,8 @@ This is not gaming a system. It's professional communication.
 ---
 
 ## Anti-Sycophancy Awareness
+
+> :warning: **Common trap:** AI tools default to praise. If you ask "What do you think?" you'll get encouragement, not the critical feedback your resume actually needs.
 
 If you're using AI to help with your resume -- and you should be -- you need to know about a built-in failure mode.
 
@@ -88,9 +81,14 @@ Lead with what needs improvement. Ask for critical feedback explicitly. The hard
 
 Here's a calculation most job seekers get wrong.
 
-50 generic applications, 5 minutes each: ~4 hours of work, typically zero interviews. The resume is generic. The cover letter is generic. The company has no reason to believe you actually want *this* job.
+| Approach | Time per app | Total time | Typical result |
+| --- | --- | --- | --- |
+| 50 generic applications | ~5 min | ~4 hours | Zero interviews |
+| 10 tailored applications | ~30-45 min | ~5-7 hours | Meaningfully higher hit rate |
 
-10 tailored applications, 30-45 minutes each: ~5-7 hours of work, meaningfully higher hit rate. Each one represents a company you've actually vetted — you've read about their culture, you understand the role, and your materials reflect that.
+**50 generic applications:** The resume is generic. The cover letter is generic. The company has no reason to believe you actually want *this* job.
+
+**10 tailored applications:** Each one represents a company you've actually vetted — you've read about their culture, you understand the role, and your materials reflect that.
 
 The math works because hiring managers can tell. A tailored application stands out precisely because most people don't bother. When your resume mirrors their language and your cover letter shows you've done homework, you've already cleared a bar that 80% of applicants don't.
 
@@ -111,4 +109,6 @@ Ask yourself: **What's my angle?**
 
 Once you know your angle, audit every bullet on your resume against it. Does this line reinforce my story, or distract from it? If a bullet doesn't serve the narrative, cut it -- even if it was impressive. A focused resume beats a comprehensive one.
 
-Your resume is not a complete record of your career. It's a curated argument for why you're the right person for *this specific kind of role*. Every bullet is a piece of evidence. Make each one count.
+> Your resume is not a complete record of your career. It's a curated argument for why you're the right person for *this specific kind of role*.
+
+Every bullet is a piece of evidence. Make each one count.

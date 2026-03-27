@@ -5,9 +5,9 @@ Built by [Remotivated](https://remotivated.com) — the job platform where remot
 
 ---
 
-Remote roles make up 8-12% of job postings but attract over 40% of applications. Cold applications convert at 0.1-2%. The math is brutal, and volume makes it worse.
+Remote roles make up **8-12% of job postings** but attract **over 40% of applications**. Cold applications convert at 0.1-2%. The math is brutal, and volume makes it worse.
 
-Job Hunt OS is a system for the other approach — Claude skills, standalone prompts, and methodology guides built on a simple bet: 5 tailored applications beat 50 generic ones. Research the company. Write for the reader. Show up prepared.
+Job Hunt OS is a system for the other approach — Claude skills, standalone prompts, and methodology guides built on a simple bet: **5 tailored applications beat 50 generic ones**. Research the company. Write for the reader. Show up prepared.
 
 ---
 
@@ -81,18 +81,23 @@ Here's the recommended sequence when you find a role you're interested in:
 3. **Tailor for the role** → `resume-tailor` customizes your resume + cover letter
 4. **Prepare for the interview** → `interview-coach` generates your prep brief
 
-Each skill builds on the last. Your canonical resume (`my-documents/resume.md`) is the foundation — build it once, tailor it many times.
+Each skill builds on the last. Your canonical resume (`my-documents/resume.md`) is the **foundation** — build it once, tailor it many times.
 
 ---
 
 ## Philosophy
 
-- **The average corporate job posting gets 250 applications.** You're not going to out-volume that. Out-prepare it.
-- **Nobody got hired because their resume said "results-driven."** Show outcomes. Kill the buzzwords.
-- **15 minutes of research saves you from a company that calls Slack pings "async."** Vet before you apply.
-- **Your resume is an argument, not a history.** Different reader, different argument.
-- **Saying "I'm great at remote work" proves nothing.** Showing how you ran a distributed project does.
-- **AI is a power tool, not a ghostwriter.** It sharpens your thinking. It doesn't replace it.
+> **The average corporate job posting gets 250 applications.** You're not going to out-volume that. Out-prepare it.
+
+> **Nobody got hired because their resume said "results-driven."** Show outcomes. Kill the buzzwords.
+
+> **15 minutes of research saves you from a company that calls Slack pings "async."** Vet before you apply.
+
+> **Your resume is an argument, not a history.** Different reader, different argument.
+
+> **Saying "I'm great at remote work" proves nothing.** Showing how you ran a distributed project does.
+
+> **AI is a power tool, not a ghostwriter.** It sharpens your thinking. It doesn't replace it.
 
 ---
 

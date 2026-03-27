@@ -4,6 +4,8 @@ You got the offer. That's great -- it means they want you. Now is the part most 
 
 So don't leave it on the table.
 
+> 💡 **Tip:** Deliver your counter over email if negotiation feels uncomfortable in real time. Email gives both sides time to think and creates a written record.
+
 ---
 
 ## Rule One: Don't Accept Immediately
@@ -24,21 +26,16 @@ Take the time. Review the full package. Compare it to your research. Then respon
 
 Base salary gets all the attention, but total compensation has many levers. Some of these are easier for companies to approve because they're one-time costs or don't affect headcount budgets.
 
-**Signing bonus.** A one-time payment is often easier for a company to approve than a permanent salary increase. If they can't move on base, this is a strong fallback. "Would a signing bonus be possible to help bridge the gap?"
-
-**Equity or stock options.** Especially relevant at startups and growth-stage companies. Understand the vesting schedule, cliff period, and (for options) the strike price and current valuation. Equity in a pre-IPO company is speculative -- factor that into your math.
-
-**Start date.** If you need time between roles (and you should consider it), negotiate this. Two to three weeks of decompression between jobs is worth more than most people realize.
-
-**Title.** This costs the company nothing and affects your future earning power. If you're being hired as "Marketing Manager" but the scope is clearly "Senior Marketing Manager," ask. Titles are leverage for your next role.
-
-**Remote flexibility.** Clarify expectations in writing. How many days in-office, if any? Is there a core hours requirement? Can you work from different locations? What's the policy on async communication? Get specifics, not vibes.
-
-**Equipment and stipends.** Home office setup, learning and development budget, wellness stipend, coworking space allowance. These add up. A $2,000 home office stipend and $1,500 annual learning budget is $3,500 in real value.
-
-**PTO.** Some companies have flexible PTO policies that sound generous but result in people taking less time off. If the policy is a set number of days, ask for more. "Would it be possible to start with 20 days instead of 15?"
-
-**Review timeline.** Standard review cycles are annual. Ask for an accelerated first review. "Would it be possible to revisit compensation at 6 months instead of 12? I'm confident I'll be making a strong impact by then, and I'd like the chance to demonstrate that sooner." If they agree, you've just cut your timeline to a raise in half.
+| Item | Why It Works |
+|---|---|
+| **Signing bonus** | A one-time payment is often easier for a company to approve than a permanent salary increase. Strong fallback if they can't move on base. |
+| **Equity or stock options** | Especially relevant at startups and growth-stage companies. Understand vesting schedule, cliff period, strike price, and current valuation. Equity in a pre-IPO company is speculative -- factor that into your math. |
+| **Start date** | Two to three weeks of decompression between jobs is worth more than most people realize. If you need time between roles, negotiate this. |
+| **Title** | Costs the company nothing and affects your future earning power. If the scope is clearly senior, ask. Titles are leverage for your next role. |
+| **Remote flexibility** | Clarify expectations in writing. How many days in-office? Core hours? Different locations? Async policy? Get specifics, not vibes. |
+| **Equipment and stipends** | Home office setup, L&D budget, wellness stipend, coworking allowance. A $2,000 home office stipend and $1,500 annual learning budget is $3,500 in real value. |
+| **PTO** | Flexible PTO policies sound generous but often result in people taking less time off. If it's a set number of days, ask for more. |
+| **Review timeline** | Standard review cycles are annual. Ask for 6 months instead of 12. If they agree, you've just cut your timeline to a raise in half. |
 
 ---
 
@@ -63,11 +60,19 @@ Deliver this over email if negotiation feels uncomfortable in real time. Email g
 
 It happens. Here's how to handle it:
 
-**Pivot to other levers.** "I understand the base salary is firm. Would you be open to discussing a signing bonus?" or "Could we look at an accelerated review timeline instead?" Companies that can't move on salary can often move on other things.
+**Pivot to other levers.**
 
-**Ask why.** "Can you help me understand the constraints? Is it a budget issue, or is it tied to internal pay bands?" This gives you information. If it's a band issue, maybe there's a title change that puts you in a higher band. If it's budget, maybe a signing bonus or equity works.
+> "I understand the base salary is firm. Would you be open to discussing a signing bonus?"
 
-**Know your walk-away point.** Before you negotiate, decide the minimum package you'd accept. If the offer doesn't reach that threshold after negotiation, it's okay to decline.
+Or: "Could we look at an accelerated review timeline instead?" Companies that can't move on salary can often move on other things.
+
+**Ask why.**
+
+> "Can you help me understand the constraints? Is it a budget issue, or is it tied to internal pay bands?"
+
+This gives you information. If it's a band issue, maybe there's a title change that puts you in a higher band. If it's budget, maybe a signing bonus or equity works.
+
+**Know your walk-away point.** Before you negotiate, decide the **minimum package you'd accept**. If the offer doesn't reach that threshold after negotiation, it's okay to decline.
 
 **Decline gracefully if needed.**
 
@@ -97,7 +102,7 @@ For remote roles, this is where negotiations get interesting. Companies handle g
 
 **Location-adjusted pay:** Salary varies by market. A role might pay $150K in San Francisco and $120K in Austin. Companies like Buffer publish their formulas openly. Others are less transparent.
 
-Neither approach is inherently wrong, but you need to know which model a company uses before you negotiate. Ask directly: "Does compensation vary based on location, or is it the same regardless of where I'm based?"
+Neither approach is inherently wrong, but you need to **know which model a company uses** before you negotiate. Ask directly: "Does compensation vary based on location, or is it the same regardless of where I'm based?"
 
 The legislative landscape is shifting in your favor. Colorado, New York City, California, and Washington state (among others) now require salary range transparency in job postings. More states and cities are following. This gives you data. Use it.
 
@@ -109,9 +114,9 @@ If a company adjusts for location, understand the formula. Some use cost-of-labo
 
 Know these numbers before you pick up the phone:
 
-- 70-85% of employers expect candidates to negotiate. You're not being pushy. You're doing what they planned for.
-- Candidates who negotiate earn $5,000-$10,000 more at the starting line. Over a 30-year career with percentage-based raises, that gap doesn't close — it widens.
-- The worst realistic outcome of a respectful negotiation? They say no, and you're right back where you started with the original offer still on the table.
+- **70-85% of employers expect candidates to negotiate.** You're not being pushy. You're doing what they planned for.
+- **Candidates who negotiate earn $5,000-$10,000 more** at the starting line. Over a 30-year career with percentage-based raises, that gap doesn't close — it widens.
+- **The worst realistic outcome** of a respectful negotiation? They say no, and you're right back where you started with the original offer still on the table.
 
 The risk of negotiating is almost zero. The risk of not negotiating is real and compounds over your entire career. Every future raise is a percentage of your current salary. Every future employer will benchmark against what you're making now (in jurisdictions that still allow salary history questions). Starting higher means staying higher.
 
@@ -121,4 +126,6 @@ The risk of negotiating is almost zero. The risk of not negotiating is real and 
 
 Companies have budgets. You have needs and market data. Negotiation is where those things meet — it's not a fight.
 
-Be enthusiastic. Be specific. Be professional. And don't leave money on the table because the conversation feels uncomfortable. Five minutes of discomfort now can be worth tens of thousands of dollars over your career. That's a pretty good hourly rate.
+Be enthusiastic. Be specific. Be professional. And don't leave money on the table because the conversation feels uncomfortable. Five minutes of discomfort now can be worth **tens of thousands of dollars** over your career.
+
+> That's a pretty good hourly rate.

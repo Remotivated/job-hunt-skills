@@ -31,7 +31,7 @@ Greenhouse doesn't auto-reject resumes. Lever doesn't. Ashby doesn't. When you s
 
 Where does the stat come from? Inflated claims in marketing content and job search blogs — not vendor documentation or published research. The number gets repeated so often it's treated as fact, but no major ATS vendor advertises "we automatically reject 75% of your applicants" as a feature. Think about that for a second. Why would a company pay for software that throws away candidates without review?
 
-**What is true:** Some enterprise systems (particularly Workday and Taleo) allow recruiters to set knockout questions -- "Do you have a valid work permit?" or "Do you have 5+ years of experience in X?" -- and automatically filter based on answers. But that's filtering on *your answers to screening questions*, not parsing your resume for hidden keywords.
+> **What is true:** Some enterprise systems (particularly Workday and Taleo) allow recruiters to set knockout questions and automatically filter based on answers. But that's filtering on *your answers to screening questions*, not parsing your resume for hidden keywords.
 
 Some systems also stack-rank candidates based on match criteria. If a recruiter searches for "Python AND AWS AND 5 years experience," candidates matching all three appear first. But appearing lower in a search result isn't rejection -- it's just sorting.
 
@@ -46,6 +46,8 @@ Here's what can actually go wrong:
 **Missing information means missing search results.** If a recruiter filters for "project management" and you wrote "PM" or "programme management," you won't appear. Language-matching issue, not keyword-density issue.
 
 **"ATS-optimized" mostly means "well-written with clean formatting."** Clear section headings, standard layout, relevant language. That's just good resume writing. No paid service or secret formula required.
+
+> :bulb: **Tip:** If your resume parses cleanly and reads well to a human, it will work fine in an ATS. The two goals are not in conflict.
 
 ---
 
@@ -63,10 +65,12 @@ Here's what can actually go wrong:
 
 ## Formatting That Works
 
-- **PDF** is generally preferred. It preserves formatting across devices and parses well in modern systems. Some older enterprise ATS platforms (Taleo, older Workday configurations) historically preferred .docx -- but this is increasingly rare. When in doubt, PDF.
-- **Standard fonts.** Calibri, Arial, Garamond, Helvetica. Nothing fancy.
-- **Clear hierarchy.** Company name, role title, dates, bullet points. Consistent formatting throughout.
-- **No headers or footers for critical info.** Some parsers skip header/footer content. Keep your name and contact info in the main document body.
+| Element | Recommendation |
+| --- | --- |
+| **File format** | PDF preferred. Preserves formatting and parses well in modern systems. Some older enterprise ATS (Taleo, older Workday) historically preferred .docx -- increasingly rare. When in doubt, PDF. |
+| **Fonts** | Calibri, Arial, Garamond, Helvetica. Nothing fancy. |
+| **Hierarchy** | Company name, role title, dates, bullet points. Consistent formatting throughout. |
+| **Headers/footers** | Keep name and contact info in the main document body. Some parsers skip header/footer content. |
 
 ---
 
@@ -88,4 +92,4 @@ The "75% rejection" narrative sells courses and services. It doesn't reflect how
 
 Your resume needs to do two things: parse cleanly into structured data, and convince a human to pick up the phone. Formatting solves the first. Everything in the [resume philosophy guide](resume-philosophy.md) solves the second.
 
-Stop worrying about robots. Start writing for the recruiter.
+> Stop worrying about robots. Start writing for the recruiter.

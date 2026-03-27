@@ -16,18 +16,31 @@ One is a claim. The other is evidence. Guess which one a hiring manager trusts.
 
 You don't need all of these. Pick the one that fits your role and build one strong example.
 
+| Format | Best For | Effort |
+|--------|----------|--------|
+| Case Study (SAOL) | Almost any role | Medium |
+| Personal Site | Standing out broadly | Medium-High |
+| Portfolio | Creative and visual roles | High |
+| Proof Link | Quick follow-ups and DMs | Low |
+
+---
+
 ### 1. Case Study (The SAOL Structure)
 
 Works for almost any role. Structure it as:
+
+> **Situation -- Approach -- Outcome -- Learning**
 
 - **Situation**: What was the context? What problem existed?
 - **Approach**: What did you do? What decisions did you make and why?
 - **Outcome**: What happened? Use numbers where possible.
 - **Learning**: What would you do differently? What did this teach you?
 
-A case study can be a Google Doc, a Notion page, or a clean PDF. Keep it to 1-2 pages. The goal is to show your thinking process, not just the result.
+A case study can be a Google Doc, a Notion page, or a clean PDF. Keep it to 1-2 pages. The goal is to show your **thinking process**, not just the result.
 
 The "Learning" section is what most people skip. Don't. It signals that you can assess your own work honestly -- and hiring managers almost never see that in applications.
+
+---
 
 ### 2. Personal Site
 
@@ -40,19 +53,23 @@ You don't need to be a developer. Tools like Lovable, Framer, Carrd, or Webflow 
 - Links to relevant profiles (LinkedIn, GitHub, portfolio)
 - Contact information
 
-Keep it simple. One page is fine. You're not trying to win a design award -- you're giving someone a single link that tells your professional story better than a resume ever could.
+Keep it simple. One page is fine. You're not trying to win a design award -- you're giving someone a **single link** that tells your professional story better than a resume ever could.
+
+---
 
 ### 3. Portfolio (Creative and Visual Roles)
 
 If you're in design, content, marketing, or any role where the work is visual, a portfolio is expected. But more is not better.
 
-Curate ruthlessly. Show 4-6 of your strongest pieces, each with brief context:
+**Curate ruthlessly.** Show 4-6 of your strongest pieces, each with brief context:
 
 - What was the problem or brief?
 - What was your specific role?
 - What was the result?
 
-Six excellent pieces with clear context will always beat twenty screenshots and no explanation. Hiring managers spend 30-60 seconds per portfolio. Act accordingly.
+Six excellent pieces with clear context will always beat twenty screenshots and no explanation. Hiring managers spend **30-60 seconds per portfolio**. Act accordingly.
+
+---
 
 ### 4. Proof Link
 
@@ -63,7 +80,7 @@ Sometimes one strong artifact does the job. This is a single link you can drop i
 - A **detailed write-up** of how you solved a specific problem
 - A **before/after analysis** showing measurable improvement
 
-The proof link works especially well for follow-up emails and LinkedIn conversations. It's low-friction for the recipient and high-signal for you.
+The proof link works especially well for **follow-up emails** and LinkedIn conversations. It's low-friction for the recipient and high-signal for you.
 
 ---
 
@@ -78,11 +95,20 @@ Yeah, probably. But that doesn't get you off the hook. You have options:
 - **Use a different project**: Side projects, volunteer work, and freelance engagements all count.
 - **Create something new**: Build a proof asset specifically for your job search. A spec project for a target company or a case study of a public challenge in your industry works well.
 
-Nobody's asking you to leak trade secrets. They want to see how you think.
+> Nobody's asking you to leak trade secrets. They want to see how you think.
 
 ---
 
 ## Role-Specific Examples
+
+| Role | Strong Proof Formats |
+|------|---------------------|
+| Sales | Deal narrative, cold outreach sequence with metrics, territory plan |
+| Marketing | Campaign deck with results, content samples + performance data, competitive analysis |
+| Engineering | GitHub projects with clean READMEs, technical blog posts, system design docs |
+| Customer Success | Customer-facing documentation, process improvement case study, onboarding playbook |
+| Product Management | PRD or product spec, roadmap framework, launch retrospective |
+| Operations | Process documentation, policy document with rationale, project plan |
 
 ### Sales
 - A deal narrative walking through how you identified, qualified, and closed a specific opportunity
@@ -118,7 +144,7 @@ Nobody's asking you to leak trade secrets. They want to see how you think.
 
 ## When and How to Use Proof Assets
 
-Building a proof asset is half the job. Knowing when to deploy it is the other half.
+Building a proof asset is half the job. Knowing **when to deploy it** is the other half.
 
 **In applications**: "I've attached a brief case study on a similar challenge I tackled at my previous company." This immediately differentiates you from candidates who submitted a resume and nothing else.
 
@@ -128,7 +154,7 @@ Building a proof asset is half the job. Knowing when to deploy it is the other h
 
 **In interviews**: "I actually wrote up my thinking on this -- happy to share it after our conversation." This signals preparation and seriousness.
 
-The pattern: proof assets shift the dynamic from "please consider me" to "here's what I bring." That's a fundamentally different conversation.
+> **The pattern**: proof assets shift the dynamic from "please consider me" to "here's what I bring." That's a fundamentally different conversation.
 
 ---
 
@@ -148,8 +174,8 @@ Not everything has to be a PDF or a portfolio site. Some of the best proof asset
 
 Most candidates submit a resume and hope. That's the floor, not a strategy.
 
-You don't need a perfect portfolio or a custom website for every application. You need one strong piece of evidence that shows how you think, how you work, and what happens when someone gives you a problem to solve.
+You don't need a perfect portfolio or a custom website for every application. You need **one strong piece of evidence** that shows how you think, how you work, and what happens when someone gives you a problem to solve.
 
-Start with one case study using the SAOL structure. Build it this week. Use it in your next application.
+> **Start with one case study** using the SAOL structure. Build it this week. Use it in your next application.
 
 The hiring manager who reads it will remember you. In a stack of 200 resumes, that's everything.

@@ -2,7 +2,7 @@
 
 An interview is not an audition. It's a two-way evaluation. You're deciding whether this company, this team, and this role are worth the next chapter of your career. Good companies know this. They expect substantive questions. They want candidates who are thoughtful about where they work.
 
-If an interviewer seems annoyed by real questions, that's not a bad interview -- that's a useful data point. You just learned something important about how they treat people.
+If an interviewer seems annoyed by real questions, that's not a bad interview -- that's a **useful data point**. You just learned something important about how they treat people.
 
 ---
 
@@ -26,42 +26,48 @@ Pick 3-4 questions per interview round. Don't ask all of them -- choose based on
 
 **"Walk me through a typical week. How much time is in meetings vs. focused work?"**
 
-- **Green flags:** They give a specific breakdown. "Monday is team sync, then mostly heads-down until Thursday demos." They acknowledge trade-offs. They mention protecting deep work time.
-- **Red flags:** "It depends" with no follow-up. More than 20 hours of meetings per week. They seem surprised by the question.
+- ✅ **Green flags:** They give a specific breakdown. "Monday is team sync, then mostly heads-down until Thursday demos." They acknowledge trade-offs. They mention protecting deep work time.
+- 🚩 **Red flags:** "It depends" with no follow-up. More than 20 hours of meetings per week. They seem surprised by the question.
 
 **"How do decisions get made and communicated on this team?"**
 
-- **Green flags:** Clear ownership. Written communication (docs, RFCs, async updates). People know who decides what.
-- **Red flags:** "We're very collaborative" without specifics (often means decisions take forever). Everything happens in meetings. One person decides everything.
+- ✅ **Green flags:** Clear ownership. Written communication (docs, RFCs, async updates). People know who decides what.
+- 🚩 **Red flags:** "We're very collaborative" without specifics (often means decisions take forever). Everything happens in meetings. One person decides everything.
 
 **"What does onboarding look like for this role?"**
 
-- **Green flags:** A structured plan exists. They mention a buddy or mentor. There's documentation. They set 30/60/90-day expectations.
-- **Red flags:** "We kind of figure it out as we go." No documentation. Previous person in the role left abruptly and no one can explain the handoff.
+- ✅ **Green flags:** A structured plan exists. They mention a buddy or mentor. There's documentation. They set 30/60/90-day expectations.
+- 🚩 **Red flags:** "We kind of figure it out as we go." No documentation. Previous person in the role left abruptly and no one can explain the handoff.
+
+---
 
 ### Career Growth
 
 **"How do people in this role grow and advance?"**
 
-- **Green flags:** They can name specific people who've grown. There's a career ladder or clear progression path. Growth isn't limited to management.
-- **Red flags:** "There's tons of opportunity" with zero examples. The only path up is waiting for someone to leave. They've never promoted anyone internally for this type of role.
+- ✅ **Green flags:** They can name specific people who've grown. There's a career ladder or clear progression path. Growth isn't limited to management.
+- 🚩 **Red flags:** "There's tons of opportunity" with zero examples. The only path up is waiting for someone to leave. They've never promoted anyone internally for this type of role.
 
 **"What does success look like in the first six months?"**
 
-- **Green flags:** Specific deliverables or milestones. They've thought about this. The expectations feel achievable but meaningful.
-- **Red flags:** "Just get up to speed." Wildly ambitious goals with no support structure. They can't articulate what success looks like because they don't know what they need.
+- ✅ **Green flags:** Specific deliverables or milestones. They've thought about this. The expectations feel achievable but meaningful.
+- 🚩 **Red flags:** "Just get up to speed." Wildly ambitious goals with no support structure. They can't articulate what success looks like because they don't know what they need.
+
+---
 
 ### Culture
 
 **"What's the hardest part about working here?"**
 
-- **Green flags:** An honest, specific answer. Every company has hard parts -- the good ones acknowledge them. "We're growing fast and process hasn't caught up" is real. "We're scaling our infrastructure and it's painful right now" is real.
-- **Red flags:** "Nothing, it's amazing here!" (nobody's that happy). They get visibly uncomfortable. The hard part they describe is a fundamental issue with no plan to address it.
+- ✅ **Green flags:** An honest, specific answer. Every company has hard parts -- the good ones acknowledge them. "We're growing fast and process hasn't caught up" is real. "We're scaling our infrastructure and it's painful right now" is real.
+- 🚩 **Red flags:** "Nothing, it's amazing here!" (nobody's that happy). They get visibly uncomfortable. The hard part they describe is a fundamental issue with no plan to address it.
 
 **"How does the team handle disagreements or conflicting priorities?"**
 
-- **Green flags:** They describe a real process. Escalation paths exist. Disagreement is treated as normal, not threatening. They can give an example.
-- **Red flags:** "We don't really disagree." Conflict is clearly avoided rather than resolved. One person's opinion always wins.
+- ✅ **Green flags:** They describe a real process. Escalation paths exist. Disagreement is treated as normal, not threatening. They can give an example.
+- 🚩 **Red flags:** "We don't really disagree." Conflict is clearly avoided rather than resolved. One person's opinion always wins.
+
+---
 
 ### The Meta-Question
 
@@ -69,8 +75,8 @@ Pick 3-4 questions per interview round. Don't ask all of them -- choose based on
 
 This is the highest-signal question you can ask. It tells you what they actually value.
 
-- **Green flags:** A specific, thoughtful answer. "The best people here proactively identify problems before they become fires." "They communicate early when something is off-track." The answer reveals the culture.
-- **Red flags:** They can't answer it. The answer is just "work harder" or "put in extra hours." The traits they describe don't match what you heard from other interviewers.
+- ✅ **Green flags:** A specific, thoughtful answer. "The best people here proactively identify problems before they become fires." "They communicate early when something is off-track." The answer reveals the culture.
+- 🚩 **Red flags:** They can't answer it. The answer is just "work harder" or "put in extra hours." The traits they describe don't match what you heard from other interviewers.
 
 ---
 
@@ -101,9 +107,9 @@ When it's time to discuss numbers directly:
 > "Based on the scope of this role and my experience in [area], I'd expect compensation in the range of [X-Y]. Is that in line with your budget?"
 
 Key moves:
-- Give a range, not a single number. Anchor the bottom of your range at or above what you'd actually accept.
-- Always frame it as collaborative, not adversarial. You're figuring this out together.
-- If they push back, don't panic. "I appreciate that. What range were you thinking?" puts the ball back.
+- **Give a range, not a single number.** Anchor the bottom of your range at or above what you'd actually accept.
+- **Always frame it as collaborative**, not adversarial. You're figuring this out together.
+- **If they push back, don't panic.** "I appreciate that. What range were you thinking?" puts the ball back.
 
 ---
 

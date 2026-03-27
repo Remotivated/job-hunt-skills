@@ -2,11 +2,13 @@
 
 ## The Competition Math
 
-Remote roles make up roughly 8-12% of all job postings. They attract over 40% of all applications.
+Remote roles make up roughly **8-12% of all job postings**. They attract over **40% of all applications**.
 
 Sit with that ratio for a second. You're competing in a pool that's 4x more crowded than the broader job market. A role that might get 50 applications if it were office-based will pull in 200+ when it says "remote." Senior roles at well-known remote companies? 500+ is common.
 
 That's not a reason to panic. It's a reason to stop winging it. When the math is this lopsided, you can't afford weak applications. Every submission needs to count.
+
+---
 
 ## Why "Spray and Pray" Fails Faster in Remote
 
@@ -18,7 +20,9 @@ When you spray applications across a small pond with 4x the competition, you get
 
 Most people who give up on their remote job search don't fail because they lack skills. They run out of energy applying to the wrong things.
 
-Precision beats volume. Every time.
+> Precision beats volume. Every time.
+
+---
 
 ## Strategy-First vs. Job-Board-First
 
@@ -41,7 +45,17 @@ The strategic approach flips the sequence:
 4. **Apply with precision** — Tailor every application to demonstrate you understand how they work, not just what the role requires.
 5. **Build relationships in parallel** — Connect with people at target companies before you need to apply. Follow their content. Engage thoughtfully.
 
+|   | Job-Board-First | Strategy-First |
+| --- | --- | --- |
+| **Starting point** | Whatever the algorithm shows you | Companies you've researched and vetted |
+| **Application quality** | Generic, one-size-fits-all | Tailored to company culture and role |
+| **Competition** | Everyone who saw the same listing | Often ahead of the crowd |
+| **Energy cost** | High volume, low return | Focused effort, higher hit rate |
+| **Signal to employer** | "I'm applying everywhere" | "I chose you specifically" |
+
 The strategy-first approach takes more upfront work. But it produces better results faster because you're applying to fewer roles with stronger applications — and you're often ahead of the crowd.
+
+---
 
 ## What Remote Hiring Managers Scan For
 
@@ -57,6 +71,8 @@ They're scanning for four things:
 
 **Outcome focus.** Remote companies care less about hours logged and more about results delivered. Numbers, impact, concrete outcomes. Not job descriptions reworded as bullet points.
 
+---
+
 ## The Signals That Matter
 
 Here's what most people get wrong: you don't need years of remote experience to demonstrate these qualities. You probably already have the evidence — you just haven't framed it that way.
@@ -71,6 +87,8 @@ The proof is in your work history. You just need to surface it. Instead of listi
 
 You're not fabricating remote experience. You're translating your existing experience into the language remote hiring managers already use.
 
+---
+
 ## Finding the Right Targets
 
 The hardest part of a remote job search isn't applying — it's knowing where to aim. Not every company that posts a remote role actually operates as a remote organization. Some are testing it. Some are doing it reluctantly. Some will pull the offer back to hybrid within a year.
@@ -79,4 +97,4 @@ Your time is better spent finding companies that have built their operations aro
 
 Tools like [Remotivated](https://remotivated.com) pre-classify companies by how they actually work — fully remote, remote-first, hybrid — so you can focus your research on the right targets. However you build your list, the goal is the same: spend less time searching and more time preparing strong applications for companies where you'd actually want to work.
 
-The remote job market doesn't reward effort. It rewards preparation. Know the math, respect the competition, and aim where it counts.
+> The remote job market doesn't reward effort. It rewards preparation. Know the math, respect the competition, and aim where it counts.
