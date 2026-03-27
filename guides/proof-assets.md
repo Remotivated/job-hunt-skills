@@ -2,13 +2,13 @@
 
 A resume claims. A proof asset demonstrates.
 
-Hiring managers are not reading your application looking for reasons to say yes. They are looking for reasons to reduce risk. Every interview question -- from "Tell me about a time..." to "Why should we hire you?" -- is really asking the same thing: **How do I know you'll actually deliver?**
+Hiring managers are not reading your application looking for reasons to say yes. They're looking for reasons to say no. Every interview question -- from "Tell me about a time..." to "Why should we hire you?" -- is really asking: **How do I know you won't be a costly mistake?**
 
 Proof assets answer that question before anyone asks it.
 
-A resume says "Increased revenue by 30%." A proof asset walks through *how* you identified the opportunity, what you tried, what worked, and what you learned. One is a claim. The other is evidence.
+A resume says "Increased revenue by 30%." A proof asset walks through *how* you identified the opportunity, what you tried, what worked, and what you learned.
 
-The difference in credibility is enormous.
+One is a claim. The other is evidence. Guess which one a hiring manager trusts.
 
 ---
 
@@ -18,7 +18,7 @@ You don't need all of these. Pick the one that fits your role and build one stro
 
 ### 1. Case Study (The SAOL Structure)
 
-This is the most versatile format and works for almost any role. Structure it as:
+Works for almost any role. Structure it as:
 
 - **Situation**: What was the context? What problem existed?
 - **Approach**: What did you do? What decisions did you make and why?
@@ -27,11 +27,11 @@ This is the most versatile format and works for almost any role. Structure it as
 
 A case study can be a Google Doc, a Notion page, or a clean PDF. Keep it to 1-2 pages. The goal is to show your thinking process, not just the result.
 
-The "Learning" section is what separates a good case study from a great one. It signals self-awareness and growth mindset -- two things hiring managers actively look for but rarely find in applications.
+The "Learning" section is what most people skip. Don't. It signals that you can assess your own work honestly -- and hiring managers almost never see that in applications.
 
 ### 2. Personal Site
 
-A personal URL signals effort. It tells a hiring manager you take your career seriously enough to invest time in how you present yourself.
+A personal URL signals effort. It tells a hiring manager you care enough about how you present yourself to actually invest time in it.
 
 You don't need to be a developer. Tools like Lovable, Framer, Carrd, or Webflow make this accessible to anyone. Include:
 
@@ -40,7 +40,7 @@ You don't need to be a developer. Tools like Lovable, Framer, Carrd, or Webflow 
 - Links to relevant profiles (LinkedIn, GitHub, portfolio)
 - Contact information
 
-Keep it simple. One page is fine. The point is not to impress with design -- it's to give someone a single link that tells your professional story better than a resume can.
+Keep it simple. One page is fine. You're not trying to win a design award -- you're giving someone a single link that tells your professional story better than a resume ever could.
 
 ### 3. Portfolio (Creative and Visual Roles)
 
@@ -52,7 +52,7 @@ Curate ruthlessly. Show 4-6 of your strongest pieces, each with brief context:
 - What was your specific role?
 - What was the result?
 
-A portfolio with six excellent pieces and clear context beats one with twenty screenshots and no explanation. Hiring managers spend 30-60 seconds per portfolio. Make every piece count.
+Six excellent pieces with clear context will always beat twenty screenshots and no explanation. Hiring managers spend 30-60 seconds per portfolio. Act accordingly.
 
 ### 4. Proof Link
 
@@ -71,14 +71,14 @@ The proof link works especially well for follow-up emails and LinkedIn conversat
 
 The most common objection: "I can't share my work because it's confidential."
 
-Fair. But you have options:
+Yeah, probably. But that doesn't get you off the hook. You have options:
 
 - **Anonymize details**: Change company names, product names, and specific numbers. Keep the structure and thinking intact.
 - **Focus on process**: Describe your approach and methodology without revealing proprietary outcomes.
 - **Use a different project**: Side projects, volunteer work, and freelance engagements all count.
 - **Create something new**: Build a proof asset specifically for your job search. A spec project for a target company or a case study of a public challenge in your industry works well.
 
-The goal is to demonstrate how you think and work, not to share trade secrets.
+Nobody's asking you to leak trade secrets. They want to see how you think.
 
 ---
 
@@ -118,7 +118,7 @@ The goal is to demonstrate how you think and work, not to share trade secrets.
 
 ## When and How to Use Proof Assets
 
-Building a proof asset is step one. Using it strategically is step two.
+Building a proof asset is half the job. Knowing when to deploy it is the other half.
 
 **In applications**: "I've attached a brief case study on a similar challenge I tackled at my previous company." This immediately differentiates you from candidates who submitted a resume and nothing else.
 
@@ -128,13 +128,13 @@ Building a proof asset is step one. Using it strategically is step two.
 
 **In interviews**: "I actually wrote up my thinking on this -- happy to share it after our conversation." This signals preparation and seriousness.
 
-The pattern: proof assets give you something concrete to offer at every stage of the process, shifting the dynamic from "please consider me" to "here's what I bring."
+The pattern: proof assets shift the dynamic from "please consider me" to "here's what I bring." That's a fundamentally different conversation.
 
 ---
 
 ## Non-Traditional Options
 
-Not everything has to be a PDF or a portfolio site. Some of the most effective proof assets are unconventional:
+Not everything has to be a PDF or a portfolio site. Some of the best proof assets are weird:
 
 - **Claude artifacts**: Use AI to help you create polished analyses, frameworks, or documents. The thinking is yours; the tool just makes the output cleaner.
 - **Interactive demos**: Build a simple prototype or interactive page using tools like Lovable to demonstrate a concept.
@@ -144,12 +144,12 @@ Not everything has to be a PDF or a portfolio site. Some of the most effective p
 
 ---
 
-## The Bottom Line
+## So What Now
 
-Most candidates submit a resume and hope for the best. That's the baseline. Proof assets put you above it.
+Most candidates submit a resume and hope. That's the floor, not a strategy.
 
 You don't need a perfect portfolio or a custom website for every application. You need one strong piece of evidence that shows how you think, how you work, and what happens when someone gives you a problem to solve.
 
 Start with one case study using the SAOL structure. Build it this week. Use it in your next application.
 
-The hiring manager who reads it will remember you. That's the point.
+The hiring manager who reads it will remember you. In a stack of 200 resumes, that's everything.

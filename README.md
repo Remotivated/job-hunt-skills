@@ -5,7 +5,9 @@ Built by [Remotivated](https://remotivated.com) — the job platform where remot
 
 ---
 
-Remote roles make up 8-12% of job postings but attract over 40% of applications. The math demands precision, not volume. Job Hunt OS gives you a system for that — Claude skills, standalone prompts, and methodology guides grounded in the principle that 5 tailored applications beat 50 generic ones. Every tool here is designed to help you research smarter, write stronger, and interview with confidence.
+Remote roles make up 8-12% of job postings but attract over 40% of applications. Cold applications convert at 0.1-2%. The math is brutal, and volume makes it worse.
+
+Job Hunt OS is a system for the other approach — Claude skills, standalone prompts, and methodology guides built on a simple bet: 5 tailored applications beat 50 generic ones. Research the company. Write for the reader. Show up prepared.
 
 ---
 
@@ -91,20 +93,18 @@ Each skill builds on the last. Your canonical resume (`my-documents/resume.md`) 
 
 ## Philosophy
 
-- **Quality over quantity** — 5 tailored applications beat 50 generic ones
-- **Show, don't tell** — Outcomes and proof over claims and buzzwords
-- **Research before you apply** — 15 minutes of vetting saves 45 minutes of wasted effort
-- **Your resume tells a story** — Make sure it's the right one for each reader
-- **Remote readiness is a signal** — Demonstrate it, don't just claim it
-- **AI enhances, it doesn't replace** — Use AI to sharpen your thinking, not to think for you
+- **The average corporate job posting gets 250 applications.** You're not going to out-volume that. Out-prepare it.
+- **Nobody got hired because their resume said "results-driven."** Show outcomes. Kill the buzzwords.
+- **15 minutes of research saves you from a company that calls Slack pings "async."** Vet before you apply.
+- **Your resume is an argument, not a history.** Different reader, different argument.
+- **Saying "I'm great at remote work" proves nothing.** Showing how you ran a distributed project does.
+- **AI is a power tool, not a ghostwriter.** It sharpens your thinking. It doesn't replace it.
 
 ---
 
 ## About Remotivated
 
-[Remotivated](https://remotivated.com) is the job platform where remote means remote. We provide a company profile and job directory to help jobseekers find genuine remote jobs and help remote-first employers stand out by sharing their culture.
-
-Every company on Remotivated is classified by how they actually work — fully remote, remote-first, hybrid, or onsite — so you know what you're getting before you apply.
+[Remotivated](https://remotivated.com) is the job platform where remote means remote. Too many job boards let "remote" mean "remote until we change our mind." We classify every company by how they actually work — fully remote, remote-first, hybrid, or onsite — so you know what you're signing up for before you apply.
 
 ---
 

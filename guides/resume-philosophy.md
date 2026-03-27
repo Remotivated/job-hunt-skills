@@ -10,7 +10,7 @@ That's what hiring managers are scanning for. Not your responsibilities. Not you
 
 The single biggest mistake on resumes is listing activities instead of outcomes. "Managed a team" tells me you had direct reports. It tells me nothing about whether the team shipped anything, whether they grew, or whether you were any good at it.
 
-Hiring managers spend 6-8 seconds on an initial resume scan. In that window, they're pattern-matching for signals: numbers, outcomes, velocity, scope. Give them what they're looking for.
+Six to eight seconds. That's the average initial resume scan. In that window, hiring managers are pattern-matching for signals: numbers, outcomes, velocity, scope. Give them what they're looking for.
 
 **The pattern is simple:**
 
@@ -80,7 +80,7 @@ Or: *"If you were a hiring manager at [specific company], what would make you he
 
 Or: *"Rewrite these bullets to be more outcome-focused. Be aggressive -- I'd rather cut a weak bullet than keep it."*
 
-Lead with what needs improvement. Ask for critical feedback explicitly. The quality of AI resume help is directly proportional to how hard you push it to be honest.
+Lead with what needs improvement. Ask for critical feedback explicitly. The harder you push for honesty, the better the output gets.
 
 ---
 
@@ -88,11 +88,11 @@ Lead with what needs improvement. Ask for critical feedback explicitly. The qual
 
 Here's a calculation most job seekers get wrong.
 
-50 generic applications, each taking 5 minutes to fire off, equals about 4 hours of work and (typically) zero interviews. The resume is generic. The cover letter is generic. The company has no reason to believe you actually want *this* job.
+50 generic applications, 5 minutes each: ~4 hours of work, typically zero interviews. The resume is generic. The cover letter is generic. The company has no reason to believe you actually want *this* job.
 
-10 tailored applications, each taking 30-45 minutes of research, resume adjustment, and a specific cover letter, equals about 5-7 hours of work and a meaningfully higher hit rate. Each application represents a company you've actually vetted -- you've read about their culture, you understand the role, and your materials reflect that.
+10 tailored applications, 30-45 minutes each: ~5-7 hours of work, meaningfully higher hit rate. Each one represents a company you've actually vetted — you've read about their culture, you understand the role, and your materials reflect that.
 
-The math works because hiring managers can tell. A tailored application stands out precisely because most people don't bother. When your resume mirrors their language, references their specific challenges, and your cover letter shows you've done homework -- you've already cleared a bar that 80% of applicants don't.
+The math works because hiring managers can tell. A tailored application stands out precisely because most people don't bother. When your resume mirrors their language and your cover letter shows you've done homework, you've already cleared a bar that 80% of applicants don't.
 
 This approach also protects your energy. Applying to 50 jobs you haven't vetted means you'll end up in interviews for roles you don't actually want, at companies that aren't actually remote, with cultures that don't actually fit. Pre-vetting saves everyone's time.
 
@@ -100,7 +100,7 @@ This approach also protects your energy. Applying to 50 jobs you haven't vetted 
 
 ## Know Your Story
 
-Your resume tells a narrative whether you intend it to or not. The question is whether you're controlling that narrative.
+Your resume tells a narrative whether you intend it to or not. The question is whether you're the one controlling it.
 
 Ask yourself: **What's my angle?**
 

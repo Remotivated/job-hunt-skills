@@ -2,7 +2,7 @@
 
 Not every company that posts a "remote" role is actually remote. Some are hybrid with good marketing. Some are remote-for-now with return-to-office plans. Some genuinely don't know what they are yet.
 
-Your job before applying is to figure out which category a company falls into — and you can do it in about 15 minutes. This guide walks through a four-stage vetting process that separates genuinely remote companies from the rest.
+Your job before applying is to figure out which one you're looking at. The good news: it takes about 15 minutes.
 
 ## The 15-Minute Vetting Stack
 
@@ -14,7 +14,7 @@ Start with the listing itself. Before you read the responsibilities or requireme
 - **Remote-specific expectations.** Look for mentions of async communication, overlap hours, or distributed team norms. Companies that actually operate remotely tend to be explicit about how the logistics work.
 - **Benefits signaling.** Home office stipends, coworking allowances, internet reimbursement, and travel budgets for team meetups are signs of a company investing in distributed infrastructure. If every perk is office-based (catered lunches, gym memberships, ping pong tables), that tells you where their attention is.
 
-Two minutes is enough. You're not evaluating the role yet — you're deciding whether it's worth five more minutes of research.
+Two minutes. You're not evaluating the role yet — you're deciding whether it's worth five more minutes of research.
 
 ### Stage 2: Careers Page Check (5 minutes)
 
@@ -88,7 +88,7 @@ Companies have learned that "remote" attracts more applicants, so many use remot
 | **Distributed team** | Usually a strong signal — this is how remote-native companies describe themselves |
 | **Work from anywhere** | Check the fine print — often limited to specific countries or timezones |
 
-The safest signals are companies that describe themselves as "distributed" or "remote-first" and back it up with structural evidence (no headquarters, distributed leadership, async-first tooling).
+"Distributed" and "remote-first" are the strongest labels — but only when backed by structural evidence: no headquarters, distributed leadership, async-first tooling. Words are cheap. Org charts aren't.
 
 ## The Scoring System
 
@@ -98,11 +98,11 @@ After your 15-minute review, tally the red flags:
 - **2-3 red flags:** Proceed with caution. The company may be in transition or have uneven remote practices. Prepare specific questions about remote work for the interview stage — how they handle async decisions, what tools they use, how they measure performance.
 - **4+ red flags:** Probably not worth your time unless the role itself is exceptional. The company is likely office-first with a remote label, and you'll spend more energy fighting the culture than doing your job.
 
-This isn't about finding perfect companies. It's about allocating your limited application energy toward companies where you'll actually thrive.
+Perfect companies don't exist. But you have limited application energy, and spending it on companies where you'll actually thrive beats spraying it at companies that aren't what they claim.
 
 ## Building a Target Company List
 
-The vetting process works best when applied systematically. Instead of evaluating companies one at a time as you stumble across job postings, build a running list of target companies.
+Don't evaluate companies one at a time as you stumble across job postings. Build a running list.
 
 **Start with 3-5 companies.** Don't try to build a list of 50 on day one. Pick a handful that pass the vetting process and fit your career goals.
 
@@ -114,10 +114,10 @@ The vetting process works best when applied systematically. Instead of evaluatin
 
 **Track what you learn.** Keep notes on each company — what you found in reviews, how their remote culture is structured, who you've connected with. This research compounds over time. What takes 15 minutes today saves you hours when an opening appears next month.
 
-Tools like [Remotivated](https://remotivated.com) pre-classify companies by remote culture — fully remote, remote-first, structured hybrid — so you can skip some research for companies already in the directory. But even with pre-classified data, spend a few minutes confirming what you find matches your own priorities. No tool replaces your own judgment about where you want to work.
+Tools like [Remotivated](https://remotivated.com) pre-classify companies by remote culture — fully remote, remote-first, structured hybrid — so you can skip the first few stages for companies already in the directory. Still worth a few minutes confirming what you find matches your priorities. No tool replaces your own judgment about where you want to work.
 
-## Making This Process a Habit
+## Making This a Habit
 
-The 15-minute vetting process isn't a one-time exercise. Make it part of how you evaluate every opportunity. Over a few weeks, you'll get faster — some companies you'll screen out in 30 seconds, others will earn deeper research.
+Do this for every opportunity. After a few weeks, you'll screen some companies in 30 seconds flat. Others will earn deeper research.
 
-The goal isn't to find the one perfect remote company. It's to stop wasting time on companies that aren't what they claim to be, and to concentrate your energy where it's most likely to pay off.
+The point is simple: stop wasting time on companies that aren't what they claim to be, and put your energy where it actually pays off.

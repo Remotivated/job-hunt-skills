@@ -38,7 +38,7 @@ Base salary gets all the attention, but total compensation has many levers. Some
 
 **PTO.** Some companies have flexible PTO policies that sound generous but result in people taking less time off. If the policy is a set number of days, ask for more. "Would it be possible to start with 20 days instead of 15?"
 
-**Review timeline.** Standard review cycles are annual. Ask for an accelerated first review. "Would it be possible to revisit compensation at 6 months instead of 12? I'm confident I'll be making a strong impact by then, and I'd like the chance to demonstrate that sooner." This is a powerful move because it signals confidence and gives you an earlier opportunity to increase your compensation.
+**Review timeline.** Standard review cycles are annual. Ask for an accelerated first review. "Would it be possible to revisit compensation at 6 months instead of 12? I'm confident I'll be making a strong impact by then, and I'd like the chance to demonstrate that sooner." If they agree, you've just cut your timeline to a raise in half.
 
 ---
 
@@ -83,7 +83,7 @@ This is non-negotiable. After any verbal agreement:
 
 > "Thank you -- I'm thrilled with the updated package. Could you send an updated offer letter reflecting the changes we discussed?"
 
-Verbal agreements get forgotten. People change roles. HR wasn't on the call. The hiring manager remembered the number differently. An updated offer letter protects you. Don't feel awkward asking for this -- it's standard practice and any professional organization will expect it.
+Verbal agreements get forgotten. People change roles. HR wasn't on the call. The hiring manager remembered the number differently. An updated offer letter protects you. If asking for this feels awkward, get over it — any professional organization expects it, and the ones that don't are telling you something.
 
 Review the updated letter carefully. Make sure every negotiated item is reflected: base salary, signing bonus, start date, title, equity, stipends, review timeline. If something is missing, flag it before you sign.
 
@@ -91,7 +91,7 @@ Review the updated letter carefully. Make sure every negotiated item is reflecte
 
 ## Location-Based Pay
 
-This is worth understanding, especially for remote roles. Companies handle geographic compensation in different ways:
+For remote roles, this is where negotiations get interesting. Companies handle geographic compensation in different ways:
 
 **Location-agnostic pay:** Same salary regardless of where you live. Companies like GitLab (historically), Basecamp, and others have used this model. The philosophy: you're paid for the value of your work, not your zip code.
 
@@ -107,11 +107,11 @@ If a company adjusts for location, understand the formula. Some use cost-of-labo
 
 ## The Numbers Are on Your Side
 
-A few facts to internalize before you negotiate:
+Know these numbers before you pick up the phone:
 
-- According to multiple salary surveys, 70-85% of employers expect candidates to negotiate. You're not being pushy. You're meeting their expectations.
-- Candidates who negotiate their starting salary earn an average of $5,000-$10,000 more than those who don't. Over a 30-year career with standard raises, that initial difference compounds significantly.
-- The worst thing that happens when you negotiate respectfully is they say no, and you're right back where you started -- with the original offer still on the table.
+- 70-85% of employers expect candidates to negotiate. You're not being pushy. You're doing what they planned for.
+- Candidates who negotiate earn $5,000-$10,000 more at the starting line. Over a 30-year career with percentage-based raises, that gap doesn't close — it widens.
+- The worst realistic outcome of a respectful negotiation? They say no, and you're right back where you started with the original offer still on the table.
 
 The risk of negotiating is almost zero. The risk of not negotiating is real and compounds over your entire career. Every future raise is a percentage of your current salary. Every future employer will benchmark against what you're making now (in jurisdictions that still allow salary history questions). Starting higher means staying higher.
 
@@ -119,6 +119,6 @@ The risk of negotiating is almost zero. The risk of not negotiating is real and 
 
 ## The Bottom Line
 
-Negotiation isn't adversarial. It's a professional conversation about fair compensation for the value you bring. Companies have budgets. You have needs and market data. The negotiation is where those things meet.
+Companies have budgets. You have needs and market data. Negotiation is where those things meet — it's not a fight.
 
-Be enthusiastic. Be specific. Be professional. And don't leave money on the table because the conversation feels uncomfortable. A few minutes of discomfort can be worth tens of thousands of dollars over your career.
+Be enthusiastic. Be specific. Be professional. And don't leave money on the table because the conversation feels uncomfortable. Five minutes of discomfort now can be worth tens of thousands of dollars over your career. That's a pretty good hourly rate.

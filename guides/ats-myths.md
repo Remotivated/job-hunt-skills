@@ -1,14 +1,14 @@
-# ATS Myths: What Applicant Tracking Systems Actually Do
+# ATS Myths: What Actually Happens When You Hit "Apply"
 
-There's an entire cottage industry built on ATS fear. Paid "ATS optimization" services, resume scanning tools, invisible keyword tricks -- all selling solutions to a problem that mostly doesn't exist the way they describe it.
+There's an entire cottage industry built on ATS fear. Paid "ATS optimization" services, resume scanning tools, invisible keyword tricks — all selling solutions to a problem that mostly doesn't exist the way they describe it.
 
-Let's talk about what actually happens when you submit your resume.
+Here's what actually happens when you submit your resume.
 
 ---
 
 ## What ATS Systems Actually Do
 
-An Applicant Tracking System is a database with a workflow engine on top. That's it. It's software that helps recruiters manage the hiring pipeline -- tracking who applied, where they are in the process, and storing their information in a searchable format.
+An Applicant Tracking System is a database with a workflow engine on top. That's it. It helps recruiters manage the hiring pipeline — who applied, where they are in the process, and their information in a searchable format.
 
 The major platforms -- Greenhouse, Lever, Ashby, Workday, iCIMS, Workable -- all do roughly the same thing:
 
@@ -27,9 +27,9 @@ You've seen this stat everywhere. Blog posts, LinkedIn influencers, resume servi
 
 This is not how most ATS platforms work.
 
-Greenhouse doesn't auto-reject resumes. Lever doesn't auto-reject resumes. Ashby doesn't auto-reject resumes. When you submit an application through these systems, your resume gets parsed, stored, and added to the candidate pool. A recruiter reviews applications. A human makes the decision.
+Greenhouse doesn't auto-reject resumes. Lever doesn't. Ashby doesn't. When you submit an application through these systems, your resume gets parsed, stored, and added to the candidate pool. A recruiter reviews it. A human decides.
 
-Where does the stat come from? It's been traced back to inflated claims in marketing content and job search blogs, not vendor documentation or published research. The number gets repeated so often it's treated as fact, but no major ATS vendor advertises "we automatically reject 75% of your applicants" as a feature. Think about that for a second -- why would a company pay for software that throws away candidates without review?
+Where does the stat come from? Inflated claims in marketing content and job search blogs — not vendor documentation or published research. The number gets repeated so often it's treated as fact, but no major ATS vendor advertises "we automatically reject 75% of your applicants" as a feature. Think about that for a second. Why would a company pay for software that throws away candidates without review?
 
 **What is true:** Some enterprise systems (particularly Workday and Taleo) allow recruiters to set knockout questions -- "Do you have a valid work permit?" or "Do you have 5+ years of experience in X?" -- and automatically filter based on answers. But that's filtering on *your answers to screening questions*, not parsing your resume for hidden keywords.
 
@@ -41,11 +41,11 @@ Some systems also stack-rank candidates based on match criteria. If a recruiter 
 
 Here's what can actually go wrong:
 
-**Poor formatting breaks parsers.** If your resume uses tables, multi-column layouts, text boxes, headers/footers, or embedded graphics, the parser may extract garbled data. Your work history might end up in the education field. Your name might not get captured. This is a real problem -- but the solution is clean formatting, not keyword optimization.
+**Poor formatting breaks parsers.** Tables, multi-column layouts, text boxes, headers/footers, embedded graphics — any of these can turn your resume into garbled data. Your work history ends up in the education field. Your name doesn't get captured. This is a real problem, but the fix is clean formatting, not keyword optimization.
 
-**Missing information means missing search results.** If a recruiter filters for "project management" and you only wrote "PM" or "programme management," you might not appear in their search. This is a language-matching issue, not a keyword-density issue.
+**Missing information means missing search results.** If a recruiter filters for "project management" and you wrote "PM" or "programme management," you won't appear. Language-matching issue, not keyword-density issue.
 
-**"ATS-optimized" mostly means "written for humans with clean formatting."** The advice that actually works -- clear section headings, standard formatting, relevant language -- is just good resume writing. It doesn't require a paid service or a secret formula.
+**"ATS-optimized" mostly means "well-written with clean formatting."** Clear section headings, standard layout, relevant language. That's just good resume writing. No paid service or secret formula required.
 
 ---
 
@@ -76,16 +76,16 @@ Here's what can actually go wrong:
 
 **"ATS score" tools.** Services that give your resume a percentage match against a job description are measuring surface-level keyword overlap. They can't tell you if your experience is genuinely relevant or if your accomplishments are compelling. A 95% "ATS score" on a mediocre resume is still a mediocre resume.
 
-**Paid "ATS optimization" services.** If someone is charging you money to "beat the ATS," they're selling you anxiety. The actual fixes -- clean formatting, relevant language, standard headings -- take 15 minutes and cost nothing.
+**Paid "ATS optimization" services.** If someone is charging you money to "beat the ATS," they're selling you anxiety. The actual fixes — clean formatting, relevant language, standard headings — take 15 minutes and cost nothing.
 
-**Gaming the system.** There is no system to game. There's a database and a recruiter. Write a clear, compelling resume that makes it easy for the recruiter to see why you're a fit. That's the whole strategy.
+**Gaming the system.** There is no system to game. There's a database and a recruiter. Write a clear, compelling resume. Make it easy for the recruiter to see why you're a fit. That's it.
 
 ---
 
 ## The Bottom Line
 
-ATS systems are tools for recruiters, not gatekeepers for candidates. The "75% rejection" narrative sells courses and services, but it doesn't reflect how modern hiring platforms actually work.
+The "75% rejection" narrative sells courses and services. It doesn't reflect how modern hiring platforms work.
 
-Your resume needs to do two things: parse cleanly into structured data, and convince a human to pick up the phone. The first part is solved by formatting. The second part is solved by everything in the [resume philosophy guide](resume-philosophy.md).
+Your resume needs to do two things: parse cleanly into structured data, and convince a human to pick up the phone. Formatting solves the first. Everything in the [resume philosophy guide](resume-philosophy.md) solves the second.
 
-Focus your energy there.
+Stop worrying about robots. Start writing for the recruiter.

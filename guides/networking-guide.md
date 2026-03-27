@@ -1,8 +1,8 @@
 # Generous Networking: The Approach That Doesn't Make You Feel Gross
 
-Most networking advice boils down to "reach out to people and ask for things." No wonder it feels terrible.
+Let's start with the obvious: most networking advice makes you feel like a used car salesman. "Reach out to people and ask for things." Great. No wonder everyone hates it.
 
-There's a better way. It starts with giving, builds real relationships, and produces better results than any spray-and-pray connection strategy. It takes longer to start working, but the conversion rates are dramatically higher.
+Here's what actually works. It starts with giving, takes longer to kick in, and produces conversion rates that make cold applications look like a joke.
 
 A warm introduction converts at roughly 10-20x the rate of a cold application. That's not a typo. If you're spending all your time on job boards and zero time on relationships, your math is off.
 
@@ -10,9 +10,9 @@ A warm introduction converts at roughly 10-20x the rate of a cold application. T
 
 ## The 3/1/1 Weekly Rhythm
 
-This is the minimum effective dose for building a professional network that actually works. Each week:
+This is the minimum effective dose. Each week:
 
-**3 meaningful comments** on posts from people at target companies or in your field. Not "Great post!" -- that's noise. A meaningful comment adds a perspective, asks a thoughtful question, shares a relevant experience, or respectfully challenges an idea. Two to three sentences that show you actually read and thought about what someone wrote.
+**3 meaningful comments** on posts from people at target companies or in your field. Not "Great post!" -- that's the LinkedIn equivalent of a participation trophy. A meaningful comment adds a perspective, asks a real question, shares a relevant experience, or respectfully pushes back. Two to three sentences that prove you actually read the thing.
 
 **1 thoughtful DM** that doesn't ask for anything. This is counterintuitive. You're reaching out to someone without a request. You're sharing something relevant to them, complimenting specific work they've done, or connecting on a shared interest. The entire goal is to start a conversation, not extract a favor.
 
@@ -26,21 +26,21 @@ Total time: 30-60 minutes per week. The return on this investment compounds over
 
 This is strategy, not altruism.
 
-When you've built relationships before you need them, referrals happen naturally. People refer people they know, like, and trust. You can't manufacture that in a single DM. You build it over weeks and months of genuine interaction.
+When you've built relationships before you need them, referrals happen naturally. People refer people they know, like, and trust. You can't manufacture that in a single DM. You build it over weeks and months of showing up.
 
 The give-first approach works because it reverses the typical dynamic. Instead of being one of dozens of people asking someone for help, you become someone who shows up with value. When you eventually mention you're exploring new opportunities, people want to help -- because you've already helped them.
 
-This doesn't mean being a doormat or giving away your expertise for free. It means being the kind of professional that other professionals want in their network.
+This doesn't mean being a doormat or giving away your expertise for free. It means being someone other professionals actually want to hear from.
 
 ---
 
 ## How to Reach Out Without Being Weird
 
-There is a right way and a wrong way.
+Most people get this wrong. Here's what that looks like.
 
 **Don't do this**: "Hi! I'm looking for a role at [Company] and wondering if you could refer me?"
 
-This message, sent cold to someone you've never interacted with, has roughly a 2% response rate. It asks someone to spend their social capital on a stranger. Most people either ignore it or send a polite deflection.
+Sent cold to someone you've never interacted with, this gets maybe a 2% response rate. You're asking someone to spend their social capital on a complete stranger. Most people ignore it. The nice ones send a polite deflection.
 
 **Do this instead**:
 
@@ -59,7 +59,7 @@ The timeline for this is typically 2-4 weeks per relationship. That's why you st
 
 **Mass connection requests with no context.** Clicking "Connect" on 50 people at a target company without any message or prior interaction looks exactly like what it is.
 
-**"Great post!" comments.** These are the networking equivalent of a participation trophy. They add nothing and signal that you didn't actually engage with the content.
+**"Great post!" comments.** These add nothing and signal you didn't actually read what they wrote. Everyone can tell.
 
 **Reaching out only when job searching.** If your entire network hears from you only when you need something, that's not a network. It's a list of people you plan to ask for favors.
 
@@ -69,7 +69,7 @@ The timeline for this is typically 2-4 weeks per relationship. That's why you st
 
 ## Starting From Zero
 
-If you don't have a professional network, that's fine. Everyone starts somewhere. Here's where to begin:
+If you don't have a professional network, join the club. Here's where to begin:
 
 **LinkedIn.** Follow people at companies you're interested in. Follow thought leaders in your field. Start commenting before you start messaging. Your comments are public proof that you're thoughtful and engaged.
 
@@ -79,24 +79,24 @@ If you don't have a professional network, that's fine. Everyone starts somewhere
 
 **Newsletters and blogs.** Comment on posts from people whose work you respect. Many writers and creators actively engage with their comment sections. This is an underused way to get on someone's radar.
 
-You don't need hundreds of connections. You need 20-30 genuine relationships with people in your field or at companies you're interested in. Quality over quantity, every time.
+You don't need hundreds of connections. You need 20-30 real relationships with people in your field or at companies you're interested in. Twenty people who'd respond to your DM beats 2,000 connections who wouldn't.
 
 ---
 
 ## The Long Game
 
-The best time to network is when you don't need a job.
+The best time to build a network was two years ago. The second best time is today.
 
-If you're reading this while actively job searching, start the 3/1/1 rhythm today. Expect to see results in about 8 weeks. That feels like a long time when you need a job now, but those 8 weeks are going to pass regardless. You can spend them only applying to jobs (low conversion), or you can apply to jobs AND build relationships simultaneously.
+If you're reading this mid-search, start the 3/1/1 rhythm now. Expect results in about 8 weeks. That feels brutal when you need a job yesterday, but those 8 weeks are passing regardless. You can spend them only applying to jobs (low conversion), or you can apply AND build relationships at the same time.
 
-Networking is infrastructure. You're building professional relationships that will serve you not just in this search, but in the next one, and in the one after that. You're building a reputation as someone who shows up, adds value, and is worth knowing.
+This is infrastructure. Not just for this search, but for the next one. And the one after that.
 
-The people who never seem to struggle finding jobs? They're not lucky. They've been doing some version of this for years. Start now.
+The people who never seem to struggle finding jobs? They're not lucky. They've been doing some version of this for years.
 
 ---
 
 ## A Note on Introversion
 
-You don't have to be outgoing to network well. The 3/1/1 rhythm is entirely compatible with introversion. Writing thoughtful comments, sending considered messages, and sharing resources are quiet activities that play to the strengths of people who think before they speak.
+You don't have to be outgoing to network well. Writing thoughtful comments, sending considered messages, sharing resources -- these are quiet activities that play to the strengths of people who think before they speak.
 
-Networking doesn't mean working a room. It means building real relationships at whatever pace feels sustainable to you. Three comments, one DM, one generous act. That's it. That's the whole system.
+Networking doesn't mean working a room. Three comments, one DM, one generous act. That's it. That's the whole system.

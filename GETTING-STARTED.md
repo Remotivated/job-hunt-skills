@@ -1,12 +1,12 @@
 # Getting Started with Job Hunt OS
 
-This guide walks you through setup for every platform, plus how the file system works.
+Setup for every platform, plus how the file system keeps your documents organized.
 
 ---
 
 ## For Claude Cowork Users (Recommended)
 
-Claude Cowork is the easiest way to use Job Hunt OS. Skills work automatically — they activate based on what you ask.
+Cowork is the fastest path. Skills activate based on what you ask — no configuration.
 
 ### Setup
 
@@ -96,13 +96,13 @@ Prompts work in any LLM, but compared to skills they lack:
 - **Web browsing** — Paste content directly instead of providing URLs
 - **Multi-turn workflow** — Each prompt is a single interaction
 
-The core methodology is the same — you just handle the logistics yourself.
+Same methodology, you just handle the file management yourself.
 
 ---
 
 ## How Canonical Files Work
 
-Job Hunt OS uses a simple file system:
+Your master resume lives in one place. Tailored versions go in subfolders. Here's the layout:
 
 ```
 my-documents/
@@ -141,7 +141,7 @@ It reads your existing canonical files, asks what's changed, and produces update
 
 ## The Guides
 
-The [`guides/`](guides/) directory contains methodology documents — the "why" behind the skills. Read them when you want to understand the thinking, not just use the tools:
+The [`guides/`](guides/) directory is the "why" behind the skills. Worth reading before you dive in:
 
 - Start with [Remote Job Market](guides/remote-job-market.md) to understand the landscape
 - Read [Resume Philosophy](guides/resume-philosophy.md) before building or auditing
@@ -152,19 +152,19 @@ The [`guides/`](guides/) directory contains methodology documents — the "why" 
 
 ## Recommended Workflow
 
-### Week 1: Foundation
-1. Run `resume-builder` to create your canonical resume and cover letter
-2. Run `resume-auditor` for critical feedback
-3. Iterate until the audit comes back mostly STRONG ratings
-4. Run `linkedin-optimizer` to align your LinkedIn
+### Week 1: Build your foundation
+1. `resume-builder` -- create your canonical resume and cover letter
+2. `resume-auditor` -- get honest feedback (it won't be gentle)
+3. Iterate until you're mostly seeing STRONG ratings
+4. `linkedin-optimizer` -- align your LinkedIn with your resume
 
-### Week 2+: Active Search
-1. Research companies with `company-radar`
-2. For good fits, tailor with `resume-tailor`
-3. When you get interviews, prepare with `interview-coach`
-4. Follow the [Sustainable Search](guides/sustainable-search.md) weekly rhythm
+### Week 2+: Start applying with intent
+1. `company-radar` -- vet the company before you invest time
+2. `resume-tailor` -- customize for good fits
+3. `interview-coach` -- prep when you land interviews
+4. Follow the [Sustainable Search](guides/sustainable-search.md) weekly rhythm so you don't burn out
 
 ### Ongoing
-- Update canonicals as your experience grows
-- Build proof assets with `proof-asset-creator`
-- Follow the [Networking Guide](guides/networking-guide.md) 3/1/1 rhythm
+- Update canonicals when your experience changes
+- `proof-asset-creator` -- build case studies that show, not tell
+- [Networking Guide](guides/networking-guide.md) -- the 3/1/1 rhythm that compounds

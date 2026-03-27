@@ -109,7 +109,7 @@ Key moves:
 
 ## Remote-Specific Interview Considerations
 
-Remote interviews have their own dynamics. A few things to keep in mind:
+Remote interviews have their own dynamics.
 
 **Async assessments and take-home projects:** These are common in remote hiring. A reasonable take-home should take 2-4 hours maximum. If it's more than that, it's a red flag about how they scope work. Ask about the expected time investment upfront.
 
@@ -129,14 +129,14 @@ The answers reveal whether they've actually built a remote culture or just let p
 
 **Same-day thank-you email.** Not generic. Reference something specific from the conversation. "I really enjoyed our discussion about how the team handles cross-functional projects -- the RFC process you described is exactly the kind of structured thinking I appreciate." Two to three sentences. Don't overthink it.
 
-**One-week check-in.** If you haven't heard back within the timeline they gave you (or within a week if they didn't specify), a brief follow-up is appropriate. "Hi [Name], I wanted to check in on next steps for the [Role] position. I remain very interested and am happy to provide any additional information that would be helpful."
+**One-week check-in.** If you haven't heard back within the timeline they gave you (or within a week if they didn't specify), a brief follow-up is fine. "Hi [Name], checking in on next steps for the [Role] position. Still very interested — happy to provide anything else that would be helpful."
 
-**Graceful rejection response.** If they pass on you, respond professionally. "Thank you for letting me know. I enjoyed learning about the team and the work you're doing. I'd welcome the chance to stay in touch and would be glad to be considered for future opportunities." This costs you nothing and leaves the door open. Hiring managers remember candidates who handle rejection well. Roles reopen. Teams grow. The person they hired doesn't always work out.
+**Graceful rejection response.** If they pass, respond like a professional. "Thanks for letting me know. I enjoyed learning about the team — I'd love to stay in touch for future opportunities." That's it. Takes 30 seconds, costs you nothing, and leaves the door open. Hiring managers remember candidates who handle rejection well. Roles reopen. Teams grow. The person they hired doesn't always work out.
 
 ---
 
 ## The Bottom Line
 
-An interview is a conversation between professionals. You're not begging for a job. You're gathering information to make one of the most important decisions in your professional life. Ask real questions. Listen carefully to the answers. Trust what people show you over what they tell you.
+You're not begging for a job. You're gathering information to make one of the most important decisions in your professional life. Ask real questions. Listen carefully. And trust what people show you over what they tell you.
 
-The best interviews feel like good conversations -- not interrogations. If you leave an interview feeling like you learned something real about the company and the role, you did it right. If you leave feeling like you performed well but have no idea what the job is actually like, you missed something.
+If you leave an interview feeling like you learned something real about the company, you did it right. If you leave feeling like you performed well but have no idea what the job is actually like — you missed the point.
