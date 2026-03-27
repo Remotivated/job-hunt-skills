@@ -1,0 +1,114 @@
+# Resume Philosophy
+
+Your resume is not a job description in reverse. It's a sales document. Every line should answer one question: **"What evidence do I have that this person will deliver results?"**
+
+That's what hiring managers are scanning for. Not your responsibilities. Not your job titles. Evidence.
+
+---
+
+## Show, Don't Tell
+
+The single biggest mistake on resumes is listing activities instead of outcomes. "Managed a team" tells me you had direct reports. It tells me nothing about whether the team shipped anything, whether they grew, or whether you were any good at it.
+
+Hiring managers spend 6-8 seconds on an initial resume scan. In that window, they're pattern-matching for signals: numbers, outcomes, velocity, scope. Give them what they're looking for.
+
+**The pattern is simple:**
+
+```
+[Action verb] + [what you did] + [specific outcome]
+```
+
+That's it. Every bullet point on your resume should follow this structure. Not every outcome needs a percentage or dollar figure -- but it needs to be *specific*. "Improved onboarding" is vague. "Redesigned onboarding flow that reduced time-to-first-value from 14 days to 3" is a story.
+
+---
+
+## Language Swaps: Generic to Compelling
+
+Here's what the shift looks like in practice, across different roles:
+
+**Generic:** "Managed a team of 5"
+**Compelling:** "Led a team of 5 that shipped the v2 billing system in 8 weeks, eliminating 200+ monthly support tickets"
+
+**Generic:** "Worked on marketing campaigns"
+**Compelling:** "Designed and executed email nurture campaign that generated $140K in pipeline over 6 weeks"
+
+**Generic:** "Responsible for customer success"
+**Compelling:** "Increased customer retention by 23% through proactive outreach program targeting at-risk accounts"
+
+**Generic:** "Developed new features for the platform"
+**Compelling:** "Built real-time notification system serving 50K daily active users, reducing missed-event rate by 60%"
+
+**Generic:** "Managed project timelines and deliverables"
+**Compelling:** "Coordinated cross-functional launch of enterprise tier across engineering, design, and sales -- delivered 2 weeks ahead of schedule"
+
+**Generic:** "Handled operations and process improvement"
+**Compelling:** "Automated invoice reconciliation process, cutting monthly close time from 5 days to 1.5 days and eliminating manual errors"
+
+**Generic:** "Provided technical support to customers"
+**Compelling:** "Resolved 95% of Tier 2 escalations within 4 hours, contributing to team achieving highest CSAT score in company history (4.8/5.0)"
+
+Notice the pattern. The "generic" versions describe a role. The "compelling" versions describe what happened because you were in that role. That's the difference between a resume that gets skimmed and one that gets a call.
+
+---
+
+## Terminology Matching
+
+This is not keyword stuffing. This is readability.
+
+When a job description says "clients," your resume should say "clients" -- not "customers" or "accounts." When they reference "ARR," use "ARR" -- not "annual revenue." When the posting mentions "cross-functional collaboration," mirror that language.
+
+Why? Because the person reading your resume is comparing it against a mental model shaped by the job description. When your language matches theirs, it *reads faster*. It reduces cognitive load. The hiring manager doesn't have to translate "accounts" to "clients" in their head -- they just see alignment.
+
+This takes 10-15 minutes per application. Read the job description carefully. Note the specific terms they use for the work, the metrics, the tools, the team structure. Then adjust your resume to speak the same dialect.
+
+This is not gaming a system. It's professional communication.
+
+---
+
+## Anti-Sycophancy Awareness
+
+If you're using AI to help with your resume -- and you should be -- you need to know about a built-in failure mode.
+
+Large language models are trained to be helpful and agreeable. When you paste your resume and ask "What do you think?", the default response will lean toward praise with gentle suggestions. That's not useful. Your resume doesn't need a cheerleader. It needs an editor.
+
+**The fix is in how you prompt.**
+
+Instead of: *"Review my resume and give feedback"*
+Try: *"What are the 3 weakest bullet points on this resume, and why would a hiring manager skip over them?"*
+
+Or: *"If you were a hiring manager at [specific company], what would make you hesitate about this candidate?"*
+
+Or: *"Rewrite these bullets to be more outcome-focused. Be aggressive -- I'd rather cut a weak bullet than keep it."*
+
+Lead with what needs improvement. Ask for critical feedback explicitly. The quality of AI resume help is directly proportional to how hard you push it to be honest.
+
+---
+
+## Quality Over Quantity Math
+
+Here's a calculation most job seekers get wrong.
+
+50 generic applications, each taking 5 minutes to fire off, equals about 4 hours of work and (typically) zero interviews. The resume is generic. The cover letter is generic. The company has no reason to believe you actually want *this* job.
+
+10 tailored applications, each taking 30-45 minutes of research, resume adjustment, and a specific cover letter, equals about 5-7 hours of work and a meaningfully higher hit rate. Each application represents a company you've actually vetted -- you've read about their culture, you understand the role, and your materials reflect that.
+
+The math works because hiring managers can tell. A tailored application stands out precisely because most people don't bother. When your resume mirrors their language, references their specific challenges, and your cover letter shows you've done homework -- you've already cleared a bar that 80% of applicants don't.
+
+This approach also protects your energy. Applying to 50 jobs you haven't vetted means you'll end up in interviews for roles you don't actually want, at companies that aren't actually remote, with cultures that don't actually fit. Pre-vetting saves everyone's time.
+
+---
+
+## Know Your Story
+
+Your resume tells a narrative whether you intend it to or not. The question is whether you're controlling that narrative.
+
+Ask yourself: **What's my angle?**
+
+- **The specialist:** You've gone deep in one domain. Every role shows increasing mastery. Your bullet points demonstrate growing scope and expertise in a focused area.
+- **The generalist:** You've worked across functions. Your strength is connecting dots between disciplines. Your bullets should highlight cross-functional impact and breadth of contribution.
+- **The career changer:** You're bringing skills from one domain into another. Your bullets need to make transferable skills explicit -- don't assume the reader will connect the dots.
+- **The builder:** You've been at startups or built things from scratch. Your narrative is about creating something from nothing, wearing multiple hats, and delivering under ambiguity.
+
+Once you know your angle, audit every bullet on your resume against it. Does this line reinforce my story, or distract from it? If a bullet doesn't serve the narrative, cut it -- even if it was impressive. A focused resume beats a comprehensive one.
+
+Your resume is not a complete record of your career. It's a curated argument for why you're the right person for *this specific kind of role*. Every bullet is a piece of evidence. Make each one count.
