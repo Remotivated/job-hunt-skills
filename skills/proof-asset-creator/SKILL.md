@@ -35,7 +35,7 @@ Proactively offer: anonymize details, focus on process over results, use a diffe
 
 ### 4. Produce the asset
 
-**Case study:** SAOL structure — Situation → Approach → Outcome → Learning. 1-2 pages.
+**Case study:** SAOL structure — Situation → Approach → Outcome → Learning. Target 500-800 words (1-2 pages).
 
 **Personal site:** Content brief with headline, sections, copy, project highlights, tool recommendations.
 

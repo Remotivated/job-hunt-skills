@@ -23,7 +23,11 @@ If a job description is provided, evaluate alignment. If not, evaluate on genera
 
 Rate every bullet: **STRONG** / **NEEDS WORK** / **WEAK**
 
+End with a count: "X STRONG, Y NEEDS WORK, Z WEAK." If 80%+ bullets are WEAK, say so bluntly: "This resume needs a rewrite, not polish."
+
 Flag: "Responsible for...", "Worked on...", "Helped with...", "Assisted in..."
+
+Also flag Skills sections listing only soft skills ("team player, hard worker") — these waste space and should be replaced with tools, technologies, and domain expertise.
 
 For the 5 weakest, provide rewrites:
 ```
@@ -52,7 +56,7 @@ Flag language mismatches. This is readability matching, not keyword stuffing.
 3. **Bullet Ratings** — every bullet rated
 4. **Top 5 Rewrites** — before/after
 5. **Remote-Readiness** — assessment and suggestions
-6. **Terminology** — alignment (if JD provided)
+6. **Terminology** — alignment (if JD provided; skip this section if no JD)
 7. **What's Missing** — gaps that would make them want to talk to you
 
 **This skill is read-only. Never modify files.**

@@ -24,18 +24,20 @@ What's the strongest story for THIS role? Which experiences map to their priorit
 
 ### 4. Tailor
 
-**Resume:** Match terminology, reorder bullets by relevance, highlight remote signals. Never invent experience — use `[ASK: ...]` placeholders for gaps.
+**Resume:** Match terminology, reorder bullets by relevance, highlight remote signals. You may add a Summary section or reorganize structure if it strengthens the narrative, but don't remove sections from the canonical. Never invent experience — use `[ASK: ...]` placeholders for gaps. If the canonical lacks quantified achievements, flag each weak bullet with a specific `[ASK]`.
 
 **Cover letter:** Address specific role/company. Lead with strongest alignment. Confident closing.
 
 ### 5. Save outputs
 
 ```
-my-documents/applications/{company}-{role}/resume.md + .pdf
-my-documents/applications/{company}-{role}/coverletter.md + .pdf
+my-documents/applications/{company}-{role}/resume.md
+my-documents/applications/{company}-{role}/coverletter.md
 ```
 
-PDF via HTML/CSS. Fallback: pandoc, browser print-to-PDF, Google Docs.
+Use lowercase kebab-case for folder names (e.g., `buffer-content-marketing-manager`).
+
+Generate PDF versions if tooling is available. If not, note the fallback: pandoc, browser print-to-PDF, or Google Docs export.
 
 **Never modify canonical files** unless explicitly asked.
 

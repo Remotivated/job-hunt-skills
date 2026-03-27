@@ -11,7 +11,7 @@ Generate an interview prep brief with likely questions, talking points from the 
 
 ### 1. Gather inputs
 
-- **Job posting** — URL or pasted text. If URL can't be accessed, ask for pasted text.
+- **Job posting** — URL or pasted text. If URL can't be accessed, ask for pasted text. If no posting is available, ask what the user knows about the role's requirements.
 - **Company name** — required
 - **Resume** — read `my-documents/resume.md`
 
@@ -45,4 +45,4 @@ Save to `my-documents/applications/{company}-{role}/interview-prep.md` and displ
 
 - **Generic questions.** "Tell me about yourself" is obvious. Generate questions specific to THIS role's requirements.
 - **Generic talking points.** "I'm a team player" is useless. Reference specific achievements from the resume.
-- **Hiding weaknesses.** Hiring managers respect self-awareness. Acknowledge gaps honestly, then redirect to strengths.
+- **Hiding weaknesses.** Hiring managers respect self-awareness. Acknowledge gaps honestly, then redirect to strengths. Include a scripted response for each weakness, not just the gap identification.

@@ -16,7 +16,7 @@ Evaluate a company's remote work culture using a structured 4-stage red flag fra
 
 ### 2. Research
 
-Use web browsing: careers page, about page, Glassdoor/Blind, LinkedIn employee distribution, recent news (RTO, layoffs, culture changes).
+Use web browsing: careers page, about page, Glassdoor/Blind, LinkedIn employee distribution, recent news (RTO, layoffs, culture changes). If web browsing is unavailable, use your knowledge but caveat that findings should be verified with live research.
 
 ### 3. Evaluate — 4-stage framework
 
@@ -43,6 +43,7 @@ If the company has a [Remotivated](https://remotivated.com) profile, reference t
 - **Vague red flags.** "Culture seems off" isn't actionable. Name the specific signal and where you found it.
 - **Binary thinking.** Red flags aren't disqualifiers — they're questions to ask. 2-3 flags means prepare, not abandon.
 - **Skipping stages.** Even if Stage 1 looks great, run all four. Companies can look good on paper and fail on reviews.
+- **Stale data.** Remote policies change fast (especially post-RTO wave). Note when findings may be outdated and recommend the user verify with current sources.
 
 ## Reference
 

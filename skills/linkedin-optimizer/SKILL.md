@@ -28,10 +28,11 @@ Ask for: headline, about section, featured section contents, recent activity des
 
 **Featured Section** — What to pin: case studies, articles, projects, presentations. One strong piece beats an empty section. Cross-reference with proof-asset-creator if they need to create something.
 
-**Activity Plan** — Specific actions for next 7 days:
-- 3 thoughtful comments (not "Great post!")
-- 1 article share with your take
-- 1 DM (no ask, just connection)
+**Activity Plan** — Day-by-day plan for next 7 days:
+- Days 1, 3, 5: Thoughtful comment (not "Great post!" — add actual insight)
+- Day 2: Share an article with 3-4 sentences of your take
+- Day 4: Send 1 DM (no ask, just connection)
+- Day 7: Write 1 short original post (150-250 words)
 
 ### 3. Output
 
