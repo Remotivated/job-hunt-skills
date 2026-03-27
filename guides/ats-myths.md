@@ -27,13 +27,13 @@ You've seen this stat everywhere. Blog posts, LinkedIn influencers, resume servi
 
 This is not how most ATS platforms work.
 
-Greenhouse doesn't auto-reject resumes. Lever doesn't. Ashby doesn't. When you submit an application through these systems, your resume gets parsed, stored, and added to the candidate pool. A recruiter reviews it. A human decides.
+Greenhouse doesn't auto-reject resumes — its CEO has stated that "any kind of automated scoring system of a document is subject to the biases of the people building the algorithm" (People Managing People). Lever doesn't. Ashby doesn't. When you submit an application through these systems, your resume gets parsed, stored, and added to the candidate pool. A recruiter reviews it. A human decides.
 
-Where does the stat come from? Inflated claims in marketing content and job search blogs — not vendor documentation or published research. The number gets repeated so often it's treated as fact, but no major ATS vendor advertises "we automatically reject 75% of your applicants" as a feature. Think about that for a second. Why would a company pay for software that throws away candidates without review?
+Where does the stat come from? According to the Enhancv/HR Gazette survey of 25 U.S. recruiters (2025), 68% of recruiters said they first heard this claim from job seekers on social media, and only 8% of recruiters configure any form of automatic resume rejection. The number gets repeated so often it's treated as fact, but no major ATS vendor advertises "we automatically reject 75% of your applicants" as a feature. Think about that for a second. Why would a company pay for software that throws away candidates without review?
 
 > **What is true:** Some enterprise systems (particularly Workday and Taleo) allow recruiters to set knockout questions and automatically filter based on answers. But that's filtering on *your answers to screening questions*, not parsing your resume for hidden keywords.
 
-Some systems also stack-rank candidates based on match criteria. If a recruiter searches for "Python AND AWS AND 5 years experience," candidates matching all three appear first. But appearing lower in a search result isn't rejection -- it's just sorting.
+Some systems also stack-rank candidates based on match criteria. If a recruiter searches for "Python AND AWS AND 5 years experience," candidates matching all three appear first. But appearing lower in a search result isn't rejection -- it's just sorting. The same survey found that 56% of recruiters ignore or disable AI fit scores entirely.
 
 ---
 
@@ -43,7 +43,7 @@ Here's what can actually go wrong:
 
 **Poor formatting breaks parsers.** Tables, multi-column layouts, text boxes, headers/footers, embedded graphics — any of these can turn your resume into garbled data. Your work history ends up in the education field. Your name doesn't get captured. This is a real problem, but the fix is clean formatting, not keyword optimization.
 
-**Missing information means missing search results.** If a recruiter filters for "project management" and you wrote "PM" or "programme management," you won't appear. Language-matching issue, not keyword-density issue.
+**Missing information means missing search results.** If a recruiter filters for "project management" and you wrote "PM" or "programme management," you won't appear in that search. That said, modern ATS platforms like Workday now use NLP that understands synonyms — "Python programming," "Python development," and "Python scripting" are recognized as the same competency (LinkedIn/Charles Webb). But simpler systems still rely on exact matches.
 
 **"ATS-optimized" mostly means "well-written with clean formatting."** Clear section headings, standard layout, relevant language. That's just good resume writing. No paid service or secret formula required.
 
@@ -93,3 +93,13 @@ The "75% rejection" narrative sells courses and services. It doesn't reflect how
 Your resume needs to do two things: parse cleanly into structured data, and convince a human to pick up the phone. Formatting solves the first. Everything in the [resume philosophy guide](resume-philosophy.md) solves the second.
 
 > Stop worrying about robots. Start writing for the recruiter.
+
+---
+
+## Sources
+
+- **Enhancv / HR Gazette** — Survey of 25 U.S. recruiters (September-October 2025): 68% first heard the "75% rejection" claim from job seekers on social media; only 8% configure automatic rejection; 56% ignore or disable AI fit scores; 52% review applications in arrival order.
+- **Greenhouse** — CEO statement on automated scoring bias. Greenhouse does not auto-score resumes; keyword matching powers recruiter search, not automated rejection (People Managing People).
+- **Lever** — ATS vendor documentation confirming emphasis on recruiter workflow over algorithmic filtering (Lever blog, "ATS Myths Debunked").
+- **Dr. Kyle Elliott / CaffeinatedKyle** — "An ATS is merely a digital file cabinet for job applications and resumes." Platform-by-platform breakdown of ATS parsing behavior.
+- **Workday** — NLP-based resume parsing that understands synonyms and inferred seniority (LinkedIn/Charles Webb).

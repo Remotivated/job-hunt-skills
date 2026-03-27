@@ -10,7 +10,7 @@ That's what hiring managers are scanning for. Not your responsibilities. Not you
 
 The single biggest mistake on resumes is listing activities instead of outcomes. "Managed a team" tells me you had direct reports. It tells me nothing about whether the team shipped anything, whether they grew, or whether you were any good at it.
 
-> Six to eight seconds. That's the average initial resume scan.
+> Six to eight seconds. That's the average initial resume scan, according to multiple recruiter surveys including the Enhancv/HR Gazette study of 25 U.S. recruiters (2025), which found that 92% prioritize "clear, skimmable structure" above all else.
 
 In that window, hiring managers are **pattern-matching for signals**: numbers, outcomes, velocity, scope. Give them what they're looking for.
 
@@ -90,7 +90,7 @@ Here's a calculation most job seekers get wrong.
 
 **10 tailored applications:** Each one represents a company you've actually vetted — you've read about their culture, you understand the role, and your materials reflect that.
 
-The math works because hiring managers can tell. A tailored application stands out precisely because most people don't bother. When your resume mirrors their language and your cover letter shows you've done homework, you've already cleared a bar that 80% of applicants don't.
+The math works because hiring managers can tell. Ashby's analysis of 11M+ applications shows that applications per hire have increased 182% since 2021, meaning most of that flood is low-effort noise. A tailored application stands out precisely because most people don't bother. When your resume mirrors their language and your cover letter shows you've done homework, you've already cleared a bar that the vast majority of applicants don't.
 
 This approach also protects your energy. Applying to 50 jobs you haven't vetted means you'll end up in interviews for roles you don't actually want, at companies that aren't actually remote, with cultures that don't actually fit. Pre-vetting saves everyone's time.
 
@@ -112,3 +112,12 @@ Once you know your angle, audit every bullet on your resume against it. Does thi
 > Your resume is not a complete record of your career. It's a curated argument for why you're the right person for *this specific kind of role*.
 
 Every bullet is a piece of evidence. Make each one count.
+
+---
+
+## Sources
+
+- **Enhancv / HR Gazette** — Survey of 25 U.S. recruiters (September-October 2025): 92% prioritize clear, skimmable structure; 52% say applying within 48-72 hours significantly boosts visibility.
+- **Ashby** — First-party ATS data from 11M+ applications: applications per hire up 182% since 2021. Remote roles receive 42% more applications.
+- **Alison Green / Ask a Manager** — Widely-cited hiring manager perspective on accomplishment-driven resume writing and formatting.
+- **Google XYZ Formula** (Laszlo Bock) — "Accomplished [X] as measured by [Y], by doing [Z]" framework for resume bullet points.

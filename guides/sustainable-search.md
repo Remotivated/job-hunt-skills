@@ -1,6 +1,6 @@
 # Sustainable Search: A System That Keeps You Moving
 
-Job searching is not a sprint. For most people, it takes **2-4 months**. Some searches take longer. If you burn out in week three, you're going to bomb the interview you land in week eight.
+Job searching is not a sprint. For most people, it takes **several months**. The Ashby 2025 Talent Trends Report found that median time-to-hire across their dataset was roughly 40-50 days from application to offer -- and that's the employer's timeline, not the candidate's full search. Some searches take much longer. If you burn out in week three, you're going to bomb the interview you land in week eight.
 
 The goal here is not "work harder." It's to build a system that produces **consistent, quality output** without wrecking you in the process.
 
@@ -46,7 +46,7 @@ Adjust this to your life. If you're employed and searching, compress it. If you 
 
 ## The Pacing Math
 
-Here's what realistic effort looks like, with actual numbers:
+Here's what we recommend as realistic effort, based on what we've seen work:
 
 - **4-6 quality applications** per week at **30-45 minutes** each = **2-4.5 hours**
 - Networking (3/1/1 rhythm) = **30-60 minutes**
@@ -54,9 +54,9 @@ Here's what realistic effort looks like, with actual numbers:
 - Follow-ups and admin = **30-60 minutes**
 - Interview prep (when active) = **1-2 hours**
 
-**Total: 8-12 hours per week.**
+**Our recommended total: roughly 8-12 hours per week.**
 
-That's a part-time commitment, not a full-time panic. If you're spending **40 hours a week** on your job search, you're almost certainly doing low-quality work for most of those hours. **Two focused hours** beat eight hours of mindless scrolling and one-click applying.
+That's a part-time commitment, not a full-time panic. If you're spending **40 hours a week** on your job search, you're almost certainly doing low-quality work for most of those hours. **Two focused hours** beat eight hours of mindless scrolling and one-click applying. The Ashby data backs this up: application volume has surged, but employer response rates have dropped -- meaning more applications does not equal more interviews (Ashby, 2025 Talent Trends Report). Quality over quantity is not just advice; it's math.
 
 More is not better. Better is better. Stop confusing motion with progress.
 
@@ -64,7 +64,7 @@ More is not better. Better is better. Stop confusing motion with progress.
 
 ## Mental Health Reality
 
-Job searching is one of the most psychologically taxing things you can do. Rejection is constant. Silence is the norm. The process often feels dehumanizing. And the hardest part isn't the rejection -- it's the uncertainty. At least a "no" gives you information. Silence gives you nothing but your own worst-case scenarios on repeat.
+Job searching is one of the most psychologically taxing things you can do. Research confirms this: a Gallup study found that the unemployed are more than twice as likely to report being treated for depression compared to those with full-time jobs. Rejection is constant. Silence is the norm. The process often feels dehumanizing. And the hardest part isn't the rejection -- it's the uncertainty. At least a "no" gives you information. Silence gives you nothing but your own worst-case scenarios on repeat.
 
 ---
 
@@ -84,7 +84,7 @@ Job searching is one of the most psychologically taxing things you can do. Rejec
 
 ---
 
-**Move your body.** Yeah, everyone says this. It keeps being true. Physical movement breaks the **rumination cycle** that job searching creates. Twenty minutes outside does more for your mental clarity than another hour refreshing LinkedIn.
+**Move your body.** Yeah, everyone says this. It keeps being true. Physical movement breaks the **rumination cycle** that job searching creates -- a pattern well-documented in psychology research on unemployment and mental health. Twenty minutes outside does more for your mental clarity than another hour refreshing LinkedIn.
 
 ---
 
@@ -129,7 +129,7 @@ If you're 6+ weeks in with no traction, something specific is off. Don't spiral.
 
 - **Check your targeting.** Are you applying to roles that genuinely match your experience level and skills?
 - **Check your materials.** Have someone you trust review your resume and a sample application.
-- **Check your volume.** Are you actually submitting 4-6 quality applications per week, or has the number dropped?
+- **Check your volume.** Are you actually submitting 4-6 quality, tailored applications per week, or has the number dropped?
 - **Check your network.** Have you been doing the networking work, or just the applications?
 
 > **It's almost always one of these four.** Find it, fix it, keep going.
@@ -145,3 +145,13 @@ You don't need to feel motivated to open your tracker on Monday and vet two comp
 > Follow it even when it feels stupid.
 
 Build the rhythm. The results come from consistency, not heroics.
+
+---
+
+## Sources
+
+1. **Ashby, 2025 Talent Trends Report** -- First-party ATS data across 11M+ applications showing increased application volumes and declining response rates. Median time-to-hire data sourced from this report.
+2. **NBER Working Paper 32320** (2024) -- Analysis of 125 million job applications finding that 45% of applications arrive within the first 48 hours of posting, illustrating the speed of competition.
+3. **Greenhouse** -- Corporate job postings receive roughly 250 applications on average.
+4. **Upplai** (2025) -- Candidates are approximately 3x less likely to hear back than four years ago, reinforcing that volume alone does not drive outcomes.
+5. **Gallup** -- Research on unemployment and well-being, including findings that unemployed individuals are more than twice as likely to report being treated for depression compared to full-time workers.

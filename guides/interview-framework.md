@@ -20,7 +20,7 @@ Preparation is what makes this work. Research the company. Read their blog, thei
 
 ## Question Bank
 
-Pick 3-4 questions per interview round. Don't ask all of them -- choose based on who you're talking to (hiring manager, peer, skip-level, HR). Tailor to the conversation.
+Pick 3-4 questions per interview round. Don't ask all of them -- choose based on who you're talking to (hiring manager, peer, skip-level, HR). Tailor to the conversation. Many of the questions below draw on frameworks published by Harvard Business Review, which identifies candidate questions as one of the strongest signals of preparation and engagement.
 
 ### How They Work
 
@@ -100,7 +100,7 @@ Don't volunteer a number first if you can avoid it. If they ask for your expecta
 
 > "I'd love to learn more about the role first. Can you share the range you've budgeted for this position?"
 
-Many jurisdictions now require companies to share pay ranges (Colorado, New York City, California, Washington state, and more). If they have a posted range, reference it.
+As of 2026, 16 states plus Washington D.C. require companies to share pay ranges in job postings, covering nearly 50% of U.S. employees. If they have a posted range, reference it.
 
 When it's time to discuss numbers directly:
 
@@ -117,7 +117,7 @@ Key moves:
 
 Remote interviews have their own dynamics.
 
-**Async assessments and take-home projects:** These are common in remote hiring. A reasonable take-home should take 2-4 hours maximum. If it's more than that, it's a red flag about how they scope work. Ask about the expected time investment upfront.
+**Async assessments and take-home projects:** These are common in remote hiring. A reasonable take-home should take 2-4 hours maximum. Candidates frequently report that "few hours" estimates actually require 12-20+ hours of real effort (Indeed, InHerSight). If the scope seems excessive, it's a red flag about how they scope work. Ask about the expected time investment upfront.
 
 **Video interview presence:** Camera on. Good lighting (face a window if you can). Stable internet. A clean background. These things shouldn't matter, but they affect how you're perceived, and you want the conversation focused on substance, not distractions.
 
@@ -127,7 +127,7 @@ Remote interviews have their own dynamics.
 - "How often does the team meet in person, if at all?"
 - "How do you handle time zone differences?"
 
-The answers reveal whether they've actually built a remote culture or just let people work from home and hoped for the best. Companies that have invested in remote work can describe their communication norms in detail. Companies that haven't will fumble these questions.
+The answers reveal whether they've actually built a remote culture or just let people work from home and hoped for the best. According to GitLab's all-remote handbook, companies that have invested in remote work can describe their communication norms in detail -- including what percentage of communication is async versus synchronous. Companies that haven't will fumble these questions.
 
 ---
 
@@ -146,3 +146,13 @@ The answers reveal whether they've actually built a remote culture or just let p
 You're not begging for a job. You're gathering information to make one of the most important decisions in your professional life. Ask real questions. Listen carefully. And trust what people show you over what they tell you.
 
 If you leave an interview feeling like you learned something real about the company, you did it right. If you leave feeling like you performed well but have no idea what the job is actually like — you missed the point.
+
+---
+
+## Sources
+
+- **Harvard Business Review** — "38 Smart Questions to Ask in a Job Interview" and "10 Common Job Interview Questions and How to Answer Them." [hbr.org](https://hbr.org/2022/05/38-smart-questions-to-ask-in-a-job-interview)
+- **GitLab All-Remote Handbook** — Framework for evaluating remote jobs, including interview questions for assessing distributed work culture. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/evaluate/)
+- **MIT CAPD** — The STAR Method for behavioral interviews. [capd.mit.edu](https://capd.mit.edu/resources/the-star-method-for-behavioral-interviews/)
+- **Paycor / GovDocs** — Pay transparency law coverage as of 2026 (16 states + D.C., ~50% of U.S. employees). [paycor.com](https://www.paycor.com/resource-center/articles/pay-transparency-laws-by-state/)
+- **Indeed / InHerSight** — Research on take-home assessment time expectations and ethical concerns. [indeed.com](https://www.indeed.com/hire/c/info/take-home-interview-assignment)

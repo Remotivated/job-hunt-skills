@@ -67,7 +67,7 @@ If you're in design, content, marketing, or any role where the work is visual, a
 - What was your specific role?
 - What was the result?
 
-Six excellent pieces with clear context will always beat twenty screenshots and no explanation. Hiring managers spend **30-60 seconds per portfolio**. Act accordingly.
+Six excellent pieces with clear context will always beat twenty screenshots and no explanation. Hiring managers typically spend only **seconds per portfolio** before deciding whether to keep reading. Act accordingly.
 
 ---
 
@@ -178,4 +178,12 @@ You don't need a perfect portfolio or a custom website for every application. Yo
 
 > **Start with one case study** using the SAOL structure. Build it this week. Use it in your next application.
 
-The hiring manager who reads it will remember you. In a stack of 200 resumes, that's everything.
+The hiring manager who reads it will remember you. Corporate job postings now receive roughly 250 applications on average (Greenhouse), and that number is climbing. In that stack, evidence beats claims every time.
+
+---
+
+## Sources
+
+1. **Greenhouse** -- Average of ~250 applications per corporate job posting.
+2. **Ashby, 2025 Talent Trends Report** -- Application volumes increased significantly in 2024-2025, with the median role receiving 11M+ applications across the dataset.
+3. **GitLab Handbook** -- Public hiring documentation describing evaluation rubrics and structured interview processes. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/hiring/)

@@ -46,7 +46,7 @@ Check Glassdoor, Blind, or similar platforms. You're not looking for a perfect r
 
 Open the company's LinkedIn page for a quick structural scan.
 
-- **Geographic distribution.** LinkedIn shows where employees are located. If 80% of a "remote" company's employees are in one metro area, that's a data point. Genuinely distributed companies have people spread across multiple cities, states, or countries.
+- **Geographic distribution.** LinkedIn shows where employees are located. If 80% of a "remote" company's employees are in one metro area, that's a data point. Genuinely distributed companies have people spread across multiple cities, states, or countries. As GitLab's Head of Remote Darren Murph has noted, all leadership being co-located in one office is a key red flag for remote roles.
 - **Leadership concentration.** Check where the C-suite and VPs are based. If leadership is concentrated in one location, remote employees are likely further from decision-making.
 - **Recent departures.** A sudden wave of departures, especially from remote employees, can signal policy changes or cultural shifts that haven't hit the news yet.
 - **Growth patterns.** Is the company hiring across geographies, or only adding headcount near headquarters? Growth patterns reveal actual remote commitment better than any careers page statement.
@@ -88,7 +88,7 @@ Not every red flag is a dealbreaker, but they stack up. Here's what to watch for
 
 ## Spotting Remote-Washing Language
 
-Companies have learned that "remote" attracts more applicants, so many use remote-adjacent language without offering actual remote work. Here's a quick decoder:
+Companies have learned that "remote" attracts more applicants -- according to FlexJobs, remote positions receive 2.5x more applications than on-site roles -- so many use remote-adjacent language without offering actual remote work. Here's a quick decoder:
 
 | What they say | What it usually means |
 |---|---|
@@ -100,7 +100,7 @@ Companies have learned that "remote" attracts more applicants, so many use remot
 | **Distributed team** | Usually a strong signal — this is how remote-native companies describe themselves |
 | **Work from anywhere** | Check the fine print — often limited to specific countries or timezones |
 
-"Distributed" and "remote-first" are the strongest labels — but only when backed by structural evidence: no headquarters, distributed leadership, async-first tooling.
+"Distributed" and "remote-first" are the strongest labels — but only when backed by structural evidence: no headquarters, distributed leadership, async-first tooling. GitLab's public handbook describes "remote-friendly" as typically meaning office-centric with remote as an afterthought, versus "remote-first" where processes are designed for distributed teams.
 
 > Words are cheap. Org charts aren't.
 
@@ -116,7 +116,7 @@ After your 15-minute review, tally the red flags:
 | **2-3** | Proceed with caution | The company may be in transition or have uneven remote practices. Prepare specific questions about remote work for the interview stage — how they handle async decisions, what tools they use, how they measure performance. |
 | **4+** | Probably skip | Likely office-first with a remote label. You'll spend more energy fighting the culture than doing your job. Only worth it if the role itself is exceptional. |
 
-Perfect companies don't exist. But you have **limited application energy**, and spending it on companies where you'll actually thrive beats spraying it at companies that aren't what they claim.
+Perfect companies don't exist. But you have **limited application energy**, and with remote roles attracting 2.5x the competition of on-site positions (FlexJobs, 2025), spending it on companies where you'll actually thrive beats spraying it at companies that aren't what they claim.
 
 ---
 
@@ -143,3 +143,12 @@ Tools like [Remotivated](https://remotivated.com) pre-classify companies by remo
 Do this for every opportunity. After a few weeks, you'll screen some companies in 30 seconds flat. Others will earn deeper research.
 
 The point is simple: stop wasting time on companies that aren't what they claim to be, and put your energy where it actually pays off.
+
+---
+
+## Sources
+
+- **GitLab All-Remote Handbook** — Public documentation on remote hiring, evaluation frameworks, and red flags for remote-washing. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/evaluate/)
+- **FlexJobs Remote Work Economy Index (2025)** — Data on remote job application volumes and competition rates. [flexjobs.com](https://www.flexjobs.com/blog/post/flexjobs-remote-work-economy-index)
+- **The Org — Remote-Washing in Job Listings** — Analysis of location-dependent job posts labeled as remote. [theorg.com](https://theorg.com/iterate/remote-washing-location-dependent-job-posts)
+- **Darren Murph (GitLab Head of Remote)** — Interviews and writing on evaluating remote companies and identifying remote-friendly vs. remote-first cultures. [teamtopologies.com](https://teamtopologies.com/news-blogs-newsletters/lessons-learned-from-gitlab-about-remote-work-interview-with-darren-murph)

@@ -1,6 +1,6 @@
 # Negotiation Guide
 
-You got the offer. That's great -- it means they want you. Now is the part most people skip or fumble: negotiation. Here's the thing. Most employers expect it. A reasonable counter-offer doesn't make you difficult. It makes you professional. And the difference between negotiating and not can be $5,000-$20,000+ per year -- compounding over every raise and every future offer benchmarked against your current salary.
+You got the offer. That's great -- it means they want you. Now is the part most people skip or fumble: negotiation. Here's the thing. Most employers expect it. According to a CNBC/Fidelity survey, 85% of Americans who countered on salary or benefits received at least some of what they asked for. A reasonable counter-offer doesn't make you difficult. It makes you professional. And the difference between negotiating and not can be $5,000-$20,000+ per year -- compounding over every raise and every future offer benchmarked against your current salary.
 
 So don't leave it on the table.
 
@@ -16,7 +16,7 @@ Here's the script:
 
 > "Thank you so much -- I'm really excited about this opportunity. I'd love to take a day or two to review the details. When do you need a decision by?"
 
-That's it. No one reasonable will object to this. If they pressure you for an answer on the spot, that tells you something about how they operate under pressure, and how they'll treat you once you're inside.
+That's it. No one reasonable will object to this. If they pressure you for an answer on the spot, that tells you something about how they operate under pressure, and how they'll treat you once you're inside. Less than 1% of offers are withdrawn due to professional negotiation -- the risk of asking for time is virtually zero.
 
 Take the time. Review the full package. Compare it to your research. Then respond.
 
@@ -98,13 +98,13 @@ Review the updated letter carefully. Make sure every negotiated item is reflecte
 
 For remote roles, this is where negotiations get interesting. Companies handle geographic compensation in different ways:
 
-**Location-agnostic pay:** Same salary regardless of where you live. Companies like GitLab (historically), Basecamp, and others have used this model. The philosophy: you're paid for the value of your work, not your zip code.
+**Location-agnostic pay:** Same salary regardless of where you live. Companies like Basecamp and Airbnb have used this model. The philosophy: you're paid for the value of your work, not your zip code. According to compensation research, only 1 in 6 firms with location-eligible workforces actually adjust pay by geography -- most tie compensation to contribution.
 
-**Location-adjusted pay:** Salary varies by market. A role might pay $150K in San Francisco and $120K in Austin. Companies like Buffer publish their formulas openly. Others are less transparent.
+**Location-adjusted pay:** Salary varies by market. A role might pay $150K in San Francisco and $120K in Austin. Companies like Buffer publish their formulas openly. Others are less transparent. Some use cost-of-labor data (what other employers pay for similar roles in your area), others use cost-of-living data (how expensive your area is). These produce different numbers -- ask which they use.
 
 Neither approach is inherently wrong, but you need to **know which model a company uses** before you negotiate. Ask directly: "Does compensation vary based on location, or is it the same regardless of where I'm based?"
 
-The legislative landscape is shifting in your favor. Colorado, New York City, California, and Washington state (among others) now require salary range transparency in job postings. More states and cities are following. This gives you data. Use it.
+The legislative landscape is shifting in your favor. As of 2026, 16 states plus Washington D.C. require salary range transparency in job postings, covering nearly 50% of U.S. employees (Paycor). This gives you data. Use it.
 
 If a company adjusts for location, understand the formula. Some use cost-of-labor data (what other employers in your area pay for similar roles). Others use cost-of-living data (how expensive your area is to live in). These produce different numbers. Ask which they use.
 
@@ -114,11 +114,12 @@ If a company adjusts for location, understand the formula. Some use cost-of-labo
 
 Know these numbers before you pick up the phone:
 
-- **70-85% of employers expect candidates to negotiate.** You're not being pushy. You're doing what they planned for.
-- **Candidates who negotiate earn $5,000-$10,000 more** at the starting line. Over a 30-year career with percentage-based raises, that gap doesn't close — it widens.
-- **The worst realistic outcome** of a respectful negotiation? They say no, and you're right back where you started with the original offer still on the table.
+- **85% of Americans who countered on salary or benefits got at least some of what they asked for** (CNBC/Fidelity, 2022). You're not being pushy. You're doing what employers planned for.
+- **People who negotiated received an average increase of nearly 19% from original offers** (Scale.jobs, 2025). Most professionals secure 5-15% increases; up to 20-25% when switching companies.
+- **55% of candidates don't even try to negotiate** (Pew Research). Workers who skipped negotiation left an average of $7,500 on the table.
+- **The worst realistic outcome** of a respectful negotiation? They say no, and you're right back where you started with the original offer still on the table. Less than 1% of offers are rescinded due to professional negotiation.
 
-The risk of negotiating is almost zero. The risk of not negotiating is real and compounds over your entire career. Every future raise is a percentage of your current salary. Every future employer will benchmark against what you're making now (in jurisdictions that still allow salary history questions). Starting higher means staying higher.
+The risk of negotiating is almost zero. The risk of not negotiating is real and compounds over your entire career. Every future raise is a percentage of your current salary. Every future employer will benchmark against what you're making now (in jurisdictions that still allow salary history questions). Starting higher means staying higher. According to Pew Research, 66% of U.S. workers who attempted to negotiate starting salaries got what they asked for.
 
 ---
 
@@ -129,3 +130,14 @@ Companies have budgets. You have needs and market data. Negotiation is where tho
 Be enthusiastic. Be specific. Be professional. And don't leave money on the table because the conversation feels uncomfortable. Five minutes of discomfort now can be worth **tens of thousands of dollars** over your career.
 
 > That's a pretty good hourly rate.
+
+---
+
+## Sources
+
+- **CNBC / Fidelity (2022)** — Survey finding that 85% of Americans who negotiated salary or benefits received at least some of what they asked for. [cnbc.com](https://www.cnbc.com/2022/05/13/85-percent-of-americans-who-negtiated-a-job-offer-were-successful.html)
+- **Pew Research Center** — Data on negotiation frequency (66% success rate for those who try) and the gender pay gap. [pewresearch.org](https://www.pewresearch.org/short-reads/2025/03/04/gender-pay-gap-in-us-has-narrowed-slightly-over-2-decades/)
+- **Scale.jobs (2025)** — Analysis of negotiation outcomes showing an average 18.83% increase from original offers. [scale.jobs](https://scale.jobs/blog/salary-negotiation-2025-scale-jobs-success-rate-analysis)
+- **Paycor (2026)** — Pay transparency law tracker: 16 states + D.C. now require salary ranges in job postings, covering ~50% of U.S. employees. [paycor.com](https://www.paycor.com/resource-center/articles/pay-transparency-laws-by-state/)
+- **Ravio** — Analysis of three approaches to location-based pay (location-based, national rate, and location-agnostic). [ravio.com](https://ravio.com/blog/3-approaches-to-location-based-pay)
+- **Buffer** — Open salary formula and State of Remote Work reports documenting location-adjusted compensation models. [buffer.com](https://buffer.com/state-of-remote-work/2022)

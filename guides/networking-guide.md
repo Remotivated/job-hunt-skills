@@ -4,7 +4,7 @@ Let's start with the obvious: most networking advice makes you feel like a used 
 
 Here's what actually works. It starts with giving, takes longer to kick in, and produces **conversion rates** that make cold applications look like a joke.
 
-A warm introduction converts at roughly **10-20x the rate** of a cold application. That's not a typo. If you're spending all your time on job boards and zero time on relationships, your math is off.
+A warm introduction converts at a **significantly higher rate** than a cold application. Employee referrals consistently account for the highest quality hires relative to volume -- referred candidates are hired at rates far exceeding cold applicants, even though referrals represent a small share of total applications (Jobvite Recruiter Nation Survey). If you're spending all your time on job boards and zero time on relationships, your math is off.
 
 ---
 
@@ -47,7 +47,7 @@ Most people get this wrong. Here's what that looks like.
 > **Bad DM:**
 > "Hi! I'm looking for a role at [Company] and wondering if you could refer me?"
 
-Sent cold to someone you've never interacted with, this gets maybe a **2% response rate**. You're asking someone to spend their social capital on a complete stranger. Most people ignore it. The nice ones send a polite deflection.
+Sent cold to someone you've never interacted with, this gets a **very low response rate**. You're asking someone to spend their social capital on a complete stranger. Most people ignore it. The nice ones send a polite deflection.
 
 > **Good DM:**
 > "Hey [Name], I've been following your posts on [topic] -- your take on [specific thing] really resonated. I'm curious how that played out at [Company]. Would love to hear more if you're open to it."
@@ -99,7 +99,7 @@ You don't need hundreds of connections. You need **20-30 real relationships** wi
 
 The best time to build a network was two years ago. The second best time is today.
 
-If you're reading this mid-search, start the 3/1/1 rhythm now. Expect results in about **8 weeks**. That feels brutal when you need a job yesterday, but those 8 weeks are passing regardless. You can spend them only applying to jobs (low conversion), or you can apply AND build relationships at the same time.
+If you're reading this mid-search, start the 3/1/1 rhythm now. In our experience, expect meaningful results in roughly **6-8 weeks** -- that's how long it typically takes for consistent relationship-building to translate into introductions and referrals. That feels brutal when you need a job yesterday, but those weeks are passing regardless. You can spend them only applying to jobs (low conversion), or you can apply AND build relationships at the same time.
 
 > **This is infrastructure.** Not just for this search, but for the next one. And the one after that.
 
@@ -112,3 +112,12 @@ The people who never seem to struggle finding jobs? They're not lucky. They've b
 You don't have to be outgoing to network well. Writing thoughtful comments, sending considered messages, sharing resources -- these are quiet activities that play to the strengths of people who think before they speak.
 
 Networking doesn't mean working a room. Three comments, one DM, one generous act. That's it. That's the whole system.
+
+---
+
+## Sources
+
+1. **Jobvite Recruiter Nation Survey** -- Referral hires consistently outperform other sourcing channels in quality-of-hire metrics, despite representing a small fraction of total applicants.
+2. **NBER Working Paper 32320** (2024) -- Analysis of 125 million applications showing 45% of applications arrive within the first 48 hours of a posting, underscoring why relationship-based channels bypass the volume crush.
+3. **Ashby, 2025 Talent Trends Report** -- First-party ATS data across 11M+ applications documenting the decline in response rates as application volumes increase.
+4. **Upplai** (2025) -- Candidates are approximately 3x less likely to hear back from employers than four years ago, reinforcing the value of warm introductions over cold applications.
