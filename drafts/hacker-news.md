@@ -8,7 +8,7 @@
 
 Hi HN — I built this at Remotivated (remote job platform).
 
-Job Hunt OS is a collection of Claude Cowork/Code skills, standalone LLM prompts, and methodology guides for remote job seekers.
+Job Hunt OS is a collection of Claude Code skills, standalone LLM prompts, and methodology guides for remote job seekers.
 
 The interesting technical bits:
 

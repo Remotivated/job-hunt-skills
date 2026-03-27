@@ -23,7 +23,7 @@ We've been thinking about this problem for a while. Our email course (the Remote
 
 ### What's in it
 
-**7 Claude skills** that work in Claude Cowork or Claude Code:
+**7 Claude skills** that work in Claude Code:
 - **Resume Builder** — Creates your resume through guided Q&A, not a template fill
 - **Resume Auditor** — Gives genuinely critical feedback (we engineered it to counteract AI's tendency to tell you everything looks great)
 - **Resume Tailor** — Customizes your resume for a specific role without inventing details
@@ -44,7 +44,7 @@ We specifically designed this skill to lead with what needs improvement. It rate
 
 ### How to use it
 
-If you use Claude Cowork or Claude Code: clone the repo, add it as a skill source, and start with "Help me build my resume."
+If you use Claude Code: clone the repo, open it, and start with "Help me build my resume." Skills are auto-discovered.
 
 If you use any other AI: browse the `prompts/` folder and copy-paste into your conversation.
 

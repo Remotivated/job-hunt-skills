@@ -4,14 +4,20 @@ Setup for every platform, plus how the file system keeps your documents organize
 
 ---
 
-## For Claude Cowork Users (Recommended)
+## For Claude Code Users (Recommended)
 
-Cowork is the fastest path. Skills activate based on what you ask — no configuration.
+Clone the repo and open it — skills are auto-discovered from `.claude/skills/`.
 
 ### Setup
 
-1. Add this repository as a skill source in your Cowork project settings
-2. The 7 skills will be automatically discovered and available
+```bash
+git clone https://github.com/remotivated/job-hunt-os.git
+cd job-hunt-os
+```
+
+Open the directory in Claude Code (CLI, VS Code extension, or desktop app). The 7 skills are automatically available — Claude discovers them from the `.claude/skills/` directory.
+
+The `my-documents/` directory is where your working files live. It's gitignored by default so your personal documents never get committed.
 
 ### Your first session
 
@@ -25,7 +31,7 @@ The `resume-builder` skill activates and walks you through a structured intervie
 - `my-documents/coverletter.md` — Your canonical cover letter
 - PDF versions of both
 
-From there, you can:
+From there:
 
 - **Audit your resume** → "Give me honest feedback on my resume" (activates `resume-auditor`)
 - **Tailor for a role** → "Tailor my resume for this job: [paste URL or text]" (activates `resume-tailor`)
@@ -34,37 +40,17 @@ From there, you can:
 
 ### PDF generation
 
-Skills that produce PDFs use HTML with embedded CSS styling for clean output. If PDF generation doesn't produce satisfactory results:
+Skills that produce PDFs use HTML with embedded CSS styling. If that doesn't work:
 
-- Use the markdown file and convert via your preferred method
 - **Browser print-to-PDF**: Open the `.md` file, print → "Save as PDF"
 - **Google Docs**: Paste the markdown content, export as PDF
 - **Pandoc** (if installed): `pandoc resume.md -o resume.pdf`
 
 ---
 
-## For Claude Code Users
+## For Claude.ai / ChatGPT / Gemini Users
 
-### Setup
-
-```bash
-git clone https://github.com/remotivated/job-hunt-os.git
-cd job-hunt-os
-```
-
-Open the directory in Claude Code. Skills are automatically available — they're discovered by their `SKILL.md` files.
-
-### Usage
-
-Same workflow as Cowork. Skills activate based on your requests. You can also invoke them directly by name.
-
-The `my-documents/` directory is where your working files live. It's gitignored by default so your personal documents never get committed.
-
----
-
-## For Claude Cloud / ChatGPT / Gemini Users
-
-Skills require Claude Cowork or Code. But the **prompts** work in any LLM.
+Skills require Claude Code. But the **prompts** work in any LLM.
 
 ### How to use prompts
 

@@ -6,7 +6,7 @@
 
 **Title:** I built a set of Claude skills for remote job hunting — includes a resume auditor that actually gives critical feedback
 
-I work at a remote job platform and we built an open-source toolkit called Job Hunt OS — 7 Claude Cowork/Code skills for job seekers.
+I work at a remote job platform and we built an open-source toolkit called Job Hunt OS — 7 Claude Code skills for job seekers.
 
 The skills cover: resume building (through guided Q&A), resume auditing (engineered to counteract sycophancy — it leads with what needs improvement), resume tailoring for specific roles, company vetting (evaluates remote culture with a red flag framework), interview prep, proof asset creation, and LinkedIn optimization.
 
@@ -35,7 +35,7 @@ What's included:
 - **Interview Coach** — generates prep briefs with questions to ask THEM (because you're evaluating the company too)
 - **Guides** on networking, negotiation, ATS myths (spoiler: most of what you've heard is wrong), and sustainable search habits
 
-Works with Claude Cowork/Code (skills), or any AI via standalone prompts you can copy-paste.
+Works with Claude Code (skills), or any AI via standalone prompts you can copy-paste.
 
 Free, open-source, no signup: https://github.com/remotivated/job-hunt-os
 

@@ -13,17 +13,17 @@ Job Hunt OS is a system for the other approach — Claude skills, standalone pro
 
 ## What's Inside
 
-### Skills (Claude Cowork / Claude Code)
+### Skills (Claude Code)
 
 | Skill | What it does |
 |-------|-------------|
-| [resume-builder](skills/resume-builder/SKILL.md) | Build a resume and cover letter from scratch through guided Q&A |
-| [resume-auditor](skills/resume-auditor/SKILL.md) | Get genuinely critical feedback — counteracts AI sycophancy |
-| [resume-tailor](skills/resume-tailor/SKILL.md) | Customize your resume for a specific job posting |
-| [interview-coach](skills/interview-coach/SKILL.md) | Prepare for an interview with likely questions and talking points |
-| [company-radar](skills/company-radar/SKILL.md) | Vet a company's remote culture before you apply |
-| [proof-asset-creator](skills/proof-asset-creator/SKILL.md) | Build case studies, portfolios, and proof-of-value assets |
-| [linkedin-optimizer](skills/linkedin-optimizer/SKILL.md) | Audit and improve your LinkedIn profile |
+| [resume-builder](.claude/skills/resume-builder/SKILL.md) | Build a resume and cover letter from scratch through guided Q&A |
+| [resume-auditor](.claude/skills/resume-auditor/SKILL.md) | Get genuinely critical feedback — counteracts AI sycophancy |
+| [resume-tailor](.claude/skills/resume-tailor/SKILL.md) | Customize your resume for a specific job posting |
+| [interview-coach](.claude/skills/interview-coach/SKILL.md) | Prepare for an interview with likely questions and talking points |
+| [company-radar](.claude/skills/company-radar/SKILL.md) | Vet a company's remote culture before you apply |
+| [proof-asset-creator](.claude/skills/proof-asset-creator/SKILL.md) | Build case studies, portfolios, and proof-of-value assets |
+| [linkedin-optimizer](.claude/skills/linkedin-optimizer/SKILL.md) | Audit and improve your LinkedIn profile |
 
 ### Prompts (Any LLM)
 
@@ -54,25 +54,19 @@ Job Hunt OS is a system for the other approach — Claude skills, standalone pro
 
 ## Quick Start
 
-### Claude Cowork (recommended)
+### Claude Code (recommended)
 
-1. Add this repo as a skill source in your Cowork project
-2. Skills will be automatically discoverable
+1. Clone this repo: `git clone https://github.com/remotivated/job-hunt-os.git`
+2. Open the directory in Claude Code — skills are automatically discovered from `.claude/skills/`
 3. Start with: "Help me build my resume" → the `resume-builder` skill activates
 4. Your canonical resume saves to `my-documents/resume.md`
 
-### Claude Code
-
-1. Clone this repo: `git clone https://github.com/remotivated/job-hunt-os.git`
-2. Open in Claude Code — skills are automatically available
-3. Same workflow as Cowork
-
-### Any LLM (ChatGPT, Gemini, Claude Cloud)
+### Any LLM (ChatGPT, Gemini, Claude.ai)
 
 1. Browse the [`prompts/`](prompts/) directory
 2. Copy the prompt into your conversation
 3. Paste your resume, job description, or other materials alongside it
-4. Note: No file management, PDF generation, or web browsing — but the core methodology works anywhere
+4. No file management or web browsing — but the core methodology works anywhere
 
 See [GETTING-STARTED.md](GETTING-STARTED.md) for detailed setup instructions.
 
