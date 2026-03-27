@@ -1,0 +1,14 @@
+# User's personal documents — never committed
+my-documents/resume.md
+my-documents/coverletter.md
+my-documents/resume.pdf
+my-documents/coverletter.pdf
+my-documents/applications/
+
+# Keep the directory structure
+!my-documents/.gitkeep
+!my-documents/applications/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
