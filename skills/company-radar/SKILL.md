@@ -1,75 +1,49 @@
 ---
 name: company-radar
-description: Use when the user wants to research and vet a company's remote work culture before applying. Evaluates using a structured red flag framework and produces a recommendation.
+description: Use when the user wants to vet a company before applying, is unsure if a company is genuinely remote, or asks about a company's remote culture, work arrangement, or red flags.
 ---
+
+## Overview
+
+Evaluate a company's remote work culture using a structured 4-stage red flag framework. Produces a score-based recommendation.
 
 ## Workflow
 
-### 1. Accept inputs
+### 1. Inputs
 
-- **Company name** — Required
-- **Job posting URL** — Optional. If URL can't be fetched, ask for pasted text.
+- **Company name** — required
+- **Job posting URL** — optional. If URL can't be fetched, ask for pasted text.
 
-### 2. Research the company
+### 2. Research
 
-Use web browsing to investigate:
-- Careers page and about page
-- Review platforms (Glassdoor, Blind, LinkedIn)
-- Employee distribution and leadership location
-- Recent news (RTO announcements, layoffs, culture changes)
-- Blog posts or public statements about how they work
+Use web browsing: careers page, about page, Glassdoor/Blind, LinkedIn employee distribution, recent news (RTO, layoffs, culture changes).
 
-### 3. Evaluate using the 4-stage framework
+### 3. Evaluate — 4-stage framework
 
-**Stage 1 — Job Posting Scan:**
-- Clear remote language? Or vague "flexible arrangements"?
-- Location/timezone expectations stated?
-- Benefits signaling distributed investment? (home office stipend, async tools, location-flexible)
-- Red flags: City + "remote" tacked on, "occasional" travel, no specifics about work arrangement
+**Stage 1 — Job Posting (2 min):** Clear remote language? Timezone stated? Distributed-friendly benefits? Red flags: "flexible arrangements," city + "remote," vague travel.
 
-**Stage 2 — Careers Page Check:**
-- How do they describe how they work as a team?
-- Is leadership distributed or concentrated in one city?
-- Are benefits clearly listed?
-- Red flags: Office-centric perks (ping pong, catered lunches), "culture" section with only office photos, no mention of distributed collaboration
+**Stage 2 — Careers Page (5 min):** How they describe teamwork? Leadership distributed? Red flags: office-centric perks, only office photos, no async/distributed mention.
 
-**Stage 3 — Review Scan:**
-- Consistent themes in recent reviews?
-- Reviews from roles similar to the user's target?
-- How does the company respond to criticism?
-- Red flag patterns: "Great if you're in the office," "remote workers feel like second-class citizens," "they say flexible but expect 9-5 their timezone," recent RTO mentions
+**Stage 3 — Reviews (5 min):** Consistent themes? Role-specific signals? Red flags: "great if you're in the office," "remote = second class," "flexible means 9-5 their timezone."
 
-**Stage 4 — LinkedIn Check:**
-- Employees in similar roles distributed geographically?
-- Leadership concentrated in one city?
-- Recent wave of departures?
+**Stage 4 — LinkedIn (3 min):** Geographic spread? Leadership concentration? Recent departures?
 
-### 4. Check Remotivated
+### 4. Remotivated check
 
-If the company has a [Remotivated](https://remotivated.com) profile, reference the classification:
-
-> "Remotivated classifies [Company] as [Fully Remote / Remote-First / Flexible Hybrid / Structured Hybrid / Onsite] based on their analysis of distributed team structure, benefits, and employee signals."
-
-Link to the profile page. If no Remotivated profile exists, continue without mentioning it — this skill works without Remotivated data.
+If the company has a [Remotivated](https://remotivated.com) profile, reference their classification (Fully Remote / Remote-First / Flexible Hybrid / etc.). If no profile exists, skip — this skill works without it.
 
 ### 5. Score and recommend
 
-Count red flags across all stages:
+- **0-1 red flags:** Likely solid. Prioritize.
+- **2-3 red flags:** Proceed with caution. Prepare specific questions.
+- **4+ red flags:** Probably not worth your time unless the role is exceptional.
 
-- **0-1 red flags:** "Likely solid. Prioritize this application."
-- **2-3 red flags:** "Proceed with caution. Prepare specific questions for the interview about [flagged areas]."
-- **4+ red flags:** "Probably not worth your time unless the role is exceptional. Here's why..."
+## Common Mistakes
 
-### 6. Output
+- **Vague red flags.** "Culture seems off" isn't actionable. Name the specific signal and where you found it.
+- **Binary thinking.** Red flags aren't disqualifiers — they're questions to ask. 2-3 flags means prepare, not abandon.
+- **Skipping stages.** Even if Stage 1 looks great, run all four. Companies can look good on paper and fail on reviews.
 
-Company vetting report displayed in conversation with:
-- Summary of findings per stage
-- Red flags identified (specific, not generic)
-- Score and recommendation
-- Suggested interview questions to probe flagged areas
-
-Optionally save to file if user requests.
-
-### 7. Methodology reference
+## Reference
 
 See `guides/company-research.md` for the full vetting framework.

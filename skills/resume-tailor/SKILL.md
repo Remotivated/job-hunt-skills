@@ -1,65 +1,50 @@
 ---
 name: resume-tailor
-description: Use when the user has a job posting and wants to customize their resume and cover letter for that specific role. Reads canonical documents and outputs tailored versions without modifying originals.
+description: Use when the user has a specific job posting and wants to customize their resume and cover letter for that role. Also use when they say "I'm applying to..." or share a job link.
 ---
+
+## Overview
+
+Reshape the resume narrative for a specific role. This is not keyword swapping — it's adjusting which experiences lead and how they're framed. Never modifies canonical files.
 
 ## Workflow
 
 ### 1. Accept inputs
 
-- **Job posting** — URL or pasted text. If the URL can't be accessed, ask the user to paste the job posting text directly.
+- **Job posting** — URL or pasted text. If URL can't be accessed, ask for pasted text.
 - **Canonical files** — Read `my-documents/resume.md` and `my-documents/coverletter.md`
 
 ### 2. Analyze the posting
 
-Extract:
-- Key requirements and must-haves
-- Nice-to-haves and preferred qualifications
-- Language, terminology, and tone
-- Company values and priorities (if discernible)
-- Remote work specifics (timezone, async expectations, travel)
+Extract: top requirements, terminology, company values, remote specifics.
 
 ### 3. Identify the angle
 
-- What's the strongest story to lead with for THIS role?
-- Which experiences map most directly to their priorities?
-- How should the narrative emphasis shift?
+What's the strongest story for THIS role? Which experiences map to their priorities? How should emphasis shift?
 
-This is not keyword swapping. It's reshaping the narrative to lead with what matters most for this specific reader.
+### 4. Tailor
 
-### 4. Tailor the resume
+**Resume:** Match terminology, reorder bullets by relevance, highlight remote signals. Never invent experience — use `[ASK: ...]` placeholders for gaps.
 
-- **Match terminology** to the posting's language (they say "stakeholders," you say "stakeholders")
-- **Reorder and emphasize** bullets that align with the role's priorities
-- **Highlight remote-readiness** signals relevant to this posting
-- **Adjust the angle** — if they want a leader, lead with leadership. If they want a builder, lead with building.
+**Cover letter:** Address specific role/company. Lead with strongest alignment. Confident closing.
 
-**Never invent experience or metrics.** Use `[ASK: what was the result?]` placeholders for information gaps that would strengthen the application.
-
-### 5. Tailor the cover letter
-
-- Address the specific role and company
-- Opening: Reference something specific about the company or role
-- Body: Lead with the 1-2 strongest alignment points between experience and their needs
-- Closing: Confident, specific about next steps
-
-### 6. Save outputs
+### 5. Save outputs
 
 ```
-my-documents/applications/{company}-{role}/resume.md
-my-documents/applications/{company}-{role}/resume.pdf
-my-documents/applications/{company}-{role}/coverletter.md
-my-documents/applications/{company}-{role}/coverletter.pdf
+my-documents/applications/{company}-{role}/resume.md + .pdf
+my-documents/applications/{company}-{role}/coverletter.md + .pdf
 ```
 
-Generate PDF versions using HTML with embedded CSS. If PDF generation doesn't produce satisfactory results, use the markdown and convert via pandoc, browser print-to-PDF, or Google Docs export.
+PDF via HTML/CSS. Fallback: pandoc, browser print-to-PDF, Google Docs.
 
-**NEVER modify canonical files** (`my-documents/resume.md`, `my-documents/coverletter.md`) unless the user explicitly asks. These originals belong to the resume-builder skill.
+**Never modify canonical files** unless explicitly asked.
 
-### 7. Summary
+### 6. Summary
 
-After generating, provide a brief summary:
-- Key changes made and why
-- Alignment strengths (what matches well)
-- Gaps flagged with `[ASK]` placeholders
-- Anything the user should manually review
+Report: key changes and why, alignment strengths, gaps flagged with `[ASK]`, anything to review manually.
+
+## Common Mistakes
+
+- **Keyword stuffing.** Matching terminology ≠ cramming keywords. Swap naturally where their language differs from yours.
+- **Only changing the summary.** Tailoring means reordering and reframing bullets throughout, not just editing the top paragraph.
+- **Modifying canonicals.** This skill writes to `applications/` subdirectories. The originals are sacred.

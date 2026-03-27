@@ -1,63 +1,48 @@
 ---
 name: interview-coach
-description: Use when the user has an upcoming interview and wants to prepare with likely questions, talking points, questions to ask, and angles to highlight for a specific role and company.
+description: Use when the user has an upcoming interview, received an interview invitation, or wants to prepare for a specific role at a specific company.
 ---
+
+## Overview
+
+Generate an interview prep brief with likely questions, talking points from the user's actual experience, evaluative questions to ask the company, and honest assessment of weaknesses.
 
 ## Workflow
 
 ### 1. Gather inputs
 
-- **Job posting** — URL or pasted text. If the URL can't be accessed, ask the user to paste the job posting text directly.
-- **Company name** — Required
-- **Resume** — Read `my-documents/resume.md` for background
+- **Job posting** — URL or pasted text. If URL can't be accessed, ask for pasted text.
+- **Company name** — required
+- **Resume** — read `my-documents/resume.md`
 
 ### 2. Research the company
 
-If web browsing is available:
-- Company website and careers page
-- Recent news, blog posts, press releases
-- Glassdoor/review signals
-- Company culture and stated values
-- How they describe how they work (remote, hybrid, distributed)
+If web browsing available: website, careers page, recent news, reviews, culture signals.
+If not: ask what the user knows about the company.
 
-If not available, ask the user to share what they know about the company.
-
-### 3. Generate interview prep brief
+### 3. Generate prep brief
 
 **Likely Questions (8-12):**
-
-Generate questions the user is likely to face, drawn from:
-- Role-specific behavioral questions based on the posting's requirements
-- Technical or domain questions relevant to the role
-- Remote-work questions ("How do you handle async communication?", "Describe a time you worked independently on a complex project")
-
-For each question, provide **suggested talking points drawn from the user's actual resume** — not generic advice. Reference specific achievements and experiences.
+- Role-specific behavioral questions from the posting's requirements
+- Technical/domain questions relevant to the role
+- Remote-work questions (async communication, independent work, distributed collaboration)
+- For each: talking points drawn from the user's ACTUAL resume, not generic advice
 
 **Questions to Ask (5-8):**
-
-From the "evaluating them too" framework (see `guides/interview-framework.md`):
-
-- **How They Work:** Meeting culture, decision-making, onboarding
-- **Career Growth:** Advancement paths, success metrics
-- **Culture:** Hardest parts, disagreement handling
-- **Remote Operations:** Async vs. sync balance, timezone expectations, distributed team practices
-
-Include green flags and red flags for their answers.
+Categorized: How They Work, Career Growth, Culture, Remote Operations. Include green/red flags for their answers. See `guides/interview-framework.md`.
 
 **Angles to Highlight:**
-- Specific experiences from the resume that map to this role's priorities
-- Remote-readiness talking points
-- The narrative to lead with (what makes this person a strong candidate for THIS role)
+Specific resume experiences mapping to this role. Remote-readiness talking points. The narrative to lead with.
 
 **Potential Weaknesses:**
-- Gaps between the resume and the role's requirements
-- How to address them honestly — acknowledge and redirect to strengths
-- Don't spin or hide gaps. Hiring managers respect self-awareness.
+Gaps between resume and requirements. How to address honestly — acknowledge and redirect, don't spin.
 
-### 4. Save output
+### 4. Save
 
 Save to `my-documents/applications/{company}-{role}/interview-prep.md` and display in conversation.
 
-### 5. Methodology reference
+## Common Mistakes
 
-See `guides/interview-framework.md` for the question bank philosophy and evaluation framework.
+- **Generic questions.** "Tell me about yourself" is obvious. Generate questions specific to THIS role's requirements.
+- **Generic talking points.** "I'm a team player" is useless. Reference specific achievements from the resume.
+- **Hiding weaknesses.** Hiring managers respect self-awareness. Acknowledge gaps honestly, then redirect to strengths.

@@ -1,11 +1,15 @@
 ---
 name: resume-auditor
-description: Use when the user wants honest, constructive feedback on their resume. Counteracts LLM sycophancy to deliver genuinely critical evaluation at both bullet and narrative levels.
+description: Use when the user wants honest, critical feedback on their resume — not the generic praise AI defaults to. Also use when a user says their resume "isn't working" or they're not getting callbacks.
 ---
 
-## Anti-sycophancy protocol
+## Overview
 
-You are a hiring manager with 30 seconds to scan this resume. Your job is to find reasons to say no — because that's what real screening looks like. Lead with what needs improvement. Be specific and actionable. Do not open with praise.
+Genuinely critical resume evaluation at bullet and narrative levels. Engineered to counteract LLM sycophancy — lead with what needs improvement, not praise.
+
+## Anti-Sycophancy Protocol
+
+You are a hiring manager with 30 seconds to scan this resume. Find reasons to say no — that's what real screening looks like. Do NOT open with praise.
 
 ## Workflow
 
@@ -13,60 +17,48 @@ You are a hiring manager with 30 seconds to scan this resume. Your job is to fin
 
 Default: `my-documents/resume.md`. Accept user-specified file or pasted text.
 
-### 2. Optional: Job description alignment
+If a job description is provided, evaluate alignment. If not, evaluate on general strength.
 
-If the user provides a job description, evaluate alignment. If not, evaluate on general strength.
+### 2. Bullet-level evaluation
 
-### 3. Evaluate at two levels
+Rate every bullet: **STRONG** / **NEEDS WORK** / **WEAK**
 
-**Bullet level — rate every bullet:**
+Flag: "Responsible for...", "Worked on...", "Helped with...", "Assisted in..."
 
-- **STRONG** — Specific outcome, clear action, demonstrates capability
-- **NEEDS WORK** — Has potential but lacks specificity, outcome, or clarity
-- **WEAK** — Vague, passive, or describes activities without results
-
-Flag these patterns:
-- "Responsible for..." (passive, no outcome)
-- "Worked on..." (vague contribution)
-- "Helped with..." (unclear ownership)
-- "Assisted in..." (minimizes role)
-- Generic action verbs with no specifics
-
-**For the 5 weakest bullets, provide rewrites:**
+For the 5 weakest, provide rewrites:
 ```
-BEFORE: [original bullet]
-AFTER: [improved bullet]
-WHY: [what changed and why it's stronger]
+BEFORE: [original]  →  AFTER: [improved]  →  WHY: [what changed]
 ```
+Never invent metrics. Use `[ASK: ...]` placeholders.
 
-**Narrative level:**
-- What story does this resume tell? Summarize in 2-3 sentences.
-- Is the angle clear? (Specialist, generalist, career changer, rising talent)
-- Does it make a coherent case for the roles they're targeting?
-- If it reads as a disconnected list of facts, say so directly.
+### 3. Narrative-level evaluation
+
+- What story does this resume tell? (2-3 sentences)
+- Is the angle clear? (Specialist, generalist, career changer?)
+- Does it make a coherent case, or read as a disconnected list?
 
 ### 4. Remote-readiness check
 
-- Are there 1-2 bullets demonstrating remote capability? (async work, self-direction, documentation, cross-timezone collaboration, independent delivery)
-- If missing, suggest specific ways to add them based on their actual experience.
+Are there 1-2 bullets showing remote capability? If missing, suggest additions from their actual experience.
 
-### 5. Terminology check
+### 5. Terminology check (if job description provided)
 
-If a job description was provided:
-- Flag language mismatches (user says "clients" but posting says "customers")
-- Identify key terms from the posting that are absent from the resume
-- Note: This is about readability matching, not keyword stuffing
+Flag language mismatches. This is readability matching, not keyword stuffing.
 
-### 6. Output
+### 6. Output structure
 
-Structured feedback report displayed in conversation. Sections:
+1. **30-Second Scan** — what a hiring manager notices and misses
+2. **The Story** — narrative assessment
+3. **Bullet Ratings** — every bullet rated
+4. **Top 5 Rewrites** — before/after
+5. **Remote-Readiness** — assessment and suggestions
+6. **Terminology** — alignment (if JD provided)
+7. **What's Missing** — gaps that would make them want to talk to you
 
-1. **30-Second Scan** — What a hiring manager notices (and misses) in a quick scan
-2. **The Story** — Narrative assessment
-3. **Bullet Ratings** — Every bullet rated with explanation
-4. **Top 5 Rewrites** — Before/after with reasoning
-5. **Remote-Readiness** — Assessment and suggestions
-6. **Terminology** — Alignment notes (if job description provided)
-7. **What's Missing** — Gaps that would make a hiring manager want to talk to you
+**This skill is read-only. Never modify files.**
 
-**Do NOT modify any files.** This skill is read-only.
+## Common Mistakes
+
+- **Leading with praise.** The whole point is honest feedback. If you catch yourself writing "Your resume is impressive...", stop and start with the weakest section instead.
+- **Vague feedback.** "Could be stronger" is useless. Show the specific rewrite.
+- **Rating everything NEEDS WORK.** Be decisive — most bullets are clearly STRONG or WEAK. Reserve NEEDS WORK for genuinely borderline cases.
