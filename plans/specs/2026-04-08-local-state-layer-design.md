@@ -58,7 +58,9 @@ Four directories, each with one purpose:
 - **`reports/`** — evaluations and research, flat structure, global counter, read-only after creation.
 - **`proof-assets/`** — reusable case studies and portfolio evidence that live across applications.
 
-The entire `my-documents/` tree is gitignored, so this also provides the user-layer / system-layer separation without an explicit data contract: skills and templates live in `.claude/` and `templates/` (system, version-controlled), everything the user owns lives in `my-documents/` (user, local).
+The entire `my-documents/` tree will be gitignored once this spec ships, so this also provides the user-layer / system-layer separation without an explicit data contract: skills and templates live in `.claude/` and `templates/` (system, version-controlled), everything the user owns lives in `my-documents/` (user, local).
+
+**Current `.gitignore` state:** Today's `.gitignore` only covers individual files (`resume.md`, `coverletter.md`, `applications/`, etc.). Artifacts this spec introduces (`applications.md`, `story-bank.md`, `reports/`, `proof-assets/`) are **not** currently ignored. The implementation plan must broaden `.gitignore` to cover the whole tree — e.g., `my-documents/*` with `!.gitkeep` exceptions on the directories that need to remain in-repo — before any skill writes to it. See Section 6 for the exact rule.
 
 ### 2. `applications.md` Schema
 
@@ -72,6 +74,7 @@ The entire `my-documents/` tree is gitignored, so this also provides the user-la
 | id                               | company    | role                       | status       | updated    | link                             |
 |----------------------------------|------------|----------------------------|--------------|------------|----------------------------------|
 | buffer-content-marketing-manager | Buffer     | Content Marketing Manager  | applied      | 2026-04-08 | https://buffer.com/careers/...   |
+| gitlab-staff-engineer            | GitLab     | Staff Engineer             | saved        | 2026-04-07 | https://about.gitlab.com/jobs/...|
 | zapier-senior-pm                 | Zapier     | Senior Product Manager     | interviewing | 2026-04-10 | https://zapier.com/jobs/...      |
 | automattic-developer-advocate    | Automattic | Developer Advocate         | closed       | 2026-03-28 | -                                |
 
@@ -116,6 +119,8 @@ The `saved` value mirrors the vocabulary of the in-app Remotivated tracker, whic
 - Empty table = header row + separator only. Skills handle this gracefully.
 - If parsing fails (malformed table), the skill reports the parse error and exits rather than overwriting. This means the file must stay a valid markdown table — a constraint accepted for the human-editability win.
 
+**First-run behavior:** If `applications.md` does not exist when a skill tries to read it, the skill creates it from the empty-table template (header row + separator + empty `## Notes` section) before proceeding. Same rule applies to `my-documents/reports/`, `my-documents/proof-assets/`, and `my-documents/story-bank.md` — skills lazily scaffold missing state-layer files on first use rather than requiring a setup step.
+
 ### 3. `reports/` Convention
 
 **Filename format:** `{###}-{slug}-{YYYY-MM-DD}.md`
@@ -134,7 +139,7 @@ The `saved` value mirrors the vocabulary of the in-app Remotivated tracker, whic
 005-resume-drift-check-2026-04-20.md
 ```
 
-**Next-number algorithm:** Skills read `ls reports/`, extract the highest `###` prefix, add 1. Zero reports → start at `001`.
+**Next-number algorithm:** Skills read `ls reports/`, filter to files matching `^\d{3,}-.*\.md$` (ignoring anything else the user may have dropped into the directory, e.g. `notes.md` or `README.md`), extract the highest `###` prefix, add 1. Zero matching files → start at `001`. The regex allows 3+ digits so the counter can grow past `999` without a schema change.
 
 **Frontmatter** (required on every report):
 
@@ -169,19 +174,21 @@ Each existing skill gets a defined contract. Plus one new skill: `resume-drift-c
 
 #### `resume-tailor` (customizes resume for a specific role)
 
-- **Before running:** Read `applications.md`. If a row exists for this company+role, warn: *"You have a tailored resume for this role. Iterate on the existing version, or create a new one?"*
-- **Claim verification:** Before saving, every added/rewritten bullet is verified against the evidence layer (canonical + reports + story-bank + proof-assets). Unsupported claims are flagged inline with `[VERIFY: ...]` markers for the user to confirm or correct.
+- **Before running:** Read `applications.md`. If a row exists for this company+role, warn: *"You have a tailored resume for this role. Iterate on the existing version, or create a new one?"* If the user chooses "new one," the new version overwrites `applications/{id}/resume.md` in place. (Rationale: keeping multiple tailored versions for the same role in parallel folders gets messy fast, and the pre-overwrite version is recoverable from git history of the committed canonical + the claim-verification report stub. If a user genuinely needs two simultaneous variants — e.g., same role at the same company applied for via two different channels — they should use a distinct `id` suffix like `buffer-content-marketing-manager-referral`.)
+- **Claim verification:** Before saving, the skill invokes the same verification pass used by `resume-drift-check` (Section 5) — there is one shared mechanism, not two. Every added or rewritten bullet is checked against the evidence layer (canonical + story-bank + proof-assets + reports). Claims classified as **unverifiable** or **contradicted** are surfaced inline as `[VERIFY: ...]` markers for the user to confirm, adjust, or replace before the file is saved.
 - **After running:** Write artifacts to `applications/{id}/resume.md` and `applications/{id}/coverletter.md` (unchanged from current behavior). Write a report stub to `reports/{###}-{slug}-tailor-{date}.md` summarizing the angle and any flagged gaps. Upsert `applications.md` with `status: saved`.
 - **Post-run prompt:** Surface the tracker row and ask: *"Did you submit this application? If so, I can update the status to `applied`."*
 
 #### `resume-auditor` (critical feedback on canonical resume)
 
 - No application context. Writes `reports/{###}-resume-audit-{date}.md`. Does not touch `applications.md`.
+- **Read-only.** The existing `resume-auditor` skill is explicitly read-only and never modifies the canonical resume; this spec does not change that. Version bumps to the canonical happen only in `resume-builder` (see Section 5). If a user wants to apply auditor suggestions, they re-run `resume-builder` or hand-edit `resume.md`, and the version bump happens there.
 
 #### `interview-coach` (interview prep brief)
 
 - **Before running:** Read `applications.md`. If no row exists for this company, warn (do not block): *"I don't see a tracked application for Buffer. Interview prep still works — want me to create a tracker row with `status: interviewing`, or skip the tracker?"* (Rationale: users may have interviews for applications submitted before they started using the tracker.)
 - **After running:** Write `reports/{###}-{slug}-interview-prep-{date}.md`. If the user confirmed tracker creation, upsert row with `status: interviewing`.
+- **Note on status semantics:** This is the one place a row can enter `applications.md` directly at `status: interviewing`, skipping `saved` and `applied`. This is intentional — the "skills only advance status, never regress" rule governs transitions on existing rows; it does not forbid creating a row at a later stage when the user explicitly confirms it. A pre-tracker interview is the canonical legitimate case.
 
 #### `proof-asset-creator` (case studies, portfolios)
 
@@ -232,8 +239,10 @@ updated: 2026-04-08
 ---
 ```
 
-- `version` — integer, incremented by `resume-builder` (and `resume-auditor` when it rewrites) on any non-trivial change.
+- `version` — integer, incremented by `resume-builder` on any non-trivial change to the canonical. Hand-edits to `resume.md` should also bump this number; the README will document the convention.
 - `updated` — ISO date of the last bump.
+
+`resume-auditor` is read-only and never bumps the version, because it never writes to the canonical. If a user applies auditor suggestions, they do so via `resume-builder` or a direct edit, and the bump happens there.
 
 **Tailored resumes record their source version:**
 
@@ -268,7 +277,7 @@ This makes drift detection trivial: `resume-drift-check` compares `derived_from_
 6. Update `company-radar`, `resume-tailor`, `resume-auditor`, `interview-coach`, `proof-asset-creator`, `linkedin-optimizer` per Section 4.
 7. Create the new `resume-drift-check` skill per Section 5.
 8. Update `README.md` and `GETTING-STARTED.md` to document the state layer.
-9. Verify `.gitignore` covers `my-documents/`.
+9. Broaden `.gitignore` so every user file under `my-documents/` is ignored. Exact rule: replace the current per-file ignores with `my-documents/*` + `!my-documents/.gitkeep`. The `applications/`, `reports/`, and `proof-assets/` subdirectories each get their own `.gitkeep` so the directory structure stays in-repo. Verify with `git status` in a fresh clone that no user content appears untracked after running any skill.
 
 **Out of scope (deferred):**
 
