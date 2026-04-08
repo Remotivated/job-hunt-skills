@@ -19,11 +19,41 @@
 
 ## Conventions for This Plan
 
-- **All paths are relative to the repo root** (`c:\Projects\job-hunt-os\`).
+- **All paths in this plan are written relative to `c:\Projects\job-hunt-os\`** (the target repo root). See the Execution Environment block below for how the implementer must resolve them.
 - **"Test" steps are manual verification** — we inspect files with `ls`, `cat`, or `git check-ignore`. No test runner.
 - **Every task ends with a commit.** Commit messages use conventional-commit prefixes (`feat:`, `docs:`, `chore:`).
-- **Shell is bash** (use `/` in paths, not `\`). All commands below assume the repo root as CWD.
+- **Shell is bash** (use `/` in paths, not `\`).
 - **Skill files must preserve their frontmatter** (`---\nname: ...\ndescription: ...\n---`) exactly. Only the body changes.
+
+## Execution Environment
+
+**This plan targets the `job-hunt-os` repo, but is executed from a Claude Code session whose parent CWD is `c:\Projects\Remotivated-Platform`.** The reason: `Remotivated-Platform` has the full superpowers skill infrastructure (`subagent-driven-development`, `executing-plans`, `code-reviewer`, commit skills, MCP servers); `job-hunt-os` does not. Running from the parent preserves tool access while editing files in the sibling repo.
+
+This creates four rules that apply to **every task and every subagent dispatch**:
+
+1. **Target repo (absolute):** `c:\Projects\job-hunt-os\`. Every relative path in this plan (e.g. `.gitignore`, `my-documents/reports/.gitkeep`, `.claude/skills/resume-builder/SKILL.md`) resolves against this root.
+
+2. **Bash CWD resets between commands.** The harness resets working directory back to `c:\Projects\Remotivated-Platform` after every `Bash` tool call. Do NOT assume a persistent `cd`. Every Bash command in this plan must be invoked using **one of these two equivalent forms**:
+   - Chained cd: `cd c:/Projects/job-hunt-os && <command>`
+   - Git `-C` flag (for git commands only): `git -C c:/Projects/job-hunt-os <command>`
+
+   When a task step shows `cat .gitignore`, read it as `cd c:/Projects/job-hunt-os && cat .gitignore`. When it shows `git commit -m "..."`, read it as `git -C c:/Projects/job-hunt-os commit -m "..."` (or the `cd &&` form).
+
+3. **Edit / Write tools take absolute paths.** When a task says "Create `.claude/skills/_shared/state-layer.md`", the actual tool call is:
+
+   ```
+   Write(file_path="c:\\Projects\\job-hunt-os\\.claude\\skills\\_shared\\state-layer.md", ...)
+   ```
+
+   Same for every Edit — `file_path` is always the absolute path under `c:\Projects\job-hunt-os\`.
+
+4. **Subagent dispatches must state the target repo explicitly.** Each subagent spawned by `subagent-driven-development` starts with zero context about which repo it's editing. Every dispatch prompt must include a line like:
+
+   > **Target repo:** `c:\Projects\job-hunt-os` (absolute). You are running from a parent CWD of `c:\Projects\Remotivated-Platform`, so every Bash command must be prefixed `cd c:/Projects/job-hunt-os && ...` (or use `git -C c:/Projects/job-hunt-os` for git). Every Edit/Write `file_path` must be the absolute path under `c:\Projects\job-hunt-os\`.
+
+**Git identity:** `job-hunt-os` already has a local `user.email` and `user.name` set from the earlier spec commits. `git -C c:/Projects/job-hunt-os commit` picks them up correctly — no `--author` override needed.
+
+**Branch:** All commits land on `master` (job-hunt-os uses `master`, not `main`). The repo is currently 3 commits ahead of `origin/master` before this plan runs; no push is required during execution.
 
 ## File Structure
 
