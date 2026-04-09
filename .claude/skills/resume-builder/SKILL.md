@@ -9,6 +9,8 @@ Build a resume and cover letter through conversational Q&A. This is the only ski
 
 ## Workflow
 
+> **State layer:** this skill owns canonical `version` bumps. See [state-layer contract §6](../_shared/state-layer.md#6-canonical-resume-frontmatter).
+
 ### 1. Gather existing materials
 
 Ask: "Do you have an existing resume or LinkedIn profile URL I can work from?"
@@ -35,6 +37,17 @@ Probe for outcomes, not responsibilities.
 **Cover letter:** Hook → body mapping experience to goals → confident closing. Follow `templates/coverletter-template.md`.
 
 **Save to:** `my-documents/resume.md`, `my-documents/coverletter.md` + PDF versions via HTML/CSS. Fallback: pandoc, browser print-to-PDF, or Google Docs export.
+
+**Frontmatter (required on `resume.md`):**
+
+```yaml
+---
+version: 1
+updated: 2026-04-08
+---
+```
+
+On first build: `version: 1`. On update (see §4 Modes below): read the current frontmatter, increment `version` by 1, set `updated` to today's ISO date. See [state-layer contract §6](../_shared/state-layer.md#6-canonical-resume-frontmatter) for the full rule. `coverletter.md` does not need frontmatter.
 
 ### 4. Modes
 
