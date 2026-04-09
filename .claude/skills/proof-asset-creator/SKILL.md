@@ -9,6 +9,8 @@ Build proof-of-value assets that demonstrate capability instead of just claiming
 
 ## Workflow
 
+> **State layer:** writes reusable case studies to `my-documents/proof-assets/`. No tracker touch, no report. Proof assets are reusable evidence, not per-application artifacts. See [state-layer contract](../_shared/state-layer.md).
+
 ### 1. Choose format
 
 Help user pick based on their situation:
@@ -35,15 +37,19 @@ Proactively offer: anonymize details, focus on process over results, use a diffe
 
 ### 4. Produce the asset
 
+**Save location:** `my-documents/proof-assets/{slug}.md` where `{slug}` is a kebab-case descriptor (e.g., `distributed-team-migration`, `content-strategy-overhaul`). First-run scaffold the `proof-assets/` directory if missing (see [state-layer §2](../_shared/state-layer.md#2-first-run-scaffolding)).
+
 **Case study:** SAOL structure — Situation → Approach → Outcome → Learning. Target 500-800 words (1-2 pages).
 
-**Personal site:** Content brief with headline, sections, copy, project highlights, tool recommendations.
+**Personal site:** Content brief with headline, sections, copy, project highlights, tool recommendations. Save as `{slug}-site-brief.md`.
 
-**Portfolio:** 4-6 curated pieces with context (problem, role, result) per piece.
+**Portfolio:** 4-6 curated pieces with context (problem, role, result) per piece. Save as `{slug}-portfolio.md`.
 
-**Proof link:** Video script or writeup — hook, walkthrough, results, takeaway.
+**Proof link:** Video script or writeup — hook, walkthrough, results, takeaway. Save as `{slug}-proof-link.md`.
 
-**Creative:** Guidance on what to build and how to present it.
+**Creative:** Guidance on what to build and how to present it. Save as `{slug}-creative-brief.md`.
+
+Proof assets are reusable across applications. Reference them by filename from cover letters, LinkedIn, or tailored resumes.
 
 ## Common Mistakes
 
