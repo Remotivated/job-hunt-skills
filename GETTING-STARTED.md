@@ -88,9 +88,9 @@ Same methodology, you just handle the **file management** yourself.
 
 ---
 
-## How Canonical Files Work
+## How the State Layer Works
 
-Your master resume lives in one place. Tailored versions go in subfolders. Here's the layout:
+Your master resume lives in one place. Tailored versions, reports, and evidence files each have their own directory. Here's the layout:
 
 ```
 my-documents/
@@ -98,32 +98,58 @@ my-documents/
 ├── coverletter.md         ← Your master cover letter (created by resume-builder)
 ├── resume.pdf             ← PDF version
 ├── coverletter.pdf        ← PDF version
-└── applications/
-    ├── acme-sre/          ← Tailored for Acme Corp SRE role
-    │   ├── resume.md
-    │   ├── resume.pdf
-    │   ├── coverletter.md
-    │   ├── coverletter.pdf
-    │   └── interview-prep.md
-    └── buffer-marketing/  ← Tailored for Buffer Marketing role
-        ├── resume.md
-        ├── ...
+├── applications.md        ← Tracker — one row per application (status, dates, links)
+├── story-bank.md          ← STAR stories (your evidence layer — populated over time)
+├── applications/
+│   ├── acme-sre/          ← Tailored for Acme Corp SRE role
+│   │   ├── resume.md
+│   │   ├── resume.pdf
+│   │   ├── coverletter.md
+│   │   ├── coverletter.pdf
+│   │   └── interview-prep.md
+│   └── buffer-marketing/  ← Tailored for Buffer Marketing role
+│       ├── resume.md
+│       └── ...
+├── reports/               ← Every skill run saves a numbered report here
+│   ├── 001-buffer-vetting-2026-04-08.md
+│   ├── 002-resume-audit-2026-04-09.md
+│   └── ...
+└── proof-assets/          ← Reusable case studies and portfolio pieces
+    └── distributed-team-migration.md
 ```
+
+### The four directories
+
+- **Root canonicals** (`resume.md`, `coverletter.md`) — sacred, never modified by per-application skills.
+- **`applications/{id}/`** — artifacts you'd actually send to employers.
+- **`reports/`** — evaluations, audits, and research for your own reference. Numbered, flat, read-only after creation.
+- **`proof-assets/`** — case studies and portfolio pieces that get referenced across many applications.
 
 ### Key rules
 
-- **`resume-builder` owns the canonicals** — it's the only skill that writes to `my-documents/resume.md` and `my-documents/coverletter.md`
-- **`resume-tailor` creates application folders** — reads canonicals and writes to `my-documents/applications/{company}-{role}/`
-- **`resume-auditor` is read-only** — it never modifies files
-- **Other skills read from canonicals** as needed
+- **`resume-builder` owns the canonicals** — it's the only skill that writes to `my-documents/resume.md` and `my-documents/coverletter.md`, and the only skill that bumps the canonical `version` frontmatter.
+- **`resume-tailor` creates application folders** — reads the canonicals and writes to `my-documents/applications/{id}/`. It runs an inline claim-verification pass against your evidence layer before saving, flagging any bullet that can't be traced back to real source material.
+- **`resume-auditor` is read-only** — writes its critique to `reports/` but never touches your canonical files.
+- **`company-radar`, `interview-coach`, `linkedin-optimizer`** each save numbered reports under `reports/` after every run.
+- **`resume-drift-check`** compares tailored resumes against the evidence layer (canonical, story-bank, proof-assets, reports) and flags hallucinated or contradicted claims.
+
+### The applications tracker
+
+`my-documents/applications.md` is a flat markdown table that every skill reads for dedup and writes to advance status. Columns: `id`, `company`, `role`, `status`, `updated`, `link`. Status values in lifecycle order: `saved → applied → interviewing → offer → closed | hired`.
+
+You can edit it by hand at any time — it's just markdown. Skills only advance status forward, never backward.
+
+### Privacy
+
+The entire `my-documents/` directory is gitignored. Nothing under it is ever committed to the repo (except empty `.gitkeep` files that preserve the directory structure for new clones).
 
 ### Updating your canonical resume
 
-As your career evolves, use resume-builder in "update" mode:
+As your career evolves, use `resume-builder` in "update" mode:
 
 > "I want to update my resume — I just got promoted to Senior Engineer"
 
-It reads your existing canonical files, asks what's changed, and produces updated versions.
+It reads your existing canonical files, asks what's changed, produces updated versions, and bumps the `version` in frontmatter. Any existing tailored resumes with a lower `derived_from_version` will get flagged for deep scanning the next time `resume-drift-check` runs.
 
 ---
 
