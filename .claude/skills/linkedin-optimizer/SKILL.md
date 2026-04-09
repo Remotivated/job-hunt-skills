@@ -9,6 +9,8 @@ Audit and rewrite LinkedIn profile sections. LinkedIn is a narrative — not a r
 
 ## Workflow
 
+> **State layer:** writes a LinkedIn audit report to `reports/`. No tracker touch. See [state-layer contract](../_shared/state-layer.md).
+
 ### 1. Gather current state
 
 Ask for: headline, about section, featured section contents, recent activity description. If web browsing available, offer to read their profile directly.
@@ -37,6 +39,8 @@ Ask for: headline, about section, featured section contents, recent activity des
 ### 3. Output
 
 All rewritten sections ready to copy-paste into LinkedIn. Include remote-readiness signals naturally throughout.
+
+**Save as a report:** `my-documents/reports/{###}-linkedin-audit-{YYYY-MM-DD}.md`. Frontmatter: `id`, `company: null`, `role: null`, `application_id: null`, `skill: linkedin-optimizer`, `date`, `summary` (e.g., `"Headline + About rewritten; 3 activity-plan items queued"`). Body: the full rewritten sections plus the activity plan.
 
 ## Common Mistakes
 
