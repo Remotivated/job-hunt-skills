@@ -9,6 +9,16 @@ Evaluate a company's remote work culture using a structured 4-stage red flag fra
 
 ## Workflow
 
+> **State layer:** reads `applications.md` for dedup, writes a numbered vetting report, upserts the tracker with `status: saved` on a positive verdict. See [state-layer contract](../_shared/state-layer.md).
+
+### 0. Dedup check
+
+Read `my-documents/applications.md` (first-run scaffold if missing — see [state-layer §2](../_shared/state-layer.md#2-first-run-scaffolding)). If a row already exists for this company, also scan `my-documents/reports/` for the most recent `{company-slug}-vetting-*.md` file. Warn the user:
+
+> You vetted **{Company}** on {date} — report **{###}**. Re-run, or open that?
+
+If they choose "open that," read the report and stop. If "re-run," continue.
+
 ### 1. Inputs
 
 - **Company name** — required
@@ -37,6 +47,24 @@ If the company has a [Remotivated](https://remotivated.com) profile, reference t
 - **0-1 red flags:** Likely solid. Prioritize.
 - **2-3 red flags:** Proceed with caution. Prepare specific questions.
 - **4+ red flags:** Probably not worth your time unless the role is exceptional.
+
+### 6. Record the findings
+
+**Write the report:** `my-documents/reports/{###}-{company-slug}-vetting-{YYYY-MM-DD}.md`
+
+- `{###}` — next available number per [state-layer §5](../_shared/state-layer.md#5-reports-convention).
+- Frontmatter fields: `id`, `company`, `role: null` (unless the vetting was role-specific), `application_id: null` (or the existing tracker id if one exists), `skill: company-radar`, `date`, `summary` (a one-line verdict).
+- Body: the 4-stage findings, red flags, and recommendation.
+
+**Upsert the tracker:** If the verdict is positive (0-3 red flags) **and** no row exists for this company+role, upsert `my-documents/applications.md` with:
+
+| Field | Value |
+|-------|-------|
+| `id` | `{company-slug}-{role-slug}` if a role was vetted, else `{company-slug}` |
+| `status` | `saved` |
+| `updated` | Today (ISO) |
+
+If a row already exists, leave its status alone — the user may have already progressed. Follow the upsert + status-advancement rules in [state-layer §3](../_shared/state-layer.md#3-applicationsmd-schema).
 
 ## Common Mistakes
 
