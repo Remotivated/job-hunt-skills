@@ -24,6 +24,7 @@ Job Hunt OS is a system for the other approach — Claude skills, standalone pro
 | [company-radar](.claude/skills/company-radar/SKILL.md) | Vet a company's remote culture before you apply |
 | [proof-asset-creator](.claude/skills/proof-asset-creator/SKILL.md) | Build case studies, portfolios, and proof-of-value assets |
 | [linkedin-optimizer](.claude/skills/linkedin-optimizer/SKILL.md) | Audit and improve your LinkedIn profile |
+| [resume-drift-check](.claude/skills/resume-drift-check/SKILL.md) | Catch hallucinated claims in tailored resumes before you submit |
 
 ### Prompts (Any LLM)
 
@@ -49,6 +50,27 @@ Job Hunt OS is a system for the other approach — Claude skills, standalone pro
 | [Networking](guides/networking-guide.md) | The 3/1/1 rhythm — generous networking that works |
 | [Negotiation](guides/negotiation-guide.md) | Scripts, levers, and the confidence to ask for more |
 | [Sustainable Search](guides/sustainable-search.md) | Weekly rhythm, pacing, and mental health |
+
+---
+
+## State Layer
+
+Job Hunt OS keeps a local markdown-based memory under `my-documents/`:
+
+```
+my-documents/
+├── resume.md              # your canonical resume
+├── coverletter.md         # your canonical cover letter
+├── applications.md        # tracker — one row per application
+├── story-bank.md          # STAR stories (populated incrementally)
+├── applications/{id}/     # tailored resumes and cover letters
+├── reports/               # numbered evaluations from every skill run
+└── proof-assets/          # reusable case studies
+```
+
+Every skill reads and writes this layer so each run builds on the last — `company-radar` dedupes against companies you already vetted, `resume-tailor` warns when a tailored version already exists, `resume-drift-check` catches hallucinated claims by comparing tailored resumes to your evidence layer. The entire `my-documents/` tree is gitignored; it's your state, not the project's.
+
+Contract: [`.claude/skills/_shared/state-layer.md`](.claude/skills/_shared/state-layer.md).
 
 ---
 
@@ -80,6 +102,7 @@ Here's the recommended sequence when you find a role you're interested in:
 2. **Vet the company** → `company-radar` evaluates their remote culture
 3. **Tailor for the role** → `resume-tailor` customizes your resume + cover letter
 4. **Prepare for the interview** → `interview-coach` generates your prep brief
+5. **Sanity-check tailoring** → `resume-drift-check` catches hallucinated claims before you submit
 
 Each skill builds on the last. Your canonical resume (`my-documents/resume.md`) is the **foundation** — build it once, tailor it many times.
 
