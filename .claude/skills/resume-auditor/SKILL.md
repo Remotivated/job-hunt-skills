@@ -13,6 +13,8 @@ You are a hiring manager with 30 seconds to scan this resume. Find reasons to sa
 
 ## Workflow
 
+> **State layer:** writes an audit report to `reports/`. **Does NOT modify the canonical resume** — version bumps only happen in `resume-builder`. See [state-layer contract](../_shared/state-layer.md).
+
 ### 1. Read the resume
 
 Default: `my-documents/resume.md`. Accept user-specified file or pasted text.
@@ -59,7 +61,11 @@ Flag language mismatches. This is readability matching, not keyword stuffing.
 6. **Terminology** — alignment (if JD provided; skip this section if no JD)
 7. **What's Missing** — gaps that would make them want to talk to you
 
-**This skill is read-only. Never modify files.**
+### 7. Save the audit report
+
+Write the audit to `my-documents/reports/{###}-resume-audit-{YYYY-MM-DD}.md`. Frontmatter: `id`, `company: null`, `role: null`, `application_id: null`, `skill: resume-auditor`, `date`, `summary` (e.g., `"5 STRONG, 3 NEEDS WORK, 7 WEAK — rewrite recommended"`). Body: the full output from §6 (30-Second Scan through What's Missing).
+
+**Canonical files remain untouched.** This skill never modifies `my-documents/resume.md` or any tailored resume. If the user wants to apply auditor suggestions, they re-run `resume-builder` or hand-edit, and the version bump happens there. See [state-layer §6](../_shared/state-layer.md#6-canonical-resume-frontmatter).
 
 ## Common Mistakes
 
