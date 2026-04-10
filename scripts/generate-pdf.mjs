@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 import matter from "gray-matter";
 import { marked } from "marked";
+import { chromium } from "playwright";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -92,4 +93,74 @@ export function renderHtml({ name, contact, bodyMarkdown, templatePath }) {
     .replace(/\{\{name\}\}/g, escapeHtml(name))
     .replace(/\{\{contact\}\}/g, contactHtml)
     .replace(/\{\{body\}\}/g, bodyHtml);
+}
+
+async function renderPdf(html, outputPath) {
+  const browser = await chromium.launch();
+  try {
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: "networkidle" });
+    await page.pdf({
+      path: outputPath,
+      format: "Letter",
+      printBackground: false,
+    });
+  } finally {
+    await browser.close();
+  }
+}
+
+async function main(argv) {
+  const [, , inputArg, outputArg] = argv;
+  if (!inputArg) {
+    console.error("Usage: node scripts/generate-pdf.mjs <input.md> [output.pdf]");
+    process.exit(2);
+  }
+
+  const inputPath = path.resolve(inputArg);
+  if (!fs.existsSync(inputPath)) {
+    console.error(`Input not found: ${inputPath}`);
+    process.exit(1);
+  }
+
+  const outputPath = outputArg
+    ? path.resolve(outputArg)
+    : inputPath.replace(/\.md$/i, ".pdf");
+
+  const templatePath = pickTemplate(inputPath);
+  if (!fs.existsSync(templatePath)) {
+    console.error(`Template not found: ${templatePath}`);
+    process.exit(1);
+  }
+
+  const raw = fs.readFileSync(inputPath, "utf8");
+  const { content: afterFrontmatter } = matter(raw);
+  const normalized = normalizeUnicode(afterFrontmatter);
+
+  const { name, contact, body } = parseResumeSections(normalized);
+  const html = renderHtml({ name, contact, bodyMarkdown: body, templatePath });
+
+  try {
+    await renderPdf(html, outputPath);
+  } catch (err) {
+    const msg = String(err && err.message ? err.message : err);
+    if (/Executable doesn't exist|browserType\.launch/.test(msg)) {
+      console.error("Chromium not installed. Run: npx playwright install chromium");
+    } else {
+      console.error(`PDF rendering failed: ${msg}`);
+    }
+    process.exit(1);
+  }
+
+  const bytes = fs.statSync(outputPath).size;
+  console.log(`Wrote ${outputPath} (${bytes} bytes)`);
+}
+
+// Only run main when executed as a script, not when imported for tests
+const isMain = import.meta.url === `file://${process.argv[1].replace(/\\/g, "/")}`;
+if (isMain) {
+  main(process.argv).catch((err) => {
+    console.error(err.stack || err.message || err);
+    process.exit(1);
+  });
 }
