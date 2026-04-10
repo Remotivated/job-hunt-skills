@@ -18,6 +18,28 @@ Preparation is what makes this work. Research the company. Read their blog, thei
 
 ---
 
+## Answering Their Questions: STAR with a Reflection Beat
+
+Most behavioral interview advice stops at STAR: **Situation, Task, Action, Result**. That's the floor, not the ceiling. Add a fifth beat — **Reflection** — and you've given the interviewer the single clearest signal of seniority an answer can carry.
+
+- **Situation.** Where and when. One or two sentences of context, no more.
+- **Task.** What *you* were responsible for. Make the stakes visible — what would have broken if you hadn't delivered?
+- **Action.** What you did. First person, concrete verbs, tradeoffs you chose between. Push past "we" — the interviewer wants to know what *you* contributed, not what the team did around you.
+- **Result.** Quantified outcome. Metrics, scope, business impact. If you can't quantify, at least make the impact concrete.
+- **Reflection.** What you'd do differently, what you learned, how this changed your subsequent approach.
+
+Junior candidates describe what happened. Senior candidates extract what they learned. Amazon's bar-raiser process probes explicitly for this — it ties directly to their "Learn and Be Curious" leadership principle — and most thoughtful interviewers do the same informally. If you finish a behavioral answer without a reflection beat, the interviewer's very next question is usually *"and what would you do differently?"* Save them the follow-up and offer it yourself.
+
+Don't announce the framework. Nobody wants to hear "I'll answer this using STAR+R." Tell the story and land the reflection as the natural close.
+
+### Build a story bank
+
+The highest-leverage thing you can do for behavioral interviews is build a small bank of 5–10 well-rehearsed stories, tagged by theme (leadership, delivery, conflict, failure-and-learning, scope, crisis). Most behavioral questions are variants of a handful of archetypes, and a single strong story — delivered with a good reflection beat — can answer several of them with minor framing tweaks.
+
+The `interview-coach` skill maintains this bank for you at `my-documents/story-bank.md`. Every prep session reads the existing bank first, reuses stories that fit the new role, and only elicits new stories when there's a genuine gap. Over time, prep stops being an hour of stress and becomes five minutes of "which stories am I pulling from the bank this time?"
+
+---
+
 ## Question Bank
 
 Pick 3-4 questions per interview round. Don't ask all of them -- choose based on who you're talking to (hiring manager, peer, skip-level, HR). Tailor to the conversation. Many of the questions below draw on frameworks published by Harvard Business Review, which identifies candidate questions as one of the strongest signals of preparation and engagement.
