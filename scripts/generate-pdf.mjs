@@ -2,7 +2,7 @@
 // Exports internal functions so scripts/test-generate-pdf.mjs can test them.
 
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import fs from "node:fs";
 import matter from "gray-matter";
 import { marked } from "marked";
@@ -157,7 +157,7 @@ async function main(argv) {
 }
 
 // Only run main when executed as a script, not when imported for tests
-const isMain = import.meta.url === `file://${process.argv[1].replace(/\\/g, "/")}`;
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
   main(process.argv).catch((err) => {
     console.error(err.stack || err.message || err);
