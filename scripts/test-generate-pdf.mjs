@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { normalizeUnicode, parseResumeSections } from "./generate-pdf.mjs";
+import path from "node:path";
+import { normalizeUnicode, parseResumeSections, pickTemplate, renderHtml } from "./generate-pdf.mjs";
 
 let passed = 0;
 let failed = 0;
@@ -106,6 +107,69 @@ test("throws if no h1 on line 1", () => {
 
 test("throws if no divider found", () => {
   assert.throws(() => parseResumeSections("# Name\n\ncontact\n\nbody with no divider\n"), /divider/i);
+});
+
+console.log("\npickTemplate");
+
+test("returns resume template for resume.md", () => {
+  const result = pickTemplate("my-documents/resume.md");
+  assert.ok(result.endsWith(path.join("templates", "resume-template.html")));
+});
+
+test("returns cover letter template for coverletter.md", () => {
+  const result = pickTemplate("my-documents/coverletter.md");
+  assert.ok(result.endsWith(path.join("templates", "coverletter-template.html")));
+});
+
+test("cover letter match is case-insensitive", () => {
+  const result = pickTemplate("/abs/path/CoverLetter.md");
+  assert.ok(result.endsWith(path.join("templates", "coverletter-template.html")));
+});
+
+test("applications/{id}/coverletter.md picks cover letter template", () => {
+  const result = pickTemplate("my-documents/applications/acme-role/coverletter.md");
+  assert.ok(result.endsWith(path.join("templates", "coverletter-template.html")));
+});
+
+test("applications/{id}/resume.md picks resume template", () => {
+  const result = pickTemplate("my-documents/applications/acme-role/resume.md");
+  assert.ok(result.endsWith(path.join("templates", "resume-template.html")));
+});
+
+console.log("\nrenderHtml");
+
+test("substitutes name, contact, and rendered body", () => {
+  const html = renderHtml({
+    name: "Jane Doe",
+    contact: "jane@example.com",
+    bodyMarkdown: "## Experience\n\n- did a thing",
+    templatePath: path.join("templates", "resume-template.html"),
+  });
+  assert.ok(html.includes("<h1>Jane Doe</h1>"), "name missing");
+  assert.ok(html.includes("jane@example.com"), "contact missing");
+  assert.ok(html.includes("<h2"), "section heading not rendered");
+  assert.ok(html.includes("<li>did a thing</li>"), "list item not rendered");
+});
+
+test("renders markdown links in contact line", () => {
+  const html = renderHtml({
+    name: "Jane Doe",
+    contact: "[LinkedIn](https://linkedin.com/in/jane)",
+    bodyMarkdown: "body",
+    templatePath: path.join("templates", "resume-template.html"),
+  });
+  assert.ok(html.includes('href="https://linkedin.com/in/jane"'));
+});
+
+test("escapes HTML-unsafe characters in name", () => {
+  const html = renderHtml({
+    name: "<script>alert(1)</script>",
+    contact: "x",
+    bodyMarkdown: "body",
+    templatePath: path.join("templates", "resume-template.html"),
+  });
+  assert.ok(!html.includes("<script>alert(1)</script>"), "unescaped script tag");
+  assert.ok(html.includes("&lt;script&gt;"));
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
