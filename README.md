@@ -53,6 +53,45 @@ Job Hunt OS is a system for the other approach — Claude skills, standalone pro
 
 ---
 
+## PDF generation
+
+`resume-builder` and `resume-tailor` automatically produce ATS-safe PDFs alongside the markdown they save. Under the hood: `scripts/generate-pdf.mjs` renders the markdown through an HTML template with Playwright's headless Chromium.
+
+### One-time setup
+
+```bash
+npm install
+npx playwright install chromium
+```
+
+The second command downloads Chromium (~300 MB) into Playwright's cache. This is a one-time cost per machine.
+
+### Manual invocation
+
+Regenerate a PDF after hand-editing markdown:
+
+```bash
+node scripts/generate-pdf.mjs my-documents/resume.md
+node scripts/generate-pdf.mjs my-documents/applications/acme-engineer/coverletter.md
+```
+
+Output goes to the same directory with a `.pdf` extension unless a second argument is passed.
+
+### Templates
+
+Two templates under `templates/` share one stylesheet (`shared.css`):
+
+- `resume-template.html` — for resumes
+- `coverletter-template.html` — for cover letters
+
+The design is single-column, black-on-white serif typography. ATS parsers and human reviewers see the same document — the "ATS-safe vs. pretty" tradeoff is largely a myth when multi-column layouts, images, and text-in-shapes are avoided.
+
+### Troubleshooting
+
+If PDF generation fails, the markdown is still saved — it's the canonical artifact. The error message will tell you the fix; the most common case is Chromium not being installed (run the setup step above).
+
+---
+
 ## State Layer
 
 Job Hunt OS keeps a local markdown-based memory under `my-documents/`:
