@@ -36,7 +36,18 @@ Probe for outcomes, not responsibilities.
 
 **Cover letter:** Hook → body mapping experience to goals → confident closing. Follow `templates/coverletter-template.md`.
 
-**Save to:** `my-documents/resume.md`, `my-documents/coverletter.md` + PDF versions via HTML/CSS. Fallback: pandoc, browser print-to-PDF, or Google Docs export.
+**Save to:** `my-documents/resume.md`, `my-documents/coverletter.md`.
+
+**Generate PDFs:** After writing each markdown file, invoke the PDF script via Bash:
+
+```
+node scripts/generate-pdf.mjs my-documents/resume.md
+node scripts/generate-pdf.mjs my-documents/coverletter.md
+```
+
+In "just resume" / "just cover letter" modes, only invoke the script for the file you wrote. If the script exits non-zero, the markdown save is still the canonical success — report the error to the user with the exact fix command and move on:
+
+> Markdown saved. PDF generation failed: `<error message>`. Fix and rerun: `node scripts/generate-pdf.mjs my-documents/resume.md`
 
 **Frontmatter (required on `resume.md`):**
 
