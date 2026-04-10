@@ -71,7 +71,16 @@ Read the canonical's `version` field and copy it into `derived_from_version`. Se
 
 **Upsert the tracker:** `applications.md` upsert with `status: saved` if no row exists, or leave existing status alone (never regress). Rules in [state-layer §3](../_shared/state-layer.md#3-applicationsmd-schema).
 
-**PDF:** Generate via HTML/CSS if tooling is available. Fallback: pandoc, browser print-to-PDF, or Google Docs export.
+**PDF:** After the tailor-report stub is written and `applications.md` has been upserted, invoke the PDF script for each tailored file:
+
+```
+node scripts/generate-pdf.mjs my-documents/applications/{id}/resume.md
+node scripts/generate-pdf.mjs my-documents/applications/{id}/coverletter.md
+```
+
+Run PDF generation **after** tracker state has been persisted so a rendering failure does not block the `status: saved` upsert. On failure, report to the user with the exact rerun command:
+
+> Tailored markdown and tracker updated. PDF generation failed: `<error message>`. Fix and rerun: `node scripts/generate-pdf.mjs my-documents/applications/{id}/resume.md`
 
 **Never modify canonical files** unless explicitly asked.
 
