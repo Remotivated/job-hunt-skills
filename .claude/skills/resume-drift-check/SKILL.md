@@ -18,16 +18,16 @@ Detect and classify claims in tailored resumes that aren't supported by the evid
 
 ## State Layer
 
-> Reads the canonical resume, all tailored resumes, and the evidence layer. Writes a drift report to `my-documents/reports/`. See [state-layer contract](../_shared/state-layer.md).
+> Reads the canonical resume and CV, all tailored resumes, and the evidence layer. Writes a drift report to `my-documents/reports/`. See [state-layer contract](../_shared/state-layer.md).
 
 ## Workflow
 
 ### 1. Gather inputs
 
-- **Canonical:** `my-documents/resume.md` (required). Read its `version` from frontmatter.
-- **Tailored resumes:** `my-documents/applications/*/resume.md` (every subdirectory). Read each file's `derived_from_version` from frontmatter. If missing, treat as `derived_from_version: 0` and flag it.
+- **Canonicals:** `my-documents/resume.md` and `my-documents/cv.md`. At least one must exist; the other is optional. Read each file's `version` from frontmatter independently — they version separately.
+- **Tailored resumes:** `my-documents/applications/*/resume.md` (every subdirectory). Read each file's `derived_from_version` from frontmatter. If missing, treat as `derived_from_version: 0` and flag it. (Tailored CVs are not produced by `resume-tailor` yet — when that lands, this section will extend to `applications/*/cv.md` with the same rules.)
 - **Evidence layer** (priority order per [state-layer §7](../_shared/state-layer.md#7-evidence-layer-priority-order)):
-  1. Canonical `resume.md`
+  1. Canonical `resume.md` **and** canonical `cv.md` — both treated as highest-trust evidence
   2. `my-documents/story-bank.md`
   3. `my-documents/proof-assets/*.md`
   4. `my-documents/reports/*.md`

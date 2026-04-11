@@ -8,7 +8,8 @@ Single source of truth for the `my-documents/` state layer. All skills that read
 
 ```
 my-documents/
-├── resume.md              # canonical (frontmatter: version, updated)
+├── resume.md              # canonical US resume (frontmatter: version, updated)
+├── cv.md                  # canonical UK/EU CV (frontmatter: version, updated; versions independently from resume.md)
 ├── coverletter.md         # canonical
 ├── applications.md        # tracker (flat table + optional ## Notes)
 ├── story-bank.md          # STAR+R stories (read by interview-coach, resume-tailor, resume-drift-check)
@@ -130,7 +131,9 @@ summary: One-line takeaway for at-a-glance scanning.
 
 **Flat directory.** No subfolders until someone has 500+ reports.
 
-## 6. Canonical Resume Frontmatter
+## 6. Canonical Resume / CV Frontmatter
+
+Both `resume.md` (US) and `cv.md` (UK/EU) use the same frontmatter shape:
 
 ```yaml
 ---
@@ -142,6 +145,7 @@ updated: 2026-04-08
 - `version` — integer, incremented by `resume-builder` on any non-trivial change.
 - `updated` — ISO date of the last bump.
 - Only `resume-builder` bumps `version`. `resume-auditor` is read-only and MUST NOT write to the canonical.
+- **Resume and CV version independently.** They are separate documents with separate audiences (US vs. UK/EU). Bumping `resume.md` does not touch `cv.md` and vice versa. A user may have one, the other, or both.
 
 **Tailored resume frontmatter:**
 
@@ -157,7 +161,7 @@ application_id: buffer-content-marketing-manager
 
 ## 7. Evidence Layer (priority order)
 
-1. **Canonical `resume.md`** — highest trust. Claims sourced here are auto-accepted.
+1. **Canonical `resume.md` and `cv.md`** — highest trust. Both treated as primary evidence; claims sourced from either are auto-accepted. (A user may have one, the other, or both.)
 2. **`story-bank.md`** — STAR stories with specifics. Richest source once populated.
 3. **`proof-assets/*.md`** — user-authored case studies. Most concrete.
 4. **`reports/*.md`** — lowest priority. Catches self-references from prior sessions.
