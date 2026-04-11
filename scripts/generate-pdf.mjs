@@ -12,6 +12,37 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPO_ROOT = path.resolve(__dirname, "..");
 const TEMPLATES_DIR = path.join(REPO_ROOT, "templates");
+const FONTS_DIR = path.join(TEMPLATES_DIR, "fonts");
+
+// Charter (Bitstream, freely redistributable — see templates/fonts/LICENSE.txt).
+// Vendored as WOFF2 and inlined at render time so page.setContent() doesn't
+// need to resolve external URLs. The PDF engine subsets the glyphs actually
+// used, so final PDFs don't ship the full font payload.
+const CHARTER_FACES = [
+  { file: "charter_regular.woff2",     weight: 400, style: "normal" },
+  { file: "charter_italic.woff2",      weight: 400, style: "italic" },
+  { file: "charter_bold.woff2",        weight: 700, style: "normal" },
+  { file: "charter_bold_italic.woff2", weight: 700, style: "italic" },
+];
+
+let cachedFontFaceCss = null;
+
+export function buildFontFaceCss() {
+  if (cachedFontFaceCss) return cachedFontFaceCss;
+  const blocks = CHARTER_FACES.map(({ file, weight, style }) => {
+    const bytes = fs.readFileSync(path.join(FONTS_DIR, file));
+    const b64 = bytes.toString("base64");
+    return `@font-face {
+  font-family: "Charter";
+  font-style: ${style};
+  font-weight: ${weight};
+  font-display: block;
+  src: url("data:font/woff2;base64,${b64}") format("woff2");
+}`;
+  });
+  cachedFontFaceCss = blocks.join("\n");
+  return cachedFontFaceCss;
+}
 
 export function normalizeUnicode(text) {
   return text
@@ -63,6 +94,9 @@ export function pickTemplate(inputPath) {
   if (base.startsWith("coverletter")) {
     return path.join(TEMPLATES_DIR, "coverletter-template.html");
   }
+  if (base.startsWith("cv")) {
+    return path.join(TEMPLATES_DIR, "cv-template.html");
+  }
   return path.join(TEMPLATES_DIR, "resume-template.html");
 }
 
@@ -81,6 +115,7 @@ export function renderHtml({ name, contact, bodyMarkdown, templatePath }) {
     : path.join(REPO_ROOT, templatePath);
   const template = fs.readFileSync(templateAbs, "utf8");
   const css = fs.readFileSync(path.join(TEMPLATES_DIR, "shared.css"), "utf8");
+  const fontFaceCss = buildFontFaceCss();
 
   const bodyHtml = marked.parse(bodyMarkdown);
   const contactHtml = marked.parseInline(contact);
@@ -88,7 +123,7 @@ export function renderHtml({ name, contact, bodyMarkdown, templatePath }) {
   return template
     .replace(
       /<link rel="stylesheet" href="shared\.css">/,
-      `<style>\n${css}\n</style>`
+      `<style>\n${fontFaceCss}\n${css}\n</style>`
     )
     .replace(/\{\{name\}\}/g, escapeHtml(name))
     .replace(/\{\{contact\}\}/g, contactHtml)

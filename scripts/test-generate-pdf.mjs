@@ -136,6 +136,21 @@ test("applications/{id}/resume.md picks resume template", () => {
   assert.ok(result.endsWith(path.join("templates", "resume-template.html")));
 });
 
+test("returns cv template for cv.md", () => {
+  const result = pickTemplate("my-documents/cv.md");
+  assert.ok(result.endsWith(path.join("templates", "cv-template.html")));
+});
+
+test("applications/{id}/cv.md picks cv template", () => {
+  const result = pickTemplate("my-documents/applications/acme-role/cv.md");
+  assert.ok(result.endsWith(path.join("templates", "cv-template.html")));
+});
+
+test("cv match is case-insensitive", () => {
+  const result = pickTemplate("/abs/path/CV.md");
+  assert.ok(result.endsWith(path.join("templates", "cv-template.html")));
+});
+
 console.log("\nrenderHtml");
 
 test("substitutes name, contact, and rendered body", () => {

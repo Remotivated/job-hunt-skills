@@ -63,11 +63,16 @@
 <!-- List tools, technologies, and domain expertise. Not soft skills.
      Group by category if the list is long.
 
-     Good: "Python, Go, PostgreSQL, Redis, AWS (EC2, Lambda, S3), Terraform, Docker"
+     Each category goes on its own line. The two trailing spaces at the end
+     of each line below are significant — they tell markdown to render as a
+     line break inside the same paragraph, which keeps the categories
+     visually grouped and ATS-parseable as one block.
+
+     Good: "Python, Go, PostgreSQL, Redis, AWS (EC2, Lambda, S3), Terraform"
      Bad: "Team player, hard worker, detail-oriented" -->
 
-**Technical:** [Languages, frameworks, tools]
-**Domain:** [Industry knowledge, methodologies, certifications]
+**Technical:** [Languages, frameworks, tools]  
+**Domain:** [Industry knowledge, methodologies, certifications]  
 **Tools:** [Software you use daily — CRMs, analytics, project management, etc.]
 
 ---

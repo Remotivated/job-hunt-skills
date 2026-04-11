@@ -1,71 +1,132 @@
+/*
+ * Shared styles for resume, CV, and cover letter templates.
+ * Design: Option B from research/resume-format-options.md — modern serif
+ * (Charter) with a restrained navy accent. ATS-safe per the confirmed-safe
+ * list in the same doc: single column, real text, standard bullets,
+ * hairline rules, no tables, no icons, no shaded backgrounds.
+ *
+ * Font-face declarations for Charter are injected by scripts/generate-pdf.mjs
+ * at render time as base64 data URIs, so this file stays source-control-
+ * friendly and doesn't carry embedded binaries. Georgia is the fallback
+ * when the pipeline isn't in use (e.g. browser preview of the raw HTML).
+ */
+
 @page {
   size: Letter;
-  margin: 0.5in;
+  margin: 0.5in 0.55in;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 11pt;
-  line-height: 1.4;
-  color: #000;
+  font-family: "Charter", Georgia, "Times New Roman", serif;
+  font-size: 10.5pt;
+  line-height: 1.35;
+  color: #2d2d2d;
   background: #fff;
 }
 
+/* ---------- Header (name + contact) ---------- */
+
 header {
-  margin-bottom: 0.15in;
+  margin-bottom: 0.02in;
 }
 
 h1 {
-  font-size: 20pt;
-  font-weight: bold;
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   margin: 0 0 4pt 0;
-  letter-spacing: 0.5pt;
+  color: #2c5f8a;
+  line-height: 1.1;
 }
 
 .contact {
   margin: 0;
-  font-size: 10.5pt;
+  font-size: 10pt;
+  color: #555566;
+  line-height: 1.35;
 }
 
+.contact a {
+  color: #555566;
+  text-decoration: underline;
+  text-decoration-color: #aab;
+  text-underline-offset: 1.5pt;
+}
+
+/* The <hr> below the header doubles as the first hairline accent. */
 hr {
   border: none;
-  border-top: 1px solid #000;
-  margin: 0.1in 0 0.15in 0;
+  border-top: 0.5pt solid #2c5f8a;
+  margin: 0.1in 0 0.14in 0;
 }
+
+/* ---------- Section headers ---------- */
 
 main h2 {
-  font-size: 13pt;
+  font-size: 10.5pt;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1pt;
-  margin: 0.2in 0 0.08in 0;
-  padding-bottom: 2pt;
-  border-bottom: 1px solid #1a1a1a;
+  /* Tracking kept deliberately modest (0.06em). Wider tracking breaks text
+     extraction on short words — pdftotext emitted "E D U CAT I O N" at
+     0.14em because its glyph-clustering heuristic treats the inter-letter
+     gap as a word space. See research/resume-format-options.md. */
+  letter-spacing: 0.06em;
+  color: #2c5f8a;
+  margin: 0.18in 0 0.06in 0;
+  padding-bottom: 2.5pt;
+  border-bottom: 0.5pt solid #2c5f8a;
 }
 
+main h2:first-of-type {
+  margin-top: 0.02in;
+}
+
+/* ---------- Job / role entries ---------- */
+
 main h3 {
-  font-size: 11.5pt;
-  font-weight: bold;
-  margin: 0.12in 0 2pt 0;
+  font-size: 11pt;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0.1in 0 1pt 0;
+}
+
+/* The line immediately after an h3 carries company / location / dates.
+   Markdown convention in the scaffolds is:
+     ### Job Title — Company
+     *Jan 2022 – Present* · Remote / City, State
+   marked renders the second line as <p><em>...</em> · ...</p>. */
+main h3 + p {
+  margin: 0 0 3pt 0;
+  font-size: 9.75pt;
+  color: #555566;
 }
 
 main p {
-  margin: 0 0 6pt 0;
+  margin: 0 0 5pt 0;
 }
 
 main ul {
-  margin: 4pt 0 8pt 0;
-  padding-left: 0.25in;
+  margin: 3pt 0 6pt 0;
+  padding-left: 0.22in;
 }
 
 main li {
-  margin-bottom: 3pt;
+  margin-bottom: 2.5pt;
 }
+
+main li::marker {
+  color: #2c5f8a;
+}
+
+/* ---------- Inline elements ---------- */
 
 a {
   color: inherit;
   text-decoration: underline;
+  text-decoration-color: #2c5f8a;
+  text-underline-offset: 1.5pt;
 }
 
 em {
@@ -73,5 +134,14 @@ em {
 }
 
 strong {
-  font-weight: bold;
+  font-weight: 700;
+  color: #2c5f8a;
+}
+
+/* Cover letters use the same type system but need a little more body
+   breathing room and no section-rule treatment on h2 (since cover letters
+   don't typically have section headers). If an h2 appears, we still style
+   it — just less assertively. */
+body.coverletter main p {
+  margin: 0 0 10pt 0;
 }
