@@ -15,7 +15,7 @@ git clone https://github.com/remotivated/job-hunt-os.git
 cd job-hunt-os
 ```
 
-Open the directory in Claude Code (CLI, VS Code extension, or desktop app). The 7 skills are automatically available — Claude discovers them from the `.claude/skills/` directory.
+Open the directory in Claude Code (CLI, VS Code extension, or desktop app). The 8 skills are automatically available — Claude discovers them from the `.claude/skills/` directory.
 
 The `my-documents/` directory is where your working files live. It's gitignored by default so your personal documents never get committed.
 

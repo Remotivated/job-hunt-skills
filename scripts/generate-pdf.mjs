@@ -13,6 +13,7 @@ const __dirname = path.dirname(__filename);
 const REPO_ROOT = path.resolve(__dirname, "..");
 const TEMPLATES_DIR = path.join(REPO_ROOT, "templates");
 const FONTS_DIR = path.join(TEMPLATES_DIR, "fonts");
+const DOCUMENT_TEMPLATE_PATH = path.join(TEMPLATES_DIR, "document-template.html");
 
 // Charter (Bitstream, freely redistributable — see templates/fonts/LICENSE.txt).
 // Vendored as WOFF2 and inlined at render time so page.setContent() doesn't
@@ -89,15 +90,15 @@ export function parseResumeSections(markdown) {
   return { name, contact, body };
 }
 
-export function pickTemplate(inputPath) {
+export function pickDocumentKind(inputPath) {
   const base = path.basename(inputPath).toLowerCase();
   if (base.startsWith("coverletter")) {
-    return path.join(TEMPLATES_DIR, "coverletter-template.html");
+    return { title: "Cover Letter", bodyClass: "coverletter" };
   }
   if (base.startsWith("cv")) {
-    return path.join(TEMPLATES_DIR, "cv-template.html");
+    return { title: "CV", bodyClass: "cv" };
   }
-  return path.join(TEMPLATES_DIR, "resume-template.html");
+  return { title: "Resume", bodyClass: "" };
 }
 
 function escapeHtml(s) {
@@ -109,11 +110,8 @@ function escapeHtml(s) {
     .replace(/'/g, "&#39;");
 }
 
-export function renderHtml({ name, contact, bodyMarkdown, templatePath }) {
-  const templateAbs = path.isAbsolute(templatePath)
-    ? templatePath
-    : path.join(REPO_ROOT, templatePath);
-  const template = fs.readFileSync(templateAbs, "utf8");
+export function renderHtml({ name, contact, bodyMarkdown, title, bodyClass }) {
+  const template = fs.readFileSync(DOCUMENT_TEMPLATE_PATH, "utf8");
   const css = fs.readFileSync(path.join(TEMPLATES_DIR, "shared.css"), "utf8");
   const fontFaceCss = buildFontFaceCss();
 
@@ -125,70 +123,112 @@ export function renderHtml({ name, contact, bodyMarkdown, templatePath }) {
       /<link rel="stylesheet" href="shared\.css">/,
       `<style>\n${fontFaceCss}\n${css}\n</style>`
     )
+    .replace(/\{\{title\}\}/g, escapeHtml(title))
+    .replace(/\{\{bodyClass\}\}/g, escapeHtml(bodyClass))
     .replace(/\{\{name\}\}/g, escapeHtml(name))
     .replace(/\{\{contact\}\}/g, contactHtml)
     .replace(/\{\{body\}\}/g, bodyHtml);
 }
 
-async function renderPdf(html, outputPath) {
+async function renderPdfBatch(jobs) {
+  // jobs: [{ html, outputPath }, ...]
+  // Launches one browser, reuses one page, renders each PDF.
+  // Returns [{ outputPath, ok, error? }, ...] in the same order as `jobs`.
+  const results = [];
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: "networkidle" });
-    await page.pdf({
-      path: outputPath,
-      format: "Letter",
-      printBackground: false,
-    });
+    for (const job of jobs) {
+      try {
+        await page.setContent(job.html, { waitUntil: "networkidle" });
+        await page.pdf({
+          path: job.outputPath,
+          format: "Letter",
+          printBackground: false,
+        });
+        results.push({ outputPath: job.outputPath, ok: true });
+      } catch (err) {
+        results.push({
+          outputPath: job.outputPath,
+          ok: false,
+          error: err,
+        });
+      }
+    }
   } finally {
     await browser.close();
   }
+  return results;
 }
 
 async function main(argv) {
-  const [, , inputArg, outputArg] = argv;
-  if (!inputArg) {
-    console.error("Usage: node scripts/generate-pdf.mjs <input.md> [output.pdf]");
+  const inputArgs = argv.slice(2);
+  if (inputArgs.length === 0) {
+    console.error("Usage: node scripts/generate-pdf.mjs <input.md> [<input2.md> ...]");
     process.exit(2);
   }
 
-  const inputPath = path.resolve(inputArg);
-  if (!fs.existsSync(inputPath)) {
-    console.error(`Input not found: ${inputPath}`);
-    process.exit(1);
-  }
+  // Build jobs first — per-file validation/parse errors are reported and
+  // counted as failures but do not abort the remaining files.
+  const jobs = [];
+  const prepFailures = [];
 
-  const outputPath = outputArg
-    ? path.resolve(outputArg)
-    : inputPath.replace(/\.md$/i, ".pdf");
-
-  const templatePath = pickTemplate(inputPath);
-  if (!fs.existsSync(templatePath)) {
-    console.error(`Template not found: ${templatePath}`);
-    process.exit(1);
-  }
-
-  const raw = fs.readFileSync(inputPath, "utf8");
-  const { content: afterFrontmatter } = matter(raw);
-  const normalized = normalizeUnicode(afterFrontmatter);
-
-  const { name, contact, body } = parseResumeSections(normalized);
-  const html = renderHtml({ name, contact, bodyMarkdown: body, templatePath });
-
-  try {
-    await renderPdf(html, outputPath);
-  } catch (err) {
-    const msg = String(err && err.message ? err.message : err);
-    if (/Executable doesn't exist|browserType\.launch/.test(msg)) {
-      console.error("Chromium not installed. Run: npx playwright install chromium");
-    } else {
-      console.error(`PDF rendering failed: ${msg}`);
+  for (const arg of inputArgs) {
+    const inputPath = path.resolve(arg);
+    const outputPath = inputPath.replace(/\.md$/i, ".pdf");
+    try {
+      if (!fs.existsSync(inputPath)) {
+        throw new Error(`Input not found: ${inputPath}`);
+      }
+      const raw = fs.readFileSync(inputPath, "utf8");
+      const { content: afterFrontmatter } = matter(raw);
+      const normalized = normalizeUnicode(afterFrontmatter);
+      const { name, contact, body } = parseResumeSections(normalized);
+      const { title, bodyClass } = pickDocumentKind(inputPath);
+      const html = renderHtml({ name, contact, bodyMarkdown: body, title, bodyClass });
+      jobs.push({ inputPath, outputPath, html });
+    } catch (err) {
+      const msg = String(err && err.message ? err.message : err);
+      console.error(`Failed to prepare ${inputPath}: ${msg}`);
+      prepFailures.push({ inputPath, outputPath, error: err });
     }
-    process.exit(1);
   }
 
-  const bytes = fs.statSync(outputPath).size;
-  console.log(`Wrote ${outputPath} (${bytes} bytes)`);
+  let renderResults = [];
+  if (jobs.length > 0) {
+    try {
+      renderResults = await renderPdfBatch(
+        jobs.map(({ html, outputPath }) => ({ html, outputPath }))
+      );
+    } catch (err) {
+      const msg = String(err && err.message ? err.message : err);
+      if (/Executable doesn't exist|browserType\.launch/.test(msg)) {
+        console.error("Chromium not installed. Run: npx playwright install chromium");
+      } else {
+        console.error(`PDF rendering failed: ${msg}`);
+      }
+      process.exit(1);
+    }
+  }
+
+  let anyFailed = prepFailures.length > 0;
+  for (let i = 0; i < renderResults.length; i++) {
+    const r = renderResults[i];
+    if (r.ok) {
+      const bytes = fs.statSync(r.outputPath).size;
+      console.log(`Wrote ${r.outputPath} (${bytes} bytes)`);
+    } else {
+      anyFailed = true;
+      const msg = String(r.error && r.error.message ? r.error.message : r.error);
+      if (/Executable doesn't exist|browserType\.launch/.test(msg)) {
+        console.error(`PDF rendering failed for ${r.outputPath}: Chromium not installed. Run: npx playwright install chromium`);
+      } else {
+        console.error(`PDF rendering failed for ${r.outputPath}: ${msg}`);
+      }
+    }
+  }
+
+  process.exit(anyFailed ? 1 : 0);
 }
 
 // Only run main when executed as a script, not when imported for tests

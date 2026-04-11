@@ -1,71 +1,55 @@
 # Company Research
 
-## When to Use
+> **Thin version.** This is the no-file-system version of the [company-radar](../.claude/skills/company-radar/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version dedups against prior vettings (so you don't re-research a company you looked at last week), writes a numbered vetting report to `reports/`, and upserts the tracker to `status: saved` on a positive verdict. It can also use live web browsing when available. This prompt can't browse, dedup, or save — you gather the raw inputs, you paste them in, you keep the output yourself. Use the skill if you have Claude Code; use this if you don't.
 
-When you want to evaluate whether a company's remote work culture is genuine before investing time in an application. Since this prompt can't browse the web, you'll paste in information you've gathered.
-
-## What You'll Need
+## What you'll need
 
 - Company name
-- Information you've collected: job posting, careers page text, Glassdoor reviews, LinkedIn observations, news articles
-- The more you paste, the better the evaluation
+- As much raw input as you can gather: job posting, careers/about page text, Glassdoor or Blind themes, LinkedIn observations, recent news. The more you paste, the sharper the evaluation.
+- Background reading: [company-research.md](../guides/company-research.md) (the full 15-minute vetting methodology this prompt applies)
 
-## The Prompt
+## The prompt
 
 ```
-Evaluate this company's remote work culture using a structured red flag framework. I want to know if this is worth my time.
+Evaluate this company's remote work culture using a structured 4-stage red flag framework. I want to know if it's worth my time.
 
 COMPANY: [company name]
 
-HERE'S WHAT I'VE GATHERED:
-
 JOB POSTING:
-[paste the job posting, or "not available"]
+[paste posting, or "not available"]
 
-CAREERS/ABOUT PAGE:
-[paste relevant text from their careers or about page, or "not available"]
+CAREERS / ABOUT PAGE:
+[paste relevant text, or "not available"]
 
 REVIEWS (Glassdoor, Blind, etc.):
-[paste relevant reviews or summarize themes, or "not available"]
+[paste reviews or summarize themes, or "not available"]
 
 LINKEDIN OBSERVATIONS:
-[describe what you noticed — employee locations, leadership concentration, recent departures, or "not checked"]
+[describe employee geographic spread, leadership concentration, recent departures, or "not checked"]
 
 RECENT NEWS:
-[paste any relevant news — RTO announcements, layoffs, etc., or "nothing notable"]
+[paste RTO announcements, layoffs, acquisitions, leadership changes, or "nothing notable"]
 
-EVALUATE USING THIS 4-STAGE FRAMEWORK:
+Run all four stages. Do not skip a stage just because the first looks clean — companies can look great on paper and fail on reviews.
 
-**Stage 1 — Job Posting Analysis:**
-- Clear remote language or vague "flexible arrangements"?
-- Location/timezone expectations stated?
-- Benefits signaling distributed investment?
-- Red flags: City + "remote" tacked on, vague travel requirements
+Stage 1 — Job Posting (2 min): Clear remote language or vague "flexible arrangements"? Timezone stated? Benefits signaling distributed investment? Red flags: city + "remote" tacked on, vague travel expectations.
 
-**Stage 2 — Careers Page Assessment:**
-- How do they describe teamwork?
-- Is leadership distributed?
-- Office-centric perks vs. distributed-friendly benefits?
-- Red flags: Only office photos, no mention of async/distributed work
+Stage 2 — Careers / About Page (5 min): How do they describe teamwork? Is leadership distributed or concentrated at HQ? Office-centric perks vs. distributed-friendly benefits? Red flags: only office photos, no async or distributed-work mention.
 
-**Stage 3 — Review Analysis:**
-- Consistent themes? Especially recent reviews.
-- Role-specific signals?
-- Red flag patterns: "great if you're in the office," "remote workers are second-class," "flexible means 9-5 their timezone"
+Stage 3 — Reviews (5 min): Consistent themes, especially recent ones? Role-specific remote signals? Red flag patterns: "great if you're in the office," "remote workers are second-class," "flexible means 9-5 their timezone."
 
-**Stage 4 — Team Distribution:**
-- Geographic spread of employees?
-- Leadership concentration?
-- Departure patterns?
+Stage 4 — Team Distribution (3 min): Geographic spread? Leadership concentration? Departure patterns?
 
-**SCORING:**
-- 0-1 red flags: "Likely solid. Prioritize this application."
-- 2-3 red flags: "Proceed with caution. Prepare these questions for the interview: [list specific questions to probe flagged areas]"
-- 4+ red flags: "Probably not worth your time unless the role is exceptional. Here's why..."
+For every red flag you raise, name the specific signal and where it came from. "Culture seems off" is not actionable — point to the exact sentence or pattern.
 
-Provide the score, a clear recommendation, and if I proceed, specific questions to ask in the interview about the flagged areas.
+SCORE AND RECOMMEND:
+- 0-1 red flags: Likely solid. Prioritize.
+- 2-3 red flags: Proceed with caution — list specific questions I should ask in the interview to probe each flag.
+- 4+ red flags: Probably not worth my time unless the role is exceptional. Explain why.
+
+Red flags are questions to ask, not automatic disqualifiers. Note which findings may be outdated and recommend I verify them against current sources — remote policies shift fast, especially around RTO waves.
 ```
 
-## What to Expect
+## What you'll get
 
-A structured evaluation with findings per stage, specific red flags identified, a score-based recommendation, and (if you proceed) interview questions designed to probe the areas of concern.
+A stage-by-stage evaluation with specific red flags (each tied to a source), a score-based verdict, and — if you proceed — interview questions designed to probe the flagged areas.

@@ -1,54 +1,50 @@
-# Cover Letter Generator
+# Cover Letter
 
-## When to Use
+> **Thin version.** This is the no-file-system version of the cover-letter mode in the [resume-builder](../.claude/skills/resume-builder/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version reads your canonical resume from disk, writes the cover letter to `my-documents/coverletter.md`, and triggers PDF generation. This prompt can't read, save, or render — you paste the resume in, you copy the letter out. Use the skill if you have Claude Code; use this if you don't.
 
-When you have a specific job posting and want to generate a targeted cover letter that complements (not duplicates) your resume.
+## What you'll need
 
-## What You'll Need
+- Your resume, pasted as plain text
+- The job posting, pasted as plain text
+- Background reading: [resume-philosophy.md](../guides/resume-philosophy.md)
 
-- Your resume (paste the full text)
-- The job posting (paste the full text)
-
-## The Prompt
+## The prompt
 
 ```
-Write a cover letter for this role. The cover letter should COMPLEMENT my resume, not duplicate it — expand on 1-2 key achievements, don't restate bullet points.
+Write a cover letter for this role. The letter should COMPLEMENT my resume, not duplicate it — expand on 1-2 key achievements with context that doesn't fit in a bullet. Do not restate bullet points.
 
 MY RESUME:
-[paste your resume here]
+[paste full resume text]
 
 JOB POSTING:
-[paste the job posting here]
+[paste full posting text]
 
-FOLLOW THIS STRUCTURE:
+Structure:
 
-**Opening paragraph (2-3 sentences):**
-- Lead with WHY this role at THIS company — be specific
-- Reference something concrete about the company, role, or their work
-- Do NOT write "I am writing to express my interest in..." — that's filler
+Opening (2-3 sentences):
+- Lead with WHY this role at THIS company, referencing something concrete about them (a product, a value, a recent move). Do NOT write "I am writing to express my interest in..." — that's filler, cut it.
 
-**Body paragraph 1 (3-4 sentences):**
-- My strongest alignment point: their need → my evidence → the outcome
-- Expand on an achievement from my resume with context that doesn't fit in a bullet
-- Show I understand what they're looking for
+Body paragraph 1 (3-4 sentences):
+- Strongest alignment point: their need → my evidence → the outcome.
+- Expand on one resume achievement with context that a bullet couldn't carry.
+- Show I understand what the role actually requires.
 
-**Body paragraph 2 (3-4 sentences, optional):**
-- A second dimension: leadership, remote readiness, domain expertise, or cultural fit
-- Only include if it adds something new — better to have one strong body paragraph than two weak ones
+Body paragraph 2 (3-4 sentences, optional):
+- A second dimension if it adds something new — leadership, remote readiness, domain depth, or cultural fit. Skip this paragraph entirely if it would just repeat body 1. One strong paragraph beats two weak ones.
 
-**Closing paragraph (2-3 sentences):**
-- Express genuine enthusiasm (confident, not desperate)
-- Clear next step ("I'd welcome the chance to discuss...")
-- Do NOT write "I would be honored and grateful" — just be direct
+Closing (2-3 sentences):
+- Genuine enthusiasm, confident not desperate.
+- A clear next step ("I'd welcome the chance to discuss...").
+- Do NOT write "I would be honored and grateful" — be direct.
 
-CONSTRAINTS:
+Constraints:
 - 250-400 words total
 - First person, professional but human tone
-- Do NOT invent details not in my resume
-- Match their terminology where natural
-- Include a remote-readiness signal if relevant to the role
+- Match their terminology where natural, but do not stuff keywords
+- Include a remote-readiness signal only if relevant to the role
+- Do NOT invent details that aren't in my resume. If a claim would strengthen the letter but isn't in what I pasted, mark it [ASK: ...] and move on — do not fabricate.
 ```
 
-## What to Expect
+## What you'll get
 
-A ready-to-use cover letter that's specific to the role and company, leads with your strongest alignment points, and reads like a human wrote it — not a template. It should be 250-400 words, ready to copy-paste or save as PDF.
+A 250-400 word cover letter ready to copy-paste, specific to the role and company, leading with your strongest alignment point. If you see an `[ASK]` placeholder in the output, fill it in before sending.

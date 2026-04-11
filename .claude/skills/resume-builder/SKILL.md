@@ -38,16 +38,15 @@ Probe for outcomes, not responsibilities.
 
 **Save to:** `my-documents/resume.md`, `my-documents/coverletter.md`.
 
-**Generate PDFs:** After writing each markdown file, invoke the PDF script via Bash:
+**Generate PDFs:** After writing both markdown files, invoke the PDF script **once** with both paths so Chromium only launches a single time:
 
 ```
-node scripts/generate-pdf.mjs my-documents/resume.md
-node scripts/generate-pdf.mjs my-documents/coverletter.md
+node scripts/generate-pdf.mjs my-documents/resume.md my-documents/coverletter.md
 ```
 
-In "just resume" / "just cover letter" modes, only invoke the script for the file you wrote. If the script exits non-zero, the markdown save is still the canonical success — report the error to the user with the exact fix command and move on:
+In "just resume" / "just cover letter" modes, only pass the file you wrote. The script renders each PDF independently — one file can fail while the other succeeds, and the exit code is non-zero if *any* file failed. The markdown save is still the canonical success; report whichever file(s) failed to the user with the exact rerun command and move on:
 
-> Markdown saved. PDF generation failed: `<error message>`. Fix and rerun: `node scripts/generate-pdf.mjs my-documents/resume.md`
+> Markdown saved. PDF generation failed for `my-documents/resume.md`: `<error message>`. Fix and rerun: `node scripts/generate-pdf.mjs my-documents/resume.md`
 
 **Frontmatter (required on `resume.md`):**
 

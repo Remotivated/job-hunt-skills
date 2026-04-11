@@ -99,11 +99,7 @@ Do not auto-apply any fix. The user confirms every action.
 
 ### 7. Summary
 
-Report counts, flagged claims per application, and which actions the user took. Suggest re-running if the user confirmed claims against story-bank (once populated per issue #2).
-
-## v1 Degradation
-
-Until `story-bank.md` has content (issue #2), the skill runs with canonical + proof-assets + reports only. This still catches obvious fabrications (contradicted numbers, named projects the user never mentioned). It gets significantly stronger once stories land.
+Report counts, flagged claims per application, and which actions the user took. Suggest re-running if the user confirmed claims against story-bank.
 
 ## Common Mistakes
 

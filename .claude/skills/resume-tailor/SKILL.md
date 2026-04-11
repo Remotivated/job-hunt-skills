@@ -71,16 +71,15 @@ Read the canonical's `version` field and copy it into `derived_from_version`. Se
 
 **Upsert the tracker:** `applications.md` upsert with `status: saved` if no row exists, or leave existing status alone (never regress). Rules in [state-layer §3](../_shared/state-layer.md#3-applicationsmd-schema).
 
-**PDF:** After the tailor-report stub is written and `applications.md` has been upserted, invoke the PDF script for each tailored file:
+**PDF:** After the tailor-report stub is written and `applications.md` has been upserted, invoke the PDF script **once** with both tailored files so Chromium only cold-starts one time:
 
 ```
-node scripts/generate-pdf.mjs my-documents/applications/{id}/resume.md
-node scripts/generate-pdf.mjs my-documents/applications/{id}/coverletter.md
+node scripts/generate-pdf.mjs my-documents/applications/{id}/resume.md my-documents/applications/{id}/coverletter.md
 ```
 
-Run PDF generation **after** tracker state has been persisted so a rendering failure does not block the `status: saved` upsert. On failure, report to the user with the exact rerun command:
+Run PDF generation **after** tracker state has been persisted so a rendering failure does not block the `status: saved` upsert. The script renders each file independently — one can fail while the other succeeds, and the exit code is non-zero if *any* file failed. On failure, report which file(s) failed to the user with the exact rerun command for the failing file only:
 
-> Tailored markdown and tracker updated. PDF generation failed: `<error message>`. Fix and rerun: `node scripts/generate-pdf.mjs my-documents/applications/{id}/resume.md`
+> Tailored markdown and tracker updated. PDF generation failed for `my-documents/applications/{id}/resume.md`: `<error message>`. Fix and rerun: `node scripts/generate-pdf.mjs my-documents/applications/{id}/resume.md`
 
 **Never modify canonical files** unless explicitly asked.
 

@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
-import path from "node:path";
-import { normalizeUnicode, parseResumeSections, pickTemplate, renderHtml } from "./generate-pdf.mjs";
+import { normalizeUnicode, parseResumeSections, pickDocumentKind, renderHtml } from "./generate-pdf.mjs";
 
 let passed = 0;
 let failed = 0;
@@ -109,46 +108,51 @@ test("throws if no divider found", () => {
   assert.throws(() => parseResumeSections("# Name\n\ncontact\n\nbody with no divider\n"), /divider/i);
 });
 
-console.log("\npickTemplate");
+console.log("\npickDocumentKind");
 
-test("returns resume template for resume.md", () => {
-  const result = pickTemplate("my-documents/resume.md");
-  assert.ok(result.endsWith(path.join("templates", "resume-template.html")));
+test("returns Resume/empty for resume.md", () => {
+  const kind = pickDocumentKind("my-documents/resume.md");
+  assert.deepEqual(kind, { title: "Resume", bodyClass: "" });
 });
 
-test("returns cover letter template for coverletter.md", () => {
-  const result = pickTemplate("my-documents/coverletter.md");
-  assert.ok(result.endsWith(path.join("templates", "coverletter-template.html")));
+test("returns Cover Letter/coverletter for coverletter.md", () => {
+  const kind = pickDocumentKind("my-documents/coverletter.md");
+  assert.deepEqual(kind, { title: "Cover Letter", bodyClass: "coverletter" });
+});
+
+test("returns CV/cv for cv.md", () => {
+  const kind = pickDocumentKind("my-documents/cv.md");
+  assert.deepEqual(kind, { title: "CV", bodyClass: "cv" });
 });
 
 test("cover letter match is case-insensitive", () => {
-  const result = pickTemplate("/abs/path/CoverLetter.md");
-  assert.ok(result.endsWith(path.join("templates", "coverletter-template.html")));
-});
-
-test("applications/{id}/coverletter.md picks cover letter template", () => {
-  const result = pickTemplate("my-documents/applications/acme-role/coverletter.md");
-  assert.ok(result.endsWith(path.join("templates", "coverletter-template.html")));
-});
-
-test("applications/{id}/resume.md picks resume template", () => {
-  const result = pickTemplate("my-documents/applications/acme-role/resume.md");
-  assert.ok(result.endsWith(path.join("templates", "resume-template.html")));
-});
-
-test("returns cv template for cv.md", () => {
-  const result = pickTemplate("my-documents/cv.md");
-  assert.ok(result.endsWith(path.join("templates", "cv-template.html")));
-});
-
-test("applications/{id}/cv.md picks cv template", () => {
-  const result = pickTemplate("my-documents/applications/acme-role/cv.md");
-  assert.ok(result.endsWith(path.join("templates", "cv-template.html")));
+  const kind = pickDocumentKind("/abs/path/CoverLetter.md");
+  assert.deepEqual(kind, { title: "Cover Letter", bodyClass: "coverletter" });
 });
 
 test("cv match is case-insensitive", () => {
-  const result = pickTemplate("/abs/path/CV.md");
-  assert.ok(result.endsWith(path.join("templates", "cv-template.html")));
+  const kind = pickDocumentKind("/abs/path/CV.md");
+  assert.deepEqual(kind, { title: "CV", bodyClass: "cv" });
+});
+
+test("resume match is case-insensitive (Resume.md → Resume/empty)", () => {
+  const kind = pickDocumentKind("/abs/path/Resume.md");
+  assert.deepEqual(kind, { title: "Resume", bodyClass: "" });
+});
+
+test("applications/{id}/resume.md → Resume/empty", () => {
+  const kind = pickDocumentKind("my-documents/applications/acme-role/resume.md");
+  assert.deepEqual(kind, { title: "Resume", bodyClass: "" });
+});
+
+test("applications/{id}/coverletter.md → Cover Letter/coverletter", () => {
+  const kind = pickDocumentKind("my-documents/applications/acme-role/coverletter.md");
+  assert.deepEqual(kind, { title: "Cover Letter", bodyClass: "coverletter" });
+});
+
+test("applications/{id}/cv.md → CV/cv", () => {
+  const kind = pickDocumentKind("my-documents/applications/acme-role/cv.md");
+  assert.deepEqual(kind, { title: "CV", bodyClass: "cv" });
 });
 
 console.log("\nrenderHtml");
@@ -158,7 +162,8 @@ test("substitutes name, contact, and rendered body", () => {
     name: "Jane Doe",
     contact: "jane@example.com",
     bodyMarkdown: "## Experience\n\n- did a thing",
-    templatePath: path.join("templates", "resume-template.html"),
+    title: "Resume",
+    bodyClass: "",
   });
   assert.ok(html.includes("<h1>Jane Doe</h1>"), "name missing");
   assert.ok(html.includes("jane@example.com"), "contact missing");
@@ -171,7 +176,8 @@ test("renders markdown links in contact line", () => {
     name: "Jane Doe",
     contact: "[LinkedIn](https://linkedin.com/in/jane)",
     bodyMarkdown: "body",
-    templatePath: path.join("templates", "resume-template.html"),
+    title: "Resume",
+    bodyClass: "",
   });
   assert.ok(html.includes('href="https://linkedin.com/in/jane"'));
 });
@@ -181,10 +187,58 @@ test("escapes HTML-unsafe characters in name", () => {
     name: "<script>alert(1)</script>",
     contact: "x",
     bodyMarkdown: "body",
-    templatePath: path.join("templates", "resume-template.html"),
+    title: "Resume",
+    bodyClass: "",
   });
   assert.ok(!html.includes("<script>alert(1)</script>"), "unescaped script tag");
   assert.ok(html.includes("&lt;script&gt;"));
+});
+
+test("puts title in <title> tag as 'Name — Title'", () => {
+  const html = renderHtml({
+    name: "Jane Doe",
+    contact: "x",
+    bodyMarkdown: "body",
+    title: "Cover Letter",
+    bodyClass: "coverletter",
+  });
+  assert.ok(
+    html.includes("<title>Jane Doe — Cover Letter</title>"),
+    "title tag missing or wrong"
+  );
+});
+
+test("cover letter renders <body class=\"coverletter\">", () => {
+  const html = renderHtml({
+    name: "Jane Doe",
+    contact: "x",
+    bodyMarkdown: "body",
+    title: "Cover Letter",
+    bodyClass: "coverletter",
+  });
+  assert.ok(html.includes('<body class="coverletter">'), "body class wrong or missing");
+});
+
+test("cv renders <body class=\"cv\">", () => {
+  const html = renderHtml({
+    name: "Jane Doe",
+    contact: "x",
+    bodyMarkdown: "body",
+    title: "CV",
+    bodyClass: "cv",
+  });
+  assert.ok(html.includes('<body class="cv">'), "cv body class missing");
+});
+
+test("resume (empty bodyClass) renders <body class=\"\">", () => {
+  const html = renderHtml({
+    name: "Jane Doe",
+    contact: "x",
+    bodyMarkdown: "body",
+    title: "Resume",
+    bodyClass: "",
+  });
+  assert.ok(html.includes('<body class="">'), "expected empty body class attribute");
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);

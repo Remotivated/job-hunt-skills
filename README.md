@@ -68,23 +68,20 @@ The second command downloads Chromium (~300 MB) into Playwright's cache. This is
 
 ### Manual invocation
 
-Regenerate a PDF after hand-editing markdown:
+Regenerate PDFs after hand-editing markdown. The script accepts one or more input paths and launches Chromium once for the whole batch:
 
 ```bash
-node scripts/generate-pdf.mjs my-documents/resume.md
-node scripts/generate-pdf.mjs my-documents/applications/acme-engineer/coverletter.md
+node scripts/generate-pdf.mjs my-documents/resume.md my-documents/coverletter.md
+node scripts/generate-pdf.mjs my-documents/applications/acme-engineer/resume.md my-documents/applications/acme-engineer/coverletter.md
 ```
 
-Output goes to the same directory with a `.pdf` extension unless a second argument is passed.
+Output always lands next to each input with a `.pdf` extension. Files are rendered independently — one can fail without blocking the others, and the script exits non-zero if any file failed.
 
 ### Templates
 
-Two templates under `templates/` share one stylesheet (`shared.css`):
+A single `templates/document-template.html` backs every document type, paired with the shared stylesheet (`templates/shared.css`). The script picks the title and body class from the input filename: `coverletter*` renders with `<title>… — Cover Letter</title>` and `<body class="coverletter">`, `cv*` with `CV` and `<body class="cv">`, and everything else defaults to `Resume` with an empty body class. That lets `shared.css` scope a few cover-letter- or CV-specific rules without needing separate HTML files.
 
-- `resume-template.html` — for resumes
-- `coverletter-template.html` — for cover letters
-
-The design is single-column, black-on-white serif typography. ATS parsers and human reviewers see the same document — the "ATS-safe vs. pretty" tradeoff is largely a myth when multi-column layouts, images, and text-in-shapes are avoided.
+The design is single-column serif typography (Charter) with a restrained navy accent — ATS parsers and human reviewers see the same document. The "ATS-safe vs. pretty" tradeoff is largely a myth when multi-column layouts, images, and text-in-shapes are avoided.
 
 ### Troubleshooting
 
@@ -110,6 +107,21 @@ my-documents/
 Every skill reads and writes this layer so each run builds on the last — `company-radar` dedupes against companies you already vetted, `resume-tailor` warns when a tailored version already exists, `resume-drift-check` catches hallucinated claims by comparing tailored resumes to your evidence layer. The entire `my-documents/` tree is gitignored; it's your state, not the project's.
 
 Contract: [`.claude/skills/_shared/state-layer.md`](.claude/skills/_shared/state-layer.md).
+
+---
+
+## Repository structure
+
+| Path | What it is |
+| ---- | ---------- |
+| `.claude/skills/` | Claude Code skills — the canonical workflows |
+| `prompts/` | Standalone prompts for any LLM (no file system, no state layer) |
+| `guides/` | Methodology guides — the philosophy behind the skills |
+| `templates/` | HTML/CSS for PDF rendering, plus markdown scaffolds |
+| `scripts/` | Node scripts (PDF generation, state scaffolding) |
+| `my-documents/` | Your local state — gitignored. Created on first skill run |
+| `research/` | Source notes the guides were built from. Reference material, not canon |
+| `drafts/` | Marketing copy (newsletter, social posts). Not part of the toolchain |
 
 ---
 

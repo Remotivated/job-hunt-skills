@@ -11,7 +11,7 @@ my-documents/
 ├── resume.md              # canonical (frontmatter: version, updated)
 ├── coverletter.md         # canonical
 ├── applications.md        # tracker (flat table + optional ## Notes)
-├── story-bank.md          # STAR stories (populated by issue #2)
+├── story-bank.md          # STAR+R stories (read by interview-coach, resume-tailor, resume-drift-check)
 ├── applications/          # artifacts sent to employers
 │   └── {id}/
 │       ├── resume.md      # tailored (frontmatter: derived_from_version, tailored_date, application_id)
@@ -25,14 +25,20 @@ my-documents/
 
 ## 2. First-Run Scaffolding
 
-If any of the following are missing when a skill needs them, the skill creates them from the template below **before** proceeding. No separate setup step.
+If any of the following are missing when a skill needs them, the skill runs `node scripts/scaffold-state.mjs` once before proceeding. The script is idempotent — safe to call repeatedly, never overwrites existing files.
 
-| Path | Template |
-|------|----------|
-| `my-documents/applications.md` | Empty-table template (see §3) |
-| `my-documents/reports/` | `mkdir` + `.gitkeep` |
-| `my-documents/proof-assets/` | `mkdir` + `.gitkeep` |
-| `my-documents/story-bank.md` | Placeholder with schema comment |
+Scaffolded paths:
+
+| Path | Purpose |
+|------|---------|
+| `my-documents/` (with `.gitkeep`) | Root |
+| `my-documents/applications/` (with `.gitkeep`) | Tailored artifacts |
+| `my-documents/reports/` (with `.gitkeep`) | Evaluations from skill runs |
+| `my-documents/proof-assets/` (with `.gitkeep`) | Reusable case studies |
+| `my-documents/applications.md` | Empty-table tracker (see §3) |
+| `my-documents/story-bank.md` | STAR+R schema scaffold (see §7) |
+
+Skills should not duplicate the scaffolding logic inline.
 
 ## 3. `applications.md` Schema
 

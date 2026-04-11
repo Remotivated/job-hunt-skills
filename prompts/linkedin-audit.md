@@ -1,70 +1,62 @@
 # LinkedIn Audit
 
-## When to Use
+> **Thin version.** This is the no-file-system version of the [linkedin-optimizer](../.claude/skills/linkedin-optimizer/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version writes a numbered audit report to `reports/` so you can track how your profile has evolved over time. This prompt can't save anything — copy the output somewhere useful before you close the tab. Use the skill if you have Claude Code; use this if you don't.
 
-When you want to improve your LinkedIn profile — headline, about section, featured section, and activity strategy. Your LinkedIn is a narrative, not a resume copy.
-
-## What You'll Need
+## What you'll need
 
 - Your current LinkedIn headline
 - Your current About section
-- What's in your Featured section (if anything)
-- A brief description of your recent activity (posts, comments, shares)
+- What's in your Featured section (or "empty")
+- A description of your recent activity (posts, comments, shares, or "mostly inactive")
+- Your target roles
+- Background reading: [resume-philosophy.md](../guides/resume-philosophy.md) (LinkedIn is narrative, not resume copy)
 
-## The Prompt
+## The prompt
 
 ```
-Audit my LinkedIn profile and provide rewritten versions ready to copy-paste. LinkedIn is a NARRATIVE — it's where hiring managers go to understand how I think, not to re-read my resume.
+Audit my LinkedIn profile and rewrite each section ready to copy-paste. LinkedIn is a NARRATIVE — it's where hiring managers go to understand how I think, not to re-read my resume.
 
 MY CURRENT HEADLINE:
-[paste your current headline]
+[paste current headline]
 
 MY CURRENT ABOUT SECTION:
-[paste your current About section]
+[paste current About section]
 
 MY FEATURED SECTION:
-[describe what's pinned — articles, posts, projects — or "empty"]
+[describe what's pinned, or "empty"]
 
 MY RECENT ACTIVITY:
-[describe what you post, comment on, share — or "mostly inactive"]
+[describe posting/commenting patterns, or "mostly inactive"]
 
 MY TARGET ROLES:
-[what kind of roles are you looking for?]
+[roles and industries I'm aiming at]
 
-AUDIT AND REWRITE:
+Deliver these sections, in order:
 
-**1. HEADLINE (provide 3 options)**
-Framework: [Function] + [Focus/Specialization]
-- Bad: "Marketing Manager at Acme Corp" (just title + company)
-- Good: "B2B Marketing Leader | Demand Gen & Content Strategy" (what you do + what you're known for)
-Lead with value, not availability. "Open to opportunities" can follow but shouldn't lead.
+1. HEADLINE — provide 3 options using the framework [Function] + [Focus/Specialization].
+   Bad: "Marketing Manager at Acme Corp" (title + company is not a headline)
+   Good: "B2B Marketing Leader | Demand Gen & Content Strategy"
+   Lead with value. "Open to opportunities" can follow but must not lead.
 
-**2. ABOUT SECTION (complete rewrite)**
-Structure:
-- Para 1: What I do and what drives me
-- Para 2: How I approach my work (my methodology or philosophy)
-- Para 3: What I'm looking for (optional, useful if job searching)
-Write in first person. Be narrative, not biographical. Do NOT paste resume bullets.
-Do NOT open with "I am a results-driven professional..." or similar filler.
+2. ABOUT SECTION — full rewrite.
+   Para 1: What I do and what drives me.
+   Para 2: How I approach my work — methodology or philosophy.
+   Para 3 (optional): What I'm looking for, if I'm actively searching.
+   First person. Narrative, not biographical. Do NOT paste resume bullets. Do NOT open with "Results-driven professional..." or similar template filler.
 
-**3. FEATURED SECTION STRATEGY**
-- What should I pin? (case studies, articles, presentations, projects)
-- What order? (strongest piece first)
-- If I have nothing to pin, what should I create? (1 specific suggestion)
+3. FEATURED SECTION STRATEGY — what to pin (case studies, articles, presentations, projects), what order (strongest first), and if I have nothing pinnable, ONE specific piece I should create.
 
-**4. ACTIVITY PLAN (next 7 days)**
-Specific actions:
-- 3 posts or articles to comment on thoughtfully (not "Great post!")
-- 1 article to share with my take on why it matters
-- 1 DM to send (no ask — just connection)
-- Optional: 1 original post idea showing how I think about my field
+4. ACTIVITY PLAN for the next 7 days:
+   - Days 1, 3, 5: thoughtful comments on 3 specific kinds of posts. "Great post!" is not a comment — add actual insight.
+   - Day 2: share one article with 3-4 sentences of my take.
+   - Day 4: send 1 DM with no ask, just connection.
+   - Day 7: 1 original post, 150-250 words, showing how I think about my field.
 
-**5. REMOTE-READINESS**
-Ensure remote signals appear naturally in the rewritten sections — async communication, distributed team experience, self-direction, documentation.
+5. REMOTE-READINESS — weave remote signals (async communication, distributed team experience, self-direction, documentation) naturally into the rewritten sections above. Do not bolt them on; integrate them where they fit the narrative.
 
-Make all rewritten sections ready to copy-paste directly into LinkedIn.
+Do not invent experience I haven't mentioned. If a rewrite would be stronger with a detail I haven't provided, use [ASK: ...] as a placeholder.
 ```
 
-## What to Expect
+## What you'll get
 
-3 headline options, a complete About section rewrite, a Featured section strategy, and a specific activity plan for the next week. Everything is copy-paste ready. The feedback will also note where remote-readiness signals should appear.
+Three headline options, a complete About rewrite, a Featured section strategy, and a seven-day activity plan — all copy-paste ready for LinkedIn.
