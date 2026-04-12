@@ -14,15 +14,30 @@
 ---
 
 <!-- OPENING PARAGRAPH: The hook.
-     Lead with WHY this role at THIS company. Be specific — generic openings get skimmed.
+     Lead with the MATCH, not flattery. Put evidence before any compliment about the
+     company. Avoid "I saw your post / blog / announcement about X" — that's the exact
+     pattern of AI-generated LinkedIn spam and hiring managers pattern-match it as slop.
+     Also avoid "I am writing to express my interest..." — everyone who applies is
+     interested, so it's filler.
 
-     Good: "Your post about building async-first engineering culture caught my attention
-     because I spent the last two years doing exactly that at [Company]."
+     DEFAULT — Problem → proof. Name a specific challenge from the JD, then immediately
+     show you've solved it:
+       "You're hiring a [role] to [specific problem from the JD]. I spent the last
+       [timeframe] doing exactly that at [Company] — [one-line outcome with a number]."
 
-     Bad: "I am writing to express my interest in the Software Engineer position I saw
-     on your website." (This is filler. Everyone who applies is interested.) -->
+     ALTERNATE A — Point of view. Open with a sharp, specific opinion about the problem
+     space that shows domain fluency. Risky but memorable; only use when your POV genuinely
+     matches how they think:
+       "Most [role] candidates treat [X] as [common approach]. I've found [contrarian
+       take] ships faster, and it's how I [specific outcome] at [Company]."
 
-[1-2 sentences: Why this role? Why this company? What caught your attention?]
+     ALTERNATE B — Insider observation. Something only someone who actually used the
+     product, read the docs, or shipped in that space would notice. Rare, but devastating
+     when it lands. NOT "I read your blog post" — more like "Your [specific technical
+     choice] tells me you're optimizing for [X], which is the same tradeoff I made when..."
+-->
+
+[1-2 sentences: their need → your evidence → the outcome. Lead with proof, not praise.]
 
 <!-- BODY PARAGRAPHS: The case.
      Map your experience to their requirements. Don't repeat your resume — expand on
