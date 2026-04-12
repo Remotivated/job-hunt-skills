@@ -34,11 +34,21 @@ Probe for outcomes, not responsibilities.
 
 ### 3. Generate outputs
 
-**Resume (US):** Bullet structure: `[Action verb] + [what you did] + [specific outcome]`. Include 1-2 remote-readiness bullets per role. Follow `templates/resume-template.md`. Save to `my-documents/resume.md`.
+Produce the markdown for whichever shareable outputs are in scope for this run. **Do not save yet** — step 4 runs a drift check against the interview answers before the files are persisted.
 
-**CV (UK/EU):** Same bullet structure, but lead with a **Personal Statement** (2-4 sentences, first-person OK, no third-person 1990s tone) instead of a Professional Summary. Section order follows `templates/cv-template.md`: Personal Statement → Experience → Education → Skills (include spoken Languages with CEFR levels in EU contexts) → Interests (optional, only if specific) → References ("available on request"). Skip photo, DOB, address, marital status. For early-career candidates, move Education above Experience and include degree classification. Save to `my-documents/cv.md`.
+**Resume (US):** Bullet structure: `[Action verb] + [what you did] + [specific outcome]`. Include 1-2 remote-readiness bullets per role. Follow `templates/resume-template.md`. Target path: `my-documents/resume.md`.
 
-**Cover letter:** Hook → body mapping experience to goals → confident closing. Follow `templates/coverletter-template.md`. Save to `my-documents/coverletter.md`.
+**CV (UK/EU):** Same bullet structure, but lead with a **Personal Statement** (2-4 sentences, first-person OK, no third-person 1990s tone) instead of a Professional Summary. Section order follows `templates/resume-eu-template.md`: Personal Statement → Experience → Education → Skills (include spoken Languages with CEFR levels in EU contexts) → Interests (optional, only if specific) → References ("available on request"). Skip photo, DOB, address, marital status. For early-career candidates, move Education above Experience and include degree classification. Target path: `my-documents/cv.md`.
+
+**Cover letter:** Hook → body mapping experience to goals → confident closing. Follow `templates/coverletter-template.md`. Target path: `my-documents/coverletter.md`.
+
+**Drift check before save:** Before writing any markdown file to disk, invoke `resume-drift-check` in **initial-build mode** with the generated content and the current interview conversation as evidence. Handle findings per severity (see [resume-drift-check §6](../resume-drift-check/SKILL.md)):
+
+- **Cosmetic findings** — the check auto-fixes placeholders, typos, and format glitches. Continue.
+- **Soft findings** — stop and surface each finding with a suggested fix **and** the underlying question the interview didn't answer. Common first-build patterns: dropped proficiency qualifiers ("intermediate" → plain), invented tool specifics ("AWS" → "AWS (S3, EC2, Lambda)"), paraphrasing that tightens a claim beyond what the user actually said in the interview. Do not save until the user resolves each one — and prefer asking the underlying question over adjusting the output, because a real answer beats a hedged rewrite.
+- **Hard findings** — block save. Do not write the markdown until every hard finding is resolved. Fabricated employers, dates, metrics, or credentials must be corrected from outside the interview before the canonical file exists.
+
+Only once drift-check returns a clean verdict — all findings auto-fixed or resolved — save the markdown files to their target paths, then proceed to PDF generation below.
 
 **Generate PDFs:** After writing the markdown file(s), invoke the PDF script **once** with all paths so Chromium only launches a single time. The script routes by filename (`resume*.md` → Resume, `cv*.md` → CV, `coverletter*.md` → Cover Letter) — no flags needed:
 
@@ -68,12 +78,14 @@ On first build: `version: 1`. On update (see §4 Modes below): read the current 
 ### 4. Modes
 
 - **"Just resume"**, **"just CV"**, or **"just cover letter"** — skip the others
-- **"CV mode"** — triggered by phrases like "build my CV", "I need a CV for a UK role", "European CV", or any explicit CV request. Uses `templates/cv-template.md` and writes `my-documents/cv.md`. Resume and CV are independent canonicals; building one does not modify the other.
+- **"CV mode"** — triggered by phrases like "build my CV", "I need a CV for a UK role", "European CV", or any explicit CV request. Uses `templates/resume-eu-template.md` and writes `my-documents/cv.md`. Resume and CV are independent canonicals; building one does not modify the other.
 - **"Update"** — read the relevant existing canonical (resume *or* CV), ask what's changed, revise, bump that file's `version` only
 
 ## Common Mistakes
 
 - **Inventing metrics.** Never fabricate numbers. Use `[ASK: what was the result?]` placeholders for gaps.
+- **Dropping proficiency qualifiers.** When the user describes a skill as "intermediate," "scripting only," "~1 year," "learning," or similar, preserve that hedge in the Skills section. Stripping qualifiers silently upgrades the profile — e.g. "Python (scripting only)" becoming plain "Python" sitting next to languages the user has years of depth in. This is a softer form of inventing depth, and screens probe exactly these items. If the qualifier makes a line ugly, move the item to a separate "Familiar with" line rather than deleting the hedge.
+- **Inventing tool specifics.** When the user says "AWS," "cloud," or "databases," don't promote that to "AWS (S3, EC2, Lambda)," "cloud (GCP, Azure)," or "databases (PostgreSQL, MySQL)" unless they specifically named those services. Ask instead — "Which AWS services specifically?" — and if the user doesn't know or can't remember, keep the skill at the level of fidelity they supplied. Plausible service names feel safe because they're common in bootcamps and job postings, but recruiters probe exactly these items in screens. Same rule applies to framework versions, library names, and CI/CD tools: don't fill in the blanks with plausible defaults.
 - **Over-polishing.** The resume should sound like the user at their most articulate, not a different person.
 - **Ignoring the angle.** Every resume tells a story — specialist, generalist, career changer. If you don't identify it, the resume reads as a disconnected list.
 - **Skipping remote signals.** Even users without remote experience have evidence of self-direction, async work, or independent delivery. Surface it.

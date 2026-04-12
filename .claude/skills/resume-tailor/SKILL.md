@@ -40,11 +40,19 @@ What's the strongest story for THIS role? Which experiences map to their priorit
 
 **Resume:** Match terminology, reorder bullets by relevance, highlight remote signals. You may add a Summary section or reorganize structure if it strengthens the narrative, but don't remove sections from the canonical. Never invent experience.
 
-**Claim verification (required before save):** For every added or rewritten bullet, classify each quantitative claim and named project against the evidence layer (canonical → story-bank → proof-assets → reports), using the rules in [state-layer §7](../_shared/state-layer.md#7-evidence-layer-priority-order). This is the **same mechanism** used by `resume-drift-check` — one shared pass, not two. Surface any **unverifiable** or **contradicted** claim inline as `[VERIFY: {claim} — {source-gap}]` so the user can confirm, adjust, or replace before the file is saved. Gaps in the canonical itself still use `[ASK: ...]` placeholders as before.
+**Claim verification (required before save):** Invoke `resume-drift-check` in **tailor mode** on the tailored resume and cover letter before the files are persisted. Drift-check classifies each added or rewritten bullet against the evidence layer (canonical → story-bank → proof-assets → reports) per [state-layer §7](../_shared/state-layer.md#7-evidence-layer-priority-order), and returns findings with both a **class** (Supported / Unverifiable / Contradicted) and a **severity** (Cosmetic / Soft / Hard). Handle each finding per severity (see [resume-drift-check §6](../resume-drift-check/SKILL.md)):
+
+- **Cosmetic** — drift-check auto-fixes placeholders, typos, and stray `[VERIFY:]` / `[ASK:]` markers that were resolved in conversation. No user action required.
+- **Soft** — surface each finding with its suggested fix **and** the underlying question. The common soft patterns in tailoring are: **inference tightening** (asserting a connection between two facts the canonical states separately), **invented tool specifics** (promoting "AWS" to "AWS (S3, EC2)"), **dropped proficiency qualifiers** (removing "intermediate" or "scripting only"), and **paraphrase-that-tightens** ("contributed to" → "built", "co-supervised" → "managed"). Prefer asking the underlying question over adjusting the bullet — a confirmed fact from the user is worth more than a hedged rewrite.
+- **Hard** — block save. Any contradicted or fabricated claim must be resolved before the tailored files are written. A hard finding is a red light.
+
+Gaps in the canonical itself still use `[ASK: ...]` placeholders — those are a `resume-builder` concern, not a tailor concern. Stray `[VERIFY: ...]` markers from a previous iteration count as cosmetic findings for the new drift-check pass.
 
 **Cover letter:** Address specific role/company. Lead with strongest alignment. Confident closing.
 
 ### 5. Save outputs
+
+Save only after step 4's drift-check pass has returned a clean verdict — every cosmetic finding auto-fixed, every soft and hard finding resolved by user action. If any hard finding remains unresolved, do not write the tailored files; surface the blocker and stop.
 
 **Tailored artifacts:**
 
@@ -98,3 +106,4 @@ If the user confirms, upsert `applications.md` with `status: applied` and `updat
 - **Keyword stuffing.** Matching terminology ≠ cramming keywords. Swap naturally where their language differs from yours.
 - **Only changing the summary.** Tailoring means reordering and reframing bullets throughout, not just editing the top paragraph.
 - **Modifying canonicals.** This skill writes to `applications/` subdirectories. The originals are sacred.
+- **Tightening inference beyond the canonical.** The canonical may state two separate facts — e.g. "pipeline X processes Y data" and "I work on project Z" — without asserting a connection between them. Tailoring can reorder and reframe, but it cannot assert the connection as a new fact ("I apply Y to project Z") unless the canonical already says so. This is a subtler form of inventing experience: plausible, but not in the source. When you notice the temptation, either keep the canonical's separation of facts or flag the tightened claim as `[VERIFY: {tightened claim} — tighter than canonical, confirm with user]` so the user can decide before save.
