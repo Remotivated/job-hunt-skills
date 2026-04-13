@@ -12,7 +12,7 @@
 3. [Template Survey](#template-survey)
 4. [The Design Moves That Distinguish "Designed" From "Word Document"](#the-design-moves-that-distinguish-designed-from-word-document)
 5. [Candidate Designs (Resume)](#candidate-designs-resume)
-6. [CV Template (Distinct From Resume)](#cv-template-distinct-from-resume)
+6. [UK/EU CV Template](#ukeu-cv-template)
 7. [Recommendation](#recommendation)
 
 ---
@@ -23,7 +23,7 @@ The ATS-export pipeline shipped in [#2](https://github.com/Remotivated/job-hunt-
 
 **Two templates are in scope:**
 - **Resume** — 1-2 pages, tailored per application, the dominant US/corporate use case.
-- **CV** — unbounded length, cumulative, for academic/research/executive use cases with publications, grants, talks, and service records. Distinct tool, not a longer variant.
+- **CV** — the UK/EU work CV, 1-2 pages, with Personal Statement, degree classification, Languages, and the "References available on request" footer. Same length budget as a resume, different section vocabulary and tone. US academic CVs (publications, grants, 15+ pages) are explicitly out of scope for this project — remote roles skew industry, not tenure-track.
 
 ---
 
@@ -192,74 +192,44 @@ Three directions to choose from. All single-column, all parser-safe per the conf
 
 ---
 
-## CV Template (Distinct From Resume)
+## UK/EU CV Template
 
-### Why it's a different tool
+### Why it's a different template
 
-In US academic usage, a CV is cumulative and austere — it's the same document sent to every search, with publications, grants, teaching, and service that can run to 15+ pages. It's not a longer resume; it's a different document class with different typographic traditions, different section vocabulary, and a different machine-readability target.
+"CV" in this project means the UK/EU work CV — the everyday document a candidate in London, Berlin, or Dublin submits to industry roles. It is roughly the same length as a US resume (1-2 pages), uses the same bullet structure, and targets the same ATS systems. What differs is section vocabulary, opening convention, and a few UK-specific details that would read wrong on a US resume.
 
-Note: in UK/EU usage, "CV" is the everyday word for what the US calls a resume. Our CV template targets the US academic/research/executive sense. Europass-style EU CVs are a separate standard ([CTAN europasscv](https://ctan.org/pkg/europasscv)) worth supporting as a future variant.
+**Explicitly out of scope:** US academic CVs (faculty / postdoc / tenure-track searches with publications, grants, teaching, and service sections running 15+ pages). The realistic academic flow on a remote job platform is academic-to-industry — and in that flow the candidate uses the UK/EU work CV, not an academic CV. See [tests/personas/aisha-okonkwo-academic-to-industry.md](../tests/personas/aisha-okonkwo-academic-to-industry.md) for the canonical example.
 
-### Who uses it
-Faculty / postdoc / PhD applicants, medical and clinical researchers, national-lab scientists, grant applicants (NIH biosketch is a derivative), museum curators, some legal academia, and executives with patent/publication lists.
+### What makes it different from a US resume
 
-### Required section list
+- **Personal Statement** at the top (2-4 sentences, first-person OK, no dated third-person tone) — replaces the optional US Professional Summary.
+- **Degree classification** in Education (First, 2:1, 2:2 / Distinction, Merit). For early-career candidates (< 5 years experience), Education moves above Experience.
+- **Languages with CEFR levels** in Skills — routinely included on EU CVs in a way they aren't on US resumes.
+- **Interests** section (optional, UK-common) — short, specific, authentic. Skip if generic.
+- **"References available on request"** footer — still the UK default.
+- **No photo, DOB, address, or marital status.** These were standard 15 years ago and are now discouraged (and in some regions legally fraught).
 
-In this order:
+Same single-column serif typography and navy accent as the resume template. The visual system is shared with [Option B](#b-modern-serif-with-restrained-navy-accent--charter--navy); only the section list and tone differ. Implementation lives in [templates/resume-eu-template.md](../templates/resume-eu-template.md) and is routed by filename in [scripts/generate-pdf.mjs](../scripts/generate-pdf.mjs) (`cv*.md` → CV body class).
 
-1. **Contact** + ORCID + Google Scholar link
-2. **Education** (with dissertation title + advisor)
-3. **Academic / Research Appointments**
-4. **Publications** — subsections: Peer-Reviewed Journal Articles / Book Chapters / Conference Proceedings / Preprints / Other
-5. **Grants & Fellowships**
-6. **Invited Talks**
-7. **Conference Presentations**
-8. **Teaching Experience**
-9. **Advising / Mentoring**
-10. **Service** (department, profession, peer review)
-11. **Professional Affiliations**
-12. **Languages**
-13. **References** (3 named, with affiliations — CVs include these; resumes don't)
+### Section order
 
-Every section should be toggleable so non-academic executive users can disable half.
-
-### Typography
-
-- **Single column**, serif, left-aligned
-- **Body:** EB Garamond or Charter, 11pt, 1.15 leading
-- **Name:** 18pt serif, no tagline, no headshot (US)
-- **Section headers:** small-caps or bold, 11pt, optional 0.5pt `#333` rule — austere
-- **No icons, no skill bars, no accent colors beyond possibly the rule**
-- Vibe target: *journal article*, not *landing page*
-
-### Pagination and multi-page handling
-
-Non-negotiable for CVs:
-- **Running header on pages 2+**: `Lastname — p. N / Total`. Achieved in our Playwright pipeline via `@page` CSS with `margin-box` content, or via Playwright's `headerTemplate` option.
-- **Widow/orphan control** on section breaks so a heading doesn't orphan at the bottom of a page.
-- **Hanging indents** on every publication line (`text-indent: -1.5em; padding-left: 1.5em` inside each `<li>`).
-- **Reverse-chronological within each section** — not globally.
+1. **Contact** — name, email, LinkedIn, optional portfolio, city/country or "Remote"
+2. **Personal Statement**
+3. **Experience** (Education moves above this for early-career)
+4. **Education** (with degree classification)
+5. **Skills** (Technical / Domain / Languages with CEFR)
+6. **Interests** (optional)
+7. **References** — "available on request"
 
 ### Machine readability
 
-Honest reality: ATS systems parse academic CVs poorly — they're built for 1–2 page resumes and choke on 50-entry publication lists. Institution HR (Workday, Interfolio for faculty search, PageUp) handles long CVs better because faculty search is the use case.
+Same ATS target as the US resume template — Greenhouse, Lever, Ashby, Workday. Because the CV stays inside the same 1-2 page budget and single-column layout as the resume, it inherits the same parser safety. No running headers, no hanging indents, no publications list to choke on.
 
-The canonical structured alternatives are not ATS output — they're:
-- **ORCID** — authoritative for publications; exports to BibTeX/JSON and is the only thing authors actually keep up to date
-- **SciENcv** — NIH/NSF-mandated JSON-backed biosketch generator
-- **[JSON Resume](https://jsonresume.org/)** — schema for everything else (has `publications` and `awards` natively; lacks grants/teaching/service — needs an extension)
+### References to study
 
-**Recommendation:** Emit both a PDF *and* a structured sidecar. Primary schema: JSON Resume extended with `publications[]`, `grants[]`, `talks[]`, `teaching[]`, `service[]`, `advising[]`. Support **ORCID import** for publications — it's the single highest-leverage integration. BibTeX import/export for publications blocks is a stretch goal.
-
-### Respected CV templates to study
-
-- [Harvard GSAS CVs & Cover Letters PDF](https://hwpi.harvard.edu/files/ocs/files/gsas-cvs-and-cover-letters.pdf) — canonical US reference
-- [MIT CAPD CV resources](https://capd.mit.edu/resources/cvs/)
-- [Oxford Careers Service CV guide](https://www.careers.ox.ac.uk/cvs)
-- [Cornell Grad School CV guide](https://gradschool.cornell.edu/career-and-professional-development/pathways-to-success/prepare-for-your-career/take-action/resumes-and-cvs/)
-- LaTeX: [`europecv`](https://ctan.org/pkg/europecv), [`europasscv`](https://ctan.org/pkg/europasscv?lang=en), `moderncv`, `academicons`
-- [Awesome-PhD-CV (GitHub)](https://github.com/LimHyungTae/Awesome-PhD-CV) — curated academic CV templates
-- [Dr. Karen's Rules of the Academic CV](https://theprofessorisin.com/2016/08/19/dr-karens-rules-of-the-academic-cv/) — definitive prose guidance
+- [Oxford Careers Service CV guide](https://www.careers.ox.ac.uk/cvs) — canonical UK university guidance
+- [Prospects.ac.uk CV templates](https://www.prospects.ac.uk/careers-advice/cvs-and-cover-letters) — UK graduate-focused practical templates
+- [Europass CV](https://europa.eu/europass/en/create-europass-cv) — EU standardised format (reference only; too rigid to copy wholesale)
 
 ---
 
@@ -271,17 +241,16 @@ It captures every distinguishing design move from the survey (weight contrast, s
 
 Option A is the safer fallback if we decide to ship a purely typographic refresh without introducing a new font dependency. Option C is the better choice if user testing shows the target audience skews heavily tech/startup.
 
-**CV: build as a separate template with its own section vocabulary.** Do not try to reuse the resume template with a longer list. Different typographic tradition (serif-heavy, austere), different pagination requirements (running header, hanging indents), different structured-data target (ORCID + JSON Resume extended schema, not Workday).
+**CV: share the resume's visual system, swap the section vocabulary.** Same Charter serif, same navy accent, same hairline rules — what changes is the section list (Personal Statement at top, Interests, "References available on request"), a few UK-specific details (degree classification, CEFR languages), and the filename-driven body class (`cv*.md` → `<body class="cv">`) so `shared.css` can scope any CV-only tweaks. No separate template file needed.
 
 ### Concrete next steps
 
-1. **Confirm direction** with user: A / B / C for resume, and whether CV is in scope now or a follow-up issue.
+1. **Confirm direction** with user: A / B / C for resume.
 2. **Add Charter to the Playwright pipeline** — vendor the open-licensed Bitstream Charter (XCharter is the actively maintained variant at [CTAN](https://ctan.org/pkg/xcharter)) into `templates/fonts/`.
 3. **Update `templates/shared.css`** with the Option B token system: colors, type scale, rule specs.
-4. **Update `templates/resume-template.html` and `templates/coverletter-template.html`** for the new header layout (name weight contrast, flex-based right-aligned dates).
-5. **Write `templates/cv-template.html` and `templates/cv.css`** as a separate template.
-6. **Parser regression test:** run the new PDFs through [Jobscan](https://www.jobscan.co/), [Resume Worded](https://resumeworded.com/), and at least one free Lever/Greenhouse portal submission to verify no parse regression vs. the current template.
-7. **Update [#5](https://github.com/Remotivated/job-hunt-os/issues/5)** with test results and close once merged.
+4. **Update `templates/document-template.html`** for the new header layout (name weight contrast, flex-based right-aligned dates). The single template backs resume, CV, and cover letter — routed by filename in `generate-pdf.mjs`.
+5. **Parser regression test:** run the new PDFs through [Jobscan](https://www.jobscan.co/), [Resume Worded](https://resumeworded.com/), and at least one free Lever/Greenhouse portal submission to verify no parse regression vs. the current template.
+6. **Update [#5](https://github.com/Remotivated/job-hunt-os/issues/5)** with test results and close once merged.
 
 ---
 

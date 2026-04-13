@@ -25,17 +25,20 @@ Start with the resume builder:
 
 > "Help me build my resume"
 
-The `resume-builder` skill activates and walks you through a structured interview about your experience, achievements, and goals. It produces:
+The `resume-builder` skill activates and walks you through a structured interview about your experience, achievements, and goals. Depending on what you ask for, it produces:
 
-- `my-documents/resume.md` — Your canonical resume in markdown
-- `my-documents/coverletter.md` — Your canonical cover letter
-- PDF versions of both
+- `my-documents/resume.md` — Your canonical US resume in markdown (for US roles)
+- `my-documents/cv.md` — Your canonical UK/EU CV in markdown (for UK/EU roles). Same length budget as the resume, different section list: Personal Statement, degree classification, CEFR languages, "References available on request." Not a US academic CV.
+- `my-documents/coverletter.md` — Your canonical cover letter (the letter that introduces you for a specific role — complements either the resume or the CV)
+- PDF versions of each file you built
+
+Resume and CV are independent canonicals — you can have one, the other, or both, and they version independently.
 
 From there:
 
 - **Audit your resume** → "Give me honest feedback on my resume" (activates `resume-auditor`)
 - **Tailor for a role** → "Tailor my resume for this job: [paste URL or text]" (activates `resume-tailor`)
-- **Vet a company** → "Research [Company Name]'s remote culture" (activates `company-radar`)
+- **Vet a company** → "Research [Company Name]'s remote culture" (activates `remote-culture-check`)
 - **Prep for an interview** → "Help me prepare for an interview at [Company] for [Role]" (activates `interview-coach`)
 
 ### PDF generation
@@ -94,9 +97,11 @@ Your master resume lives in one place. Tailored versions, reports, and evidence 
 
 ```
 my-documents/
-├── resume.md              ← Your master resume (created by resume-builder)
+├── resume.md              ← Your master US resume (created by resume-builder)
+├── cv.md                  ← Your master UK/EU CV (created by resume-builder; optional)
 ├── coverletter.md         ← Your master cover letter (created by resume-builder)
 ├── resume.pdf             ← PDF version
+├── cv.pdf                 ← PDF version
 ├── coverletter.pdf        ← PDF version
 ├── applications.md        ← Tracker — one row per application (status, dates, links)
 ├── story-bank.md          ← STAR stories (your evidence layer — populated over time)
@@ -120,17 +125,17 @@ my-documents/
 
 ### The four directories
 
-- **Root canonicals** (`resume.md`, `coverletter.md`) — sacred, never modified by per-application skills.
+- **Root canonicals** (`resume.md`, `cv.md`, `coverletter.md`) — sacred, never modified by per-application skills. `resume.md` and `cv.md` are independent: you can have one, the other, or both, and they version independently.
 - **`applications/{id}/`** — artifacts you'd actually send to employers.
 - **`reports/`** — evaluations, audits, and research for your own reference. Numbered, flat, read-only after creation.
 - **`proof-assets/`** — case studies and portfolio pieces that get referenced across many applications.
 
 ### Key rules
 
-- **`resume-builder` owns the canonicals** — it's the only skill that writes to `my-documents/resume.md` and `my-documents/coverletter.md`, and the only skill that bumps the canonical `version` frontmatter.
+- **`resume-builder` owns the canonicals** — it's the only skill that writes to `my-documents/resume.md`, `my-documents/cv.md`, and `my-documents/coverletter.md`, and the only skill that bumps the canonical `version` frontmatter.
 - **`resume-tailor` creates application folders** — reads the canonicals and writes to `my-documents/applications/{id}/`. It runs an inline claim-verification pass against your evidence layer before saving, flagging any bullet that can't be traced back to real source material.
 - **`resume-auditor` is read-only** — writes its critique to `reports/` but never touches your canonical files.
-- **`company-radar`, `interview-coach`, `linkedin-optimizer`** each save numbered reports under `reports/` after every run.
+- **`remote-culture-check`, `interview-coach`, `linkedin-optimizer`** each save numbered reports under `reports/` after every run.
 - **`resume-drift-check`** compares tailored resumes against the evidence layer (canonical, story-bank, proof-assets, reports) and flags hallucinated or contradicted claims.
 
 ### The applications tracker
@@ -177,7 +182,7 @@ The [`guides/`](guides/) directory is the "why" behind the skills. Worth reading
 
 ### Week 2+: Start applying with intent
 
-1. `company-radar` -- **vet the company** before you invest time
+1. `remote-culture-check` -- **vet the company** before you invest time
 2. `resume-tailor` -- customize for good fits
 3. `interview-coach` -- prep when you land interviews
 4. Follow the [Sustainable Search](guides/sustainable-search.md) weekly rhythm so you don't burn out

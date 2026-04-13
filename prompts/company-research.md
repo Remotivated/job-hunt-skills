@@ -1,6 +1,6 @@
 # Company Research
 
-> **Thin version.** This is the no-file-system version of the [company-radar](../.claude/skills/company-radar/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version dedups against prior vettings (so you don't re-research a company you looked at last week), writes a numbered vetting report to `reports/`, and upserts the tracker to `status: saved` on a positive verdict. It can also use live web browsing when available. This prompt can't browse, dedup, or save — you gather the raw inputs, you paste them in, you keep the output yourself. Use the skill if you have Claude Code; use this if you don't.
+> **Thin version.** This is the no-file-system version of the [remote-culture-check](../.claude/skills/remote-culture-check/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version dedups against prior vettings (so you don't re-research a company you looked at last week), writes a numbered vetting report to `reports/`, and upserts the tracker to `status: saved` on a positive verdict. It can also use live web browsing when available. This prompt can't browse, dedup, or save — you gather the raw inputs, you paste them in, you keep the output yourself. Use the skill if you have Claude Code; use this if you don't.
 
 ## What you'll need
 

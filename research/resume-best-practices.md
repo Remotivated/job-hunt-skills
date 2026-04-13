@@ -312,7 +312,7 @@ The one-page-only rule is dead for experienced professionals. Current data:
 - **< 5 years experience**: One page
 - **5-15 years experience**: One to two pages (lean toward two if you have relevant content)
 - **Senior / executive / C-suite**: Two pages (almost always)
-- **Academic CV**: No page limit (different document entirely)
+- **UK/EU CV**: Same 1-2 page budget as a US resume (different section list, not a longer document). US academic CVs are a separate document class and out of scope for this project.
 
 **Critical insight**: Recruiters spend 15-30 seconds per resume. Page count matters less than density of relevant, scannable information. A bloated one-pager and a thin two-pager are both worse than a well-structured document of either length.
 

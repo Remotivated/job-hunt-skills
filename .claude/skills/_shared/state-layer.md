@@ -119,7 +119,7 @@ id: 007
 company: Buffer                                  # null if no company
 role: Content Marketing Manager                  # null if not role-specific
 application_id: buffer-content-marketing-manager # null if no tracked application
-skill: company-radar                             # which skill produced this
+skill: remote-culture-check                      # which skill produced this
 date: 2026-04-08
 summary: One-line takeaway for at-a-glance scanning.
 ---

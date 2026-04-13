@@ -14,7 +14,7 @@ Every persona has the same sections:
 2. **Ground truth** — the *only* career facts a skill is allowed to use. If a skill output mentions a job, metric, tool, or achievement not in this section, that is a hallucination and a test failure.
 3. **Skills & education** — same rule: only what's listed exists.
 4. **Constraints & preferences** — comp, location, work style, deal-breakers.
-5. **Target role** — a paste-in job posting the persona is applying to. Used by `resume-tailor`, `interview-coach`, `company-radar`.
+5. **Target role** — a paste-in job posting the persona is applying to. Used by `resume-tailor`, `interview-coach`, `remote-culture-check`.
 6. **Known traps** — specific things a skill is *likely* to invent or mishandle for this persona. The grader checks each trap explicitly.
 7. **Skills exercised** — which skills this persona is designed to stress.
 
@@ -46,7 +46,7 @@ Personas are inputs only — they don't run themselves. The expected workflow is
 |---|---|---|
 | [maya-chen-ic-to-em.md](maya-chen-ic-to-em.md) | Senior backend IC pivoting to Engineering Manager (US, remote) | resume-tailor, interview-coach, linkedin-optimizer, resume-auditor |
 | [devon-park-bootcamp-grad.md](devon-park-bootcamp-grad.md) | Career-changer from teaching, first dev job (US, remote) | resume-builder, proof-asset-creator, resume-auditor, interview-coach |
-| [aisha-okonkwo-academic-to-industry.md](aisha-okonkwo-academic-to-industry.md) | UK postdoc moving to industry data science (London, hybrid) | resume-builder (CV mode), resume-tailor, company-radar, resume-auditor |
+| [aisha-okonkwo-academic-to-industry.md](aisha-okonkwo-academic-to-industry.md) | UK postdoc moving to industry data science (London, hybrid) | resume-builder (CV mode), resume-tailor, remote-culture-check, resume-auditor |
 
 ## Adding a new persona
 

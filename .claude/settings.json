@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/.claude/skills/_shared/**)",
+      "Edit(/.claude/skills/resume-drift-check/**)",
+      "Edit(/.claude/skills/resume-builder/**)",
+      "Edit(/.claude/skills/resume-tailor/**)",
+      "Edit(/.claude/skills/interview-coach/**)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Edit(/.claude/skills/remote-culture-check/**)"
+    ]
+  }
+}

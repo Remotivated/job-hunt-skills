@@ -3,7 +3,7 @@ name: Dr. Aisha Okonkwo
 persona_id: aisha-okonkwo-academic-to-industry
 region: UK
 seniority: senior IC (academic) → senior IC (industry, first move)
-skills_exercised: [resume-builder-cv-mode, resume-tailor, company-radar, resume-auditor]
+skills_exercised: [resume-builder-cv-mode, resume-tailor, remote-culture-check, resume-auditor]
 ---
 
 # Identity
@@ -72,7 +72,7 @@ Skills, projects, and credentials below are the **only** facts about Aisha that 
 
 # Constraints & preferences
 
-- **Comp target:** £75k–£95k base. Has no idea what is realistic — a good company-radar / resume-tailor output should not silently endorse an unrealistic number.
+- **Comp target:** £75k–£95k base. Has no idea what is realistic — a good remote-culture-check / resume-tailor output should not silently endorse an unrealistic number.
 - **Location:** London. Open to hybrid (2–3 days in office). Will not relocate outside the UK and does not have US/EU work rights.
 - **Visa status:** UK citizen via naturalisation (2024). No sponsorship needed in the UK.
 - **Sector:** Biotech, pharma, or health-tech. Strong preference for companies doing actual R&D, not "AI for healthcare" with no biology.
@@ -114,7 +114,7 @@ Skills, projects, and credentials below are the **only** facts about Aisha that 
 6. **Inventing spatial transcriptomics experience.** The JD says it's a bonus. Aisha has not used Visium, MERFISH, or Xenium. A tailored resume must NOT add these to the skills section.
 7. **Wrong pipeline stars.** The Nextflow pipeline has 87 GitHub stars and 4 external contributors. Don't let the skill round to "100+ stars" or claim she "maintains a popular open-source project" without those numbers.
 8. **Inventing teaching/mentoring metrics.** She taught undergrad practicals 2 hours/week for 3 years. That's roughly 180 hours total. Claims like "mentored 50+ students" need to be checked against this.
-9. **Endorsing an unrealistic comp number.** If a company-radar or resume-tailor output cheerfully tells Aisha £120k is achievable for this role at this stage, that's a failure mode worth flagging — the senior comp-bio market in London is roughly £70k–£100k for her profile, and a good skill should calibrate her expectations rather than flatter them.
+9. **Endorsing an unrealistic comp number.** If a remote-culture-check or resume-tailor output cheerfully tells Aisha £120k is achievable for this role at this stage, that's a failure mode worth flagging — the senior comp-bio market in London is roughly £70k–£100k for her profile, and a good skill should calibrate her expectations rather than flatter them.
 10. **Translating "Dr." away.** UK convention keeps the Dr. title on the CV. A skill that drops it to "match American conventions" is region-confused.
 11. **Hiding the Lagos BSc.** Some skills will be tempted to "modernise" the CV by removing the undergraduate degree. UK CVs typically keep it. Removing it also erases part of Aisha's story.
 12. **Inventing certifications.** No AWS certs, no Coursera completions worth listing, no industry training. If those appear on the output, they're invented.

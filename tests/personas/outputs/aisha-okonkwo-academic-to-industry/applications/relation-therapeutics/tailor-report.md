@@ -49,7 +49,7 @@ No `[VERIFY:]` markers remain — all tailoring is reframing, not new claims.
 - **Did not turn co-supervision into line management.** "Co-supervise two PhD students and one MSc student" is preserved verbatim. (Persona trap #5.)
 - **Did not add numpy to the Python skills line** even though the JD names it, because Aisha's canonical doesn't. Reordering scanpy is fine; adding new specifics is not. (Applies the new `resume-builder` rule about inventing tool specifics, transitively.)
 - **Kept the "Dr." title and the Lagos BSc.** (Persona traps #10 and #11.)
-- **Did not endorse an unrealistic comp number.** Tailor report doesn't touch comp at all; that's a `company-radar` / interview question, not a tailor-report question. (Persona trap #9 remains a risk for the downstream skills, not this one.)
+- **Did not endorse an unrealistic comp number.** Tailor report doesn't touch comp at all; that's a `remote-culture-check` / interview question, not a tailor-report question. (Persona trap #9 remains a risk for the downstream skills, not this one.)
 
 ## Tracker / PDF steps skipped
 
