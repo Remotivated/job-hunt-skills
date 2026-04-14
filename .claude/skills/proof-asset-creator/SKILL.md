@@ -5,58 +5,115 @@ description: Use when the user wants to create a case study, portfolio piece, pe
 
 ## Overview
 
-Build proof-of-value assets that demonstrate capability instead of just claiming it. A resume says you can do the job — a proof asset shows it.
+Help the user figure out what proof-of-value asset to build, tailored to their target roles, experience, and technical ability — then produce either a finished case study or an idea brief they can build from. A resume says you can do the job; a proof asset shows it.
+
+This skill is an ideation partner first, a producer second. Most users don't arrive knowing what to build. The hard part is matching *what they already have* against *what their target roles need* against *what they can actually ship*. That match is the skill's job.
 
 ## Workflow
 
-> **State layer:** writes reusable case studies to `my-documents/proof-assets/`. No tracker touch, no report. Proof assets are reusable evidence, not per-application artifacts. See [state-layer contract](../_shared/state-layer.md).
+> **State layer:** reads canonical `resume.md`/`cv.md`, `story-bank.md`, existing `proof-assets/`, and `applications.md`. Writes one file to `my-documents/proof-assets/{slug}.md`. No tracker touch, no report. See [state-layer contract](../_shared/state-layer.md).
 
-### 1. Choose format
+### 1. Read the evidence layer
 
-Help user pick based on their situation:
+Before suggesting anything, read in priority order (see [state-layer §7](../_shared/state-layer.md#7-evidence-layer-priority-order)):
 
-| Format | Best for | Time |
-|--------|----------|------|
-| **Case study** (SAOL structure) | Anyone with a project they're proud of | 1-2 hrs |
-| **Personal site** | Ongoing professional home base | 2-4 hrs |
-| **Portfolio** | Creative, design, writing, marketing roles | 1-3 hrs |
-| **Proof link** | Quick turnaround, one strong artifact | 30-60 min |
-| **Creative artifact** | Technical roles, standing out | Varies |
+1. `my-documents/resume.md` or `my-documents/cv.md` — for experience and technical capability
+2. `my-documents/story-bank.md` — STAR+R stories that could expand into case studies
+3. `my-documents/proof-assets/` — what the user already has (avoid duplicates, find gaps)
+4. `my-documents/applications.md` — target roles the user is actively pursuing
 
-### 2. Interview about the project
+**Applications.md fallback:** if the tracker is empty, thin, or the roles don't point in a clear direction, ask the user what kind of roles they're targeting. Don't make them opt in — just read it, and fall through to asking only when the data isn't there.
 
-Push for specifics:
-- What was the situation or challenge?
-- What specifically did YOU do? (Not the team — your decisions)
-- What was the outcome? (Numbers help, clarity matters more)
-- What did you learn? What would you do differently?
+If canonical sources are missing entirely, warn the user and offer `resume-builder` first. The skill still works on paste-only input, but evidence verification will be limited and every concrete claim will need `[ASK: ...]`.
 
-### 3. Handle confidentiality
+First-run scaffold `proof-assets/` if missing. See [state-layer §2](../_shared/state-layer.md#2-first-run-scaffolding).
 
-Proactively offer: anonymize details, focus on process over results, use a different project, or create something new for an imaginary company.
+### 2. Discovery
 
-### 4. Produce the asset
+Synthesize from the reads:
 
-**Save location:** `my-documents/proof-assets/{slug}.md` where `{slug}` is a kebab-case descriptor (e.g., `distributed-team-migration`, `content-strategy-overhaul`). First-run scaffold the `proof-assets/` directory if missing (see [state-layer §2](../_shared/state-layer.md#2-first-run-scaffolding)).
+- **Target role(s)** — from `applications.md` or the user's answer
+- **Technical capability** — from resume. Can they ship code? Design in Figma? Write long-form? Build in no-code? This bounds what they can realistically produce.
+- **Existing proof** — what's already in `proof-assets/` and story-bank
+- **Gap** — what the target role wants evidence of that the user hasn't demonstrated yet
 
-**Case study:** SAOL structure — Situation → Approach → Outcome → Learning. Target 500-800 words (1-2 pages).
+State the gap back to the user in one or two sentences before suggesting ideas. "You're targeting content marketing roles; 3 of the 4 postings emphasize SEO, and nothing in your current proof set shows SEO work." That sentence is load-bearing — it's what makes the ideas feel tailored instead of generic.
 
-**Personal site:** Content brief with headline, sections, copy, project highlights, tool recommendations. Save as `{slug}-site-brief.md`.
+### 3. Divergent — surface 3-5 concrete ideas
 
-**Portfolio:** 4-6 curated pieces with context (problem, role, result) per piece. Save as `{slug}-portfolio.md`.
+Not formats. Actual projects. Each idea should be:
 
-**Proof link:** Video script or writeup — hook, walkthrough, results, takeaway. Save as `{slug}-proof-link.md`.
+- **Concrete enough to picture** — "A teardown of 3 B2B SaaS landing pages with what you'd change and why," not "a blog post about marketing."
+- **Matched to capability** — don't suggest a working demo to someone who doesn't code; don't suggest a Figma prototype to someone who's never opened it.
+- **Fills the gap** — each idea should close a specific hole in the user's current proof set.
+- **Sized honestly** — rough effort estimate (hours or days, not weeks).
 
-**Creative:** Guidance on what to build and how to present it. Save as `{slug}-creative-brief.md`.
+Push back when a project isn't proof-worthy. "Updated the team's onboarding doc" is a resume bullet, not a portfolio piece. Say so and offer alternatives from story-bank or the gap analysis.
 
-Proof assets are reusable across applications. Reference them by filename from cover letters, LinkedIn, or tailored resumes.
+### 4. Convergent — pick one
+
+Help the user choose based on effort vs. leverage vs. which gap it closes. If they're torn between two, ask which target role matters most and let that break the tie.
+
+### 5. Produce the output
+
+**Every session ends with a file saved to `my-documents/proof-assets/{slug}.md`.** Slug is a kebab-case descriptor (e.g., `b2b-landing-page-teardown`, `distributed-team-migration`). One slug, one file — no suffixes.
+
+**Path A — Expanding a story-bank entry into a finished case study (SAOL):**
+
+```markdown
+# {Title}
+
+## Situation
+2-3 sentences. The business context and the problem. What was at stake.
+
+## Approach
+The meat. Your specific decisions and why. What you ruled out. Trade-offs you made. First person, narrative — not bullets.
+
+## Outcome
+What changed. Numbers where you have them; qualitative impact where you don't. Any metric you can't source from resume/story-bank/canonical gets `[ASK: verify X]`.
+
+## Learning
+What you'd do differently. What you'd do the same. This is the section that separates a case study from a brag sheet.
+```
+
+Target 500-800 words. First person. Concrete. Any claim that doesn't trace to a primary source is `[ASK: ...]`, not a guess.
+
+**Path B — An idea brief for something the user will build externally:**
+
+```markdown
+# {Idea title}
+
+**Chosen idea:** one sentence.
+
+**Why it fits:** role match + which gap it closes. Reference the target role(s) from applications.md or the user's stated target.
+
+**Rough scope:** what's in, what's out. Effort estimate.
+
+**What it proves:** the specific capability this asset demonstrates to an employer.
+
+**Acceptance criteria:** 3-5 bullets the user can check off to know it's done.
+
+**Next step:** the single next action.
+```
+
+Same file path. The user can come back and iterate the same file as they build — the brief evolves into the finished asset over time.
+
+### 6. Confidentiality
+
+Before saving, proactively offer: anonymize the employer, focus on process over numbers, use a different project, or reframe as a hypothetical ("what I would do if"). Don't wait for the user to worry.
+
+### 7. Cross-skill linkage
+
+Once saved, tell the user what to do with it:
+
+- **LinkedIn Featured section** — pin the finished asset (see `linkedin-optimizer`)
+- **Resume Projects section** — cite it by filename in `resume-builder`
+- **Cover letters** — reference it from `resume-tailor` ("see my case study on X")
 
 ## Common Mistakes
 
-- **Including everything.** 3-5 strong pieces beats 15 mediocre ones. Curate ruthlessly.
-- **No context.** Work samples without explanation are hard to evaluate. Always include the situation and your role.
-- **Skipping confidentiality.** Proactively offer anonymization — don't wait for the user to worry about it.
-
-## Reference
-
-See `guides/proof-assets.md` for role-specific examples and the SAOL framework.
+- **Generic "a case study" suggestion.** If the idea isn't tailored to the user's specific role, capability, and gap, you skipped discovery. Go back and read the evidence layer.
+- **Rescuing a non-story.** If the project's outcome is "we shipped it," say so and suggest a different one. Don't spend 2 hours writing up something that won't move the needle.
+- **Fabricating outcomes.** Proof assets are public and stay indexed. Every metric, scope claim, and outcome traces to a primary source or gets `[ASK: ...]`. Never guess.
+- **Ending without a file.** A session that ends with "great ideas, I'll think about it" is a failed run. Save the brief, even if the artifact itself will be built later.
+- **Ignoring existing proof-assets.** If the user already has a case study on X, don't suggest another one on X. Find the gap.

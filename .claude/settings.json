@@ -9,7 +9,10 @@
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
-      "Edit(/.claude/skills/remote-culture-check/**)"
+      "Edit(/.claude/skills/remote-culture-check/**)",
+      "Bash(git pull:*)",
+      "Edit(/.claude/skills/linkedin-optimizer/**)",
+      "Edit(/.claude/skills/proof-asset-creator/**)"
     ]
   }
 }
