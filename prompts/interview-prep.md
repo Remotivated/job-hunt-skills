@@ -1,6 +1,6 @@
 # Interview Prep
 
-> **Thin version.** This is the no-file-system version of the [interview-coach](../.claude/skills/interview-coach/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version loads a persistent STAR+R **story bank** (`story-bank.md`), matches new behavioral questions against stories you've already told, and appends any new stories captured during prep so every session compounds. This prompt cannot do that — every session starts from zero, you re-tell the same stories each time, and nothing is saved. If you interview often, the compounding story bank is the main reason to run the skill. Use the skill if you have Claude Code; use this if you don't.
+> **Thin version.** This is the no-file-system version of the [interview-coach](../skills/interview-coach/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version loads a persistent STAR+R **story bank** (`story-bank.md`), matches new behavioral questions against stories you've already told, and appends any new stories captured during prep so every session compounds. This prompt cannot do that — every session starts from zero, you re-tell the same stories each time, and nothing is saved. If you interview often, the compounding story bank is the main reason to run the skill. Use the skill if you have Claude Code; use this if you don't.
 
 ## What you'll need
 

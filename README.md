@@ -17,14 +17,14 @@ Job Hunt OS is a system for the other approach — Claude skills, standalone pro
 
 | Skill | What it does |
 |-------|-------------|
-| [resume-builder](.claude/skills/resume-builder/SKILL.md) | Build a resume (US), CV (UK/EU), and/or cover letter from scratch through guided Q&A |
-| [resume-auditor](.claude/skills/resume-auditor/SKILL.md) | Get genuinely critical feedback — counteracts AI sycophancy |
-| [resume-tailor](.claude/skills/resume-tailor/SKILL.md) | Customize your resume for a specific job posting |
-| [interview-coach](.claude/skills/interview-coach/SKILL.md) | Prepare for an interview with likely questions and talking points |
-| [remote-culture-check](.claude/skills/remote-culture-check/SKILL.md) | Vet a company's remote culture before you apply |
-| [proof-asset-creator](.claude/skills/proof-asset-creator/SKILL.md) | Build case studies, portfolios, and proof-of-value assets |
-| [linkedin-optimizer](.claude/skills/linkedin-optimizer/SKILL.md) | Audit and improve your LinkedIn profile |
-| [resume-drift-check](.claude/skills/resume-drift-check/SKILL.md) | Catch hallucinated claims in tailored resumes before you submit |
+| [resume-builder](skills/resume-builder/SKILL.md) | Build a resume (US), CV (UK/EU), and/or cover letter from scratch through guided Q&A |
+| [resume-auditor](skills/resume-auditor/SKILL.md) | Get genuinely critical feedback — counteracts AI sycophancy |
+| [resume-tailor](skills/resume-tailor/SKILL.md) | Customize your resume for a specific job posting |
+| [interview-coach](skills/interview-coach/SKILL.md) | Prepare for an interview with likely questions and talking points |
+| [remote-culture-check](skills/remote-culture-check/SKILL.md) | Vet a company's remote culture before you apply |
+| [proof-asset-creator](skills/proof-asset-creator/SKILL.md) | Build case studies, portfolios, and proof-of-value assets |
+| [linkedin-optimizer](skills/linkedin-optimizer/SKILL.md) | Audit and improve your LinkedIn profile |
+| [resume-drift-check](skills/resume-drift-check/SKILL.md) | Catch hallucinated claims in tailored resumes before you submit |
 
 ### Prompts (Any LLM)
 
@@ -107,7 +107,7 @@ my-documents/
 
 Every skill reads and writes this layer so each run builds on the last — `remote-culture-check` dedupes against companies you already vetted, `resume-tailor` warns when a tailored version already exists, `resume-drift-check` catches hallucinated claims by comparing tailored resumes to your evidence layer. The entire `my-documents/` tree is gitignored; it's your state, not the project's.
 
-Contract: [`.claude/skills/_shared/state-layer.md`](.claude/skills/_shared/state-layer.md).
+Contract: [`skills/_shared/state-layer.md`](skills/_shared/state-layer.md).
 
 ---
 
@@ -115,7 +115,7 @@ Contract: [`.claude/skills/_shared/state-layer.md`](.claude/skills/_shared/state
 
 | Path | What it is |
 | ---- | ---------- |
-| `.claude/skills/` | Claude Code skills — the canonical workflows |
+| `skills/` | Claude Code skills — the canonical workflows |
 | `prompts/` | Standalone prompts for any LLM (no file system, no state layer) |
 | `guides/` | Methodology guides — the philosophy behind the skills |
 | `templates/` | HTML/CSS for PDF rendering, plus markdown scaffolds |
@@ -131,7 +131,7 @@ Contract: [`.claude/skills/_shared/state-layer.md`](.claude/skills/_shared/state
 ### Claude Code (recommended)
 
 1. Clone this repo: `git clone https://github.com/remotivated/job-hunt-os.git`
-2. Open the directory in Claude Code — skills are automatically discovered from `.claude/skills/`
+2. Open the directory in Claude Code — skills are automatically discovered from `skills/`
 3. Start with: "Help me build my resume" → the `resume-builder` skill activates
 4. Your canonical resume saves to `my-documents/resume.md`
 

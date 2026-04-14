@@ -1,5 +1,5 @@
 // Idempotently scaffold the my-documents/ state layer.
-// See .claude/skills/_shared/state-layer.md for the contract.
+// See skills/_shared/state-layer.md for the contract.
 
 import fs from "node:fs";
 import path from "node:path";

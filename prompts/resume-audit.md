@@ -1,6 +1,6 @@
 # Resume Audit
 
-> **Thin version.** This is the no-file-system version of the [resume-auditor](../.claude/skills/resume-auditor/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill reads your canonical resume from disk, writes a numbered audit report to `reports/`, and leaves the canonical untouched so version bumps stay owned by `resume-builder`. This prompt can't do any of that — you paste the resume in, you copy the output out, nothing is saved. Use the skill if you have Claude Code; use this if you don't.
+> **Thin version.** This is the no-file-system version of the [resume-auditor](../skills/resume-auditor/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill reads your canonical resume from disk, writes a numbered audit report to `reports/`, and leaves the canonical untouched so version bumps stay owned by `resume-builder`. This prompt can't do any of that — you paste the resume in, you copy the output out, nothing is saved. Use the skill if you have Claude Code; use this if you don't.
 
 ## What you'll need
 

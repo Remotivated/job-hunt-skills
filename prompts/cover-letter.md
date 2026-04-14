@@ -1,6 +1,6 @@
 # Cover Letter
 
-> **Thin version.** This is the no-file-system version of the cover-letter mode in the [resume-builder](../.claude/skills/resume-builder/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version reads your canonical resume from disk, writes the cover letter to `my-documents/coverletter.md`, and triggers PDF generation. This prompt can't read, save, or render — you paste the resume in, you copy the letter out. Use the skill if you have Claude Code; use this if you don't.
+> **Thin version.** This is the no-file-system version of the cover-letter mode in the [resume-builder](../skills/resume-builder/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version reads your canonical resume from disk, writes the cover letter to `my-documents/coverletter.md`, and triggers PDF generation. This prompt can't read, save, or render — you paste the resume in, you copy the letter out. Use the skill if you have Claude Code; use this if you don't.
 
 ## What you'll need
 

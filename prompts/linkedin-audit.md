@@ -1,6 +1,6 @@
 # LinkedIn Audit
 
-> **Thin version.** This is the no-file-system version of the [linkedin-optimizer](../.claude/skills/linkedin-optimizer/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version writes a numbered audit report to `reports/` so you can track how your profile has evolved over time. This prompt can't save anything — copy the output somewhere useful before you close the tab. Use the skill if you have Claude Code; use this if you don't.
+> **Thin version.** This is the no-file-system version of the [linkedin-optimizer](../skills/linkedin-optimizer/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version writes a numbered audit report to `reports/` so you can track how your profile has evolved over time. This prompt can't save anything — copy the output somewhere useful before you close the tab. Use the skill if you have Claude Code; use this if you don't.
 
 ## What you'll need
 

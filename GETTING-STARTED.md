@@ -6,7 +6,7 @@ Setup for every platform, plus how the file system keeps your documents organize
 
 ## For Claude Code Users (Recommended)
 
-Clone the repo and open it — skills are auto-discovered from `.claude/skills/`.
+Install as a plugin — or clone the repo and open it directly, and skills are discovered from `skills/`.
 
 ### Setup
 
@@ -15,7 +15,7 @@ git clone https://github.com/remotivated/job-hunt-os.git
 cd job-hunt-os
 ```
 
-Open the directory in Claude Code (CLI, VS Code extension, or desktop app). The 8 skills are automatically available — Claude discovers them from the `.claude/skills/` directory.
+Open the directory in Claude Code (CLI, VS Code extension, or desktop app). The 8 skills are automatically available — Claude discovers them from the `skills/` directory via the plugin manifest at `.claude-plugin/plugin.json`.
 
 The `my-documents/` directory is where your working files live. It's gitignored by default so your personal documents never get committed.
 

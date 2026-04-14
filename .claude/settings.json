@@ -1,18 +1,18 @@
 {
   "permissions": {
     "allow": [
-      "Edit(/.claude/skills/_shared/**)",
-      "Edit(/.claude/skills/resume-drift-check/**)",
-      "Edit(/.claude/skills/resume-builder/**)",
-      "Edit(/.claude/skills/resume-tailor/**)",
-      "Edit(/.claude/skills/interview-coach/**)",
+      "Edit(/skills/_shared/**)",
+      "Edit(/skills/resume-drift-check/**)",
+      "Edit(/skills/resume-builder/**)",
+      "Edit(/skills/resume-tailor/**)",
+      "Edit(/skills/interview-coach/**)",
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
-      "Edit(/.claude/skills/remote-culture-check/**)",
+      "Edit(/skills/remote-culture-check/**)",
       "Bash(git pull:*)",
-      "Edit(/.claude/skills/linkedin-optimizer/**)",
-      "Edit(/.claude/skills/proof-asset-creator/**)"
+      "Edit(/skills/linkedin-optimizer/**)",
+      "Edit(/skills/proof-asset-creator/**)"
     ]
   }
 }
