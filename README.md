@@ -53,39 +53,44 @@ Job Hunt OS is a system for the other approach — Claude skills, standalone pro
 
 ---
 
-## PDF generation
+## DOCX and PDF generation
 
-`resume-builder` and `resume-tailor` automatically produce ATS-safe PDFs alongside the markdown they save. Under the hood: `scripts/generate-pdf.mjs` renders the markdown through an HTML template with Playwright's headless Chromium.
+`resume-builder` and `resume-tailor` automatically produce ATS-safe `.docx` files alongside the markdown they save. Under the hood: `scripts/generate-docx.py` walks the markdown into styled paragraphs with [python-docx](https://python-docx.readthedocs.io/) + [markdown-it-py](https://markdown-it-py.readthedocs.io/), then converts each `.docx` to `.pdf` in a single headless [LibreOffice](https://www.libreoffice.org/) batch — the same pattern Anthropic's [docx skill](https://github.com/anthropics/skills/blob/main/skills/docx/SKILL.md) uses.
 
 ### One-time setup
 
 ```bash
-npm install
-npx playwright install chromium
+pip install python-docx markdown-it-py
 ```
 
-The second command downloads Chromium (~300 MB) into Playwright's cache. This is a one-time cost per machine.
+That's the minimum to produce a `.docx`. To also auto-generate `.pdf` files, install LibreOffice and make sure `soffice` (its CLI) is on your PATH:
+
+| OS | Install command |
+| -- | --------------- |
+| macOS | `brew install --cask libreoffice` |
+| Windows | `winget install TheDocumentFoundation.LibreOffice` |
+| Linux | `apt install libreoffice` (or your package manager's equivalent) |
+
+If LibreOffice isn't installed, the script still writes the `.docx` — it's a valid submittable artifact on its own — and prints the install hints above. **Cowork users:** both python-docx and LibreOffice are pre-installed in the code-execution sandbox, so no setup is needed.
 
 ### Manual invocation
 
-Regenerate PDFs after hand-editing markdown. The script accepts one or more input paths and launches Chromium once for the whole batch:
+Regenerate after hand-editing markdown. The script accepts one or more input paths and launches LibreOffice once for the whole batch:
 
 ```bash
-node scripts/generate-pdf.mjs my-documents/resume.md my-documents/coverletter.md
-node scripts/generate-pdf.mjs my-documents/applications/acme-engineer/resume.md my-documents/applications/acme-engineer/coverletter.md
+python scripts/generate-docx.py my-documents/resume.md my-documents/coverletter.md
+python scripts/generate-docx.py my-documents/applications/acme-engineer/resume.md my-documents/applications/acme-engineer/coverletter.md
 ```
 
-Output always lands next to each input with a `.pdf` extension. Files are rendered independently — one can fail without blocking the others, and the script exits non-zero if any file failed.
+Output always lands next to each input with `.docx` (and `.pdf` when LibreOffice is available). Files are rendered independently — one can fail without blocking the others, and the script exits non-zero if any file actually errored. A missing LibreOffice install is *not* a failure.
 
-### Templates
+### Design
 
-A single `templates/document-template.html` backs every document type, paired with the shared stylesheet (`templates/shared.css`). The script picks the title and body class from the input filename: `coverletter*` renders with `<title>… — Cover Letter</title>` and `<body class="coverletter">`, `cv*` with `CV` and `<body class="cv">`, and everything else defaults to `Resume` with an empty body class. That lets `shared.css` scope a few cover-letter- or CV-specific rules without needing separate HTML files.
-
-The design is single-column serif typography (Charter) with a restrained navy accent — ATS parsers and human reviewers see the same document. The "ATS-safe vs. pretty" tradeoff is largely a myth when multi-column layouts, images, and text-in-shapes are avoided.
+The script picks the document type from the input filename: `coverletter*` renders with extra paragraph spacing, `cv*` and everything else use the resume layout. The design is single-column serif typography (Georgia, with Liberation Serif as the LibreOffice substitute) with a restrained navy accent — ATS parsers and human reviewers see the same document. The "ATS-safe vs. pretty" tradeoff is largely a myth when multi-column layouts, images, tables, and text-in-shapes are avoided.
 
 ### Troubleshooting
 
-If PDF generation fails, the markdown is still saved — it's the canonical artifact. The error message will tell you the fix; the most common case is Chromium not being installed (run the setup step above).
+If `.docx` generation fails, the markdown is still saved — it's the canonical artifact. If `.pdf` conversion fails (or LibreOffice isn't installed), the `.docx` is still written and you can open it in Word, LibreOffice, or Google Docs and "Save as PDF" by hand. Run the test suite with `python scripts/test_generate_docx.py` if you suspect a regression in the script itself.
 
 ---
 
@@ -118,8 +123,8 @@ Contract: [`skills/_shared/state-layer.md`](skills/_shared/state-layer.md).
 | `skills/` | Claude Code skills — the canonical workflows |
 | `prompts/` | Standalone prompts for any LLM (no file system, no state layer) |
 | `guides/` | Methodology guides — the philosophy behind the skills |
-| `templates/` | HTML/CSS for PDF rendering, plus markdown scaffolds |
-| `scripts/` | Node scripts (PDF generation, state scaffolding) |
+| `templates/` | Markdown scaffolds for the resume, CV, and cover letter |
+| `scripts/` | DOCX/PDF generation (Python) and state scaffolding (Node) |
 | `my-documents/` | Your local state — gitignored. Created on first skill run |
 | `research/` | Source notes the guides were built from. Reference material, not canon |
 | `drafts/` | Marketing copy (newsletter, social posts). Not part of the toolchain |

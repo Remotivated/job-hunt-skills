@@ -79,15 +79,15 @@ Read the canonical's `version` field and copy it into `derived_from_version`. Se
 
 **Upsert the tracker:** `applications.md` upsert with `status: saved` if no row exists, or leave existing status alone (never regress). Rules in [state-layer §3](../_shared/state-layer.md#3-applicationsmd-schema).
 
-**PDF:** After the tailor-report stub is written and `applications.md` has been upserted, invoke the PDF script **once** with both tailored files so Chromium only cold-starts one time:
+**DOCX/PDF:** After the tailor-report stub is written and `applications.md` has been upserted, invoke the generation script **once** with both tailored files so LibreOffice only cold-starts one time:
 
 ```
-node scripts/generate-pdf.mjs my-documents/applications/{id}/resume.md my-documents/applications/{id}/coverletter.md
+python scripts/generate-docx.py my-documents/applications/{id}/resume.md my-documents/applications/{id}/coverletter.md
 ```
 
-Run PDF generation **after** tracker state has been persisted so a rendering failure does not block the `status: saved` upsert. The script renders each file independently — one can fail while the other succeeds, and the exit code is non-zero if *any* file failed. On failure, report which file(s) failed to the user with the exact rerun command for the failing file only:
+Run generation **after** tracker state has been persisted so a rendering failure does not block the `status: saved` upsert. The script always writes the `.docx` next to each input, then converts to `.pdf` via LibreOffice headless if `soffice` is on PATH. If LibreOffice isn't installed the `.docx` files still land — they're valid submittable artifacts on their own — and the script prints install instructions; do not treat that as a failure. The script renders each file independently and the exit code is non-zero only if a `.docx` build or `.pdf` conversion *actually* errored. On failure, report which file(s) failed with the exact rerun command:
 
-> Tailored markdown and tracker updated. PDF generation failed for `my-documents/applications/{id}/resume.md`: `<error message>`. Fix and rerun: `node scripts/generate-pdf.mjs my-documents/applications/{id}/resume.md`
+> Tailored markdown and tracker updated. PDF conversion failed for `my-documents/applications/{id}/resume.md`: `<error message>`. The `.docx` is in place; rerun once fixed: `python scripts/generate-docx.py my-documents/applications/{id}/resume.md`
 
 **Never modify canonical files** unless explicitly asked.
 

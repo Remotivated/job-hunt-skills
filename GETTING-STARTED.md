@@ -41,15 +41,23 @@ From there:
 - **Vet a company** → "Research [Company Name]'s remote culture" (activates `remote-culture-check`)
 - **Prep for an interview** → "Help me prepare for an interview at [Company] for [Role]" (activates `interview-coach`)
 
-### PDF generation
+### DOCX and PDF generation
 
-Skills that produce PDFs use HTML with embedded CSS styling. If that doesn't work:
+Skills that save canonical or tailored documents also produce a `.docx` next to each markdown file via `scripts/generate-docx.py` (python-docx + markdown-it-py). If LibreOffice is on your PATH, the script also converts each `.docx` to `.pdf` in a single headless `soffice` batch.
 
+To enable automatic PDF generation:
+
+- **macOS**: `brew install --cask libreoffice`
+- **Windows**: `winget install TheDocumentFoundation.LibreOffice`
+- **Linux**: `apt install libreoffice` (or your package manager's equivalent)
+
+Without LibreOffice you still get the `.docx` — it's a valid submittable artifact on its own. If you'd rather convert by hand:
+
+- **Open in Word / LibreOffice / Google Docs** and use "Save as PDF"
 - **Browser print-to-PDF**: Open the `.md` file, print → "Save as PDF"
-- **Google Docs**: Paste the markdown content, export as PDF
 - **Pandoc** (if installed): `pandoc resume.md -o resume.pdf`
 
-> 💡 **Tip:** The markdown files are the source of truth. Generate PDFs whenever you need to submit, but do your editing in `.md` format.
+> 💡 **Tip:** The markdown files are the source of truth. Regenerate the `.docx` / `.pdf` whenever you need to submit, but do your editing in `.md` format.
 
 ---
 
@@ -100,17 +108,17 @@ my-documents/
 ├── resume.md              ← Your master US resume (created by resume-builder)
 ├── cv.md                  ← Your master UK/EU CV (created by resume-builder; optional)
 ├── coverletter.md         ← Your master cover letter (created by resume-builder)
-├── resume.pdf             ← PDF version
-├── cv.pdf                 ← PDF version
-├── coverletter.pdf        ← PDF version
+├── resume.docx / .pdf     ← DOCX always; PDF if LibreOffice is on PATH
+├── cv.docx / .pdf
+├── coverletter.docx / .pdf
 ├── applications.md        ← Tracker — one row per application (status, dates, links)
 ├── story-bank.md          ← STAR stories (your evidence layer — populated over time)
 ├── applications/
 │   ├── acme-sre/          ← Tailored for Acme Corp SRE role
 │   │   ├── resume.md
-│   │   ├── resume.pdf
+│   │   ├── resume.docx / .pdf
 │   │   ├── coverletter.md
-│   │   ├── coverletter.pdf
+│   │   ├── coverletter.docx / .pdf
 │   │   └── interview-prep.md
 │   └── buffer-marketing/  ← Tailored for Buffer Marketing role
 │       ├── resume.md

@@ -129,7 +129,7 @@ References available on request.
      - Avoid tables, columns, headers/footers, and text boxes
      - PDF is generally preferred; DOCX if specifically requested
      - Save as: my-documents/cv.md (your canonical CV)
-     - The visual template is shared with the resume — same Charter serif,
+     - The visual template is shared with the resume — same Georgia serif,
        same navy accent, same hairline section rules. The section list is
        what differs (Personal Statement at top, Interests and References
        included, slightly different tone guidance). -->

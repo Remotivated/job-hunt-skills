@@ -8,9 +8,8 @@ Invoke the `resume-builder` skill and follow its workflow start to finish. Do **
 
 1. **§1 Orient the user** — explain what's about to happen before asking anything.
 2. **§2 First-run scaffolding** — run `scripts/scaffold-state.mjs` even if `my-documents/` looks present.
-3. **§5 PDF toolchain prerequisite check** — verify Playwright + Chromium are installed before attempting PDF generation.
-4. **§6 Seed the story bank** — offer (don't assume) to capture 2-3 STAR stubs from the interview answers.
-5. **§7 Closing orientation** — name what was created and point to the next 1-2 skills.
+3. **§6 Seed the story bank** — offer (don't assume) to capture 2-3 STAR stubs from the interview answers.
+4. **§7 Closing orientation** — name what was created and point to the next 1-2 skills.
 
 These steps are load-bearing for a new user's first session. The rest of the repo (`resume-tailor`, `resume-drift-check`, `interview-coach`, etc.) assumes the state layer is scaffolded and the canonicals exist — don't leave the user with a half-built foundation.
 

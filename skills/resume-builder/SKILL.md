@@ -21,8 +21,8 @@ Three distinct documents. Do not conflate them:
 
 Before asking any interview questions, give a short (4-6 sentence) orientation so a first-time user knows what's about to happen. Cover:
 
-- **What we'll do together:** a structured interview about your work, then I draft the document(s), run a drift check, save them, and generate PDFs.
-- **What will exist afterward:** canonical markdown under `my-documents/` (`resume.md` and/or `cv.md`, plus `coverletter.md`) and matching PDFs. These are the foundation every other skill in this repo reads from.
+- **What we'll do together:** a structured interview about your work, then I draft the document(s), run a drift check, save them, and generate DOCX + PDF versions.
+- **What will exist afterward:** canonical markdown under `my-documents/` (`resume.md` and/or `cv.md`, plus `coverletter.md`) and matching `.docx` files (and `.pdf` files if LibreOffice is on PATH). These are the foundation every other skill in this repo reads from.
 - **Rough time:** plan for 15-25 minutes of back-and-forth — longer if you're starting from scratch with no existing resume.
 - **What comes next:** once the canonicals exist, `resume-auditor` gives honest feedback and `resume-tailor` customizes for specific roles.
 
@@ -69,27 +69,21 @@ Produce the markdown for whichever shareable outputs are in scope for this run. 
 - **Soft findings** — stop and surface each finding with a suggested fix **and** the underlying question the interview didn't answer. Common first-build patterns: dropped proficiency qualifiers ("intermediate" → plain), invented tool specifics ("AWS" → "AWS (S3, EC2, Lambda)"), paraphrasing that tightens a claim beyond what the user actually said in the interview. Do not save until the user resolves each one — and prefer asking the underlying question over adjusting the output, because a real answer beats a hedged rewrite.
 - **Hard findings** — block save. Do not write the markdown until every hard finding is resolved. Fabricated employers, dates, metrics, or credentials must be corrected from outside the interview before the canonical file exists.
 
-Only once drift-check returns a clean verdict — all findings auto-fixed or resolved — save the markdown files to their target paths, then proceed to PDF generation below.
+Only once drift-check returns a clean verdict — all findings auto-fixed or resolved — save the markdown files to their target paths, then proceed to DOCX/PDF generation below.
 
-**PDF toolchain prerequisite check:** Before invoking `generate-pdf.mjs` for the first time, verify the toolchain. Check whether `node_modules/playwright/package.json` exists at the repo root. If it doesn't, tell the user:
-
-> PDF generation needs a one-time setup: `npm install` (installs Playwright) and `npx playwright install chromium` (~300 MB Chromium download). Both are idempotent and only needed once per machine. OK to run them now?
-
-On confirmation, run `npm install && npx playwright install chromium` and wait for it to finish before proceeding. If the user declines, save the markdown (it's the canonical artifact) and skip PDF generation — report that they can rerun `node scripts/generate-pdf.mjs <path>` later. The markdown save is the load-bearing success; PDFs are recoverable.
-
-**Generate PDFs:** After writing the markdown file(s), invoke the PDF script **once** with all paths so Chromium only launches a single time. The script routes by filename (`resume*.md` → Resume, `cv*.md` → CV, `coverletter*.md` → Cover Letter) — no flags needed:
+**Generate DOCX (and PDF if available):** After writing the markdown file(s), invoke the generation script **once** with all paths so LibreOffice only cold-starts a single time. The script routes by filename (`resume*.md` → Resume, `cv*.md` → CV, `coverletter*.md` → Cover Letter) — no flags needed:
 
 ```
-node scripts/generate-pdf.mjs my-documents/resume.md my-documents/coverletter.md
+python scripts/generate-docx.py my-documents/resume.md my-documents/coverletter.md
 ```
 
 ```
-node scripts/generate-pdf.mjs my-documents/cv.md my-documents/coverletter.md
+python scripts/generate-docx.py my-documents/cv.md my-documents/coverletter.md
 ```
 
-In single-document modes, only pass the file you wrote. The script renders each PDF independently — one file can fail while the other succeeds, and the exit code is non-zero if *any* file failed. The markdown save is still the canonical success; report whichever file(s) failed to the user with the exact rerun command and move on:
+In single-document modes, only pass the file you wrote. The script always produces a `.docx` next to each input, then converts each to `.pdf` via LibreOffice headless. If LibreOffice is not on the user's PATH, the script writes the `.docx` files (which are valid submittable artifacts) and prints install instructions for `soffice` — do not treat that as a failure of the run. The script renders each file independently; the exit code is non-zero only if any `.docx` build or `.pdf` conversion *actually* errored. Report any per-file failures with the exact rerun command and move on:
 
-> Markdown saved. PDF generation failed for `my-documents/cv.md`: `<error message>`. Fix and rerun: `node scripts/generate-pdf.mjs my-documents/cv.md`
+> Markdown saved. PDF conversion failed for `my-documents/cv.md`: `<error message>`. The `.docx` is in place; rerun once fixed: `python scripts/generate-docx.py my-documents/cv.md`
 
 **Frontmatter (required on `resume.md` and `cv.md`):**
 
