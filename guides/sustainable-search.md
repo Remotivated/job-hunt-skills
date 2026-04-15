@@ -1,4 +1,4 @@
-# Sustainable Search: A System That Keeps You Moving
+﻿# Sustainable Search: A System That Keeps You Moving
 
 Job searching is not a sprint. For most people, it takes **several months**. The Ashby 2025 Talent Trends Report found that median time-to-hire across their dataset was roughly 40-50 days from application to offer -- and that's the employer's timeline, not the candidate's full search. Some searches take much longer. If you burn out in week three, you're going to bomb the interview you land in week eight.
 
@@ -153,5 +153,5 @@ Build the rhythm. The results come from consistency, not heroics.
 1. **Ashby, 2025 Talent Trends Report** -- First-party ATS data across 11M+ applications showing increased application volumes and declining response rates. Median time-to-hire data sourced from this report.
 2. **NBER Working Paper 32320** (2024) -- Analysis of 125 million job applications finding that 45% of applications arrive within the first 48 hours of posting, illustrating the speed of competition.
 3. **Greenhouse** -- Corporate job postings receive roughly 250 applications on average.
-4. **Upplai** (2025) -- Candidates are approximately 3x less likely to hear back than four years ago, reinforcing that volume alone does not drive outcomes.
-5. **Gallup** -- Research on unemployment and well-being, including findings that unemployed individuals are more than twice as likely to report being treated for depression compared to full-time workers.
+4. **Gallup** -- Research on unemployment and well-being, including findings that unemployed individuals are more than twice as likely to report being treated for depression compared to full-time workers.
+

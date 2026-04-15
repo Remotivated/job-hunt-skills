@@ -1,6 +1,6 @@
 ---
 name: resume-builder
-description: Use when the user wants to create a resume, CV, or cover letter from scratch, rebuild an existing one, or update their canonical resume/CV after a career change, promotion, or new achievements. Triggers on US resumes ("build my resume") and on UK/EU CVs ("build my CV", "I need a CV for a UK role", "European CV"). In this project "CV" always means the UK/EU work CV; US academic CVs are out of scope.
+description: Use when the user wants to create a resume, CV, or cover letter from scratch, rebuild an existing one, or update their canonical resume/CV after a career change, promotion, or new achievements. Triggers on US resumes ("build my resume") and on UK/EU CVs ("build my CV", "I need a CV for a UK role", "European CV"). In this project "CV" always means the UK/EU work CV; US academic CVs are out of scope. For first-time users setting up from a fresh clone, prefer `get-started` — it wraps this skill with orientation, scaffolding, and post-build framing.
 ---
 
 ## Terminology
@@ -15,31 +15,22 @@ Three distinct documents. Do not conflate them:
 
 ## Workflow
 
+> **Onboarding hand-off:** If the user appears to be on a fresh clone or is new to Job Hunt OS, hand off to `get-started` instead — it wraps this skill with orientation, story-bank seeding, and closing framing. This skill stays focused on the document itself.
+>
 > **State layer:** this skill owns canonical `version` bumps. See [state-layer contract §6](../_shared/state-layer.md#6-canonical-resume-frontmatter).
 
-### 1. Orient the user
+### 1. First-run scaffolding
 
-Before asking any interview questions, give a short (4-6 sentence) orientation so a first-time user knows what's about to happen. Cover:
+Run `node scripts/scaffold-state.mjs` once, before the interview, even if `my-documents/` appears to exist. The script is idempotent — safe to call repeatedly, it only creates what's missing (`applications.md`, `story-bank.md`, the subdirectories with `.gitkeep`s). See [state-layer contract §2](../_shared/state-layer.md#2-first-run-scaffolding). (If `get-started` already delegated to this skill, scaffolding ran once upstream — the second call is a no-op.)
 
-- **What we'll do together:** a structured interview about your work, then I draft the document(s), run a drift check, save them, and generate DOCX + PDF versions.
-- **What will exist afterward:** canonical markdown under `my-documents/` (`resume.md` and/or `cv.md`, plus `coverletter.md`) and matching `.docx` files (and `.pdf` files if LibreOffice is on PATH). These are the foundation every other skill in this repo reads from.
-- **Rough time:** plan for 15-25 minutes of back-and-forth — longer if you're starting from scratch with no existing resume.
-- **What comes next:** once the canonicals exist, `resume-auditor` gives honest feedback and `resume-tailor` customizes for specific roles.
-
-Keep it conversational, not a bulleted wall. If the user is clearly in update mode and already knows the drill, compress or skip.
-
-### 2. First-run scaffolding
-
-Run `node scripts/scaffold-state.mjs` once, before the interview, even if `my-documents/` appears to exist. The script is idempotent — it only creates what's missing (`applications.md`, `story-bank.md`, the subdirectories with `.gitkeep`s). This is the state layer the rest of Job Hunt OS depends on, so don't skip it even in update mode. See [state-layer contract §2](../_shared/state-layer.md#2-first-run-scaffolding).
-
-### 3. Gather existing materials
+### 2. Gather existing materials
 
 Ask: "Do you have an existing resume or LinkedIn profile URL you'd like to work from? If not no worries, we can build a new one from scratch together."
 
 - **If provided:** Read, analyze, identify gaps. Ask targeted follow-ups for outcomes, metrics, remote signals.
 - **If starting from scratch:** Run the structured interview below.
 
-### 4. Structured interview
+### 3. Structured interview
 
 Probe for outcomes, not responsibilities.
 
@@ -53,7 +44,7 @@ Probe for outcomes, not responsibilities.
 - **CV mode only — Personal Statement seed:** instead of (or in addition to) the optional Professional Summary, ask: "In 2-4 sentences, who are you professionally, what are you known for, and what kind of role are you looking for next?" First-person is fine; avoid dated third-person tone. This becomes the Personal Statement at the top of `cv.md`.
 - **CV mode only — Languages and locale:** ask which spoken languages and proficiency (CEFR levels A1-C2 if known), and which country/region the CV targets (some EU countries expect a photo; UK does not — default to no photo unless the user is sure).
 
-### 5. Generate outputs
+### 4. Generate outputs
 
 Produce the markdown for whichever shareable outputs are in scope for this run. **Do not save yet** — the drift check below runs against the interview answers before the files are persisted.
 
@@ -94,33 +85,13 @@ updated: 2026-04-08
 ---
 ```
 
-On first build: `version: 1`. On update (see §8 Modes below): read the current frontmatter, increment `version` by 1, set `updated` to today's ISO date. **Resume and CV version independently** — bumping `resume.md` does not touch `cv.md` and vice versa. See [state-layer contract §6](../_shared/state-layer.md#6-canonical-resume-frontmatter) for the full rule. `coverletter.md` does not need frontmatter.
+On first build: `version: 1`. On update (see §5 Modes below): read the current frontmatter, increment `version` by 1, set `updated` to today's ISO date. **Resume and CV version independently** — bumping `resume.md` does not touch `cv.md` and vice versa. See [state-layer contract §6](../_shared/state-layer.md#6-canonical-resume-frontmatter) for the full rule. `coverletter.md` does not need frontmatter.
 
-### 6. Seed the story bank (offer, don't assume)
-
-The interview just collected concrete accomplishments — exactly the STAR material `story-bank.md` is designed to hold for `interview-coach` and `resume-drift-check`. After saving the canonicals, offer to capture the richest 2-3 as stubs:
-
-> I noticed you mentioned [brief one-line summaries of 2-3 accomplishments from the interview]. Want me to capture those as STAR stubs in `story-bank.md` now? It seeds your evidence layer for interview prep and drift-checking, and you can flesh them out later.
-
-If the user declines, move on without pushing — don't re-ask. If they accept, append each as a STAR+R entry (Situation / Task / Action / Result / Reflection) to `my-documents/story-bank.md` using whatever detail the interview surfaced, and mark gaps with `[ASK: …]` placeholders rather than inventing. Never fabricate specifics to round out a stub.
-
-### 7. Closing orientation
-
-End the run with a short recap so the user knows what now exists and what to do next. Keep it tight — the user just spent 20 minutes in an interview, don't bury the landing:
-
-- **Files created** (with paths): the canonicals you wrote, plus their PDFs.
-- **One-line reminder** that these are the canonicals every other skill reads from, and they live in the gitignored `my-documents/` tree.
-- **The 1-2 skills most likely to be useful next**, framed as suggestions rather than a checklist:
-  - "Want honest feedback on what we just built? → `resume-auditor`"
-  - "Found a specific role you're interested in? → `remote-culture-check` first (vet the company), then `resume-tailor` (customize for the role)"
-
-In update mode, compress this to a single line ("Resume bumped to v3, PDFs regenerated") — no need to re-orient someone who already knows the system.
-
-### 8. Modes
+### 5. Modes
 
 - **"Just resume"**, **"just CV"**, or **"just cover letter"** — skip the others
 - **"CV mode"** — triggered by phrases like "build my CV", "I need a CV for a UK role", "European CV", or any explicit CV request. Uses `templates/resume-eu-template.md` and writes `my-documents/cv.md`. Resume and CV are independent canonicals; building one does not modify the other.
-- **"Update"** — read the relevant existing canonical (resume *or* CV), ask what's changed, revise, bump that file's `version` only. Scaffolding in §2 is still safe to run (idempotent); orientation in §1 and closing in §7 can be compressed.
+- **"Update"** — read the relevant existing canonical (resume *or* CV), ask what's changed, revise, bump that file's `version` only. Scaffolding in §1 is still safe to run (idempotent).
 
 ## Common Mistakes
 

@@ -120,4 +120,3 @@ Networking doesn't mean working a room. Three comments, one DM, one generous act
 1. **Jobvite Recruiter Nation Survey** -- Referral hires consistently outperform other sourcing channels in quality-of-hire metrics, despite representing a small fraction of total applicants.
 2. **NBER Working Paper 32320** (2024) -- Analysis of 125 million applications showing 45% of applications arrive within the first 48 hours of a posting, underscoring why relationship-based channels bypass the volume crush.
 3. **Ashby, 2025 Talent Trends Report** -- First-party ATS data across 11M+ applications documenting the decline in response rates as application volumes increase.
-4. **Upplai** (2025) -- Candidates are approximately 3x less likely to hear back from employers than four years ago, reinforcing the value of warm introductions over cold applications.

@@ -30,6 +30,11 @@ Follow this process:
 4. CLAIM GUARDRAIL (critical — read carefully):
    - You cannot verify my claims against any evidence layer. I am running you without file access.
    - For ANY bullet you add, rewrite, or reframe where the specific claim is not verbatim in the resume I pasted, append [VERIFY: {claim} — {what I should check}] on the same line. Example: "Led migration of 40-service platform to Kubernetes [VERIFY: service count — confirm 40 matches your actual scope]".
+   - Watch specifically for these four drift patterns — they are the most common ways tailoring quietly inflates beyond what the resume says, and each one must be flagged [VERIFY:] or left unchanged:
+     * **Inference tightening** — asserting a connection between two facts the resume states separately. If the resume says "pipeline X processes Y data" and "I worked on project Z" without linking them, the tailored version cannot claim "I applied Y to project Z."
+     * **Paraphrase-that-tightens** — swapping a soft verb for a harder one: "contributed to" → "built", "co-supervised" → "managed", "helped design" → "designed". The harder verb may be true, but if the resume used the softer one I need to confirm before you tighten it.
+     * **Dropped proficiency qualifiers** — removing hedges like "intermediate," "scripting only," "~1 year," or "learning" from skills. Leave qualifiers in place; don't silently upgrade.
+     * **Invented tool specifics** — promoting "AWS" → "AWS (S3, EC2, Lambda)" or "databases" → "PostgreSQL, MySQL" when the resume didn't name the specific services. Don't fill in plausible defaults — recruiters probe exactly these items in screens.
    - For quantitative gaps the resume never provided, use [ASK: what was the result?] instead of inventing a number.
    - Do NOT silently smooth these over. Erring on the side of more [VERIFY] flags is correct behavior here.
 

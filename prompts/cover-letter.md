@@ -21,8 +21,12 @@ JOB POSTING:
 
 Structure:
 
-Opening (2-3 sentences):
-- Lead with WHY this role at THIS company, referencing something concrete about them (a product, a value, a recent move). Do NOT write "I am writing to express my interest in..." — that's filler, cut it.
+Opening (2-3 sentences) — LEAD WITH PROOF, NOT PRAISE:
+- **Default pattern — Problem → proof.** Name a specific challenge from the job posting, then immediately show you've solved it. Example: "You're hiring a [role] to [specific problem from the JD]. I spent the last [timeframe] doing exactly that at [Company] — [one-line outcome with a number]."
+- **Alternate A — Point of view.** Open with a sharp, specific opinion about the problem space that signals domain fluency. Risky but memorable; only use when the POV genuinely matches how they seem to think.
+- **Alternate B — Insider observation.** Something only someone who actually used the product, read the docs, or shipped in that space would notice. Rare but devastating when it lands.
+- **Do NOT write** "I am writing to express my interest in..." — that's filler, cut it.
+- **Do NOT open with** "I saw your recent post / blog / announcement / funding round about X." That's the exact pattern of AI-generated application spam and hiring managers pattern-match it as slop. Lead with your evidence before any reference to the company.
 
 Body paragraph 1 (3-4 sentences):
 - Strongest alignment point: their need → my evidence → the outcome.

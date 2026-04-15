@@ -10,7 +10,7 @@ That's what hiring managers are scanning for. Not your responsibilities. Not you
 
 The single biggest mistake on resumes is listing activities instead of outcomes. "Managed a team" tells me you had direct reports. It tells me nothing about whether the team shipped anything, whether they grew, or whether you were any good at it.
 
-> Six to eight seconds. That's the average initial resume scan, according to multiple recruiter surveys including the Enhancv/HR Gazette study of 25 U.S. recruiters (2025), which found that 92% prioritize "clear, skimmable structure" above all else.
+> Recruiters often give a resume only a few seconds on the first pass. Ladders' eye-tracking study put the initial scan at 7.4 seconds.
 
 In that window, hiring managers are **pattern-matching for signals**: numbers, outcomes, velocity, scope. Give them what they're looking for.
 
@@ -117,7 +117,7 @@ Every bullet is a piece of evidence. Make each one count.
 
 ## Sources
 
-- **Enhancv / HR Gazette** — Survey of 25 U.S. recruiters (September-October 2025): 92% prioritize clear, skimmable structure; 52% say applying within 48-72 hours significantly boosts visibility.
+- **HR Dive** — Coverage of Ladders' eye-tracking study finding recruiters spent an average of 7.4 seconds on an initial resume review. [hrdive.com](https://www.hrdive.com/news/eye-tracking-study-shows-recruiters-look-at-resumes-for-7-seconds/541582/)
 - **Ashby** — First-party ATS data from 11M+ applications: applications per hire up 182% since 2021. Remote roles receive 42% more applications.
 - **Alison Green / Ask a Manager** — Widely-cited hiring manager perspective on accomplishment-driven resume writing and formatting.
 - **Google XYZ Formula** (Laszlo Bock) — "Accomplished [X] as measured by [Y], by doing [Z]" framework for resume bullet points.

@@ -4,13 +4,13 @@
 
 <!-- HEADER: UK/EU convention is basically the same as a US resume header —
      email, LinkedIn, optionally portfolio, city or "Remote". Photos are
-     standard in some EU countries (Germany, France) but uncommon in the UK
-     and actively discouraged in the US. This template skips the photo by
-     default; add one only if you're confident the target country expects it.
+     still common in some continental European markets and uncommon in the UK.
+     This template skips the photo by default; only add one if you know the
+     target country, employer, or industry expects it.
 
-     Skip: Physical address, date of birth, nationality, marital status.
-     These were standard on UK CVs 15 years ago and are now considered
-     unnecessary (and in some regions legally discouraged to include). -->
+     Skip by default: physical address, date of birth, nationality, marital
+     status. Add them only if a specific employer or local convention clearly
+     expects them. -->
 
 ---
 
@@ -107,17 +107,14 @@
 
 ---
 
-## References
+## References (Optional)
 
-References available on request.
+[Add only if requested, common in your target sector, or genuinely useful.]
 
-<!-- "References available on request" is still the UK default. Listing named
-     referees (usually two, with affiliations and contact info) is also
-     acceptable and somewhat more formal.
-
-     US/tech convention skips this section entirely. If you're applying to
-     roles in both geographies from the same canonical CV, leave the
-     "available on request" line — it's neutral. -->
+<!-- Many employers ask for references later in the process, so this section is
+     optional rather than default. If you're applying across geographies from
+     the same canonical CV, deleting this section entirely is usually the
+     cleanest baseline. -->
 
 ---
 

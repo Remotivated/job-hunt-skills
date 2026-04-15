@@ -1,16 +1,11 @@
 ---
-description: Build your canonical resume, CV, or cover letter (start here if you're new to Job Hunt OS)
+description: Build or update your canonical resume, CV, or cover letter (focused mode — if you're new to Job Hunt OS, use /get-started instead)
 ---
 
-The user wants to build their canonical resume, CV, and/or cover letter. This is the primary entry point to Job Hunt OS — the user may be on a fresh clone with nothing set up yet, so treat this as an onboarding moment, not a one-shot generator.
+The user wants to build or update their canonical resume, CV, and/or cover letter. Unlike `/get-started`, this command skips the onboarding framing — use it when the user already has their state layer set up and is iterating on an existing document.
 
-Invoke the `resume-builder` skill and follow its workflow start to finish. Do **not** skip any of the onboarding-critical steps:
+Invoke the `resume-builder` skill and run its workflow: scaffold if needed → gather existing materials → structured interview → generate outputs with drift check → save → DOCX/PDF. Do **not** run the orientation, story-bank-seed, or closing-recap steps that live in `get-started` — this command is for users who already know the system.
 
-1. **§1 Orient the user** — explain what's about to happen before asking anything.
-2. **§2 First-run scaffolding** — run `scripts/scaffold-state.mjs` even if `my-documents/` looks present.
-3. **§6 Seed the story bank** — offer (don't assume) to capture 2-3 STAR stubs from the interview answers.
-4. **§7 Closing orientation** — name what was created and point to the next 1-2 skills.
+If the user appears to be on a fresh clone (no `my-documents/` yet, or clearly unfamiliar with the tooling), suggest `/get-started` instead and hand off rather than trying to onboard them from inside `resume-builder`.
 
-These steps are load-bearing for a new user's first session. The rest of the repo (`resume-tailor`, `resume-drift-check`, `interview-coach`, etc.) assumes the state layer is scaffolded and the canonicals exist — don't leave the user with a half-built foundation.
-
-If $ARGUMENTS is non-empty, treat it as a hint about which document(s) they want (e.g. "cv" → CV mode, "cover letter only" → cover-letter-only mode). If empty, let the user lead.
+If $ARGUMENTS is non-empty, treat it as a hint about which document(s) they want (e.g. "cv" → CV mode, "cover letter only" → cover-letter-only mode, "update" → update mode).

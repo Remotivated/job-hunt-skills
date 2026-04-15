@@ -122,8 +122,6 @@ Don't volunteer a number first if you can avoid it. If they ask for your expecta
 
 > "I'd love to learn more about the role first. Can you share the range you've budgeted for this position?"
 
-As of 2026, 16 states plus Washington D.C. require companies to share pay ranges in job postings, covering nearly 50% of U.S. employees. If they have a posted range, reference it.
-
 When it's time to discuss numbers directly:
 
 > "Based on the scope of this role and my experience in [area], I'd expect compensation in the range of [X-Y]. Is that in line with your budget?"
@@ -176,5 +174,4 @@ If you leave an interview feeling like you learned something real about the comp
 - **Harvard Business Review** — "38 Smart Questions to Ask in a Job Interview" and "10 Common Job Interview Questions and How to Answer Them." [hbr.org](https://hbr.org/2022/05/38-smart-questions-to-ask-in-a-job-interview)
 - **GitLab All-Remote Handbook** — Framework for evaluating remote jobs, including interview questions for assessing distributed work culture. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/evaluate/)
 - **MIT CAPD** — The STAR Method for behavioral interviews. [capd.mit.edu](https://capd.mit.edu/resources/the-star-method-for-behavioral-interviews/)
-- **Paycor / GovDocs** — Pay transparency law coverage as of 2026 (16 states + D.C., ~50% of U.S. employees). [paycor.com](https://www.paycor.com/resource-center/articles/pay-transparency-laws-by-state/)
 - **Indeed / InHerSight** — Research on take-home assessment time expectations and ethical concerns. [indeed.com](https://www.indeed.com/hire/c/info/take-home-interview-assignment)

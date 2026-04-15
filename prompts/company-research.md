@@ -42,10 +42,13 @@ Stage 4 — Team Distribution (3 min): Geographic spread? Leadership concentrati
 
 For every red flag you raise, name the specific signal and where it came from. "Culture seems off" is not actionable — point to the exact sentence or pattern.
 
-SCORE AND RECOMMEND:
-- 0-1 red flags: Likely solid. Prioritize.
-- 2-3 red flags: Proceed with caution — list specific questions I should ask in the interview to probe each flag.
-- 4+ red flags: Probably not worth my time unless the role is exceptional. Explain why.
+WEIGH AND RECOMMEND — severity matters more than count:
+**Do not tally red flags and score by total.** A single hard signal — a recent RTO mandate, leadership concentrated in one office while the role is "remote," reviews calling remote staff second-class — can outweigh several soft ones. Conversely, a pile of weak signals on an otherwise strong company may just be questions to raise, not a reason to walk away. Name the specific signals driving the recommendation so I can verify them and make my own call.
+
+Deliver one of three verdicts, each justified by the signals you named:
+- **Likely solid** — worth prioritizing.
+- **Proceed with caution** — worth pursuing, but list specific questions I should ask in the interview to probe each flagged signal.
+- **Probably not worth my time** — explain which hard signals drove the call, and note whether any could be verified false with current sources.
 
 Red flags are questions to ask, not automatic disqualifiers. Note which findings may be outdated and recommend I verify them against current sources — remote policies shift fast, especially around RTO waves.
 ```

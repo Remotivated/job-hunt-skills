@@ -4,8 +4,6 @@ Not every company that posts a "remote" role is actually remote. Some are hybrid
 
 Your job before applying is to figure out which one you're looking at. The good news: it takes about 15 minutes.
 
-> 💡 **Tip:** This process gets faster with practice. After a few weeks, you'll screen some companies in 30 seconds flat.
-
 ## The 15-Minute Vetting Stack
 
 ### Stage 1: Job Posting Scan (2 minutes)
@@ -58,6 +56,7 @@ Open the company's LinkedIn page for a quick structural scan.
 Not every red flag is a dealbreaker, but they stack up. Here's what to watch for:
 
 **In the job posting:**
+
 - **"Flexible arrangements"** — usually means hybrid with some WFH days
 - **City name + "remote"** tacked on as an afterthought
 - **Office-centric perks** listed prominently (catered lunches, on-site gym, game rooms)
@@ -65,6 +64,7 @@ Not every red flag is a dealbreaker, but they stack up. Here's what to watch for
 - **"Must be able to commute to [City] as needed"**
 
 **On the careers page:**
+
 - **Office photos dominate** the visual identity
 - **"Hybrid flexible" or "remote eligible"** instead of "remote"
 - **"Currently remote"** — implies temporary
@@ -72,6 +72,7 @@ Not every red flag is a dealbreaker, but they stack up. Here's what to watch for
 - **"Headquarters in [City]"** featured prominently with no mention of distributed team
 
 **In reviews:**
+
 - **"Great culture if you're in the office"**
 - **"They say flexible but expect 9-5 their timezone"**
 - **Multiple return-to-office mentions** — rumors or pressure
@@ -79,6 +80,7 @@ Not every red flag is a dealbreaker, but they stack up. Here's what to watch for
 - **"Communication is mostly hallway conversations"**
 
 **On LinkedIn:**
+
 - **Leadership team all based in one city**
 - **70%+ of employees** in a single metro area
 - **Recent departures** clustered among remote workers
@@ -88,7 +90,7 @@ Not every red flag is a dealbreaker, but they stack up. Here's what to watch for
 
 ## Spotting Remote-Washing Language
 
-Companies have learned that "remote" attracts more applicants -- LinkedIn Economic Graph data shows remote roles attract roughly 4x the competition of on-site positions -- so many use remote-adjacent language without offering actual remote work. Here's a quick decoder:
+Companies have learned that "remote" attracts more applicants. LinkedIn reported in July 2023 that remote jobs were 9% of postings and drew 44% of applications, so many companies use remote-adjacent language without offering actual remote work. Here's a quick decoder:
 
 | What they say | What it usually means |
 |---|---|
@@ -116,7 +118,7 @@ After your 15-minute review, tally the red flags:
 | **2-3** | Proceed with caution | The company may be in transition or have uneven remote practices. Prepare specific questions about remote work for the interview stage — how they handle async decisions, what tools they use, how they measure performance. |
 | **4+** | Probably skip | Likely office-first with a remote label. You'll spend more energy fighting the culture than doing your job. Only worth it if the role itself is exceptional. |
 
-Perfect companies don't exist. But you have **limited application energy**, and with remote roles attracting 4x the competition of on-site positions (LinkedIn Economic Graph), spending it on companies where you'll actually thrive beats spraying it at companies that aren't what they claim.
+Perfect companies don't exist. But you have **limited application energy**, and with remote roles drawing far more demand than their share of postings, spending it on companies where you'll actually thrive beats spraying it at companies that aren't what they claim.
 
 ---
 
@@ -149,6 +151,4 @@ The point is simple: stop wasting time on companies that aren't what they claim 
 ## Sources
 
 - **GitLab All-Remote Handbook** — Public documentation on remote hiring, evaluation frameworks, and red flags for remote-washing. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/evaluate/)
-- **LinkedIn Economic Graph** — Remote roles are 8-12% of postings but attract 40%+ of applications (~4x competition).
-- **The Org — Remote-Washing in Job Listings** — Analysis of location-dependent job posts labeled as remote. [theorg.com](https://theorg.com/iterate/remote-washing-location-dependent-job-posts)
-- **Darren Murph (GitLab Head of Remote)** — Interviews and writing on evaluating remote companies and identifying remote-friendly vs. remote-first cultures. [teamtopologies.com](https://teamtopologies.com/news-blogs-newsletters/lessons-learned-from-gitlab-about-remote-work-interview-with-darren-murph)
+- **LinkedIn / Andrew Seaman** — Summary of LinkedIn Economic Graph data: remote jobs were 9% of postings and drew 44% of applications in July 2023. [linkedin.com](https://www.linkedin.com/pulse/ads-remote-jobs-disappearing-andrew-seaman)

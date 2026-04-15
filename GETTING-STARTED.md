@@ -4,28 +4,36 @@ Setup for every platform, plus how the file system keeps your documents organize
 
 ---
 
-## For Claude Code Users (Recommended)
+## For Claude Code Users
 
-Install as a plugin — or clone the repo and open it directly, and skills are discovered from `skills/`.
+### Install
 
-### Setup
+Install as a plugin from the marketplace:
 
 ```bash
-git clone https://github.com/remotivated/job-hunt-os.git
-cd job-hunt-os
+claude plugin marketplace add Remotivated/job-hunt-os
+claude plugin install job-hunt-os@job-hunt-os
 ```
 
-Open the directory in Claude Code (CLI, VS Code extension, or desktop app). The 8 skills are automatically available — Claude discovers them from the `skills/` directory via the plugin manifest at `.claude-plugin/plugin.json`.
+Run `/reload-plugins` (or restart Claude Code). The 9 skills become available under the `/job-hunt-os:` namespace — e.g. `/job-hunt-os:get-started`. You don't need to invoke them explicitly: plain language works ("Help me get started") and Claude picks the right skill.
 
-The `my-documents/` directory is where your working files live. It's gitignored by default so your personal documents never get committed.
+**Clone fallback** — if you'd rather work inside the repo directly:
+
+```bash
+git clone https://github.com/Remotivated/job-hunt-os.git
+cd job-hunt-os
+claude
+```
+
+Skills are discovered from `skills/` via `.claude-plugin/plugin.json`. The `my-documents/` directory is where your working files live — it's gitignored by default, so your personal documents never get committed.
 
 ### Your first session
 
-Start with the resume builder:
+Start with the onboarding flow:
 
-> "Help me build my resume"
+> "Help me get started"
 
-The `resume-builder` skill activates and walks you through a structured interview about your experience, achievements, and goals. Depending on what you ask for, it produces:
+The `get-started` skill orients you, scaffolds `my-documents/` with the state layer Job Hunt OS depends on, and hands off to `resume-builder` for a structured interview about your experience, achievements, and goals. Depending on what you ask for, it produces:
 
 - `my-documents/resume.md` — Your canonical US resume in markdown (for US roles)
 - `my-documents/cv.md` — Your canonical UK/EU CV in markdown (for UK/EU roles). Same length budget as the resume, different section list: Personal Statement, degree classification, CEFR languages, "References available on request." Not a US academic CV.
@@ -61,9 +69,37 @@ Without LibreOffice you still get the `.docx` — it's a valid submittable artif
 
 ---
 
-## For Claude.ai / ChatGPT / Gemini Users
+## For Cowork Users
 
-Skills require Claude Code. But the **prompts** work in any LLM.
+### Install the plugin
+
+1. In Cowork ([claude.ai](https://claude.ai)), add the Job Hunt OS marketplace and install the plugin. Cowork shows an authorization screen for the install — approve it.
+2. Create a **Project**. Bind it to a local folder on your machine. Cowork will ask for permission to read and write files in that folder — approve it. This folder is where `my-documents/` will live.
+3. Open the Project and start a conversation.
+
+Plugin installation requires a Claude Pro or Team plan.
+
+### Your first Cowork session
+
+Same as Claude Code — start with the onboarding flow:
+
+> "Help me get started"
+
+The `get-started` skill orients you, scaffolds the state layer, and hands off to `resume-builder` for the same structured Q&A. The output files, skill behavior, and state layer are identical to Claude Code. The only difference is where the bound folder lives — everything Job Hunt OS writes lands in `my-documents/` inside that folder, and you can see and edit those files from your native file manager.
+
+### DOCX and PDF generation in Cowork
+
+Cowork runs skills inside a code-execution sandbox that has **python-docx and LibreOffice pre-installed**. Both `.docx` and `.pdf` generation work out of the box with no setup. Rendered files are saved to `my-documents/` in your bound folder, so you can open them in Word, Preview, or whatever you use locally.
+
+### What's different from Claude Code
+
+Nothing, at the user level. Same skills, same state layer, same output format. The `my-documents/` state you build up in a Cowork Project is readable by Claude Code too — if you later clone the repo and open it in Claude Code with that same folder bound, your canonical resume, story bank, tracker, and reports are all there.
+
+---
+
+## For Claude.ai / ChatGPT / Gemini Users (without plugins)
+
+Skills require Claude Code or Cowork. But the **prompts** work in any LLM — no plugins, no file management, just copy and paste.
 
 ### How to use prompts
 
@@ -181,9 +217,9 @@ The [`guides/`](guides/) directory is the "why" behind the skills. Worth reading
 
 ### Week 1: Build your foundation
 
-1. `resume-builder` -- create your **canonical resume** and cover letter
+1. `get-started` -- onboard, scaffold the state layer, and build your **canonical resume** and cover letter via the built-in `resume-builder` hand-off
 2. `resume-auditor` -- get honest feedback (it won't be gentle)
-3. Iterate until you're mostly seeing **STRONG ratings**
+3. Iterate until you're mostly seeing **STRONG ratings** (`resume-builder` in update mode each pass)
 4. `linkedin-optimizer` -- align your LinkedIn with your resume
 
 ---

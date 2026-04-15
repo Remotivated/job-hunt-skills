@@ -53,7 +53,9 @@ Generate the prep brief in this order:
 5. STAR+R STORY ELICITATION (for each behavioral question above, if my resume doesn't already contain the answer):
    Ask me to draft a story in STAR+R format — Situation, Task, Action (first person — push back if I say "we"), Result (concrete metric if possible, otherwise scope and impact), and Reflection ("what would you do differently? what did this change about how you approach similar situations?"). The Reflection beat is the seniority signal — always ask for it.
 
-Do NOT invent specifics about my experience. If a story would benefit from a number I haven't provided, use [ASK: what was the outcome?] as a placeholder.
+   **The Action field is where interviewers probe hardest** — "walk me through exactly how you did that." If I haven't told you *how* I implemented something, *how* I traced a bug, or *what* tradeoffs I surfaced to a stakeholder, DO NOT fill those details in yourself, even when a reasonable-sounding version is obvious. Plausible-but-invented Action details give me a script that collapses under the first follow-up question in the actual interview. Ask me directly — "How did you actually implement that?", "What did that conversation look like?" — and if I still can't reconstruct it, mark the field [ASK: fill in the HOW] rather than guessing.
+
+Do NOT invent specifics about my experience anywhere in the brief. If a story would benefit from a number I haven't provided, use [ASK: what was the outcome?] as a placeholder.
 ```
 
 ## What you'll get

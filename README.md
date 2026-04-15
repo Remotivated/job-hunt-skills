@@ -17,6 +17,7 @@ Job Hunt OS is a system for the other approach — Claude skills, standalone pro
 
 | Skill | What it does |
 |-------|-------------|
+| [get-started](skills/get-started/SKILL.md) | **Start here if you're new.** Orients you, scaffolds the state layer, and hands off to `resume-builder` to produce your first canonical documents |
 | [resume-builder](skills/resume-builder/SKILL.md) | Build a resume (US), CV (UK/EU), and/or cover letter from scratch through guided Q&A |
 | [resume-auditor](skills/resume-auditor/SKILL.md) | Get genuinely critical feedback — counteracts AI sycophancy |
 | [resume-tailor](skills/resume-tailor/SKILL.md) | Customize your resume for a specific job posting |
@@ -88,7 +89,7 @@ Output always lands next to each input with `.docx` (and `.pdf` when LibreOffice
 
 The script picks the document type from the input filename: `coverletter*` renders with extra paragraph spacing, `cv*` and everything else use the resume layout. The design is single-column serif typography (Georgia, with Liberation Serif as the LibreOffice substitute) with a restrained navy accent — ATS parsers and human reviewers see the same document. The "ATS-safe vs. pretty" tradeoff is largely a myth when multi-column layouts, images, tables, and text-in-shapes are avoided.
 
-### Troubleshooting
+### If generation fails
 
 If `.docx` generation fails, the markdown is still saved — it's the canonical artifact. If `.pdf` conversion fails (or LibreOffice isn't installed), the `.docx` is still written and you can open it in Word, LibreOffice, or Google Docs and "Save as PDF" by hand. Run the test suite with `python scripts/test_generate_docx.py` if you suspect a regression in the script itself.
 
@@ -96,23 +97,32 @@ If `.docx` generation fails, the markdown is still saved — it's the canonical 
 
 ## State Layer
 
-Job Hunt OS keeps a local markdown-based memory under `my-documents/`:
+Your state, not the project's. The entire `my-documents/` tree is gitignored — nothing under it is ever committed. It's created on your first skill run and grows across sessions as a local markdown memory.
 
-```
+```text
 my-documents/
 ├── resume.md              # your canonical US resume
-├── cv.md                  # your canonical UK/EU CV (optional; versions independently from resume.md)
+├── cv.md                  # your canonical UK/EU CV (optional; versions independently)
 ├── coverletter.md         # your canonical cover letter
 ├── applications.md        # tracker — one row per application
 ├── story-bank.md          # STAR stories (populated incrementally)
-├── applications/{id}/     # tailored resumes and cover letters
+├── applications/{id}/     # tailored resumes and cover letters per role
 ├── reports/               # numbered evaluations from every skill run
 └── proof-assets/          # reusable case studies
 ```
 
-Every skill reads and writes this layer so each run builds on the last — `remote-culture-check` dedupes against companies you already vetted, `resume-tailor` warns when a tailored version already exists, `resume-drift-check` catches hallucinated claims by comparing tailored resumes to your evidence layer. The entire `my-documents/` tree is gitignored; it's your state, not the project's.
+Every skill reads and writes this layer so each run builds on the last:
+
+- `remote-culture-check` dedupes against companies you've already vetted
+- `resume-tailor` warns when a tailored version already exists and verifies claims against your evidence layer
+- `resume-drift-check` catches hallucinated claims by comparing tailored resumes against your canonical, story bank, and proof assets
+- `interview-coach` remembers stories you've already used in prior prep sessions
 
 Contract: [`skills/_shared/state-layer.md`](skills/_shared/state-layer.md).
+
+### About `CLAUDE.md`
+
+The `CLAUDE.md` file at the repo root is the entry point every skill reads on startup — it imports the state layer contract so every skill run operates under the same rules for `my-documents/`. **Don't delete it.** If you need to add your own project instructions, append to the file rather than replacing it.
 
 ---
 
@@ -131,37 +141,84 @@ Contract: [`skills/_shared/state-layer.md`](skills/_shared/state-layer.md).
 
 ---
 
-## Quick Start
+## Install
 
-### Claude Code (recommended)
+### Claude Code
 
-1. Clone this repo: `git clone https://github.com/remotivated/job-hunt-os.git`
-2. Open the directory in Claude Code — skills are automatically discovered from `skills/`
-3. Start with: "Help me build my resume" → the `resume-builder` skill activates
-4. Your canonical resume saves to `my-documents/resume.md`
+Install as a plugin:
 
-### Any LLM (ChatGPT, Gemini, Claude.ai)
+```bash
+claude plugin marketplace add Remotivated/job-hunt-os
+claude plugin install job-hunt-os@job-hunt-os
+```
 
-1. Browse the [`prompts/`](prompts/) directory
-2. Copy the prompt into your conversation
-3. Paste your resume, job description, or other materials alongside it
-4. No file management or web browsing — but the core methodology works anywhere
+Run `/reload-plugins` (or restart Claude Code). The 9 skills become available under the `/job-hunt-os:` namespace — e.g. `/job-hunt-os:get-started`. You don't need to invoke them explicitly, though: ask in plain language ("Help me get started" or "Help me build my resume") and Claude picks the right one.
 
-See [GETTING-STARTED.md](GETTING-STARTED.md) for detailed setup instructions.
+**Clone fallback** — if you'd rather work inside the repo directly:
+
+```bash
+git clone https://github.com/Remotivated/job-hunt-os.git
+cd job-hunt-os
+claude
+```
+
+Skills are discovered from `skills/` via `.claude-plugin/plugin.json`.
+
+### Cowork
+
+1. In Cowork ([claude.ai](https://claude.ai)), add the Job Hunt OS marketplace and install the plugin. Cowork will show an authorization screen for the install — approve it.
+2. Create a **Project** and bind it to a local folder on your machine. Cowork will ask for permission to read and write files in that folder — approve it. This folder is where `my-documents/` will live.
+3. In the Project, ask: *"Help me get started."* The `get-started` skill orients you, scaffolds the state layer, and hands off to `resume-builder` for the Q&A.
+
+Plugin installation requires a Claude Pro or Team plan.
+
+### Any LLM (ChatGPT, Gemini, Claude.ai without plugins)
+
+No plugins, no state layer — but the **prompts** in [`prompts/`](prompts/) work anywhere. Copy one into a conversation, paste your materials alongside it, and the core methodology still applies. You manage your own files.
+
+### What works where
+
+| Feature                       | Claude Code | Cowork                      | Other LLMs (prompts) |
+| ----------------------------- | :---------: | :-------------------------: | :------------------: |
+| 9 skills                      | Yes         | Yes                         | —                    |
+| State layer (`my-documents/`) | Yes         | Yes                         | —                    |
+| DOCX + PDF generation         | Yes         | Yes (sandbox pre-installed) | —                    |
+| Cross-run memory              | Yes         | Yes                         | —                    |
+| Works in any LLM              | —           | —                           | Yes                  |
+
+Everything that works in Claude Code works in Cowork — same skills, same state layer, same output format. The plugin is one bundle that both surfaces load the same way.
+
+See [GETTING-STARTED.md](GETTING-STARTED.md) for a longer walk-through of both install paths.
 
 ---
 
-## Your First Workflow
+## Quick Start: from zero to first tailored application
 
-Here's the recommended sequence when you find a role you're interested in:
+Surface-agnostic — the same five prompts work in Claude Code and Cowork.
 
-1. **Build your resume** → `resume-builder` creates your canonical resume
-2. **Vet the company** → `remote-culture-check` evaluates their remote culture
-3. **Tailor for the role** → `resume-tailor` customizes your resume + cover letter
-4. **Prepare for the interview** → `interview-coach` generates your prep brief
-5. **Sanity-check tailoring** → `resume-drift-check` catches hallucinated claims before you submit
+1. **Build your canonical resume** — *"Help me get started."* `get-started` orients you, scaffolds the state layer, and hands off to `resume-builder` for a structured Q&A that saves `my-documents/resume.md` (plus `.docx` and, if LibreOffice is installed, `.pdf`). Already set up? Skip to `resume-builder` directly with *"Help me update my resume."*
+2. **Vet the company** — *"Research Acme Corp's remote culture."* `remote-culture-check` produces a numbered report under `my-documents/reports/`.
+3. **Tailor for the role** — *"Tailor my resume for this job: [paste URL or description]."* `resume-tailor` writes to `my-documents/applications/{id}/` and logs the application in `applications.md`.
+4. **Drift-check before submitting** — *"Check the tailored resume for drift."* `resume-drift-check` compares the tailored version against your canonical, story bank, and proof assets, and flags any claim it can't trace.
+5. **Prep for the interview** — *"Help me prepare for the Acme interview."* `interview-coach` generates a prep brief and saves it under `reports/`.
 
-Each skill builds on the last. Your canonical resume (`my-documents/resume.md`) is the **foundation** — build it once, tailor it many times.
+Each step builds on the last. Your canonical resume (`my-documents/resume.md`) is the foundation — build it once, tailor it many times.
+
+---
+
+## Troubleshooting
+
+**Skills not discovered.** Run `/reload-plugins` in Claude Code. If that doesn't help, open `/plugin` and check the **Errors** tab for loader issues. In Cowork, confirm the plugin shows as enabled in your Project settings.
+
+**LibreOffice not installed.** The `.docx` still generates — it's a valid submittable artifact on its own. Only the `.pdf` step is skipped. Install LibreOffice (see above) or open the `.docx` in Word / Google Docs and "Save as PDF" by hand. Cowork users get LibreOffice pre-installed in the code-execution sandbox, so no action needed there.
+
+**Cowork folder authorization denied.** If you clicked "deny" when Cowork asked for folder access, open the Project settings and re-authorize the folder. Skills can't read or write `my-documents/` without permission.
+
+**"No canonical resume found"** from `resume-tailor` or `resume-drift-check`. Those skills depend on `my-documents/resume.md` existing first. Run `resume-builder` once to create it, then re-run the tailor.
+
+**`applications.md` parse error.** A skill reported the tracker table is malformed and refused to write. Open the file, fix the broken row (usually a missing pipe or a header mismatch), and re-run. Skills never overwrite a tracker they can't parse — by design.
+
+**Out-of-date clone.** If you see references to Playwright, Charter, or an HTML resume template anywhere in the repo, pull the latest `master`. Those belonged to the old PDF pipeline that was replaced in #10.
 
 ---
 
