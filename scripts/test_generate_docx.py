@@ -213,5 +213,69 @@ class CoverLetterTests(unittest.TestCase):
             self.assertEqual(p.paragraph_format.space_after.pt, 10.0)
 
 
+class RenderValidationTests(unittest.TestCase):
+    def test_allows_markdown_links(self):
+        sample = (
+            "# Jane Doe\n\n"
+            "[jane@x.com](mailto:jane@x.com) · [LinkedIn](https://linkedin.com/in/jane)\n\n"
+            "---\n\n"
+            "Dear Hiring Team,\n\n"
+            "You're hiring a frontend engineer to improve accessibility across your product. "
+            "At Acme, I led the cleanup of a legacy component library and cut the number of "
+            "keyboard-navigation bugs by 40%.\n"
+        )
+        self.assertEqual(gd.find_render_blockers(sample, "coverletter"), [])
+
+    def test_flags_bracket_placeholders(self):
+        sample = (
+            "# [Your Name]\n\n"
+            "jane@x.com\n\n"
+            "---\n\n"
+            "[Date]\n\n"
+            "Dear [Hiring Team],\n"
+        )
+        blockers = gd.find_render_blockers(sample, "coverletter")
+        self.assertIn("unresolved bracket placeholder: [Your Name]", blockers)
+        self.assertIn("unresolved bracket placeholder: [Date]", blockers)
+        self.assertIn("unresolved bracket placeholder: [Hiring Team]", blockers)
+
+    def test_flags_comments_and_ask_verify_markers(self):
+        sample = (
+            "# Jane Doe\n\n"
+            "jane@x.com\n\n"
+            "---\n\n"
+            "<!-- template note -->\n"
+            "[ASK: what was the result?]\n"
+            "[VERIFY: exact team size]\n"
+            "year TBD\n"
+        )
+        blockers = gd.find_render_blockers(sample, "resume")
+        self.assertIn("HTML comments/template notes are still present", blockers)
+        self.assertIn(
+            "unresolved ASK marker: [ASK: what was the result?]", blockers
+        )
+        self.assertIn(
+            "unresolved VERIFY marker: [VERIFY: exact team size]", blockers
+        )
+        self.assertIn("unresolved placeholder: year TBD", blockers)
+
+    def test_md_to_docx_rejects_unresolved_placeholders(self):
+        sample = (
+            "# Jane Doe\n\n"
+            "jane@x.com\n\n"
+            "---\n\n"
+            "[Date]\n\n"
+            "Dear Hiring Team,\n"
+        )
+        path = _HERE.parent / "tmp-coverletter-validation.md"
+        try:
+            path.write_text(sample, encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "not ready to render"):
+                gd.md_to_docx(path)
+        finally:
+            if path.exists():
+                path.unlink()
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

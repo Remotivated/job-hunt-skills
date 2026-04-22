@@ -15,6 +15,11 @@ my-documents/**
 .DS_Store
 Thumbs.db
 
+# Local dev: junctions that expose the plugin bundle to the VS Code extension
+# (Claude Code scans .claude/ for project commands/skills; plugin bundles live at the repo root)
+.claude/commands
+.claude/skills
+
 # Node
 node_modules/
 

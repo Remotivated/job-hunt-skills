@@ -14,6 +14,11 @@
      doesn't obviously match the role. Skip it if your experience speaks for itself —
      the space is better used for another bullet point.
 
+     Voice: implied first person, same as the bullets below. Open with your role and
+     scope ("Implementation leader with 6 years..."), close with a headline achievement.
+     No "I" pronouns, no "who" constructions ("A leader who..."). One voice, start
+     to finish.
+
      Good: "Backend engineer with 6 years building high-throughput APIs in Python and Go.
      Led migration of legacy monolith to microservices at [Company], reducing deploy time
      from 2 hours to 8 minutes."
@@ -21,7 +26,7 @@
      Bad: "Results-driven professional seeking opportunities to leverage my skills in a
      dynamic environment." (This says nothing.) -->
 
-[2-3 sentences: what you do, what you're known for, and a headline achievement.]
+[2-3 sentences. Implied first person. Open with role + scope, close with a headline achievement.]
 
 ---
 
@@ -30,7 +35,10 @@
 ### [Job Title] — [Company Name]
 *[Start Month Year] – [End Month Year or Present]* · Remote / City, State
 
-<!-- BULLET STRUCTURE: [Action verb] + [what you did] + [specific outcome or impact]
+<!-- BULLET STRUCTURE: [Past-tense action verb] + [what you did] + [specific outcome or impact]
+     Use past tense throughout, including your current role. "Led a team of 6" frames
+     the work as an accomplishment; "Lead a team of 6" reads as a job description and
+     invites the reader to pause over tense. One tense, start to finish.
      Aim for 3-5 bullets per role. Lead with your strongest.
      Every bullet should answer: "So what? What changed because of this?" -->
 

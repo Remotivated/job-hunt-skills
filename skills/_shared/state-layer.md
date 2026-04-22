@@ -10,7 +10,7 @@ Single source of truth for the `my-documents/` state layer. All skills that read
 my-documents/
 ├── resume.md              # canonical US resume (frontmatter: version, updated)
 ├── cv.md                  # canonical UK/EU CV (frontmatter: version, updated; versions independently from resume.md)
-├── coverletter.md         # canonical
+├── coverletter.md         # canonical source letter (optional until enough specificity exists)
 ├── applications.md        # tracker (flat table + optional ## Notes)
 ├── story-bank.md          # STAR+R stories (read by interview-coach, resume-tailor, resume-drift-check)
 ├── applications/          # artifacts sent to employers
@@ -139,13 +139,23 @@ Both `resume.md` (US) and `cv.md` (UK/EU) use the same frontmatter shape:
 ---
 version: 3
 updated: 2026-04-08
+label: resume      # or "CV" — what to call this doc in user-facing text
 ---
 ```
 
 - `version` — integer, incremented by `resume-builder` on any non-trivial change.
 - `updated` — ISO date of the last bump.
+- `label` — the word to use in user-facing prose when referring to this document. Captured once at creation time from the user's own vocabulary, then reused for the life of the file.
 - Only `resume-builder` bumps `version`. `resume-auditor` is read-only and MUST NOT write to the canonical.
 - **Resume and CV version independently.** They are separate documents with separate audiences (US vs. UK/EU). Bumping `resume.md` does not touch `cv.md` and vice versa. A user may have one, the other, or both.
+
+**Vocabulary rule (cross-cutting, every skill):**
+
+Any skill that references the canonical resume or CV in user-facing prose MUST use the `label` field from its frontmatter. If the field is missing (legacy file), fall back to filename-based defaults: `resume.md` → `resume`, `cv.md` → `CV`. Never silently translate the user's word — e.g., if the canonical's `label` is `CV`, the agent says "CV" throughout, not "UK/EU-style resume." The label is the single source of truth for vocabulary; do not override it per session.
+
+**Capture rule (resume-builder only):**
+
+`resume-builder` sets `label` on first save and preserves it on rebuild/update. To pick the value: use the word the user has been using in conversation up to that point. If they said "CV," set `label: CV`. If they said "resume," set `label: resume`. If ambiguous, default from filename (`cv.md` → `CV`, `resume.md` → `resume`). A user can override by editing the frontmatter directly; skills must respect that override on subsequent reads.
 
 **Tailored resume frontmatter:**
 

@@ -28,7 +28,7 @@ A grading agent runs roughly like this for each `(persona, skill)` pair:
 4. Score it against:
    - **Hallucination check** — every concrete claim (employer, date, metric, tool, certification) must trace to the Ground truth section. Flag any that don't.
    - **Trap check** — walk the Known traps list and verify each one was avoided.
-   - **Skill-specific rubric** — e.g. for `resume-builder`: ATS-friendly format, quantified bullets, no objective statement, correct region (US resume vs UK/EU CV).
+   - **Skill-specific rubric** — e.g. for `resume-builder`: ATS-friendly format, quantified bullets, no objective statement, correct region (US resume vs UK/EU CV). For cover letters: specific role/company problem, concrete proof, no unresolved placeholders, no broad "I'm targeting X/Y/Z roles" market-summary language.
 5. Report pass / fail per check with the offending span quoted.
 
 The grader is itself an LLM, so calibrate it against a few human-reviewed runs before trusting verdicts.

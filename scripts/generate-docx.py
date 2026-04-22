@@ -61,6 +61,10 @@ UNICODE_REPLACEMENTS = {
 }
 ZERO_WIDTH_RE = re.compile(r"[\u200B\u200C\u200D\uFEFF]")
 FRONTMATTER_RE = re.compile(r"\A---\r?\n.*?\r?\n---\r?\n[\r\n]*", re.DOTALL)
+HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+ASK_VERIFY_RE = re.compile(r"\[(ASK|VERIFY):[^\]]+\]")
+BRACKET_PLACEHOLDER_RE = re.compile(r"(?<!\!)\[(?![ xX]\])([^\]\n]{2,120})\](?!\()")
+YEAR_TBD_RE = re.compile(r"\byear TBD\b", re.IGNORECASE)
 
 
 # --------------------------------------------------------------------------
@@ -75,6 +79,47 @@ def normalize_unicode(text: str) -> str:
 
 def strip_frontmatter(text: str) -> str:
     return FRONTMATTER_RE.sub("", text, count=1)
+
+
+def find_render_blockers(text: str, kind: str):
+    """Return human-readable reasons the markdown should not be rendered."""
+    body = strip_frontmatter(normalize_unicode(text))
+    blockers = []
+
+    if HTML_COMMENT_RE.search(body):
+        blockers.append("HTML comments/template notes are still present")
+        body = HTML_COMMENT_RE.sub("", body)
+
+    if YEAR_TBD_RE.search(body):
+        blockers.append("unresolved placeholder: year TBD")
+
+    for match in ASK_VERIFY_RE.finditer(body):
+        label = match.group(1).upper()
+        blockers.append(f"unresolved {label} marker: {match.group(0)}")
+
+    for match in BRACKET_PLACEHOLDER_RE.finditer(body):
+        token = match.group(1).strip()
+        blockers.append(f"unresolved bracket placeholder: [{token}]")
+
+    # Resume/CV/contact markdown legitimately uses [Link Text](url). The
+    # regex above excludes those, so any remaining bracket token is almost
+    # certainly a template placeholder that should not ship to DOCX/PDF.
+    seen = set()
+    unique = []
+    for blocker in blockers:
+        if blocker not in seen:
+            seen.add(blocker)
+            unique.append(blocker)
+    return unique
+
+
+def validate_markdown_for_render(text: str, kind: str):
+    blockers = find_render_blockers(text, kind)
+    if blockers:
+        joined = "; ".join(blockers)
+        raise ValueError(
+            f"{kind} markdown is not ready to render: {joined}"
+        )
 
 
 def parse_resume_sections(markdown: str):
@@ -247,8 +292,13 @@ def render_inline(paragraph, inline_tokens, *, default_color=None,
             )
         else:
             run = paragraph.add_run(text)
-            # **strong** picks up the navy accent (matches the CSS).
-            color = NAVY if bold else default_color
+            # Navy is reserved for name and section headers (set via
+            # default_color by emit_header/emit_h2). Body-level **bold**
+            # inherits the paragraph default so role titles and skill
+            # labels stay near-black — matches Option B in
+            # research/resume-format-options.md ("accent in 2-3 places,
+            # never more").
+            color = default_color
             style_run(run, size=default_size, bold=bold, italic=italic,
                       color=color)
 
@@ -500,10 +550,11 @@ def find_soffice():
 
 def md_to_docx(input_path):
     raw = Path(input_path).read_text(encoding="utf-8")
+    kind = pick_kind(input_path)
+    validate_markdown_for_render(raw, kind)
     raw = strip_frontmatter(raw)
     raw = normalize_unicode(raw)
     name, contact, body = parse_resume_sections(raw)
-    kind = pick_kind(input_path)
     doc = build_document(name, contact, body, kind)
     out_path = Path(input_path).with_suffix(".docx")
     doc.save(str(out_path))
@@ -589,7 +640,9 @@ def main(argv=None):
             print(f"Wrote {docx_path}")
             docx_results.append(docx_path)
         except Exception as e:
-            print(f"Failed to build .docx for {input_path}: {e}",
+            print(
+                f"Failed to build .docx for {input_path}: {e}. "
+                "If this is a markdown-not-ready error, fix the markdown and rerun.",
                   file=sys.stderr)
             any_failed = True
 

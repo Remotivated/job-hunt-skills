@@ -13,9 +13,11 @@ Reshape the resume narrative for a specific role. This is not keyword swapping �
 
 ### 0. Dedup check
 
-Read `my-documents/applications.md` (first-run scaffold if missing). Compute the target `id` as `{company-slug}-{role-slug}`. If a row with that `id` already exists **or** `my-documents/applications/{id}/resume.md` already exists, warn:
+Read `my-documents/applications.md` (first-run scaffold if missing). Compute the target `id` as `{company-slug}-{role-slug}`. If a row with that `id` already exists **or** `my-documents/applications/{id}/resume.md` already exists, warn the user using the canonical's `label` from frontmatter (see [state-layer §6](../_shared/state-layer.md#6-canonical-resume-frontmatter)):
 
-> You have a tailored resume for **{Role} at {Company}**. Iterate on the existing version, or create a new one?
+> You have a tailored {label} for **{Role} at {Company}**. Iterate on the existing version, or create a new one?
+
+(If the canonical's `label` is `CV`, that reads "You have a tailored CV for..."; if `resume`, "You have a tailored resume for..." Never substitute your own word.)
 
 - **Iterate:** load the existing tailored file and continue from there.
 - **New one:** the new version **overwrites** `applications/{id}/resume.md` in place. Rationale: parallel folders for the same role get messy. Git history on the canonical + the report stub preserve recoverability.
@@ -26,7 +28,7 @@ Warn, do not block — the user can always proceed.
 ### 1. Accept inputs
 
 - **Job posting** — URL or pasted text. If URL can't be accessed, ask for pasted text.
-- **Canonical files** — Read `my-documents/resume.md` and `my-documents/coverletter.md`
+- **Canonical files** — Read `my-documents/resume.md`. Read `my-documents/coverletter.md` if it exists; treat it as source material, not a script to paraphrase mechanically.
 
 ### 2. Analyze the posting
 
@@ -48,7 +50,13 @@ What's the strongest story for THIS role? Which experiences map to their priorit
 
 Gaps in the canonical itself still use `[ASK: ...]` placeholders — those are a `resume-builder` concern, not a tailor concern. Stray `[VERIFY: ...]` markers from a previous iteration count as cosmetic findings for the new drift-check pass.
 
-**Cover letter:** Address specific role/company. Lead with strongest alignment. Confident closing.
+**Cover letter:** Address the specific role/company. Use the canonical cover letter only as raw material for voice and proof points; if it is missing, too broad, or weaker than a fresh draft from the JD + evidence layer, write the tailored cover letter from scratch. Quality bar:
+
+- Name the company's need or problem, not just your own job search goals.
+- Expand 1-2 proof points that map directly to that need.
+- Explain why this role/company makes sense for the candidate now.
+- If there is an honest gap, name it directly rather than smoothing it over.
+- If the letter could be reused for five companies with only company-name swaps, it is not tailored enough; rewrite it before save.
 
 ### 5. Save outputs
 
@@ -85,7 +93,14 @@ Read the canonical's `version` field and copy it into `derived_from_version`. Se
 python scripts/generate-docx.py my-documents/applications/{id}/resume.md my-documents/applications/{id}/coverletter.md
 ```
 
-Run generation **after** tracker state has been persisted so a rendering failure does not block the `status: saved` upsert. The script always writes the `.docx` next to each input, then converts to `.pdf` via LibreOffice headless if `soffice` is on PATH. If LibreOffice isn't installed the `.docx` files still land — they're valid submittable artifacts on their own — and the script prints install instructions; do not treat that as a failure. The script renders each file independently and the exit code is non-zero only if a `.docx` build or `.pdf` conversion *actually* errored. On failure, report which file(s) failed with the exact rerun command:
+Run generation **after** tracker state has been persisted so a rendering failure does not block the `status: saved` upsert. The script always writes the `.docx` next to each input, then converts to `.pdf` via LibreOffice headless if `soffice` is on PATH.
+
+Handle failures in two buckets:
+
+- **Content validation failure** — if the script says the markdown is "not ready to render" (for example unresolved placeholders, template comments, `[ASK:]`, `[VERIFY:]`, or `year TBD`), do **not** surface that raw failure as the final answer. Treat it as an internal quality gate. Read the exact blocker(s), fix the tailored markdown, and rerun automatically. Only ask the user a follow-up if the blocker depends on a missing fact that the JD + evidence layer cannot answer.
+- **Infrastructure/rendering failure** — if the markdown is valid but `.docx` build or PDF conversion fails, report which file(s) failed with the exact rerun command.
+
+If LibreOffice isn't installed the `.docx` files still land — they're valid submittable artifacts on their own — and the script prints install instructions; do not treat that as a failure. The script renders each file independently and the exit code is non-zero only if a `.docx` build or `.pdf` conversion *actually* errored. On infrastructure/rendering failure, report which file(s) failed with the exact rerun command:
 
 > Tailored markdown and tracker updated. PDF conversion failed for `my-documents/applications/{id}/resume.md`: `<error message>`. The `.docx` is in place; rerun once fixed: `python scripts/generate-docx.py my-documents/applications/{id}/resume.md`
 

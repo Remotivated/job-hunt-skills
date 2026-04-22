@@ -25,7 +25,7 @@ If a job description is provided, evaluate alignment. If not, evaluate on genera
 
 Rate every bullet: **STRONG** / **NEEDS WORK** / **WEAK**
 
-End with a count: "X STRONG, Y NEEDS WORK, Z WEAK." If 80%+ bullets are WEAK, say so bluntly: "This resume needs a rewrite, not polish."
+End with a count: "X STRONG, Y NEEDS WORK, Z WEAK." If 80%+ bullets are WEAK, say so bluntly, using the canonical's `label` from frontmatter: "This {label} needs a rewrite, not polish." (Per [state-layer §6](../_shared/state-layer.md#6-canonical-resume-frontmatter) — say "CV" if that's what the user calls it, "resume" otherwise.)
 
 Flag: "Responsible for...", "Worked on...", "Helped with...", "Assisted in..."
 

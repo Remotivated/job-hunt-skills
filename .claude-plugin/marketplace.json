@@ -1,0 +1,14 @@
+{
+  "name": "job-hunt-os",
+  "owner": {
+    "name": "Remotivated",
+    "url": "https://remotivated.com"
+  },
+  "plugins": [
+    {
+      "name": "job-hunt-os",
+      "source": "./",
+      "description": "AI-powered skills for a smarter remote job search — resume building, tailoring, interview prep, company vetting, and more."
+    }
+  ]
+}
