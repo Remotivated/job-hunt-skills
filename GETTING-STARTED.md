@@ -1,23 +1,29 @@
 # Getting Started with Job Hunt OS
 
-Setup for every platform, plus how the file system keeps your documents organized.
+This repo works best as a **toolkit**: a few strong workflows, useful prompts, practical guides, and a clean export path for markdown resumes and cover letters.
+
+If you only remember one thing, remember this: **start with the hero workflows first**. Everything else is optional.
 
 ---
 
-## For Claude Code Users
+## Fastest Path
 
-### Install
+### Claude Code
 
-Install as a plugin from the marketplace:
+Install the plugin:
 
 ```bash
 claude plugin marketplace add Remotivated/job-hunt-os
 claude plugin install job-hunt-os@job-hunt-os
 ```
 
-Run `/reload-plugins` (or restart Claude Code). The 9 skills become available under the `/job-hunt-os:` namespace — e.g. `/job-hunt-os:get-started`. You don't need to invoke them explicitly: plain language works ("Help me get started") and Claude picks the right skill.
+Run `/reload-plugins` (or restart Claude Code), then ask:
 
-**Clone fallback** — if you'd rather work inside the repo directly:
+> Help me get started
+
+That is the fastest path to a first draft. The `get-started` skill handles orientation, optional local workspace setup, and the hand-off to `resume-builder`.
+
+Clone fallback:
 
 ```bash
 git clone https://github.com/Remotivated/job-hunt-os.git
@@ -25,216 +31,165 @@ cd job-hunt-os
 claude
 ```
 
-Skills are discovered from `skills/` via `.claude-plugin/plugin.json`. The `my-documents/` directory is where your working files live — it's gitignored by default, so your personal documents never get committed.
+### Cowork
 
-### Your first session
+1. Install the plugin in Cowork.
+2. Bind the Project to a local folder if you want the optional local workspace.
+3. Ask: **Help me get started**.
 
-Start with the onboarding flow:
+Cowork and Claude Code use the same skill bundle and document export tooling.
 
-> "Help me get started"
+### Any LLM (ChatGPT, Gemini, Claude.ai without plugins)
 
-The `get-started` skill orients you, scaffolds `my-documents/` with the state layer Job Hunt OS depends on, and hands off to `resume-builder` for a structured interview about your experience, achievements, and goals. Depending on what you ask for, it produces:
+Use the prompts in [`prompts/`](prompts/). Copy one into a conversation, paste your materials, and work from there.
 
-- `my-documents/resume.md` — Your canonical US resume in markdown (for US roles)
-- `my-documents/cv.md` — Your canonical UK/EU CV in markdown (for UK/EU roles). Same length budget as the resume, different section list: Personal Statement, degree classification, CEFR languages, "References available on request." Not a US academic CV.
-- `my-documents/coverletter.md` — Your canonical cover letter (the letter that introduces you for a specific role — complements either the resume or the CV)
-- PDF versions of each file you built
+Prompt-only use skips saved workspace features and automatic DOCX/PDF export, but the methodology still applies.
 
-Resume and CV are independent canonicals — you can have one, the other, or both, and they version independently.
+---
 
-From there:
+## Hero Workflows
 
-- **Audit your resume** → "Give me honest feedback on my resume" (activates `resume-auditor`)
-- **Tailor for a role** → "Tailor my resume for this job: [paste URL or text]" (activates `resume-tailor`)
-- **Vet a company** → "Research [Company Name]'s remote culture" (activates `remote-culture-check`)
-- **Prep for an interview** → "Help me prepare for an interview at [Company] for [Role]" (activates `interview-coach`)
+Lead with these four:
 
-### DOCX and PDF generation
+1. **`get-started`** - first-run onboarding and first draft
+2. **`resume-builder`** - build or update a canonical resume, CV, or cover letter
+3. **`resume-tailor`** - tailor for one specific job posting
+4. **`remote-culture-check`** - vet the employer before you spend time applying
 
-Skills that save canonical or tailored documents also produce a `.docx` next to each markdown file via `scripts/generate-docx.py` (python-docx + markdown-it-py). If LibreOffice is on your PATH, the script also converts each `.docx` to `.pdf` in a single headless `soffice` batch.
+If you get traction, add:
 
-To enable automatic PDF generation:
+- **`interview-coach`** for prep once interviews are scheduled
+- **`resume-auditor`** when you want a harder critique
+
+## Advanced / Optional
+
+These are useful, but not the place to start:
+
+- **`resume-drift-check`** - advanced verification for repeat users checking tailored materials
+- **`linkedin-optimizer`** - LinkedIn rewrites and positioning
+- **`proof-asset-creator`** - case studies and proof-of-value assets
+
+## What You Will Get Quickly
+
+In a typical first session, the repo is strongest at producing:
+
+- a canonical resume or UK/EU CV
+- a targeted cover letter when you have a real role in mind
+- a company vetting pass for remote/hybrid fit
+- an interview prep brief once you are in process
+
+That is the core promise. Treat everything else as an add-on, not a requirement.
+
+## CV Support
+
+Canonical build flows support both:
+
+- **US resume**
+- **UK/EU CV**
+
+Be careful not to assume perfect feature parity after the canonical build. Downstream workflows are strongest on resume-first paths today, so review CV-derived outputs carefully before sending them.
+
+## Optional Local Workspace
+
+If you are using Claude Code or Cowork and want saved files across sessions, the repo can keep an optional local workspace in `my-documents/`.
+
+```text
+my-documents/
+|- resume.md or cv.md
+|- coverletter.md
+|- applications/
+|- reports/
+|- story-bank.md
+`- proof-assets/
+```
+
+This is useful for repeat users. It is **not required** if you are just using the prompts.
+
+Advanced users can inspect the full rules in [`skills/_shared/state-layer.md`](skills/_shared/state-layer.md).
+
+## Sample Outputs
+
+If you want to see what "finished" looks like, start with the curated examples in [examples/](examples/):
+
+- [US resume example](examples/resume-tech-lead.md)
+- [Cover letter example](examples/coverletter-computational-biology.md)
+- [Interview prep brief example](examples/interview-prep-engineering-manager.md)
+
+`tests/personas/` is for internal evaluation fixtures, not public samples.
+
+## DOCX and PDF Generation
+
+For Claude skill users, markdown outputs can be rendered with [`scripts/generate-docx.py`](scripts/generate-docx.py).
+
+### Setup
+
+```bash
+pip install python-docx markdown-it-py
+```
+
+To also auto-generate PDFs, install LibreOffice:
 
 - **macOS**: `brew install --cask libreoffice`
 - **Windows**: `winget install TheDocumentFoundation.LibreOffice`
-- **Linux**: `apt install libreoffice` (or your package manager's equivalent)
+- **Linux**: `apt install libreoffice`
 
-Without LibreOffice you still get the `.docx` — it's a valid submittable artifact on its own. If you'd rather convert by hand:
+### Usage
 
-- **Open in Word / LibreOffice / Google Docs** and use "Save as PDF"
-- **Browser print-to-PDF**: Open the `.md` file, print → "Save as PDF"
-- **Pandoc** (if installed): `pandoc resume.md -o resume.pdf`
-
-> 💡 **Tip:** The markdown files are the source of truth. Regenerate the `.docx` / `.pdf` whenever you need to submit, but do your editing in `.md` format.
-
----
-
-## For Cowork Users
-
-### Install the plugin
-
-1. In Cowork ([claude.ai](https://claude.ai)), add the Job Hunt OS marketplace and install the plugin. Cowork shows an authorization screen for the install — approve it.
-2. Create a **Project**. Bind it to a local folder on your machine. Cowork will ask for permission to read and write files in that folder — approve it. This folder is where `my-documents/` will live.
-3. Open the Project and start a conversation.
-
-Plugin installation requires a Claude Pro or Team plan.
-
-### Your first Cowork session
-
-Same as Claude Code — start with the onboarding flow:
-
-> "Help me get started"
-
-The `get-started` skill orients you, scaffolds the state layer, and hands off to `resume-builder` for the same structured Q&A. The output files, skill behavior, and state layer are identical to Claude Code. The only difference is where the bound folder lives — everything Job Hunt OS writes lands in `my-documents/` inside that folder, and you can see and edit those files from your native file manager.
-
-### DOCX and PDF generation in Cowork
-
-Cowork runs skills inside a code-execution sandbox that has **python-docx and LibreOffice pre-installed**. Both `.docx` and `.pdf` generation work out of the box with no setup. Rendered files are saved to `my-documents/` in your bound folder, so you can open them in Word, Preview, or whatever you use locally.
-
-### What's different from Claude Code
-
-Nothing, at the user level. Same skills, same state layer, same output format. The `my-documents/` state you build up in a Cowork Project is readable by Claude Code too — if you later clone the repo and open it in Claude Code with that same folder bound, your canonical resume, story bank, tracker, and reports are all there.
-
----
-
-## For Claude.ai / ChatGPT / Gemini Users (without plugins)
-
-Skills require Claude Code or Cowork. But the **prompts** work in any LLM — no plugins, no file management, just copy and paste.
-
-### How to use prompts
-
-1. Browse the [`prompts/`](prompts/) directory
-2. Open the prompt you want (e.g., `resume-audit.md`)
-3. Read the "What You'll Need" section to gather your materials
-4. Copy the prompt from the "The Prompt" section
-5. Paste it into your LLM conversation
-6. Paste your resume, job description, or other materials where indicated
-7. Send
-
-### Available prompts
-
-| Prompt | Use when... |
-|--------|------------|
-| [resume-audit](prompts/resume-audit.md) | You want critical feedback on your resume |
-| [resume-tailor](prompts/resume-tailor.md) | You have a job posting and want to customize your resume |
-| [interview-prep](prompts/interview-prep.md) | You have an upcoming interview |
-| [company-research](prompts/company-research.md) | You want to evaluate a company's remote culture |
-| [cover-letter](prompts/cover-letter.md) | You need a cover letter for a specific role |
-| [linkedin-audit](prompts/linkedin-audit.md) | You want to improve your LinkedIn profile |
-
-### Limitations
-
-Prompts work in any LLM, but compared to skills they lack:
-
-- **File management** — You'll need to manage your own files
-- **PDF generation** — Copy output to Google Docs or your preferred tool
-- **Web browsing** — Paste content directly instead of providing URLs
-- **Multi-turn workflow** — Each prompt is a single interaction
-
-Same methodology, you just handle the **file management** yourself.
-
----
-
-## How the State Layer Works
-
-Your master resume lives in one place. Tailored versions, reports, and evidence files each have their own directory. Here's the layout:
-
-```
-my-documents/
-├── resume.md              ← Your master US resume (created by resume-builder)
-├── cv.md                  ← Your master UK/EU CV (created by resume-builder; optional)
-├── coverletter.md         ← Your master cover letter (created by resume-builder)
-├── resume.docx / .pdf     ← DOCX always; PDF if LibreOffice is on PATH
-├── cv.docx / .pdf
-├── coverletter.docx / .pdf
-├── applications.md        ← Tracker — one row per application (status, dates, links)
-├── story-bank.md          ← STAR stories (your evidence layer — populated over time)
-├── applications/
-│   ├── acme-sre/          ← Tailored for Acme Corp SRE role
-│   │   ├── resume.md
-│   │   ├── resume.docx / .pdf
-│   │   ├── coverletter.md
-│   │   ├── coverletter.docx / .pdf
-│   │   └── interview-prep.md
-│   └── buffer-marketing/  ← Tailored for Buffer Marketing role
-│       ├── resume.md
-│       └── ...
-├── reports/               ← Every skill run saves a numbered report here
-│   ├── 001-buffer-vetting-2026-04-08.md
-│   ├── 002-resume-audit-2026-04-09.md
-│   └── ...
-└── proof-assets/          ← Reusable case studies and portfolio pieces
-    └── distributed-team-migration.md
+```bash
+python scripts/generate-docx.py my-documents/resume.md my-documents/coverletter.md
+python scripts/generate-docx.py my-documents/applications/acme-engineer/resume.md my-documents/applications/acme-engineer/coverletter.md
 ```
 
-### The four directories
+If LibreOffice is missing, the script still writes valid `.docx` files and skips PDF conversion.
 
-- **Root canonicals** (`resume.md`, `cv.md`, `coverletter.md`) — sacred, never modified by per-application skills. `resume.md` and `cv.md` are independent: you can have one, the other, or both, and they version independently.
-- **`applications/{id}/`** — artifacts you'd actually send to employers.
-- **`reports/`** — evaluations, audits, and research for your own reference. Numbered, flat, read-only after creation.
-- **`proof-assets/`** — case studies and portfolio pieces that get referenced across many applications.
+### Quick sanity checks
 
-### Key rules
+```bash
+python scripts/test_generate_docx.py
+python scripts/check-content-hygiene.py
+```
 
-- **`resume-builder` owns the canonicals** — it's the only skill that writes to `my-documents/resume.md`, `my-documents/cv.md`, and `my-documents/coverletter.md`, and the only skill that bumps the canonical `version` frontmatter.
-- **`resume-tailor` creates application folders** — reads the canonicals and writes to `my-documents/applications/{id}/`. It runs an inline claim-verification pass against your evidence layer before saving, flagging any bullet that can't be traced back to real source material.
-- **`resume-auditor` is read-only** — writes its critique to `reports/` but never touches your canonical files.
-- **`remote-culture-check`, `interview-coach`, `linkedin-optimizer`** each save numbered reports under `reports/` after every run.
-- **`resume-drift-check`** compares tailored resumes against the evidence layer (canonical, story-bank, proof-assets, reports) and flags hallucinated or contradicted claims.
+## Prompt-Only Path
 
-### The applications tracker
+If you do not want plugins or saved state:
 
-`my-documents/applications.md` is a flat markdown table that every skill reads for dedup and writes to advance status. Columns: `id`, `company`, `role`, `status`, `updated`, `link`. Status values in lifecycle order: `saved → applied → interviewing → offer → closed | hired`.
+1. Open a file in [`prompts/`](prompts/)
+2. Read the "What You'll Need" section
+3. Copy the prompt
+4. Paste it into your LLM
+5. Paste your resume, job posting, or other source material
 
-You can edit it by hand at any time — it's just markdown. Skills only advance status forward, never backward.
+Compared to the Claude skills, prompts do **not** provide:
 
-### Privacy
+- saved local files
+- automatic DOCX/PDF export
+- multi-step workspace management
 
-The entire `my-documents/` directory is gitignored. Nothing under it is ever committed to the repo (except empty `.gitkeep` files that preserve the directory structure for new clones).
+They do give you the fastest zero-setup path.
 
-### Updating your canonical resume
+## Recommended Sequence
 
-As your career evolves, use `resume-builder` in "update" mode:
+### Week 1
 
-> "I want to update my resume — I just got promoted to Senior Engineer"
+1. `get-started`
+2. `resume-auditor`
+3. `resume-builder` update pass if needed
 
-It reads your existing canonical files, asks what's changed, produces updated versions, and bumps the `version` in frontmatter. Any existing tailored resumes with a lower `derived_from_version` will get flagged for deep scanning the next time `resume-drift-check` runs.
+### Once you find real openings
 
----
-
-## The Guides
-
-The [`guides/`](guides/) directory is the "why" behind the skills. Worth reading before you dive in:
-
-- **Start with** [Remote Job Market](guides/remote-job-market.md) to understand the landscape
-- **Read** [Resume Philosophy](guides/resume-philosophy.md) before building or auditing
-- **Check** [ATS Myths](guides/ats-myths.md) to stop worrying about the wrong things
-- **Browse the rest** as they become relevant to your search stage
-
----
-
-## Recommended Workflow
-
-### Week 1: Build your foundation
-
-1. `get-started` -- onboard, scaffold the state layer, and build your **canonical resume** and cover letter via the built-in `resume-builder` hand-off
-2. `resume-auditor` -- get honest feedback (it won't be gentle)
-3. Iterate until you're mostly seeing **STRONG ratings** (`resume-builder` in update mode each pass)
-4. `linkedin-optimizer` -- align your LinkedIn with your resume
-
----
-
-### Week 2+: Start applying with intent
-
-1. `remote-culture-check` -- **vet the company** before you invest time
-2. `resume-tailor` -- customize for good fits
-3. `interview-coach` -- prep when you land interviews
-4. Follow the [Sustainable Search](guides/sustainable-search.md) weekly rhythm so you don't burn out
-
----
+1. `remote-culture-check`
+2. `resume-tailor`
+3. `interview-coach` when interviews appear
 
 ### Ongoing
 
-- Update canonicals when your experience changes
-- `proof-asset-creator` -- build case studies that **show, not tell**
-- [Networking Guide](guides/networking-guide.md) -- the 3/1/1 rhythm that compounds
+- update canonicals as your experience changes
+- use the guides when you need search strategy, networking, or interview structure
+
+## Guides Worth Reading First
+
+- [Remote Job Market](guides/remote-job-market.md)
+- [Resume Philosophy](guides/resume-philosophy.md)
+- [ATS Myths](guides/ats-myths.md)
+- [Company Research](guides/company-research.md)
+- [Sustainable Search](guides/sustainable-search.md)
