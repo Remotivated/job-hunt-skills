@@ -34,7 +34,7 @@ Every concrete claim in both tailored files traces to Aisha's canonical:
 - Wellcome Trust funding, £1.2M over four years, transcriptional dynamics in early embryonic development
 - Nextflow pipeline: 87 GitHub stars, 4 external contributors, used by 6 other labs across the Crick
 - Two first-author *Nature Methods* papers (2023 and 2024)
-- Three additional first-author papers in *Bioinformatics*, *Genome Biology*, *Cell Reports* (years TBD)
+- Three additional first-author papers in *Bioinformatics*, *Genome Biology*, and *Cell Reports*
 - Preprint currently under review at *Nature Methods*
 - Five-person wet-lab team collaboration
 - First non-academic role (industry-experience acknowledgment)
@@ -56,5 +56,5 @@ No `[VERIFY:]` markers remain — all tailoring is reframing, not new claims.
 This is a fixture test run, so the skill steps that touch `my-documents/applications.md` (tracker upsert) and invoke the PDF script are intentionally skipped. In a real run against Aisha's profile, the next actions would be:
 
 1. Upsert `applications.md` with `id: relation-therapeutics-senior-computational-biologist` at `status: saved`.
-2. Run `node scripts/generate-pdf.mjs my-documents/applications/relation-therapeutics-senior-computational-biologist/cv.md my-documents/applications/relation-therapeutics-senior-computational-biologist/coverletter.md`.
+2. Run `python scripts/generate-docx.py my-documents/applications/relation-therapeutics-senior-computational-biologist/cv.md my-documents/applications/relation-therapeutics-senior-computational-biologist/coverletter.md`.
 3. Prompt the user: "Did you submit this application? If so, I can update the status to `applied`."

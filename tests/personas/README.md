@@ -4,6 +4,16 @@ purpose: Persona fixtures for agent-driven testing of job-hunt-os skills
 
 # Persona test fixtures
 
+These files are **internal evaluation fixtures**, not polished public samples.
+
+The persona inputs and anything under `tests/personas/outputs/` may include:
+
+- grader-only notes
+- synthetic edge cases
+- intentionally incomplete or stress-test artifacts
+
+If you want polished sample outputs to browse as a user, use [`examples/`](../../examples/) instead.
+
 These are synthetic candidates used to dry-run skills end-to-end and catch regressions. They are **not** real people. Each persona is a self-contained markdown file with everything a skill needs as input and everything a grader needs to score the output.
 
 ## File structure

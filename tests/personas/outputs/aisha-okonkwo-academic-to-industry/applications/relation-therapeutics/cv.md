@@ -57,9 +57,9 @@ Bioinformatics & Computational Biology Lab (PI: Prof. Helena Marsh)
 **First author**
 - *Nature Methods*, 2024
 - *Nature Methods*, 2023
-- *Bioinformatics*, year TBD
-- *Genome Biology*, year TBD
-- *Cell Reports*, year TBD
+- *Bioinformatics*
+- *Genome Biology*
+- *Cell Reports*
 
 **Under review**
 - Preprint on *bioRxiv*, currently under review at *Nature Methods*.
