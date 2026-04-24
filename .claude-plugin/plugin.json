@@ -1,7 +1,7 @@
 {
   "name": "job-hunt-os",
   "version": "0.1.0",
-  "description": "AI-powered skills for a smarter remote job search — resume building, tailoring, interview prep, company vetting, and more. Works in both Claude Code and Cowork.",
+  "description": "AI-assisted job search toolkit for resume building, tailoring, interview prep, and company vetting. Works in Claude Code and Cowork.",
   "author": {
     "name": "Remotivated",
     "url": "https://remotivated.com"

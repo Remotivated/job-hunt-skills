@@ -8,7 +8,7 @@
     {
       "name": "job-hunt-os",
       "source": "./",
-      "description": "AI-powered skills for a smarter remote job search — resume building, tailoring, interview prep, company vetting, and more."
+      "description": "AI-assisted job search toolkit for resume building, tailoring, interview prep, and company vetting."
     }
   ]
 }

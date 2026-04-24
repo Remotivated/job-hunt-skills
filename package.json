@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Markdown-first job hunt toolchain with ATS-safe DOCX/PDF export",
+  "description": "AI-assisted job search toolkit with guided prompts, Claude skills, and ATS-safe DOCX/PDF export",
   "scripts": {
     "scaffold": "node scripts/scaffold-state.mjs",
     "docx": "python scripts/generate-docx.py",
-    "test:docx": "python scripts/test_generate_docx.py"
+    "test:docx": "python scripts/test_generate_docx.py",
+    "check:hygiene": "python scripts/check-content-hygiene.py"
   }
 }
