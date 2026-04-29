@@ -1,21 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Edit(/skills/_shared/**)",
-      "Edit(/skills/resume-drift-check/**)",
-      "Edit(/skills/resume-builder/**)",
-      "Edit(/skills/resume-tailor/**)",
-      "Edit(/skills/interview-coach/**)",
+      "Edit(/skills/**)",
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
-      "Edit(/skills/company-research/**)",
       "Bash(git pull:*)",
-      "Edit(/skills/linkedin-optimizer/**)",
-      "Edit(/skills/proof-asset-creator/**)",
-      "Edit(/skills/claim-check/**)",
-      "Edit(/skills/cover-letter/**)",
-      "Edit(/skills/interviewing/**)",
       "Bash(python scripts/test_skill_contracts.py)",
       "Bash(python scripts/check-content-hygiene.py)",
       "Bash(node scripts/scaffold-state.mjs)"
