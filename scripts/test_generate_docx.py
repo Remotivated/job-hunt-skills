@@ -10,7 +10,10 @@ where LibreOffice is installed; here we stop at the .docx artifact.
 
 import importlib.util
 import io
+import shutil
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from zipfile import ZipFile
@@ -275,6 +278,39 @@ class RenderValidationTests(unittest.TestCase):
         finally:
             if path.exists():
                 path.unlink()
+
+
+class SofficeIntegrationTests(unittest.TestCase):
+    """End-to-end test that the .docx -> .pdf step produces a real PDF.
+    Skipped when LibreOffice (`soffice`) is not on PATH so local runs
+    without LibreOffice still pass. CI installs LibreOffice and exercises
+    this path."""
+
+    @unittest.skipUnless(
+        shutil.which("soffice"), "LibreOffice (soffice) not on PATH"
+    )
+    def test_resume_renders_to_pdf(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            md_path = Path(tmp) / "resume.md"
+            md_path.write_text(SAMPLE_RESUME, encoding="utf-8")
+            script = _HERE / "generate-docx.py"
+            result = subprocess.run(
+                [sys.executable, str(script), str(md_path)],
+                capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(
+                result.returncode, 0,
+                f"generate-docx.py failed:\nstdout: {result.stdout}\nstderr: {result.stderr}",
+            )
+            pdf_path = md_path.with_suffix(".pdf")
+            self.assertTrue(
+                pdf_path.exists(),
+                f"expected {pdf_path}, got: {list(Path(tmp).iterdir())}",
+            )
+            self.assertGreater(
+                pdf_path.stat().st_size, 1024,
+                "PDF is suspiciously small — render likely produced an empty file",
+            )
 
 
 if __name__ == "__main__":
