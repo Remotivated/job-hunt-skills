@@ -1,6 +1,6 @@
 # Resume Best Practices & ATS Reality Check
 
-> Research notes for Job Hunt OS. Last updated: 2026-03-27.
+> Research notes for Job Hunt Skills. Last updated: 2026-03-27.
 > This document synthesizes findings from recruiter surveys, ATS vendor documentation, career educators, and hiring manager accounts to provide an evidence-based foundation for all resume-related content in the project.
 
 ---

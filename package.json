@@ -1,13 +1,20 @@
 {
-  "name": "job-hunt-os",
-  "version": "0.1.0",
+  "name": "job-hunt-skills",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "AI-assisted job search toolkit with guided prompts, Claude skills, and ATS-safe DOCX/PDF export",
+  "description": "AI-assisted job search skills, prompts, guides, and ATS-safe DOCX/PDF export",
+  "homepage": "https://github.com/Remotivated/job-hunt-skills#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Remotivated/job-hunt-skills.git"
+  },
+  "license": "MIT",
   "scripts": {
     "scaffold": "node scripts/scaffold-state.mjs",
     "docx": "python scripts/generate-docx.py",
     "test:docx": "python scripts/test_generate_docx.py",
+    "test:skills": "python scripts/test_skill_contracts.py",
     "check:hygiene": "python scripts/check-content-hygiene.py"
   }
 }

@@ -1,6 +1,6 @@
 # Negotiation Guide
 
-You got the offer. That's great -- it means they want you. Now is the part most people skip or fumble: negotiation. Here's the thing. Most employers expect it. CNBC reported that in a 2022 Fidelity survey, 85% of Americans who countered on salary, benefits, or both got at least some of what they asked for. A reasonable counter-offer doesn't make you difficult. It makes you professional. And the difference between negotiating and not can compound over every raise and every future offer benchmarked against your current salary.
+You got the offer. That's great -- it means they want you. Now is the part most people skip or fumble: negotiation. Here's the thing. Most employers expect it. Fidelity reports that in its 2022 survey, 85% of Americans who countered on salary, other compensation or benefits, or both got at least some of what they asked for. A reasonable counter-offer doesn't make you difficult. It makes you professional. And the difference between negotiating and not can compound over every raise and every future offer benchmarked against your current salary.
 
 So don't leave it on the table.
 
@@ -98,9 +98,9 @@ Review the updated letter carefully. Make sure every negotiated item is reflecte
 
 For remote roles, this is where negotiations get interesting. Companies handle geographic compensation in different ways:
 
-**Location-agnostic pay:** Same salary regardless of where you live. Companies like Basecamp and Airbnb have used this model. The philosophy: you're paid for the value of your work, not your zip code.
+**Location-agnostic or national pay:** Same salary range regardless of where you live, or one national benchmark with limited exceptions. The philosophy: you're paid for the value of your work, not your zip code.
 
-**Location-adjusted pay:** Salary varies by market. A role might pay $150K in San Francisco and $120K in Austin. Companies like Buffer publish their formulas openly. Others are less transparent. Some use cost-of-labor data (what other employers pay for similar roles in your area), others use cost-of-living data (how expensive your area is). These produce different numbers -- ask which they use.
+**Location-adjusted pay:** Salary varies by market. A role might pay $150K in San Francisco and $120K in Austin. Some companies, including Buffer, publish transparent formulas with location bands. Others are less transparent. Some use cost-of-labor data (what other employers pay for similar roles in your area), others use cost-of-living data (how expensive your area is). These produce different numbers -- ask which they use.
 
 Neither approach is inherently wrong, but you need to **know which model a company uses** before you negotiate. Ask directly: "Does compensation vary based on location, or is it the same regardless of where I'm based?"
 
@@ -112,7 +112,7 @@ If a company adjusts for location, understand the formula. Some use cost-of-labo
 
 Know these numbers before you pick up the phone:
 
-- **85% of Americans who countered on salary or benefits got at least some of what they asked for** (CNBC/Fidelity, 2022). You're not being pushy. You're doing what employers planned for.
+- **85% of Americans who countered on salary, other compensation or benefits, or both, got at least some of what they asked for** (Fidelity, 2022). You're not being pushy. You're doing what employers planned for.
 - **Most U.S. workers did not ask for higher pay the last time they were hired** (Pew Research, 2023). That means most people are leaving this lever untouched.
 - **Among workers who did ask for more, 28% got exactly what they asked for and 38% got more than the original offer but less than they asked for** (Pew Research, 2023). Full wins are not the only wins.
 - **The most common outcomes of a respectful negotiation** are movement, partial movement, or a firm no. You're usually not blowing up the offer by asking professionally.
@@ -133,6 +133,6 @@ Be enthusiastic. Be specific. Be professional. And don't leave money on the tabl
 
 ## Sources
 
-- **CNBC / Fidelity (2022)** — Survey finding that 85% of Americans who negotiated salary or benefits received at least some of what they asked for. [cnbc.com](https://www.cnbc.com/2022/05/13/85-percent-of-americans-who-negtiated-a-job-offer-were-successful.html)
 - **Pew Research Center (2023)** — Data on how often workers negotiate starting pay and what happened when they did. [pewresearch.org](https://www.pewresearch.org/short-reads/2023/04/05/when-negotiating-starting-salaries-most-us-women-and-men-dont-ask-for-higher-pay/)
-- **Buffer** — Open salary formula and State of Remote Work reports documenting location-adjusted compensation models. [buffer.com](https://buffer.com/state-of-remote-work/2022)
+- **Fidelity** — Salary negotiation guide citing the 2022 Fidelity survey on negotiation outcomes. [fidelity.com](https://www.fidelity.com/learning-center/smart-money/how-to-negotiate-salary)
+- **Buffer Transparent Salaries** — Open salary formula documenting Buffer's current location-band approach. [buffer.com](https://buffer.com/salaries)

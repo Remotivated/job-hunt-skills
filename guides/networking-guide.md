@@ -2,9 +2,9 @@
 
 Let's start with the obvious: most networking advice makes you feel like a used car salesman. "Reach out to people and ask for things." Great. No wonder everyone hates it.
 
-Here's what actually works. It starts with giving, takes longer to kick in, and produces **conversion rates** that make cold applications look like a joke.
+Here's what actually works. It starts with giving, takes longer to kick in, and can produce better odds than cold applications because a real person has context for your work.
 
-A warm introduction converts at a **significantly higher rate** than a cold application. Employee referrals consistently account for the highest quality hires relative to volume -- referred candidates are hired at rates far exceeding cold applicants, even though referrals represent a small share of total applications (Jobvite Recruiter Nation Survey). If you're spending all your time on job boards and zero time on relationships, your math is off.
+A warm introduction is not magic, but it changes the shape of the process. Employee referrals have repeatedly ranked among the strongest hiring sources by quality-of-hire, and Jobvite's 2026 referral guidance still describes referrals as underused relative to their value. If you're spending all your time on job boards and zero time on relationships, your math is off.
 
 ---
 
@@ -83,7 +83,7 @@ If you don't have a professional network, join the club. Here's where to begin:
 
 **LinkedIn.** Follow people at companies you're interested in. Follow thought leaders in your field. Start commenting before you start messaging. Your comments are **public proof** that you're thoughtful and engaged.
 
-**Slack and Discord communities.** Most industries have active communities. Remote work communities are particularly strong (Remotivated, Remote OK, various industry Slacks). Show up, answer questions, share resources. This is networking without the awkwardness of cold DMs.
+**Slack and Discord communities.** Most industries have active communities. Remote work communities are particularly strong across job boards, industry groups, and niche professional Slacks. Show up, answer questions, share resources. This is networking without the awkwardness of cold DMs.
 
 **Virtual events and webinars.** Attend, participate in the chat, and follow up with people you connected with during the event. "Hey, we were both at [event] and I really liked your question about X" is a natural conversation starter.
 
@@ -117,6 +117,7 @@ Networking doesn't mean working a room. Three comments, one DM, one generous act
 
 ## Sources
 
-1. **Jobvite Recruiter Nation Survey** -- Referral hires consistently outperform other sourcing channels in quality-of-hire metrics, despite representing a small fraction of total applicants.
-2. **NBER Working Paper 32320** (2024) -- Analysis of 125 million applications showing 45% of applications arrive within the first 48 hours of a posting, underscoring why relationship-based channels bypass the volume crush.
-3. **Ashby, 2025 Talent Trends Report** -- First-party ATS data across 11M+ applications documenting the decline in response rates as application volumes increase.
+1. **Jobvite Recruiter Nation Survey** -- Recruiters ranked employee referrals among the top sources for high-quality candidates. [jobvite.com](https://www.jobvite.com/blog/what-every-job-seeker-should-know-jobvites-2020-recruiter-nation-survey/)
+2. **Jobvite Referral Advantage** -- 2026 Jobvite guidance describing referrals as an underused hiring source. [jobvite.com](https://www.jobvite.com/blog/the-referral-advantage-turning-employees-into-your-best-hiring-source/)
+3. **NBER Working Paper 32320** (2024) -- Analysis of 125 million applications showing 45% of applications arrive within the first 48 hours of a posting, underscoring why relationship-based channels bypass the volume crush. [nber.org](https://www.nber.org/papers/w32320)
+4. **Ashby Recruiter Productivity Report** -- First-party ATS data from 109M applications and 247K jobs showing applications per hire tripled from 2021 to 2024 and stayed above 300 throughout 2025. [ashbyhq.com](https://www.ashbyhq.com/talent-trends-report/reports/2023-recruiter-productivity-trends-report)

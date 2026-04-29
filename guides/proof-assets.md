@@ -178,12 +178,13 @@ You don't need a perfect portfolio or a custom website for every application. Yo
 
 > **Start with one case study** using the SAOL structure. Build it this week. Use it in your next application.
 
-The hiring manager who reads it will remember you. Corporate job postings now receive roughly 250 applications on average (Greenhouse), and that number is climbing. In that stack, evidence beats claims every time.
+The hiring manager who reads it will remember you. Greenhouse's co-founder told Axios that the average Greenhouse job posting received 228 applications as of February 2024, and Ashby found applications per hire tripled from 2021 to 2024. In that stack, evidence beats claims every time.
 
 ---
 
 ## Sources
 
-1. **Greenhouse** -- Average of ~250 applications per corporate job posting.
-2. **Ashby, 2025 Talent Trends Report** -- Application volumes increased significantly in 2024-2025, with the median role receiving 11M+ applications across the dataset.
-3. **GitLab Handbook** -- Public hiring documentation describing evaluation rubrics and structured interview processes. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/hiring/)
+1. **Axios / Greenhouse** -- Interview with Greenhouse co-founder Jon Stross citing 228 applications per average Greenhouse job posting as of February 2024. [axios.com](https://www.axios.com/2024/04/11/how-to-get-hired-new-job-greenhouse)
+2. **Ashby Recruiter Productivity Report** -- First-party ATS data from 109M applications and 247K jobs showing applications per hire tripled from 2021 to 2024 and stayed above 300 throughout 2025. [ashbyhq.com](https://www.ashbyhq.com/talent-trends-report/reports/2023-recruiter-productivity-trends-report)
+3. **Ashby Startup Hiring Report** -- Analysis of 1,200+ venture-backed startups, 32K hires, and 11M applications. [ashbyhq.com](https://www.ashbyhq.com/talent-trends-report/reports/startup-hiring)
+4. **GitLab Handbook** -- Public hiring documentation describing evaluation rubrics and structured interview processes. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/hiring/)

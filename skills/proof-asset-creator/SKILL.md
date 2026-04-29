@@ -11,7 +11,7 @@ This skill is an ideation partner first, a producer second. Most users don't arr
 
 ## Workflow
 
-> **State layer:** reads canonical `resume.md`/`cv.md`, `story-bank.md`, existing `proof-assets/`, and `applications.md`. Writes one file to `my-documents/proof-assets/{slug}.md`. No tracker touch, no report. See [state-layer contract](../_shared/state-layer.md).
+> **State layer:** reads source work documents (`resume.md`/`cv.md`), `story-bank.md`, existing `proof-assets/`, and `applications.md`. Writes one file to `my-documents/proof-assets/{slug}.md`. No tracker touch, no report. See [state-layer contract](../_shared/state-layer.md).
 
 ### 1. Read the evidence layer
 
@@ -24,7 +24,7 @@ Before suggesting anything, read in priority order (see [state-layer §7](../_sh
 
 **Applications.md fallback:** if the tracker is empty, thin, or the roles don't point in a clear direction, ask the user what kind of roles they're targeting. Don't make them opt in — just read it, and fall through to asking only when the data isn't there.
 
-If canonical sources are missing entirely, warn the user and offer `resume-builder` first. The skill still works on paste-only input, but evidence verification will be limited and every concrete claim will need `[ASK: ...]`.
+If source work documents are missing entirely, warn the user and offer `resume-builder` first. The skill still works on paste-only input, but evidence verification will be limited and every concrete claim will need `[ASK: ...]`.
 
 First-run scaffold `proof-assets/` if missing. See [state-layer §2](../_shared/state-layer.md#2-first-run-scaffolding).
 
@@ -70,7 +70,7 @@ Help the user choose based on effort vs. leverage vs. which gap it closes. If th
 The meat. Your specific decisions and why. What you ruled out. Trade-offs you made. First person, narrative — not bullets.
 
 ## Outcome
-What changed. Numbers where you have them; qualitative impact where you don't. Any metric you can't source from resume/story-bank/canonical gets `[ASK: verify X]`.
+What changed. Numbers where you have them; qualitative impact where you don't. Any metric you can't source from the source work document, story bank, or proof assets gets `[ASK: verify X]`.
 
 ## Learning
 What you'd do differently. What you'd do the same. This is the section that separates a case study from a brag sheet.
@@ -117,3 +117,7 @@ Once saved, tell the user what to do with it:
 - **Fabricating outcomes.** Proof assets are public and stay indexed. Every metric, scope claim, and outcome traces to a primary source or gets `[ASK: ...]`. Never guess.
 - **Ending without a file.** A session that ends with "great ideas, I'll think about it" is a failed run. Save the brief, even if the artifact itself will be built later.
 - **Ignoring existing proof-assets.** If the user already has a case study on X, don't suggest another one on X. Find the gap.
+
+## Reference
+
+See [`guides/proof-assets.md`](../../guides/proof-assets.md) for the four formats (case study, personal site, portfolio, proof link), confidentiality strategies, and role-specific examples that ground this skill.

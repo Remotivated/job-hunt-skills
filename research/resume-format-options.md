@@ -1,6 +1,6 @@
 # Resume & CV Format Research — Candidate Designs
 
-> Research notes for [Issue #5](https://github.com/Remotivated/job-hunt-os/issues/5). Compiled 2026-04-11.
+> Research notes for [Issue #5](https://github.com/Remotivated/job-hunt-skills/issues/5). Compiled 2026-04-11.
 > Companion to [resume-best-practices.md](resume-best-practices.md), which covers what recruiters want and how ATS systems actually work. This document is strictly about visual format and template design — what to build, what to avoid, and why.
 
 ---
@@ -19,7 +19,7 @@
 
 ## Scope and Goals
 
-The ATS-export pipeline shipped in [#2](https://github.com/Remotivated/job-hunt-os/issues/2) intentionally optimized for parser safety over visual polish: Georgia serif, black on white, thin rules, no accent color. It works but reads as a 1998 Word document to human reviewers. This document researches a refresh that stays parser-safe while signaling design competence.
+The ATS-export pipeline shipped in [#2](https://github.com/Remotivated/job-hunt-skills/issues/2) intentionally optimized for parser safety over visual polish: Georgia serif, black on white, thin rules, no accent color. It works but reads as a 1998 Word document to human reviewers. This document researches a refresh that stays parser-safe while signaling design competence.
 
 **Two templates are in scope:**
 - **Resume** — 1-2 pages, tailored per application, the dominant US/corporate use case.
@@ -250,7 +250,7 @@ Option A is the safer fallback if we decide to ship a purely typographic refresh
 3. **Update `templates/shared.css`** with the Option B token system: colors, type scale, rule specs.
 4. **Update `templates/document-template.html`** for the new header layout (name weight contrast, flex-based right-aligned dates). The single template backs resume, CV, and cover letter — routed by filename in `generate-pdf.mjs`.
 5. **Parser regression test:** run the new PDFs through [Jobscan](https://www.jobscan.co/), [Resume Worded](https://resumeworded.com/), and at least one free Lever/Greenhouse portal submission to verify no parse regression vs. the current template.
-6. **Update [#5](https://github.com/Remotivated/job-hunt-os/issues/5)** with test results and close once merged.
+6. **Update [#5](https://github.com/Remotivated/job-hunt-skills/issues/5)** with test results and close once merged.
 
 ---
 

@@ -95,7 +95,7 @@ The hardest part of a remote job search isn't applying — it's knowing where to
 
 Your time is better spent finding companies that have built their operations around distributed work. These companies have remote-specific benefits (home office stipends, coworking allowances), documented async communication practices, and leadership distributed across multiple locations.
 
-Tools like [Remotivated](https://remotivated.com) pre-classify companies by how they actually work — fully remote, remote-first, hybrid — so you can focus your research on the right targets. However you build your list, the goal is the same: spend less time searching and more time preparing strong applications for companies where you'd actually want to work.
+Company directories, job boards, and your own research can help you classify how an employer actually works: Fully Remote, Remote-First, Flexible Hybrid, Structured Hybrid, or Onsite. However you build your list, the goal is the same: spend less time searching and more time preparing strong applications for companies where you'd actually want to work.
 
 > The remote job market doesn't reward effort. It rewards preparation. Know the math, respect the competition, and aim where it counts.
 
@@ -103,6 +103,8 @@ Tools like [Remotivated](https://remotivated.com) pre-classify companies by how 
 
 ## Sources
 
-- **Ashby** — "Applications per hire up 182% since 2021" and "remote roles get 42% more applications." First-party ATS data from 11M+ applications across thousands of companies.
-- **NBER Working Paper 32320** (Davis & Samaniego de la Parra) — Analysis of 125M applications on Dice.com. 45% of applications arrive within 48 hours; median posting duration is 7 days.
+- **Ashby Recruiter Productivity Report** — First-party ATS data from 109M applications and 247K jobs showing applications per hire tripled from 2021 to 2024 and stayed above 300 throughout 2025. [ashbyhq.com](https://www.ashbyhq.com/talent-trends-report/reports/2023-recruiter-productivity-trends-report)
+- **Ashby Startup Hiring Report** — Analysis of 1,200+ venture-backed startups, 32K hires, and 11M applications; remote startup jobs received 42% more inbound applications than in-office startup jobs. [ashbyhq.com](https://www.ashbyhq.com/talent-trends-report/reports/startup-hiring)
+- **NBER Working Paper 32320** (Davis & Samaniego de la Parra) — Analysis of 125M applications on Dice.com. 45% of applications arrive within 48 hours; median posting duration is 7 days. [nber.org](https://www.nber.org/papers/w32320)
 - **LinkedIn / Andrew Seaman** — Summary of LinkedIn Economic Graph data: remote jobs were 9% of postings and drew 44% of applications in July 2023. [linkedin.com](https://www.linkedin.com/pulse/ads-remote-jobs-disappearing-andrew-seaman)
+- **Remotivated Work Models** — Five-tier framework for classifying how companies actually structure work around location. [remotivated.com](https://remotivated.com/resources/work-models)

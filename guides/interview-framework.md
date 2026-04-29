@@ -28,7 +28,7 @@ Most behavioral interview advice stops at STAR: **Situation, Task, Action, Resul
 - **Result.** Quantified outcome. Metrics, scope, business impact. If you can't quantify, at least make the impact concrete.
 - **Reflection.** What you'd do differently, what you learned, how this changed your subsequent approach.
 
-Junior candidates describe what happened. Senior candidates extract what they learned. Amazon's bar-raiser process probes explicitly for this — it ties directly to their "Learn and Be Curious" leadership principle — and most thoughtful interviewers do the same informally. If you finish a behavioral answer without a reflection beat, the interviewer's very next question is usually *"and what would you do differently?"* Save them the follow-up and offer it yourself.
+Junior candidates describe what happened. Senior candidates extract what they learned. Thoughtful interviewers often probe for this explicitly: what changed in your judgment after the story? If you finish a behavioral answer without a reflection beat, the interviewer's very next question is usually *"and what would you do differently?"* Save them the follow-up and offer it yourself.
 
 Don't announce the framework. Nobody wants to hear "I'll answer this using STAR+R." Tell the story and land the reflection as the natural close.
 
@@ -137,7 +137,7 @@ Key moves:
 
 Remote interviews have their own dynamics.
 
-**Async assessments and take-home projects:** These are common in remote hiring. A reasonable take-home should take 2-4 hours maximum. Candidates frequently report that "few hours" estimates actually require 12-20+ hours of real effort (Indeed, InHerSight). If the scope seems excessive, it's a red flag about how they scope work. Ask about the expected time investment upfront.
+**Async assessments and take-home projects:** These are common in remote hiring. A reasonable take-home should be tightly scoped, relevant to the role, and clear about the expected time investment. Indeed advises employers to keep assignments simple and not overly time-consuming; InHerSight's ethics discussion flags the problem of unpaid assignments stretching into 10-15 hours or more. If the scope seems excessive, it's a red flag about how they scope work. Ask about the expected time investment upfront.
 
 **Video interview presence:** Camera on. Good lighting (face a window if you can). Stable internet. A clean background. These things shouldn't matter, but they affect how you're perceived, and you want the conversation focused on substance, not distractions.
 
@@ -172,6 +172,7 @@ If you leave an interview feeling like you learned something real about the comp
 ## Sources
 
 - **Harvard Business Review** — "38 Smart Questions to Ask in a Job Interview" and "10 Common Job Interview Questions and How to Answer Them." [hbr.org](https://hbr.org/2022/05/38-smart-questions-to-ask-in-a-job-interview)
-- **GitLab All-Remote Handbook** — Framework for evaluating remote jobs, including interview questions for assessing distributed work culture. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/evaluate/)
+- **GitLab All-Remote Handbook** — Framework for evaluating remote roles, including questions for assessing distributed work culture. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/guide/#how-to-evaluate-a-remote-role)
 - **MIT CAPD** — The STAR Method for behavioral interviews. [capd.mit.edu](https://capd.mit.edu/resources/the-star-method-for-behavioral-interviews/)
-- **Indeed / InHerSight** — Research on take-home assessment time expectations and ethical concerns. [indeed.com](https://www.indeed.com/hire/c/info/take-home-interview-assignment)
+- **Indeed** — Employer guidance on keeping take-home assignments simple, relevant, and respectful of candidate time. [indeed.com](https://www.indeed.com/hire/c/info/take-home-interview-assignment)
+- **InHerSight** — Discussion of ethical concerns around unpaid take-home assignments, including excessive time commitments and unclear use of candidate work. [inhersight.com](https://www.inhersight.com/blog/interview/are-unpaid-interview-assignments-ethical)

@@ -1,31 +1,38 @@
 # LinkedIn Audit
 
-> **Thin version.** This is the no-file-system version of the [linkedin-optimizer](../skills/linkedin-optimizer/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version reads your canonical `resume.md`, `story-bank.md`, and `proof-assets/` as primary evidence before rewriting anything, and writes a numbered audit report to `reports/` so you can track how your profile has evolved over time. This prompt can't do any of that — you paste everything in, and nothing is saved. Use the skill if you have Claude Code; use this if you don't.
+Use this prompt when you want to improve your LinkedIn headline, About section, experience copy, skills, and profile signals. Paste your resume as the evidence source so the model does not invent public claims.
 
 ## What you'll need
 
-- **Your resume**, pasted as plain text — used as the evidence layer for claim verification
-- **Your current LinkedIn headline**
-- **Your current About section**
-- **Your current Experience section** — text of your 2-3 most recent roles
-- **Your top 3 pinned Skills** (the three at the top of your Skills section)
-- **Your Featured section** contents (or "empty")
-- **Your location field value** (e.g. "Austin, TX" or "Remote")
-- **Your custom URL** (e.g. `linkedin.com/in/firstname-lastname` or "default numeric")
-- **Open-to-Work status** — off / recruiter-only / public green badge
-- **A description of your recent activity** (posts, comments, shares, or "mostly inactive")
-- **Your target roles**
-- Background reading: [resume-philosophy.md](../guides/resume-philosophy.md) (LinkedIn is narrative, not resume copy)
+- Your resume, pasted as plain text
+- Current LinkedIn headline
+- Current About section
+- Current Experience section for your 2-3 most recent roles
+- Top 3 pinned Skills
+- Full Skills list, if available
+- Featured section contents, or "empty"
+- Banner image description, or "default"
+- Location field
+- Custom URL
+- Open-to-Work status
+- Recent activity
+- Target roles
+- Story snippets, case studies, or proof assets, optional
+- Background reading: [resume-philosophy.md](../guides/resume-philosophy.md)
 
 ## The prompt
 
 ```
-Audit my LinkedIn profile and rewrite each section ready to copy-paste. LinkedIn is a NARRATIVE — it's where hiring managers go to understand how I think, not to re-read my resume.
+Audit my LinkedIn profile and rewrite each section ready to copy-paste. LinkedIn is a narrative. It is where hiring managers go to understand how I think, not to re-read my resume.
 
-EVIDENCE-LAYER RULE — read before rewriting: LinkedIn is public and stays indexed. Hallucinated claims cost more here than in a resume draft. Every concrete claim in your rewrites (metrics, role scope, outcomes, tool names, dates) must trace back to something in the resume I paste below. If you can't find a match, mark it [ASK: verify X] — never invent.
+EVIDENCE RULE:
+LinkedIn is public and indexed. Every concrete claim in your rewrites - metrics, role scope, outcomes, tool names, dates - must trace back to something in the resume I paste below. If you cannot find a match, mark it [ASK: verify X]. Never invent.
 
-MY RESUME (for evidence verification — do not copy-paste into LinkedIn):
+MY RESUME:
 [paste full resume text]
+
+MY STORY / PROOF ASSETS:
+[paste relevant STAR stories, case studies, project links, or write "resume only"]
 
 MY CURRENT HEADLINE:
 [paste current headline]
@@ -33,70 +40,69 @@ MY CURRENT HEADLINE:
 MY CURRENT ABOUT SECTION:
 [paste current About section]
 
-MY CURRENT EXPERIENCE SECTION (most recent 2-3 roles):
+MY CURRENT EXPERIENCE SECTION:
 [paste current experience text]
 
 MY TOP 3 PINNED SKILLS:
 [list the three Skills pinned at the top]
 
+MY FULL SKILLS LIST:
+[paste full LinkedIn Skills list if available, or write "not available"]
+
 MY FEATURED SECTION:
-[describe what's pinned, or "empty"]
+[describe what is pinned, or write "empty"]
+
+MY BANNER:
+[describe the banner, or write "default"]
 
 MY LOCATION FIELD:
 [paste current location value]
 
 MY CUSTOM URL:
-[paste or "default numeric URL"]
+[paste or write "default numeric URL"]
 
 MY OPEN-TO-WORK STATUS:
 [off / recruiter-only / public green badge]
 
 MY RECENT ACTIVITY:
-[describe posting/commenting patterns, or "mostly inactive"]
+[describe posting/commenting patterns, or write "mostly inactive"]
 
 MY TARGET ROLES:
-[roles and industries I'm aiming at]
+[roles and industries I am aiming at]
 
 Rate each section STRONG / NEEDS WORK / WEAK, then provide rewrites in this format:
 
-BEFORE: [original]  →  AFTER: [improved]  →  WHY: [what changed]
+BEFORE: [original]
+AFTER: [improved]
+WHY: [what changed]
 
-Deliver the audit in this order, and show char counts on any field with a limit:
+Deliver the audit in this order, and show character counts on fields with limits:
 
-1. HEADLINE (220 char limit) — provide 2-3 options using the framework [Function] + [Focus/Specialization] + [Audience or Keyword]. The headline shows in search results, DMs, and connection requests — it's the single most-seen field on the profile.
-   Bad: "Marketing Manager at Acme Corp" (title + company is not a headline)
-   Good: "B2B Marketing Leader | Demand Gen & Content Strategy for SaaS"
-   "Open to opportunities" can follow but must not lead.
+1. HEADLINE (220 char limit) - provide 2-3 options using [Function] + [Focus/Specialization] + [Audience or Keyword].
 
-2. ABOUT SECTION (2,600 char limit) — full rewrite. THE FIRST ~220 CHARACTERS MUST HOOK — that's what shows above the fold before "see more." Lead with a one-line value-and-identity statement, then:
-   Para 1: What I do and what drives me.
-   Para 2: How I approach my work — methodology or philosophy.
-   Para 3 (optional): What I'm looking for, if I'm actively searching.
-   First person. Narrative, not biographical. Do NOT paste resume bullets. Do NOT open with "Results-driven professional..." or similar template filler.
+2. ABOUT SECTION (2,600 char limit) - full rewrite. The first roughly 220 characters must hook. First person. Narrative, not biographical. Do not paste resume bullets. Do not open with "Results-driven professional."
 
-3. EXPERIENCE BULLETS (2,000 chars per role) — rewrite for VOICE ONLY: first-person, narrative, outcome-framed. This is a voice conversion, not a bullet-strength critique — if the underlying bullets in the resume are weak, say so and tell me to run a separate resume audit. Do NOT rewrite the substance of the bullet here; converting tone is enough.
+3. EXPERIENCE COPY (2,000 chars per role) - rewrite for voice only: first-person, narrative, outcome-framed. Do not change the substance beyond what my resume supports.
 
-4. TOP 3 PINNED SKILLS — Top-3 Skills drive recruiter search more than the headline does. Audit them hard: are these the exact terms recruiters in my target role actually search? Flag any soft skills ("leadership," "communication," "team player") in the top 3 as wasted slots. Suggest specific swaps where a better recruiter-search term exists.
+4. SKILLS - audit whether my top 3 pinned Skills are recruiter-search terms for my target roles. Flag soft skills in the top 3 as wasted slots. If I pasted the full Skills list, recommend which skills to keep, remove, add, or pin.
 
-5. FEATURED SECTION STRATEGY — what to pin (case studies, articles, presentations, projects), what order (strongest first). If I have nothing pinnable, name ONE specific piece I should create, grounded in experience already on my resume.
+5. FEATURED SECTION STRATEGY - what to pin and in what order. If I have nothing pinnable, name one specific piece I should create, grounded in experience already on my resume.
 
-6. LOCATION — if I'm targeting remote, "Remote" or "Remote · [country/region]" beats a city-only value, which can filter me out of remote searches. Flag if my current value is city-only and I'm remote-targeting.
+6. BANNER - flag whether the banner reinforces my positioning or looks default/generic. Suggest one concrete visual direction that fits my target roles. Do not suggest a stock-photo cliche.
 
-7. CUSTOM URL — should be linkedin.com/in/firstname-lastname or close. Flag if it's still the default numeric URL.
+7. LOCATION - if I am targeting remote roles, flag whether my location helps or hurts discoverability.
 
-8. OPEN-TO-WORK — if on and public (green #OPENTOWORK badge), note the tradeoff: higher recruiter visibility, but some hiring managers read it as a negative signal. Recruiter-only is the safer default unless I'm urgently searching.
+8. CUSTOM URL - flag if it is still the default numeric URL.
 
-9. ACTIVITY PLAN for the next 7 days:
-   - Days 1, 3, 5: thoughtful comments on 3 specific kinds of posts. "Great post!" is not a comment — add actual insight.
-   - Day 2: share one article with 3-4 sentences of my take.
-   - Day 4: send 1 DM with no ask, just connection.
-   - Day 7: 1 original post, 150-250 words, showing how I think about my field.
+9. OPEN-TO-WORK - explain the tradeoff if the public green badge is on.
 
-10. REMOTE-READINESS — weave remote signals (async communication, distributed team experience, self-direction, documentation) naturally into the rewritten sections above. Do not bolt them on; integrate them where they fit the narrative.
+10. ACTIVITY PLAN FOR 7 DAYS - specific, low-volume actions that show how I think.
 
-Do not invent experience I haven't mentioned. Anything in a rewrite that can't be sourced from the resume I pasted gets [ASK: ...] as a placeholder, not a guess.
+11. REMOTE-READINESS - weave remote signals naturally into the rewritten sections where relevant.
+
+Do not invent experience I have not mentioned. Anything in a rewrite that cannot be sourced from the resume gets [ASK: ...].
 ```
 
 ## What you'll get
 
-Three headline options, a complete About rewrite with an above-the-fold hook, voice-only experience rewrites, a top-3 Skills audit, a Featured section strategy, flags on your Location / Custom URL / Open-to-Work settings, a seven-day activity plan, and remote-readiness integration — all copy-paste ready for LinkedIn. Every concrete claim in the output should trace back to your resume; any `[ASK: verify X]` placeholders are things you must fill in before posting.
+Headline options, a complete About rewrite, voice-only Experience rewrites, a Skills audit, Featured section strategy, profile-field flags, and a short activity plan. Every concrete claim should trace back to your pasted resume.

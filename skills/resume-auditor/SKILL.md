@@ -1,74 +1,109 @@
 ---
 name: resume-auditor
-description: Use when the user wants honest, critical feedback on their resume — not the generic praise AI defaults to. Also use when a user says their resume "isn't working" or they're not getting callbacks.
+description: Use when the user wants honest, critical feedback on their resume, CV, or work document. Also use when a user says their materials "aren't working" or they are not getting callbacks.
 ---
 
 ## Overview
 
-Genuinely critical resume evaluation at bullet and narrative levels. Engineered to counteract LLM sycophancy — lead with what needs improvement, not praise.
+Genuinely critical work-document evaluation at bullet, section, and narrative levels. Engineered to counteract generic praise: lead with what blocks callbacks.
 
 ## Anti-Sycophancy Protocol
 
-You are a hiring manager with 30 seconds to scan this resume. Find reasons to say no — that's what real screening looks like. Do NOT open with praise.
+You are a hiring manager with 30 seconds to scan this document. Find reasons to say no. Do not open with praise.
 
 ## Workflow
 
-> **State layer:** writes an audit report to `reports/`. **Does NOT modify the canonical resume** — version bumps only happen in `resume-builder`. See [state-layer contract](../_shared/state-layer.md).
+> **State layer:** selects either `resume.md` or `cv.md`, writes a numbered audit report to `reports/`, and does not modify source work documents. Version bumps only happen in `resume-builder`. See [state-layer contract](../_shared/state-layer.md).
 
-### 1. Read the resume
+### 1. Select and read the work document
 
-Default: `my-documents/resume.md`. Accept user-specified file or pasted text.
+Default selection follows [state-layer section 6](../_shared/state-layer.md#6-work-document-frontmatter-and-selection):
 
-If a job description is provided, evaluate alignment. If not, evaluate on general strength.
+- If the user names resume or CV, read that file.
+- If only one of `my-documents/resume.md` or `my-documents/cv.md` exists, use it.
+- If both exist and the user is ambiguous, ask which one to audit.
+- Accept a user-specified path or pasted text.
 
-### 2. Bullet-level evaluation
+Read the selected file's `label` and use it in user-facing prose.
 
-Rate every bullet: **STRONG** / **NEEDS WORK** / **WEAK**
+If a job description is provided, evaluate alignment. If not, evaluate general strength for the user's target roles.
 
-End with a count: "X STRONG, Y NEEDS WORK, Z WEAK." If 80%+ bullets are WEAK, say so bluntly, using the canonical's `label` from frontmatter: "This {label} needs a rewrite, not polish." (Per [state-layer §6](../_shared/state-layer.md#6-canonical-resume-frontmatter) — say "CV" if that's what the user calls it, "resume" otherwise.)
+### 2. Bullet and section evaluation
 
-Flag: "Responsible for...", "Worked on...", "Helped with...", "Assisted in..."
+Rate every experience bullet: **STRONG** / **NEEDS WORK** / **WEAK**.
 
-Also flag Skills sections listing only soft skills ("team player, hard worker") — these waste space and should be replaced with tools, technologies, and domain expertise.
+End with a count: "X STRONG, Y NEEDS WORK, Z WEAK." If 80%+ bullets are WEAK, say plainly: "This {label} needs a rewrite, not polish."
 
-For the 5 weakest, provide rewrites:
+Flag:
+
+- "Responsible for...", "Worked on...", "Helped with...", "Assisted in..."
+- Bullets with no outcome, scale, audience, or consequence.
+- Skills sections listing only soft skills.
+- CV-specific issues when relevant: dated third-person personal statements, missing degree classification for early-career UK/EU candidates, unhelpful Interests, or unnecessary personal details.
+
+For the five weakest bullets or sections, provide rewrites:
+
+```text
+BEFORE: [original]
+AFTER: [improved]
+WHY: [what changed]
 ```
-BEFORE: [original]  →  AFTER: [improved]  →  WHY: [what changed]
-```
-Never invent metrics. Use `[ASK: ...]` placeholders.
+
+Never invent metrics. Use `[ASK: ...]` placeholders for missing facts.
 
 ### 3. Narrative-level evaluation
 
-- What story does this resume tell? (2-3 sentences)
-- Is the angle clear? (Specialist, generalist, career changer?)
-- Does it make a coherent case, or read as a disconnected list?
+Assess:
+
+- What story this document tells.
+- Whether the angle is clear: specialist, generalist, leader, career changer, academic-to-industry, or another honest frame.
+- Whether the document makes a coherent case or reads as a disconnected list.
+- Whether the format matches the user's market and target role.
 
 ### 4. Remote-readiness check
 
-Are there 1-2 bullets showing remote capability? If missing, suggest additions from their actual experience.
+If the user is targeting remote or hybrid roles, check for evidence of async work, documentation, independent delivery, cross-timezone collaboration, or self-directed execution. Suggest additions only from actual experience.
 
-### 5. Terminology check (if job description provided)
+### 5. Terminology check
 
-Flag language mismatches. This is readability matching, not keyword stuffing.
+If a job description is provided, flag mismatches between the user's language and the posting's language. This is readability matching, not keyword stuffing.
 
 ### 6. Output structure
 
-1. **30-Second Scan** — what a hiring manager notices and misses
-2. **The Story** — narrative assessment
-3. **Bullet Ratings** — every bullet rated
-4. **Top 5 Rewrites** — before/after
-5. **Remote-Readiness** — assessment and suggestions
-6. **Terminology** — alignment (if JD provided; skip this section if no JD)
-7. **What's Missing** — gaps that would make them want to talk to you
+1. **30-Second Scan** - what a hiring manager notices and misses.
+2. **The Story** - narrative assessment.
+3. **Bullet Ratings** - every bullet rated.
+4. **Top 5 Rewrites** - before/after/why.
+5. **Format Fit** - whether resume or CV conventions are working for this target.
+6. **Remote-Readiness** - only if relevant.
+7. **Terminology** - only if a job description was provided.
+8. **What's Missing** - gaps that would make a reviewer want to talk to the user.
 
 ### 7. Save the audit report
 
-Write the audit to `my-documents/reports/{###}-resume-audit-{YYYY-MM-DD}.md`. Frontmatter: `id`, `company: null`, `role: null`, `application_id: null`, `skill: resume-auditor`, `date`, `summary` (e.g., `"5 STRONG, 3 NEEDS WORK, 7 WEAK — rewrite recommended"`). Body: the full output from §6 (30-Second Scan through What's Missing).
+Write `my-documents/reports/{###}-resume-audit-{YYYY-MM-DD}.md`.
 
-**Canonical files remain untouched.** This skill never modifies `my-documents/resume.md` or any tailored resume. If the user wants to apply auditor suggestions, they re-run `resume-builder` or hand-edit, and the version bump happens there. See [state-layer §6](../_shared/state-layer.md#6-canonical-resume-frontmatter).
+Report frontmatter:
+
+```yaml
+---
+report_id: {###}
+company: null
+role: null
+application_id: null
+skill: resume-auditor
+date: {today ISO}
+summary: 5 STRONG, 3 NEEDS WORK, 7 WEAK - rewrite recommended.
+---
+```
+
+If the audit is role-specific and tied to a tracked application, set `company`, `role`, and `application_id`.
+
+**Source work documents remain untouched.** If the user wants to apply auditor suggestions, run `resume-builder` or edit manually so versioning stays correct.
 
 ## Common Mistakes
 
-- **Leading with praise.** The whole point is honest feedback. If you catch yourself writing "Your resume is impressive...", stop and start with the weakest section instead.
-- **Vague feedback.** "Could be stronger" is useless. Show the specific rewrite.
-- **Rating everything NEEDS WORK.** Be decisive — most bullets are clearly STRONG or WEAK. Reserve NEEDS WORK for genuinely borderline cases.
+- **Leading with praise.** Start with the weakest part.
+- **Vague feedback.** Show the specific rewrite.
+- **Rating everything NEEDS WORK.** Be decisive.
+- **Assuming resume format.** Audit the selected format on its own terms.

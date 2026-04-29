@@ -1,6 +1,6 @@
 # Interview Preparation and Negotiation Frameworks
 
-Research notes for Job Hunt OS -- grounding material for all interview prep and negotiation skills.
+Research notes for Job Hunt Skills -- grounding material for all interview prep and negotiation skills.
 
 Last updated: 2026-03-27
 
@@ -227,7 +227,7 @@ Traditional narrative: Women negotiate less often than men. Updated reality from
 - The implication: the gap is driven less by negotiation behavior and more by structural factors (career paths, promotion velocity, workplace design).
 - Women in 2024 earned an average of 85% of what men earned (Pew Research Center).
 
-**Key insight for Job Hunt OS**: Advising women to "just negotiate more" is insufficient and potentially harmful advice. The toolkit should address structural awareness alongside tactical negotiation skills.
+**Key insight for Job Hunt Skills**: Advising women to "just negotiate more" is insufficient and potentially harmful advice. The toolkit should address structural awareness alongside tactical negotiation skills.
 
 ### Why People Don't Negotiate
 

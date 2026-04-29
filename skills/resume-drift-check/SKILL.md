@@ -1,152 +1,181 @@
 ---
 name: resume-drift-check
-description: Use when the user wants to verify that tailored resumes don't contain hallucinated claims, after editing the canonical resume, or before submitting applications. Also invoked automatically inside resume-tailor before every save.
+description: Internal and advanced skill for verifying that resumes, CVs, cover letters, and tailored application materials do not contain unsupported or inflated claims. User-facing final checks should usually invoke `claim-check`, which wraps this workflow.
 ---
 
 ## Overview
 
-Detect and classify claims in tailored resumes that aren't supported by the evidence layer. This is a **fabrication check**, not a staleness check — the goal is catching hallucinations, numbers that drifted, and projects that never existed, before a tailored resume goes to an employer.
+Detect and classify claims that are not supported by the evidence layer. This is a fabrication check, not a staleness check. It catches hallucinated metrics, invented tools, inflated scope, and projects that never existed before materials go to an employer.
 
-**The same verification pass runs embedded inside `resume-tailor` before every save.** There is one shared mechanism, not two.
+The same verification mechanism runs inside `resume-builder`, `resume-tailor`, `cover-letter`, and `claim-check`.
 
 ## When to Run
 
-- **Manually, any time** the user wants to sanity-check their tailored resumes.
-- **After editing the canonical** — bumps the canonical `version`, which may have created drift in existing tailored files.
-- **Before submitting applications** — final pre-flight check.
-- **Embedded inside `resume-tailor`** — runs automatically on every tailor before the file is saved.
+- Embedded before `resume-builder` saves a new or rebuilt source work document.
+- Embedded before `resume-tailor` or `cover-letter` saves tailored application materials.
+- Manually through `claim-check` before submitting materials.
+- After editing a source work document, to verify existing tailored materials still match evidence.
 
 ## State Layer
 
-> Reads the canonical resume and CV, all tailored resumes, and the evidence layer. Writes a drift report to `my-documents/reports/`. See [state-layer contract](../_shared/state-layer.md).
+> Reads source work documents, tailored work documents, cover letters, story bank, proof assets, and reports. Writes a numbered verification report when run as a standalone check. See [state-layer contract](../_shared/state-layer.md).
 
 ## Workflow
 
 ### 1. Gather inputs
 
-Drift-check runs in one of two modes depending on the caller.
+Drift-check has three modes.
 
-- **Tailor mode** (default — invoked from `resume-tailor` or manually): canonicals exist and we are verifying tailored or edited derivatives of them. Evidence layer is the four file sources below.
-- **Initial-build mode** (invoked from `resume-builder` when the canonical is being written for the first time): no canonical exists yet. Evidence layer is the **interview context** — the user's answers during the current `resume-builder` conversation, plus any existing resume or LinkedIn the user supplied at the start. Treat the conversation transcript as the highest-trust source. Skip step 2 (Scope the scan) and the `derived_from_version` handling in step 3 — there's nothing to diff against.
+**Initial-build mode** - invoked from `resume-builder` before the first save or rebuild of `resume.md` or `cv.md`.
 
-**Tailor mode inputs:**
+- Evidence is the current interview conversation plus any existing resume, CV, LinkedIn export, or notes the user supplied.
+- Treat the conversation transcript and supplied source material as highest-trust evidence.
+- Skip source-version comparison because the source work document is not saved yet.
 
-- **Canonicals:** `my-documents/resume.md` and `my-documents/cv.md`. At least one must exist; the other is optional. Read each file's `version` from frontmatter independently — they version separately.
-- **Tailored resumes and cover letters:** `my-documents/applications/*/resume.md` and `my-documents/applications/*/coverletter.md` (every subdirectory). Read each file's `derived_from_version` from frontmatter. If missing, treat as `derived_from_version: 0` and flag it. (Tailored CVs are not produced by `resume-tailor` yet — when that lands, this section will extend to `applications/*/cv.md` with the same rules.)
-- **Evidence layer** (priority order per [state-layer §7](../_shared/state-layer.md#7-evidence-layer-priority-order)):
-  1. Canonical `resume.md` **and** canonical `cv.md` — both treated as highest-trust evidence
-  2. `my-documents/story-bank.md`
-  3. `my-documents/proof-assets/*.md`
-  4. `my-documents/reports/*.md`
+**Tailor mode** - invoked from `resume-tailor` or `cover-letter`.
 
-### 2. Scope the scan
+- Evidence layer is the saved files listed in [state-layer section 8](../_shared/state-layer.md#8-evidence-layer).
+- The caller passes the candidate tailored work document and/or cover letter before save.
+- The caller blocks save until soft and hard findings are resolved.
 
-For each tailored resume:
+**Standalone mode** - invoked manually or by `claim-check`.
 
-- If `derived_from_version == current canonical version`: **light scan** — only check bullets that diverge textually from the canonical.
-- If `derived_from_version < current canonical version`: **deep scan** — check every bullet, since the canonical may have been edited in ways that invalidate tailored claims.
-- If no `derived_from_version` frontmatter: **deep scan** + warn.
+- Default scope is all application materials under `my-documents/applications/*/`.
+- If the user names a file, folder, company, role, or application id, scope to that target.
+- Read both source work documents if they exist.
 
-### 3. Extract claims
+### 2. Tailor and standalone inputs
 
-For each bullet in scope, extract:
+Read:
 
-- **Quantitative claims:** numbers, percentages, dates, team sizes, revenue figures, time spans ("increased X by 40%", "led a team of 8", "over 3 years").
-- **Named projects or outcomes:** project codenames, specific product launches, named tools built, identifiable initiatives ("the distributed team migration", "Project Phoenix").
-- **Role specifics:** titles, scope statements, reporting lines.
+- Source work documents: `my-documents/resume.md` and/or `my-documents/cv.md`.
+- Tailored work documents: `my-documents/applications/*/resume.md` and `my-documents/applications/*/cv.md`.
+- Tailored cover letters: `my-documents/applications/*/coverletter.md`.
+- Evidence layer: `story-bank.md`, `proof-assets/*.md`, and `reports/*.md`.
 
-### 4. Classify each claim
+For each tailored work document, read frontmatter:
 
-Search the evidence layer (priority sources 1–3, then 4, or the conversation context in initial-build mode). Classify along two dimensions: **class** (is the claim supported by evidence?) and **severity** (how should a failure be handled?).
+- Preferred: `source_document`, `source_version`, `source_label`, `application_id`.
+- Legacy fallback: `derived_from_version` as `source_version`; infer `source_document` from the tailored filename.
+
+If no source frontmatter exists, deep scan the file and warn.
+
+### 3. Scope the scan
+
+For each tailored work document:
+
+- If `source_version` matches the current version of `source_document`, light scan only bullets or sections that diverge materially from the source.
+- If `source_version` is older than the current source version, deep scan every concrete claim.
+- If source metadata is missing or the source document no longer exists, deep scan and warn.
+
+For cover letters, always scan every concrete claim because letters routinely synthesize facts across sources.
+
+### 4. Extract claims
+
+Extract concrete, probeable claims:
+
+- Quantitative claims: numbers, percentages, dates, team sizes, revenue, time spans.
+- Named projects, products, publications, launches, case studies, or initiatives.
+- Tools, languages, platforms, frameworks, methodologies, and credentials.
+- Role specifics: titles, scope, reporting lines, management or mentorship responsibility.
+- Outcome claims: business impact, customer impact, research impact, process changes.
+
+Ignore purely stylistic claims unless they imply evidence, seniority, or scope.
+
+### 5. Classify each claim
+
+Search the evidence layer in priority order:
+
+1. Source work documents and current build interview context.
+2. `story-bank.md`.
+3. `proof-assets/*.md`.
+4. `reports/*.md`.
+
+Classify along two dimensions.
 
 **Class:**
 
 | Class | Rule |
-|-------|------|
-| **Supported** | Direct hit in the evidence layer (sources 1–3, or an explicit interview answer in initial-build mode). Auto-accepted. |
-| **Unverifiable but plausible** | Hit only in reports (source 4). Likely real but not primary evidence. |
-| **Unverifiable** | No hit anywhere. |
-| **Contradicted** | Actively conflicts with an evidence source (e.g., "team of 8" vs canonical's "team of 4"). |
+| --- | --- |
+| Supported | Direct or faithful paraphrase match in priority sources 1-3, or explicit interview answer in initial-build mode. |
+| Unverifiable but plausible | Hit only in reports. |
+| Unverifiable | No hit anywhere. |
+| Contradicted | Conflicts with a higher-priority source. |
 
-**Severity** (controls how remediation is handled in step 6):
+**Severity:**
 
 | Severity | Applies to | Handling |
-|----------|-----------|----------|
-| **Cosmetic** | Unresolved placeholders (`year TBD`, stray `[ASK: ...]` or `[VERIFY: ...]`), typos, format glitches. Not claim-level failures. | Safe to auto-fix without user confirmation. |
-| **Soft** | Unverifiable claims that are paraphrases, inference tightenings, or subtler padding. | Surface with a suggested fix AND the underlying question. Never auto-apply. |
-| **Hard** | Contradicted claims, fabricated employers/dates/metrics, invented credentials, triggered experience-invention patterns. | Block save. User must resolve before the file is persisted. |
+| --- | --- | --- |
+| Cosmetic | Unresolved placeholders, stale `[ASK:]` or `[VERIFY:]` markers resolved in conversation, typos, format glitches. | Safe to auto-fix. |
+| Soft | Plausible but unsupported paraphrases, inference tightening, dropped qualifiers, or subtle padding. | Surface with suggested fix and underlying question. |
+| Hard | Contradicted claims, fabricated employers/dates/metrics, invented credentials, or invented experience. | Block save. |
 
-Common **soft** patterns to check for explicitly — these have each blown past earlier prose-rule patches in skill docs and are the reason this verification step exists:
+Common soft patterns to check explicitly:
 
-- **Inference tightening.** The evidence states facts A and B separately; the output asserts a connection between them ("A applied to B", "the A-based project") that the evidence doesn't explicitly make. Plausible but not in the source.
-- **Invented tool specifics.** The evidence says "AWS", "cloud", or "databases"; the output lists specific services ("AWS (S3, EC2, Lambda)", "PostgreSQL, MySQL") the evidence never named. Same rule applies to framework versions, library names, and CI/CD tools.
-- **Dropped proficiency qualifiers.** The evidence describes a skill as "intermediate", "scripting only", "~1 year", or "learning"; the output strips the hedge and promotes it alongside deep-expertise skills.
-- **Paraphrase-that-tightens.** The output is close to the evidence but subtly promotes a claim — "contributed to" → "built", "worked on" → "led", "co-supervised" → "managed".
+- **Inference tightening:** evidence states facts A and B separately; output asserts a connection between them.
+- **Invented tool specifics:** evidence says "AWS" or "databases"; output lists specific services or engines the user never named.
+- **Dropped proficiency qualifiers:** evidence says "learning", "intermediate", "scripting only", or similar; output strips the hedge.
+- **Paraphrase-that-tightens:** "contributed to" becomes "led", "co-supervised" becomes "managed", or "worked on" becomes "built".
 
-**Verification is a prompt, not a verdict.** Classification is a starting point for the user to review — not a final judgment. Some legitimate claims live in the user's head and haven't made it into the evidence layer yet.
-
-### 5. Write the drift report
-
-Save to `my-documents/reports/{###}-resume-drift-check-{YYYY-MM-DD}.md`.
-
-**Frontmatter:**
-
-```yaml
----
-id: {next-number}
-company: null
-role: null
-application_id: null
-skill: resume-drift-check
-date: {today ISO}
-summary: Checked {N} tailored resumes — {A} supported, {B} unverifiable, {C} contradicted.
----
-```
-
-**Body structure:**
-
-- **Overview** — counts per class.
-- **Per-application findings** — one section per tailored resume:
-  - Path to the file.
-  - `derived_from_version` vs current canonical `version`.
-  - Each flagged claim with: the exact bullet text, classification, best-matching evidence source (or lack thereof), and a recommended action.
+Classification is a prompt for review, not a final truth verdict. Some legitimate claims live in the user's head and need to be added to the source document or story bank.
 
 ### 6. Apply remediation by severity
 
-Handle findings according to the severity assigned in step 4. The calling skill (`resume-builder`, `resume-tailor`, or a manual run) is responsible for enforcing these behaviours — drift-check produces the classification, the caller gates the save.
+The caller enforces remediation. Drift-check supplies findings and, when standalone, records the user's chosen actions.
 
-**Cosmetic findings — auto-fix.**
+**Cosmetic findings:** auto-fix only placeholders, stale markers resolved in conversation, typos, and obvious format glitches. Never auto-fix a claim-level span.
 
-Rewrite the offending span in place and record each edit in the drift report. No user confirmation needed. This tier is strictly limited to placeholder strings (unresolved `year TBD`, stray `[ASK: ...]` or `[VERIFY: ...]`), typos, and obvious format glitches. **Never auto-fix a claim-level span**, even if the fix looks obvious.
+**Soft findings:** show the user:
 
-**Soft findings — surface with a suggested fix and the underlying question.**
+- File path and rough location.
+- The offending span.
+- What the output asserts.
+- What the evidence supports.
+- A suggested fix that restores fidelity.
+- The underlying question that would let the stronger claim stand honestly.
 
-For every soft finding, show the user:
+Preferred options:
 
-- The offending span with file path and rough location
-- The evidence gap (what the output asserts vs. what the evidence actually supports)
-- A suggested fix that restores fidelity — un-tighten the inference, restore the hedge, split conflated facts
-- The **underlying question** the finding represents ("the real way to close this gap is for you to tell me X — do you want to answer that so we can include the accurate version?")
+1. **Answer the underlying question** so the real fact can be used.
+2. **Adjust** to the suggested faithful version.
+3. **Confirm and add evidence** to the source work document or story bank.
 
-The user picks one of three actions per finding:
+**Hard findings:** block save until resolved. The user may correct the source, adjust the claim, or replace the span with a supported claim.
 
-1. **Confirm** — the tighter claim is actually accurate. Prompt to add it to the canonical or story-bank so future checks will pass.
-2. **Adjust** — apply the suggested fix (un-tighten, restore the hedge, split the inference).
-3. **Ask underlying question** — the user answers the implicit question so the next iteration uses the real fact. This is the preferred path when the skill is running interactively; it almost always produces a stronger output than either confirming or adjusting.
+### 7. Write the report in standalone mode
 
-**Hard findings — block save.**
+Standalone runs write `my-documents/reports/{###}-claim-check-{YYYY-MM-DD}.md` unless the caller explicitly asks for the internal slug `resume-drift-check`.
 
-For every hard finding, surface the same three options (Confirm / Adjust / Replace), but the calling skill **must not persist the output file** until every hard finding is resolved. A hard finding is a red light, not a yellow one.
+Report frontmatter:
 
-**Only cosmetic findings auto-apply.** Everything else requires user input, without exception.
+```yaml
+---
+report_id: {###}
+company: null
+role: null
+application_id: null
+skill: claim-check
+date: {today ISO}
+summary: Checked {N} files - {A} supported, {B} unverifiable, {C} contradicted.
+---
+```
 
-### 7. Summary
+If scoped to a tracked application, set `company`, `role`, and `application_id`.
 
-Report counts, flagged claims per application, and which actions the user took. Suggest re-running if the user confirmed claims against story-bank.
+Body structure:
+
+- Overview counts by class and severity.
+- Per-file findings.
+- Each flagged claim with exact span, classification, best evidence source, and recommended action.
+- Any user-confirmed actions taken.
+
+### 8. Summary
+
+Report counts, blockers, resolved findings, and the next action. If the user confirmed new facts, recommend adding them to the source work document or story bank so future checks pass.
 
 ## Common Mistakes
 
-- **Treating classification as truth.** Classification is a prompt for review, not a verdict. A claim can be legitimate without appearing in the evidence layer yet.
-- **Overflagging paraphrases.** If a bullet says the same thing in different words as the canonical, that's supported — not unverifiable.
-- **Ignoring the reports tier.** Self-references the user made in prior sessions are weaker evidence than the canonical, but they're not nothing. Use them to downgrade "unverifiable" to "unverifiable but plausible."
-- **Silent patching of claims.** Only cosmetic findings (placeholders, typos, format glitches) are safe to rewrite without user confirmation. Soft and hard findings — anything at the claim level — always require the user to pick an action. Auto-fixing an inference tightening or an invented tool-specific expansion can produce a worse rewrite than the original, because the grader is itself an LLM and not reliable enough to delegate claim-level rewrites to.
+- **Treating classification as truth.** A claim can be real but absent from the evidence layer.
+- **Overflagging faithful paraphrases.** Same fact in different words is supported.
+- **Ignoring reports as weak evidence.** Reports can downgrade a claim from unverifiable to unverifiable but plausible, but they are not primary evidence.
+- **Silent claim patching.** Only cosmetic findings auto-apply. Soft and hard claim-level findings require user action.

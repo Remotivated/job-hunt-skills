@@ -90,7 +90,7 @@ Here's a calculation most job seekers get wrong.
 
 **10 tailored applications:** Each one represents a company you've actually vetted — you've read about their culture, you understand the role, and your materials reflect that.
 
-The math works because hiring managers can tell. Ashby's analysis of 11M+ applications shows that applications per hire have increased 182% since 2021, meaning most of that flood is low-effort noise. A tailored application stands out precisely because most people don't bother. When your resume mirrors their language and your cover letter shows you've done homework, you've already cleared a bar that the vast majority of applicants don't.
+The math works because hiring managers can tell. Ashby's 2026 Recruiter Productivity report found applications per hire tripled from 2021 to 2024 and stayed above 300 throughout 2025, meaning recruiters are sorting through much more inbound volume than they used to. A tailored application stands out precisely because most people don't bother. When your resume mirrors their language and your cover letter shows you've done homework, you've already cleared a bar that the vast majority of applicants don't.
 
 This approach also protects your energy. Applying to 50 jobs you haven't vetted means you'll end up in interviews for roles you don't actually want, at companies that aren't actually remote, with cultures that don't actually fit. Pre-vetting saves everyone's time.
 
@@ -118,6 +118,6 @@ Every bullet is a piece of evidence. Make each one count.
 ## Sources
 
 - **HR Dive** — Coverage of Ladders' eye-tracking study finding recruiters spent an average of 7.4 seconds on an initial resume review. [hrdive.com](https://www.hrdive.com/news/eye-tracking-study-shows-recruiters-look-at-resumes-for-7-seconds/541582/)
-- **Ashby** — First-party ATS data from 11M+ applications: applications per hire up 182% since 2021. Remote roles receive 42% more applications.
-- **Alison Green / Ask a Manager** — Widely-cited hiring manager perspective on accomplishment-driven resume writing and formatting.
-- **Google XYZ Formula** (Laszlo Bock) — "Accomplished [X] as measured by [Y], by doing [Z]" framework for resume bullet points.
+- **Ashby Recruiter Productivity Report** — First-party ATS data from 109M applications and 247K jobs showing applications per hire tripled from 2021 to 2024 and stayed above 300 throughout 2025. [ashbyhq.com](https://www.ashbyhq.com/talent-trends-report/reports/2023-recruiter-productivity-trends-report)
+- **Alison Green / Ask a Manager** — Hiring manager perspective on accomplishment-driven resume writing and concise formatting. [askamanager.org](https://www.askamanager.org/2020/02/my-step-by-step-guide-to-writing-a-resume.html)
+- **Google XYZ Formula** (Laszlo Bock) — "Accomplished [X] as measured by [Y], by doing [Z]" framework for resume bullet points, widely republished from Bock's resume advice. [inc.com](https://www.inc.com/bill-murphy-jr/google-recruiters-say-these-5-resume-tips-including-x-y-z-formula-will-improve-your-odds-of-getting-hired-at-google.html)

@@ -1,9 +1,22 @@
 {
-  "name": "job-hunt-os",
-  "version": "0.1.0",
-  "description": "AI-assisted job search toolkit for resume building, tailoring, interview prep, and company vetting. Works in Claude Code and Cowork.",
+  "name": "job-hunt-skills",
+  "version": "1.0.0",
+  "description": "AI-assisted job search skills for resumes, cover letters, company research, interview prep, LinkedIn, and proof assets.",
   "author": {
     "name": "Remotivated",
     "url": "https://remotivated.com"
-  }
+  },
+  "homepage": "https://github.com/Remotivated/job-hunt-skills#readme",
+  "repository": "https://github.com/Remotivated/job-hunt-skills",
+  "license": "MIT",
+  "keywords": [
+    "job-search",
+    "resume",
+    "cover-letter",
+    "interview-prep",
+    "interviewing",
+    "claim-check",
+    "company-research",
+    "career"
+  ]
 }

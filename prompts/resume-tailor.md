@@ -1,17 +1,19 @@
 # Resume Tailor
 
-> **Thin version.** This is the no-file-system version of the [resume-tailor](../skills/resume-tailor/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill dedups against an `applications.md` tracker, runs a claim-verification pass against the canonical resume + story bank + proof assets + prior reports before saving (the same mechanism as `resume-drift-check`), writes tailored artifacts to a per-application folder, and upserts the tracker to `status: saved`. This prompt can't verify claims against any evidence layer — so it instructs the model to mark every added or reframed claim with `[VERIFY: ...]` for you to manually check before you send the resume. Use the skill if you have Claude Code; use this if you don't.
+Use this prompt when you have one real job posting and want to tailor your resume and cover letter in ChatGPT, Gemini, Claude.ai, or another LLM. The prompt asks the model to flag any claim it adds or tightens so you can verify it before sending.
 
 ## What you'll need
 
 - Your resume, pasted as plain text
-- The job posting, pasted as plain text (URL-fetching isn't reliable in a thin prompt)
+- The job posting, pasted as plain text
+- Why this company or role interests you, optional
+- Story notes, proof assets, or case studies, optional
 - Background reading: [resume-philosophy.md](../guides/resume-philosophy.md)
 
 ## The prompt
 
 ```
-Tailor my resume and write a matching cover letter for this specific role. This is NOT keyword stuffing — it's reshaping which experiences lead and how they're framed.
+Tailor my resume and write a matching cover letter for this specific role. This is not keyword stuffing. It is reshaping which experiences lead and how they are framed.
 
 MY RESUME:
 [paste full resume text]
@@ -19,36 +21,46 @@ MY RESUME:
 JOB POSTING:
 [paste full posting text]
 
+WHY THIS COMPANY / WHY THIS ROLE:
+[paste notes, or write "not sure yet"]
+
+SOURCE NOTES / PROOF ASSETS:
+[paste relevant story notes, case studies, or write "resume only"]
+
 Follow this process:
 
-1. ANALYZE THE POSTING — extract top 3-5 requirements, their terminology, their values, and any remote/timezone specifics.
+0. INPUT CHECK - if the resume, job posting, and optional notes do not contain enough evidence to tailor responsibly, ask up to 5 targeted questions before drafting. Prioritize questions about missing outcomes, scope, why this company/role, and any honest gaps. If the inputs are sufficient, continue.
 
-2. IDENTIFY THE ANGLE — for THIS role, which of my experiences maps hardest to their priorities? What story should lead? How should emphasis shift from my current resume?
+1. ANALYZE THE POSTING - extract the top 3-5 requirements, terminology, values, and any remote/timezone specifics.
 
-3. TAILOR THE RESUME — match their terminology where my language differs, reorder bullets by relevance, surface remote-readiness signals relevant to this posting. You may add or reshape a Summary section, but do not remove sections from my resume. Do not invent experience.
+2. IDENTIFY THE ANGLE - for this role, which of my experiences maps hardest to their priorities? What story should lead? How should emphasis shift from my current resume?
 
-4. CLAIM GUARDRAIL (critical — read carefully):
-   - You cannot verify my claims against any evidence layer. I am running you without file access.
-   - For ANY bullet you add, rewrite, or reframe where the specific claim is not verbatim in the resume I pasted, append [VERIFY: {claim} — {what I should check}] on the same line. Example: "Led migration of 40-service platform to Kubernetes [VERIFY: service count — confirm 40 matches your actual scope]".
-   - Watch specifically for these four drift patterns — they are the most common ways tailoring quietly inflates beyond what the resume says, and each one must be flagged [VERIFY:] or left unchanged:
-     * **Inference tightening** — asserting a connection between two facts the resume states separately. If the resume says "pipeline X processes Y data" and "I worked on project Z" without linking them, the tailored version cannot claim "I applied Y to project Z."
-     * **Paraphrase-that-tightens** — swapping a soft verb for a harder one: "contributed to" → "built", "co-supervised" → "managed", "helped design" → "designed". The harder verb may be true, but if the resume used the softer one I need to confirm before you tighten it.
-     * **Dropped proficiency qualifiers** — removing hedges like "intermediate," "scripting only," "~1 year," or "learning" from skills. Leave qualifiers in place; don't silently upgrade.
-     * **Invented tool specifics** — promoting "AWS" → "AWS (S3, EC2, Lambda)" or "databases" → "PostgreSQL, MySQL" when the resume didn't name the specific services. Don't fill in plausible defaults — recruiters probe exactly these items in screens.
-   - For quantitative gaps the resume never provided, use [ASK: what was the result?] instead of inventing a number.
-   - Do NOT silently smooth these over. Erring on the side of more [VERIFY] flags is correct behavior here.
+3. CHANGE MAP - provide a compact table with:
+   - Current emphasis
+   - Tailored emphasis
+   - Why the shift helps for this posting
 
-5. TAILOR A COVER LETTER — 250-400 words. Opening: why this role at this company, specifically. Body: 1-2 strongest alignment points (their need → my evidence → outcome). Closing: confident, direct, clear next step. Same [VERIFY]/[ASK] rules apply.
+4. TAILOR THE RESUME - match terminology where my language differs, reorder bullets by relevance, and surface remote-readiness signals where relevant. You may add or reshape a Summary section, but do not remove sections from my resume. Do not invent experience.
 
-6. SUMMARY at the end:
+5. CLAIM GUARDRAIL:
+   - For any bullet you add, rewrite, or reframe where the specific claim is not clearly supported by the resume I pasted, append [VERIFY: claim - what I should check] on the same line.
+   - Flag inference tightening, such as connecting two facts my resume states separately.
+   - Flag harder verbs that may overstate scope, such as "contributed to" becoming "led."
+   - Keep proficiency qualifiers such as "intermediate," "scripting only," "~1 year," or "learning."
+   - Do not turn broad tools into specific ones. If my resume says AWS, do not write AWS Lambda or S3 unless I named those services.
+   - For quantitative gaps, use [ASK: what was the result?] instead of inventing a number.
+
+6. TAILOR A COVER LETTER - 250-400 words. Opening: why this role at this company, specifically. Use the WHY notes if provided; if they are missing, do not invent enthusiasm or company knowledge. Body: 1-2 strongest alignment points using their need, my evidence, and the outcome. Closing: confident and direct. The same [VERIFY] and [ASK] rules apply.
+
+7. SUMMARY:
    - Key changes made and why
    - Alignment strengths
-   - Every [ASK] gap listed
-   - Every [VERIFY] flag listed — these are the claims I must manually confirm before sending
+   - Every [ASK] gap
+   - Every [VERIFY] flag I must confirm before sending
 
-Output the full tailored resume, the cover letter, and the summary.
+Output the posting analysis, angle, change map, full tailored resume, cover letter, and summary.
 ```
 
 ## What you'll get
 
-A reordered and reframed resume, a matching cover letter, and a closing summary listing every `[ASK]` gap and every `[VERIFY]` flag you need to confirm before sending. Treat the `[VERIFY]` list as a required manual pass — it's the one thing the skill version does automatically that this prompt can't.
+A reordered and reframed resume, a matching cover letter, and a closing summary listing every `[ASK]` gap and every `[VERIFY]` flag you need to confirm before sending. Treat the `[VERIFY]` list as a required manual pass.

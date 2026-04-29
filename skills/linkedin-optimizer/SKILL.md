@@ -5,11 +5,11 @@ description: Use when the user wants to improve their LinkedIn profile, rewrite 
 
 ## Overview
 
-Audit and rewrite LinkedIn profile sections, grounded in the user's canonical resume and story bank. LinkedIn is a narrative — not a resume copy. It's where hiring managers go to understand how you think.
+Audit and rewrite LinkedIn profile sections, grounded in the user's source work document and story bank. LinkedIn is a narrative — not a resume copy. It's where hiring managers go to understand how you think.
 
 ## Workflow
 
-> **State layer:** writes a LinkedIn audit report to `reports/`. No tracker touch. Reads from canonical `resume.md`/`cv.md`, `story-bank.md`, and `proof-assets/` as evidence sources. See [state-layer contract](../_shared/state-layer.md).
+> **State layer:** writes a LinkedIn audit report to `reports/`. No tracker touch. Reads from source work documents, `story-bank.md`, and `proof-assets/` as evidence sources. See [state-layer contract](../_shared/state-layer.md).
 
 ### 1. Gather evidence
 
@@ -22,7 +22,7 @@ See [state-layer §7](../_shared/state-layer.md#7-evidence-layer-priority-order)
 
 **Current LinkedIn state:** ask the user to paste their current headline, about section, experience descriptions, skills list (especially the top 3 pinned), location, and custom URL. Ask whether Open-to-Work is on, and if so, whether it's public or recruiter-only.
 
-If canonical files are missing, warn the user — this skill works best grounded in canonical sources. Offer to run `resume-builder` first, or proceed on paste-only input knowing that evidence verification will be limited.
+If source work documents are missing, warn the user — this skill works best grounded in saved evidence. Offer to run `resume-builder` first, or proceed on paste-only input knowing that evidence verification will be limited.
 
 ### 2. Inline evidence verification
 
@@ -66,7 +66,7 @@ Source narrative material from `story-bank.md` where possible — those stories 
 
 All rewritten sections ready to copy-paste, with char counts shown for any field with a limit.
 
-**Save as a report:** `my-documents/reports/{###}-linkedin-audit-{YYYY-MM-DD}.md`. Frontmatter: `id`, `company: null`, `role: null`, `application_id: null`, `skill: linkedin-optimizer`, `date`, `summary` (e.g., `"Headline + About rewritten; top-3 Skills flagged"`). Body: ratings, rewrites, and any `[ASK: ...]` placeholders.
+**Save as a report:** `my-documents/reports/{###}-linkedin-audit-{YYYY-MM-DD}.md`. Frontmatter: `report_id`, `company: null`, `role: null`, `application_id: null`, `skill: linkedin-optimizer`, `date`, `summary` (e.g., `"Headline + About rewritten; top-3 Skills flagged"`). Body: ratings, rewrites, and any `[ASK: ...]` placeholders.
 
 ## Common Mistakes
 
@@ -76,3 +76,8 @@ All rewritten sections ready to copy-paste, with char counts shown for any field
 - **Ignoring top-3 Skills.** They drive recruiter search. Not decoration.
 - **Char-limit overflow.** Headline 220, About 2,600, Experience 2,000. Always show counts.
 - **Duplicating resume-auditor.** Experience rewrites are voice-only. Defer bullet-strength critique.
+
+## Reference
+
+- [`guides/proof-assets.md`](../../guides/proof-assets.md) — formats and curation rules for the Featured section.
+- [`guides/networking-guide.md`](../../guides/networking-guide.md) — the 3/1/1 rhythm and "engage before you DM" approach LinkedIn rewrites should support, not compete with.

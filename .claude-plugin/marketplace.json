@@ -1,14 +1,14 @@
 {
-  "name": "job-hunt-os",
+  "name": "job-hunt-skills",
   "owner": {
     "name": "Remotivated",
     "url": "https://remotivated.com"
   },
   "plugins": [
     {
-      "name": "job-hunt-os",
+      "name": "job-hunt-skills",
       "source": "./",
-      "description": "AI-assisted job search toolkit for resume building, tailoring, interview prep, and company vetting."
+      "description": "AI-assisted job search skills for resumes, cover letters, company research, interview prep, LinkedIn, and proof assets."
     }
   ]
 }

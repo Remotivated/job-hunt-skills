@@ -9,10 +9,16 @@
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
-      "Edit(/skills/remote-culture-check/**)",
+      "Edit(/skills/company-research/**)",
       "Bash(git pull:*)",
       "Edit(/skills/linkedin-optimizer/**)",
-      "Edit(/skills/proof-asset-creator/**)"
+      "Edit(/skills/proof-asset-creator/**)",
+      "Edit(/skills/claim-check/**)",
+      "Edit(/skills/cover-letter/**)",
+      "Edit(/skills/interviewing/**)",
+      "Bash(python scripts/test_skill_contracts.py)",
+      "Bash(python scripts/check-content-hygiene.py)",
+      "Bash(node scripts/scaffold-state.mjs)"
     ]
   }
 }

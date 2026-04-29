@@ -1,6 +1,6 @@
 # Remote Work Signals & AI-Assisted Job Search Research
 
-> Research notes for Job Hunt OS — grounding document for all remote-work-related skills and prompts.
+> Research notes for Job Hunt Skills — grounding document for all remote-work-related skills and prompts.
 > Last updated: 2026-03-27
 
 ---
@@ -219,7 +219,7 @@ Understanding the competitive landscape:
 - **58%** of workers planned to look for new jobs in 2025 (LinkedIn), increasing application volumes further
 - Remote job postings fluctuate quarter-to-quarter (up 3% in Q4 2025 after dropping 4% in Q3 2025)
 
-**Implication for Job Hunt OS:** Candidates need differentiation strategies. Generic applications fail in a 2.5x competition environment. Every skill in the toolkit should help candidates stand out from the volume.
+**Implication for Job Hunt Skills:** Candidates need differentiation strategies. Generic applications fail in a 2.5x competition environment. Every skill in the toolkit should help candidates stand out from the volume.
 
 ---
 
@@ -326,7 +326,7 @@ you had no concern about my feelings? What is the single most important
 thing I should fix that you haven't mentioned?
 ```
 
-### 4.3 Structural Patterns for Job Hunt OS Prompts
+### 4.3 Structural Patterns for Job Hunt Skills Prompts
 
 Every resume/cover letter/interview skill should include:
 
@@ -347,7 +347,7 @@ Every resume/cover letter/interview skill should include:
 AI is being used on **both sides** of the hiring process:
 
 - **Employer side**: 83% of companies expected to use AI resume screening by 2025. AI tools from HireVue, Pymetrics, and others score candidates automatically.
-- **Candidate side**: LLMs are used to write resumes, cover letters, and prepare for interviews. Tools like Job Hunt OS aim to level the playing field.
+- **Candidate side**: LLMs are used to write resumes, cover letters, and prepare for interviews. Tools like Job Hunt Skills aim to level the playing field.
 
 ### 5.2 Known Biases in AI Hiring Tools
 
@@ -357,7 +357,7 @@ AI is being used on **both sides** of the hiring process:
 
 ### 5.3 Ethical Principles for AI-Assisted Job Applications
 
-For Job Hunt OS specifically, these principles should guide all skill design:
+For Job Hunt Skills specifically, these principles should guide all skill design:
 
 #### Principle 1: Augmentation, Not Fabrication
 AI should help candidates **express their actual experience more effectively**, not invent experience they don't have.
@@ -401,11 +401,11 @@ Emerging legislation affecting AI in job applications:
 - **EU AI Act**: Classifies AI recruitment tools as "high-risk," requiring transparency and human oversight
 - **NYC Local Law 144**: Already in effect — requires bias audits of automated employment decision tools
 
-**Implication for Job Hunt OS:** While these laws target employer-side tools, candidate-side tools should also operate transparently. Being ahead of regulation builds trust.
+**Implication for Job Hunt Skills:** While these laws target employer-side tools, candidate-side tools should also operate transparently. Being ahead of regulation builds trust.
 
 ---
 
-## 6. Key Takeaways for Job Hunt OS Skill Design
+## 6. Key Takeaways for Job Hunt Skills Skill Design
 
 1. **The five universal remote signals are**: written communication, self-management, async comfort, action orientation, and values alignment. Every resume/application skill should help candidates demonstrate these.
 

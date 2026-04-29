@@ -1,11 +1,11 @@
 ---
-description: Build or update your canonical resume, CV, or cover letter (focused mode — if you're new to Job Hunt OS, use /get-started instead)
+description: Build or update your resume/CV-format work document or cover letter
 ---
 
-The user wants to build or update their canonical resume, CV, and/or cover letter. Unlike `/get-started`, this command skips the onboarding framing — use it when the user already has their state layer set up and is iterating on an existing document.
+The user wants to build or update their source work document in resume or CV format, and/or a cover letter. Unlike `/get-started`, this command skips the onboarding framing. Use it when the user already has their workspace set up and is iterating on an existing document.
 
-Invoke the `resume-builder` skill and run its workflow: scaffold if needed → gather existing materials → structured interview → generate outputs with drift check → save → DOCX/PDF. Do **not** run the orientation, story-bank-seed, or closing-recap steps that live in `get-started` — this command is for users who already know the system.
+Invoke the `resume-builder` skill and run its workflow: scaffold if needed, gather existing materials, run the structured interview, generate outputs with claim checks, save, then generate DOCX/PDF.
 
-If the user appears to be on a fresh clone (no `my-documents/` yet, or clearly unfamiliar with the tooling), suggest `/get-started` instead and hand off rather than trying to onboard them from inside `resume-builder`.
+If the user appears to be on a fresh clone or clearly unfamiliar with the tooling, suggest `/get-started` instead and hand off.
 
-If $ARGUMENTS is non-empty, treat it as a hint about which document(s) they want (e.g. "cv" → CV mode, "cover letter only" → cover-letter-only mode, "update" → update mode).
+If `$ARGUMENTS` is non-empty, treat it as a hint about which document(s) they want, such as `cv`, `cover letter only`, `resume only`, or `update`.

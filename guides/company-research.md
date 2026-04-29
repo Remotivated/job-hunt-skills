@@ -1,154 +1,111 @@
-# The 15-Minute Company Vetting Process
+# Company Research: Decide Before You Apply
 
-Not every company that posts a "remote" role is actually remote. Some are hybrid with good marketing. Some are remote-for-now with return-to-office plans. Some genuinely don't know what they are yet.
+Company research is not about becoming an analyst. It is about answering one practical question: is this opportunity worth your time?
 
-Your job before applying is to figure out which one you're looking at. The good news: it takes about 15 minutes.
+For remote and hybrid roles, work-model evidence matters. For every role, the basics still matter too: scope, company direction, manager quality, compensation signals, and whether the posting matches reality.
 
-## The 15-Minute Vetting Stack
+## The 15-Minute Research Stack
 
 ### Stage 1: Job Posting Scan (2 minutes)
 
-Start with the listing itself. Before you read the responsibilities or requirements, scan for remote-specific signals:
+Start with the listing itself.
 
-- **Location language.** Does it say "Remote" cleanly, or is it "San Francisco, CA (Remote)"? A city name tacked onto a remote label usually means they have a headquarters preference. Check whether the role mentions specific timezone requirements or geographic restrictions.
-- **Remote-specific expectations.** Look for mentions of async communication, overlap hours, or distributed team norms. Companies that actually operate remotely tend to be explicit about how the logistics work.
-- **Benefits signaling.** Home office stipends, coworking allowances, internet reimbursement, and travel budgets for team meetups are signs of a company investing in distributed infrastructure. If every perk is office-based (catered lunches, gym memberships, ping pong tables), that tells you where their attention is.
+- **Problem to solve.** Can you tell why this role exists?
+- **Scope and level.** Do the responsibilities match the title and seniority?
+- **Requirements.** Are the must-haves realistic, or is this three jobs in one?
+- **Compensation and location.** Are pay, timezone, travel, and work model clear where they should be?
+- **Hiring process.** Do they explain steps, timeline, or interview expectations?
 
-Two minutes. You're not evaluating the role yet — you're deciding whether it's worth five more minutes of research.
+Red flags: vague scope, unrealistic requirements, title/scope mismatch, missing compensation where expected, unclear location rules, or a posting that says everything and therefore says nothing.
 
----
+### Stage 2: Company Direction (4 minutes)
 
-### Stage 2: Careers Page Check (5 minutes)
+Look at the company site, product pages, recent news, funding, customer evidence, and layoffs.
 
-Go directly to the company's careers page. This is where companies reveal their actual priorities, often more honestly than they realize.
+- What does the company do?
+- Who buys or uses it?
+- Why does the company need this role now?
+- Are there recent changes that explain the hiring push?
+- Do public signals contradict the job posting?
 
-- **How do they describe teamwork?** Look for language around async collaboration, documentation culture, and distributed decision-making. Compare that against phrases like "fast-paced office environment" or "collaborative open floor plan."
-- **Is leadership distributed?** Some companies list their team or leadership page. If every executive is in the same city, that's worth noting — decisions likely happen in hallways, not in documents.
-- **What's the benefits package?** A careers page that leads with an office photo tour and lists "dog-friendly office" as a top perk is telling you who they're recruiting for. Remote-first companies lead with flexibility, autonomy, and distributed-team investments.
-- **Do they have a "How We Work" section?** Some companies publish their remote work philosophy, communication norms, or team handbooks. This is gold. Read it carefully — it tells you what they actually value, not just what they put in job ads.
+Red flags: unclear product, constant pivots, major layoffs followed by aggressive hiring, public complaints from customers, or a role that seems disconnected from the company's stated direction.
 
----
+### Stage 3: Work Model And Remote/Hybrid Fit (3 minutes)
 
-### Stage 3: Review Scan (5 minutes)
+For remote or hybrid roles, verify the work model instead of trusting the label. A useful distinction is whether the company operates as Fully Remote, Remote-First, Flexible Hybrid, Structured Hybrid, or Onsite, because the same "remote" job can feel very different inside each model.
 
-Check Glassdoor, Blind, or similar platforms. You're not looking for a perfect rating — you're looking for patterns.
+- Does the posting clearly state remote, hybrid, onsite, timezone, travel, or office expectations?
+- Does the careers page describe async work, documentation, remote onboarding, or distributed decision-making?
+- Are benefits and rituals designed for distributed workers, or mostly office-based?
+- Is leadership distributed, or concentrated in one office?
 
-- **Search for remote-specific reviews.** Filter for your target role or department if possible. Someone in engineering may have a completely different remote experience than someone in sales.
-- **Look for recurring themes.** One negative review is noise. Five reviews mentioning the same issue (micromanagement, timezone inflexibility, return-to-office pressure) is a signal.
-- **Check management responses.** Companies that respond thoughtfully to criticism — even negative reviews — tend to have more self-aware leadership. Companies that ignore reviews or respond defensively are showing you how they handle feedback internally.
-- **Read between the lines.** "Great culture if you're in the office" is a review that tells you everything. "They say flexible but expect 9-5 their timezone" is another. These aren't complaints about remote work — they're complaints about companies pretending to be remote.
+Red flags: "flexible" with no specifics, city-first postings labeled remote, office-centric perks for a remote role, "currently remote," return-to-office pressure, or remote employees appearing second-class.
 
----
+### Stage 4: Reviews And Reputation (4 minutes)
 
-### Stage 4: LinkedIn Quick Check (3 minutes)
+Check Glassdoor, Blind, Reddit, or other places where employees talk about work. You are not looking for a perfect rating. You are looking for repeated patterns.
 
-Open the company's LinkedIn page for a quick structural scan.
+- Search recent reviews first.
+- Separate role-specific signals from company-wide noise.
+- Look for repeated comments about management, pace, communication, overtime, churn, or remote employees being excluded.
+- Read management responses where available. Defensive responses are a signal too.
 
-- **Geographic distribution.** LinkedIn shows where employees are located. If 80% of a "remote" company's employees are in one metro area, that's a data point. Genuinely distributed companies have people spread across multiple cities, states, or countries. As GitLab's Head of Remote Darren Murph has noted, all leadership being co-located in one office is a key red flag for remote roles.
-- **Leadership concentration.** Check where the C-suite and VPs are based. If leadership is concentrated in one location, remote employees are likely further from decision-making.
-- **Recent departures.** A sudden wave of departures, especially from remote employees, can signal policy changes or cultural shifts that haven't hit the news yet.
-- **Growth patterns.** Is the company hiring across geographies, or only adding headcount near headquarters? Growth patterns reveal actual remote commitment better than any careers page statement.
+One angry review is noise. Five reviews describing the same failure mode is evidence.
 
----
+### Stage 5: Team And LinkedIn Signals (2 minutes)
 
-## Red Flags by Stage
+Use LinkedIn for a quick structural check.
 
-Not every red flag is a dealbreaker, but they stack up. Here's what to watch for:
+- Where are employees in the relevant function located?
+- Is leadership concentrated in one office?
+- Do people in similar roles stay long enough to grow?
+- Are there recent departures from the team you would join?
+- Is hiring spread across regions or clustered near headquarters?
 
-**In the job posting:**
+LinkedIn is imperfect, but structure often tells you what marketing copy does not.
 
-- **"Flexible arrangements"** — usually means hybrid with some WFH days
-- **City name + "remote"** tacked on as an afterthought
-- **Office-centric perks** listed prominently (catered lunches, on-site gym, game rooms)
-- **No mention of timezone expectations** or async work
-- **"Must be able to commute to [City] as needed"**
+## Weighing The Evidence
 
-**On the careers page:**
+Do not tally red flags mechanically. Severity matters more than count.
 
-- **Office photos dominate** the visual identity
-- **"Hybrid flexible" or "remote eligible"** instead of "remote"
-- **"Currently remote"** — implies temporary
-- **Benefits list** doesn't include any remote-specific investments
-- **"Headquarters in [City]"** featured prominently with no mention of distributed team
+Use three verdicts:
 
-**In reviews:**
+| Verdict | Use when | What to do |
+| --- | --- | --- |
+| **Prioritize** | Role scope, company direction, and work model all look coherent | Apply or prepare seriously |
+| **Proceed with caution** | The role may be worth it, but there are specific open questions | Apply only if you can test those questions in the process |
+| **Skip for now** | Hard signals suggest the opportunity is likely a poor use of time | Spend the energy elsewhere |
 
-- **"Great culture if you're in the office"**
-- **"They say flexible but expect 9-5 their timezone"**
-- **Multiple return-to-office mentions** — rumors or pressure
-- **Remote employees as second-class citizens** — feeling excluded from decisions
-- **"Communication is mostly hallway conversations"**
+A single hard signal, such as a recent return-to-office mandate for a "remote" role, can outweigh several nice-looking benefits. A pile of small concerns may simply become interview questions.
 
-**On LinkedIn:**
+## Questions To Ask If You Proceed
 
-- **Leadership team all based in one city**
-- **70%+ of employees** in a single metro area
-- **Recent departures** clustered among remote workers
-- **New hires** predominantly near headquarters
+Turn concerns into questions:
 
----
+- "What problem made this role necessary now?"
+- "What would success look like after six months?"
+- "How is the team distributed today?"
+- "Which decisions happen async, and which require meetings?"
+- "What changed after the last reorg, funding round, or layoff?"
+- "How do remote employees stay visible for promotion and high-impact work?"
+- "What is the hardest part of working here right now?"
 
-## Spotting Remote-Washing Language
+Good companies can answer these directly. Weak answers are data.
 
-Companies have learned that "remote" attracts more applicants. LinkedIn reported in July 2023 that remote jobs were 9% of postings and drew 44% of applications, so many companies use remote-adjacent language without offering actual remote work. Here's a quick decoder:
+## Building A Target Company List
 
-| What they say | What it usually means |
-|---|---|
-| **Remote** | Could be genuinely remote — verify with the rest of this process |
-| **Remote eligible** | The role *could* be remote, but probably isn't by default |
-| **Remote friendly** | They'll tolerate it, but the culture is built around the office |
-| **Hybrid flexible** | 2-3 days in office, you pick which ones |
-| **Currently remote** | Remote today, office tomorrow — often a policy change is coming |
-| **Distributed team** | Usually a strong signal — this is how remote-native companies describe themselves |
-| **Work from anywhere** | Check the fine print — often limited to specific countries or timezones |
+Do not evaluate companies only as you stumble across postings. Keep a running list.
 
-"Distributed" and "remote-first" are the strongest labels — but only when backed by structural evidence: no headquarters, distributed leadership, async-first tooling. GitLab's public handbook describes "remote-friendly" as typically meaning office-centric with remote as an afterthought, versus "remote-first" where processes are designed for distributed teams.
+- Start with 3-5 companies that pass your research.
+- Grow to 15-25 over time.
+- Monitor careers pages weekly.
+- Track notes on work model, role fit, review themes, and people you have interacted with.
+- Remove companies when the evidence changes.
 
-> Words are cheap. Org charts aren't.
-
----
-
-## The Scoring System
-
-After your 15-minute review, tally the red flags:
-
-| Red Flags | Verdict | What to Do |
-|---|---|---|
-| **0-1** | Prioritize | Strong evidence of genuine remote culture. Move forward with your application. |
-| **2-3** | Proceed with caution | The company may be in transition or have uneven remote practices. Prepare specific questions about remote work for the interview stage — how they handle async decisions, what tools they use, how they measure performance. |
-| **4+** | Probably skip | Likely office-first with a remote label. You'll spend more energy fighting the culture than doing your job. Only worth it if the role itself is exceptional. |
-
-Perfect companies don't exist. But you have **limited application energy**, and with remote roles drawing far more demand than their share of postings, spending it on companies where you'll actually thrive beats spraying it at companies that aren't what they claim.
-
----
-
-## Building a Target Company List
-
-Don't evaluate companies one at a time as you stumble across job postings. Build a running list.
-
-**Start with 3-5 companies.** Don't try to build a list of 50 on day one. Pick a handful that pass the vetting process and fit your career goals.
-
-**Grow to 15-25 over time.** Add companies as you discover them through job boards, industry conversations, and recommendations. Remove companies that change their remote policies or no longer fit.
-
-**Monitor regularly.** Check your target companies' careers pages weekly. Set up job alerts. Follow them on LinkedIn. The goal is to see openings early, before the application volume peaks.
-
-**Build connections in parallel.** Follow employees at your target companies. Engage with their content. Attend virtual events they host or speak at. When you eventually apply, having even a loose connection gives your application more context.
-
-**Track what you learn.** Keep notes on each company — what you found in reviews, how their remote culture is structured, who you've connected with. This research compounds over time. What takes 15 minutes today saves you hours when an opening appears next month.
-
-Tools like [Remotivated](https://remotivated.com) pre-classify companies by remote culture — fully remote, remote-first, structured hybrid — so you can skip the first few stages for companies already in the directory. Still worth a few minutes confirming what you find matches your priorities. No tool replaces your own judgment about where you want to work.
-
----
-
-## Making This a Habit
-
-Do this for every opportunity. After a few weeks, you'll screen some companies in 30 seconds flat. Others will earn deeper research.
-
-The point is simple: stop wasting time on companies that aren't what they claim to be, and put your energy where it actually pays off.
-
----
+Company directories and job boards can pre-classify companies by work model, but your own notes matter more. No tool replaces your judgment about where you want to work.
 
 ## Sources
 
-- **GitLab All-Remote Handbook** — Public documentation on remote hiring, evaluation frameworks, and red flags for remote-washing. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/evaluate/)
-- **LinkedIn / Andrew Seaman** — Summary of LinkedIn Economic Graph data: remote jobs were 9% of postings and drew 44% of applications in July 2023. [linkedin.com](https://www.linkedin.com/pulse/ads-remote-jobs-disappearing-andrew-seaman)
+- **GitLab All-Remote Handbook** - Public documentation on all-remote practices, async communication, and questions for evaluating remote roles. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/guide/#how-to-evaluate-a-remote-role)
+- **Remotivated Work Models** - Five-tier framework for classifying how companies actually structure work around location. [remotivated.com](https://remotivated.com/resources/work-models)
+- **LinkedIn / Andrew Seaman** - Summary of LinkedIn Economic Graph data: remote jobs were 9% of postings and drew 44% of applications in July 2023. [linkedin.com](https://www.linkedin.com/pulse/ads-remote-jobs-disappearing-andrew-seaman)

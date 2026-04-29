@@ -1,58 +1,99 @@
 # Company Research
 
-> **Thin version.** This is the no-file-system version of the [remote-culture-check](../skills/remote-culture-check/SKILL.md) skill, for use with ChatGPT, Gemini, Claude.ai, or any LLM without file access. The skill version dedups against prior vettings (so you don't re-research a company you looked at last week), writes a numbered vetting report to `reports/`, and upserts the tracker to `status: saved` on a positive verdict. It can also use live web browsing when available. This prompt can't browse, dedup, or save — you gather the raw inputs, you paste them in, you keep the output yourself. Use the skill if you have Claude Code; use this if you don't.
+Use this prompt when you want to decide whether a company or role is worth your time. It works in ChatGPT, Gemini, Claude.ai, or another LLM if you paste the raw source material yourself.
 
 ## What you'll need
 
 - Company name
-- As much raw input as you can gather: job posting, careers/about page text, Glassdoor or Blind themes, LinkedIn observations, recent news. The more you paste, the sharper the evaluation.
-- Background reading: [company-research.md](../guides/company-research.md) (the full 15-minute vetting methodology this prompt applies)
+- Job posting text, if you have it
+- Careers/about page text
+- Review themes from Glassdoor, Blind, Reddit, or similar sources
+- LinkedIn observations about team location, leadership concentration, or churn
+- Recent news about funding, layoffs, return-to-office changes, leadership changes, or product shifts
+- Source URLs and dates, if your LLM can browse or you collected them
+- Background reading: [company-research.md](../guides/company-research.md)
 
 ## The prompt
 
 ```
-Evaluate this company's remote work culture using a structured 4-stage red flag framework. I want to know if it's worth my time.
+Evaluate this company and role using a practical employer research framework. I want to know whether this is worth my time, what I should verify, and what questions I should ask if I proceed.
 
-COMPANY: [company name]
+COMPANY:
+[company name]
 
-JOB POSTING:
-[paste posting, or "not available"]
+ROLE / JOB POSTING:
+[paste posting, or write "not available"]
 
 CAREERS / ABOUT PAGE:
-[paste relevant text, or "not available"]
+[paste relevant text, or write "not available"]
 
-REVIEWS (Glassdoor, Blind, etc.):
-[paste reviews or summarize themes, or "not available"]
+REVIEWS:
+[paste review excerpts or summarize repeated themes, or write "not available"]
 
 LINKEDIN OBSERVATIONS:
-[describe employee geographic spread, leadership concentration, recent departures, or "not checked"]
+[describe employee geography, leadership concentration, recent departures, or write "not checked"]
 
 RECENT NEWS:
-[paste RTO announcements, layoffs, acquisitions, leadership changes, or "nothing notable"]
+[paste funding, layoffs, RTO announcements, acquisitions, leadership changes, or write "nothing notable"]
 
-Run all four stages. Do not skip a stage just because the first looks clean — companies can look great on paper and fail on reviews.
+BROWSING / SOURCE MODE:
+[write "can browse current web" or "pasted sources only"]
 
-Stage 1 — Job Posting (2 min): Clear remote language or vague "flexible arrangements"? Timezone stated? Benefits signaling distributed investment? Red flags: city + "remote" tacked on, vague travel expectations.
+Source rule:
+- If you can browse current web, cite the source and date for each major signal.
+- If you cannot browse, use only the source material I pasted and mark stale or missing areas clearly.
+- Do not treat uncited memory as current evidence.
 
-Stage 2 — Careers / About Page (5 min): How do they describe teamwork? Is leadership distributed or concentrated at HQ? Office-centric perks vs. distributed-friendly benefits? Red flags: only office photos, no async or distributed-work mention.
+Run all five stages. Do not skip a stage just because the job posting looks good.
 
-Stage 3 — Reviews (5 min): Consistent themes, especially recent ones? Role-specific remote signals? Red flag patterns: "great if you're in the office," "remote workers are second-class," "flexible means 9-5 their timezone."
+Start with SOURCES AND CONFIDENCE:
+| Signal | Source | Date observed/published | Confidence |
+| --- | --- | --- | --- |
+Use High / Medium / Low confidence. Low confidence means stale, secondhand, uncited, or thin evidence.
 
-Stage 4 — Team Distribution (3 min): Geographic spread? Leadership concentration? Departure patterns?
+Stage 1 - Job posting:
+- What problem is this role meant to solve?
+- Are the must-haves realistic?
+- Are scope, seniority, compensation, location, and work model clear?
+- Name any red flags: vague scope, unrealistic requirements, missing compensation where expected, title/scope mismatch, unclear hiring process.
 
-For every red flag you raise, name the specific signal and where it came from. "Culture seems off" is not actionable — point to the exact sentence or pattern.
+Stage 2 - Company direction:
+- What does the company do, who buys or uses it, and why now?
+- Look for business model, product clarity, customer signals, funding, layoffs, pivots, or public contradictions.
+- Name what looks strong and what needs verification.
 
-WEIGH AND RECOMMEND — severity matters more than count:
-**Do not tally red flags and score by total.** A single hard signal — a recent RTO mandate, leadership concentrated in one office while the role is "remote," reviews calling remote staff second-class — can outweigh several soft ones. Conversely, a pile of weak signals on an otherwise strong company may just be questions to raise, not a reason to walk away. Name the specific signals driving the recommendation so I can verify them and make my own call.
+Stage 3 - Work model and remote/hybrid fit:
+- Does the posting clearly state remote, hybrid, onsite, timezone, travel, or office expectations?
+- Does the company show distributed habits: documentation, async communication, remote onboarding, location-transparent benefits?
+- Name red flags such as vague "flexibility," city-only signals for a remote role, recent return-to-office pressure, or remote workers appearing second-class.
 
-Deliver one of three verdicts, each justified by the signals you named:
-- **Likely solid** — worth prioritizing.
-- **Proceed with caution** — worth pursuing, but list specific questions I should ask in the interview to probe each flagged signal.
-- **Probably not worth my time** — explain which hard signals drove the call, and note whether any could be verified false with current sources.
+Stage 4 - Reviews and reputation:
+- What recent themes repeat?
+- Separate role-specific signals from general noise.
+- Watch for poor management, chaotic priorities, unpaid overtime, high churn, interview bait-and-switches, or second-class remote employees.
 
-Red flags are questions to ask, not automatic disqualifiers. Note which findings may be outdated and recommend I verify them against current sources — remote policies shift fast, especially around RTO waves.
+Stage 5 - Team and LinkedIn signals:
+- Is the relevant team geographically distributed?
+- Is leadership concentrated in one office?
+- Do people in similar roles appear to stay long enough to grow?
+- Are there recent departures from the relevant function?
+
+For every red flag, name the specific signal and where it came from. "Culture seems off" is not actionable.
+
+WEIGH AND RECOMMEND:
+Severity matters more than count. One hard signal can outweigh several soft positives. A pile of weak concerns may only mean I should ask sharper questions.
+
+Deliver one of three verdicts:
+- PRIORITIZE - worth applying or preparing seriously.
+- PROCEED WITH CAUTION - worth pursuing, but only with specific questions to ask.
+- SKIP FOR NOW - hard signals suggest I should spend time elsewhere.
+
+End with:
+1. The 3-5 signals driving the verdict.
+2. Specific questions I should ask in interviews.
+3. Anything that may be stale or needs current verification.
 ```
 
 ## What you'll get
 
-A stage-by-stage evaluation with specific red flags (each tied to a source), a score-based verdict, and — if you proceed — interview questions designed to probe the flagged areas.
+A company research brief with role fit, company direction, remote/hybrid evidence, review themes, team signals, a clear verdict, and questions to ask if you proceed.

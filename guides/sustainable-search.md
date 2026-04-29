@@ -1,6 +1,6 @@
 ﻿# Sustainable Search: A System That Keeps You Moving
 
-Job searching is not a sprint. For most people, it takes **several months**. The Ashby 2025 Talent Trends Report found that median time-to-hire across their dataset was roughly 40-50 days from application to offer -- and that's the employer's timeline, not the candidate's full search. Some searches take much longer. If you burn out in week three, you're going to bomb the interview you land in week eight.
+Job searching is not a sprint. For most people, it takes **several months**. Employer-side timelines alone often run for weeks, and Ashby's 2026 recruiter productivity report shows teams are dealing with much higher application volume per hire than they were in 2021. Some searches take much longer. If you burn out in week three, you're going to bomb the interview you land in week eight.
 
 The goal here is not "work harder." It's to build a system that produces **consistent, quality output** without wrecking you in the process.
 
@@ -56,7 +56,7 @@ Here's what we recommend as realistic effort, based on what we've seen work:
 
 **Our recommended total: roughly 8-12 hours per week.**
 
-That's a part-time commitment, not a full-time panic. If you're spending **40 hours a week** on your job search, you're almost certainly doing low-quality work for most of those hours. **Two focused hours** beat eight hours of mindless scrolling and one-click applying. The Ashby data backs this up: application volume has surged, but employer response rates have dropped -- meaning more applications does not equal more interviews (Ashby, 2025 Talent Trends Report). Quality over quantity is not just advice; it's math.
+That's a part-time commitment, not a full-time panic. If you're spending **40 hours a week** on your job search, you're almost certainly doing low-quality work for most of those hours. **Two focused hours** beat eight hours of mindless scrolling and one-click applying. Ashby's recruiter productivity data backs this up: applications per hire have risen sharply, while recruiter capacity has not magically expanded to match the flood. More applications does not automatically mean more interviews. Quality over quantity is not just advice; it's math.
 
 More is not better. Better is better. Stop confusing motion with progress.
 
@@ -150,8 +150,8 @@ Build the rhythm. The results come from consistency, not heroics.
 
 ## Sources
 
-1. **Ashby, 2025 Talent Trends Report** -- First-party ATS data across 11M+ applications showing increased application volumes and declining response rates. Median time-to-hire data sourced from this report.
-2. **NBER Working Paper 32320** (2024) -- Analysis of 125 million job applications finding that 45% of applications arrive within the first 48 hours of posting, illustrating the speed of competition.
-3. **Greenhouse** -- Corporate job postings receive roughly 250 applications on average.
-4. **Gallup** -- Research on unemployment and well-being, including findings that unemployed individuals are more than twice as likely to report being treated for depression compared to full-time workers.
+1. **Ashby Recruiter Productivity Report** -- First-party ATS data from 109M applications and 247K jobs showing applications per hire tripled from 2021 to 2024 and stayed above 300 throughout 2025. [ashbyhq.com](https://www.ashbyhq.com/talent-trends-report/reports/2023-recruiter-productivity-trends-report)
+2. **NBER Working Paper 32320** (2024) -- Analysis of 125 million job applications finding that 45% of applications arrive within the first 48 hours of posting, illustrating the speed of competition. [nber.org](https://www.nber.org/papers/w32320)
+3. **Axios / Greenhouse** -- Interview with Greenhouse co-founder Jon Stross citing 228 applications per average Greenhouse job posting as of February 2024. [axios.com](https://www.axios.com/2024/04/11/how-to-get-hired-new-job-greenhouse)
+4. **Gallup** -- Research on unemployment and well-being, including findings that unemployed individuals are more than twice as likely to report being treated for depression compared to full-time workers. [gallup.com](https://news.gallup.com/poll/171044/depression-rates-higher-among-long-term-unemployed.aspx)
 

@@ -1,124 +1,209 @@
 ---
 name: resume-tailor
-description: Use when the user has a specific job posting and wants to customize their resume and cover letter for that role. Also use when they say "I'm applying to..." or share a job link.
+description: Use when the user has a specific job posting and wants to customize their resume, CV, work document, and/or cover letter for that role. Also use when they say "I'm applying to..." or share a job link.
 ---
 
 ## Overview
 
-Reshape the resume narrative for a specific role. This is not keyword swapping — it's adjusting which experiences lead and how they're framed. Never modifies canonical files.
+Reshape the user's work document for a specific role. This is not keyword swapping; it is adjusting which experiences lead, which language matches the posting, and how the argument is framed. Never modifies source work documents.
 
 ## Workflow
 
-> **State layer:** reads `applications.md` to dedup existing tailorings, runs claim verification against the evidence layer before saving, writes a tailor-report stub, and upserts the tracker at `status: saved`. See [state-layer contract](../_shared/state-layer.md).
+> **State layer:** reads `applications.md` for dedup, selects either `resume.md` or `cv.md` as the source work document, runs claim verification before saving, writes a numbered tailor report, and upserts the tracker at `status: saved`. See [state-layer contract](../_shared/state-layer.md).
 
-### 0. Dedup check
+### 0. Scaffold and select the source work document
 
-Read `my-documents/applications.md` (first-run scaffold if missing). Compute the target `id` as `{company-slug}-{role-slug}`. If a row with that `id` already exists **or** `my-documents/applications/{id}/resume.md` already exists, warn the user using the canonical's `label` from frontmatter (see [state-layer §6](../_shared/state-layer.md#6-canonical-resume-frontmatter)):
+Run `node scripts/scaffold-state.mjs` if the state layer is missing.
 
-> You have a tailored {label} for **{Role} at {Company}**. Iterate on the existing version, or create a new one?
+Select the source work document using [state-layer section 6](../_shared/state-layer.md#6-work-document-frontmatter-and-selection):
 
-(If the canonical's `label` is `CV`, that reads "You have a tailored CV for..."; if `resume`, "You have a tailored resume for..." Never substitute your own word.)
+1. If the user names resume or CV, use that file.
+2. If the job posting clearly implies a format, use the matching file when it exists.
+3. If only one of `my-documents/resume.md` or `my-documents/cv.md` exists, use it.
+4. If both exist and the choice is ambiguous, ask which work document to tailor.
+5. If neither exists, offer `resume-builder` first or proceed from pasted source material with limited evidence checking.
 
-- **Iterate:** load the existing tailored file and continue from there.
-- **New one:** the new version **overwrites** `applications/{id}/resume.md` in place. Rationale: parallel folders for the same role get messy. Git history on the canonical + the report stub preserve recoverability.
-- **Genuine need for two simultaneous variants** (e.g., same role applied via two channels): the user picks a distinct suffix like `{id}-referral` and passes that as the target.
+Read the selected file's `version` and `label`. Let:
 
-Warn, do not block — the user can always proceed.
+- `{document_filename}` be `resume.md` or `cv.md`.
+- `{source_document}` be `my-documents/{document_filename}`.
+- `{label}` be the frontmatter label, falling back to `resume` or `CV`.
 
-### 1. Accept inputs
+Use `{label}` in all user-facing prose.
 
-- **Job posting** — URL or pasted text. If URL can't be accessed, ask for pasted text.
-- **Canonical files** — Read `my-documents/resume.md`. Read `my-documents/coverletter.md` if it exists; treat it as source material, not a script to paraphrase mechanically.
+### 1. Dedup check
 
-### 2. Analyze the posting
+Read `my-documents/applications.md`. Compute the target `id` as `{company-slug}-{role-slug}` unless the user supplies a specific application id.
 
-Extract: top requirements, terminology, company values, remote specifics.
+Check for both:
 
-### 3. Identify the angle
+- Existing tracker row with that `id`.
+- Existing tailored file at `my-documents/applications/{id}/{document_filename}`.
 
-What's the strongest story for THIS role? Which experiences map to their priorities? How should emphasis shift?
+If either exists, warn the user:
 
-### 4. Tailor
+> You already have a tailored {label} for **{Role} at {Company}**. Iterate on that version, replace it, or create a separate variant with a suffix like `{id}-referral`?
 
-**Resume:** Match terminology, reorder bullets by relevance, highlight remote signals. You may add a Summary section or reorganize structure if it strengthens the narrative, but don't remove sections from the canonical. Never invent experience.
+- **Iterate:** load the existing tailored file and continue from it.
+- **Replace:** write to the same path after explicit confirmation. This is usually fine because tailored documents are per job, but `my-documents/` is gitignored, so do not imply git can recover overwritten personal files.
+- **Separate variant:** use the user-confirmed suffixed id.
 
-**Claim verification (required before save):** Invoke `resume-drift-check` in **tailor mode** on the tailored resume and cover letter before the files are persisted. Drift-check classifies each added or rewritten bullet against the evidence layer (canonical → story-bank → proof-assets → reports) per [state-layer §7](../_shared/state-layer.md#7-evidence-layer-priority-order), and returns findings with both a **class** (Supported / Unverifiable / Contradicted) and a **severity** (Cosmetic / Soft / Hard). Handle each finding per severity (see [resume-drift-check §6](../resume-drift-check/SKILL.md)):
+Warn, do not block. Users can always proceed.
 
-- **Cosmetic** — drift-check auto-fixes placeholders, typos, and stray `[VERIFY:]` / `[ASK:]` markers that were resolved in conversation. No user action required.
-- **Soft** — surface each finding with its suggested fix **and** the underlying question. The common soft patterns in tailoring are: **inference tightening** (asserting a connection between two facts the canonical states separately), **invented tool specifics** (promoting "AWS" to "AWS (S3, EC2)"), **dropped proficiency qualifiers** (removing "intermediate" or "scripting only"), and **paraphrase-that-tightens** ("contributed to" → "built", "co-supervised" → "managed"). Prefer asking the underlying question over adjusting the bullet — a confirmed fact from the user is worth more than a hedged rewrite.
-- **Hard** — block save. Any contradicted or fabricated claim must be resolved before the tailored files are written. A hard finding is a red light.
+### 2. Accept inputs
 
-Gaps in the canonical itself still use `[ASK: ...]` placeholders — those are a `resume-builder` concern, not a tailor concern. Stray `[VERIFY: ...]` markers from a previous iteration count as cosmetic findings for the new drift-check pass.
+- **Job posting:** URL or pasted text. If URL access fails, ask for pasted text.
+- **Source work document:** the selected `resume.md` or `cv.md`.
+- **Source letter:** read `my-documents/coverletter.md` if it exists; treat it as source material, not a script to paraphrase mechanically.
+- **Evidence:** read `story-bank.md`, `proof-assets/`, and relevant reports when needed for claim verification.
 
-**Cover letter:** Address the specific role/company. Use the canonical cover letter only as raw material for voice and proof points; if it is missing, too broad, or weaker than a fresh draft from the JD + evidence layer, write the tailored cover letter from scratch. Quality bar:
+### 3. Analyze the posting
 
-- Name the company's need or problem, not just your own job search goals.
+Extract:
+
+- Role problem and likely success criteria.
+- Top requirements and nice-to-haves.
+- Required terminology and domain language.
+- Company values and work-model signals.
+- Any gaps the user should acknowledge directly.
+
+### 4. Identify the angle
+
+Decide the strongest honest case for this role:
+
+- Which experiences map most directly to the posting?
+- Which bullets or sections should lead?
+- Which terminology should change for readability?
+- Which gaps should be named instead of hidden?
+- Which format conventions must be preserved from the source document?
+
+For CV-format sources, preserve CV conventions such as Personal Statement, Education details, Languages, Publications when present, and References if present. For resume-format sources, preserve concise resume conventions. The skill adapts the content; it does not force one format into the other.
+
+### 5. Tailor the work document
+
+Match terminology, reorder bullets by relevance, and highlight remote or async signals where relevant. You may add or revise a Summary or Personal Statement if it strengthens the role-specific argument. Do not remove source sections unless they are clearly irrelevant to the role and the user agrees.
+
+Never invent experience. Do not add tools, metrics, credentials, titles, employment dates, management scope, or domain exposure that the source work document or evidence layer does not support.
+
+### 6. Tailor or write the cover letter
+
+Address the specific role/company. Use the source letter only as raw material for voice and proof points. If it is missing, too broad, or weaker than a fresh draft from the posting plus evidence layer, write the tailored cover letter from scratch.
+
+Quality bar:
+
+- Name the company's need or problem, not just the user's job-search goal.
 - Expand 1-2 proof points that map directly to that need.
-- Explain why this role/company makes sense for the candidate now.
-- If there is an honest gap, name it directly rather than smoothing it over.
-- If the letter could be reused for five companies with only company-name swaps, it is not tailored enough; rewrite it before save.
+- Explain why this role or company makes sense now.
+- Name honest gaps directly instead of smoothing them over.
+- Rewrite before save if the letter could work for five companies with only company-name swaps.
 
-### 5. Save outputs
+### 7. Claim verification before save
 
-Save only after step 4's drift-check pass has returned a clean verdict — every cosmetic finding auto-fixed, every soft and hard finding resolved by user action. If any hard finding remains unresolved, do not write the tailored files; surface the blocker and stop.
+Invoke `resume-drift-check` in tailor mode on the tailored work document and cover letter before files are persisted. Drift-check classifies concrete claims against the evidence layer and returns both class and severity.
+
+Handle findings:
+
+- **Cosmetic:** drift-check may auto-fix placeholders, typos, and format glitches.
+- **Soft:** surface the issue, suggested fix, and underlying question. Prefer asking the underlying question over weakening the output by guesswork.
+- **Hard:** block save until resolved. Contradicted or fabricated claims must not be written.
+
+Gaps in the source work document itself still use `[ASK: ...]` placeholders and should be sent back through `resume-builder`; tailoring should not invent missing source facts.
+
+### 8. Save outputs
+
+Save only after verification returns a clean verdict: all cosmetic findings auto-fixed, all soft and hard findings resolved by user action.
 
 **Tailored artifacts:**
 
-```
-my-documents/applications/{id}/resume.md
+```text
+my-documents/applications/{id}/{document_filename}
 my-documents/applications/{id}/coverletter.md
 ```
 
-Where `{id}` is the dedup-matched or user-confirmed id from Step 0 (lowercase kebab-case, e.g., `buffer-content-marketing-manager`).
-
-**Frontmatter on the tailored `resume.md`:**
+**Frontmatter on the tailored work document:**
 
 ```yaml
 ---
-derived_from_version: {current canonical version}
+source_document: my-documents/{document_filename}
+source_version: {current source version}
+source_label: {label}
 tailored_date: {today ISO}
 application_id: {id}
 ---
 ```
 
-Read the canonical's `version` field and copy it into `derived_from_version`. See [state-layer §6](../_shared/state-layer.md#6-canonical-resume-frontmatter).
+**Tailor report:** write `my-documents/reports/{###}-{id}-tailor-{YYYY-MM-DD}.md`.
 
-**Tailor report stub:** Also write `my-documents/reports/{###}-{id}-tailor-{YYYY-MM-DD}.md`. Frontmatter: `id`, `company`, `role`, `application_id: {id}`, `skill: resume-tailor`, `date`, `summary`. Body: the angle chosen, which canonical bullets were reframed, and every `[VERIFY:]` marker that still needed user attention.
+Report frontmatter:
 
-**Upsert the tracker:** `applications.md` upsert with `status: saved` if no row exists, or leave existing status alone (never regress). Rules in [state-layer §3](../_shared/state-layer.md#3-applicationsmd-schema).
-
-**DOCX/PDF:** After the tailor-report stub is written and `applications.md` has been upserted, invoke the generation script **once** with both tailored files so LibreOffice only cold-starts one time:
-
+```yaml
+---
+report_id: {###}
+company: {Company}
+role: {Role}
+application_id: {id}
+skill: resume-tailor
+date: {today ISO}
+summary: One-line tailoring angle.
+---
 ```
-python scripts/generate-docx.py my-documents/applications/{id}/resume.md my-documents/applications/{id}/coverletter.md
+
+Body: the angle chosen, important section or bullet changes, evidence gaps resolved, and any manual review notes.
+
+**Tracker:** upsert `applications.md` with `status: saved` if no row exists, or leave existing status alone if it has already advanced. Follow the upsert and status rules in [state-layer section 3](../_shared/state-layer.md#3-applicationsmd-schema).
+
+When inserting a new row, also populate:
+
+- `source` if the user mentioned how they found the role (referral, board, cold, recruiter, watch). Otherwise `-`.
+- `comp_expected` if the user mentioned a target range or the posting included one they accept. Otherwise `-`.
+- `next_action_date` to today + 7 days as the default first follow-up window when status is `saved`. The user can edit it.
+
+If the existing tracker row was read with a missing-column header (state-layer §3 rule 6), emit the full canonical schema on write per rule 7.
+
+**DOCX/PDF:** after the tailored artifacts, report, and tracker have been persisted, invoke the generation script once with both tailored files:
+
+```bash
+python scripts/generate-docx.py my-documents/applications/{id}/{document_filename} my-documents/applications/{id}/coverletter.md
 ```
 
-Run generation **after** tracker state has been persisted so a rendering failure does not block the `status: saved` upsert. The script always writes the `.docx` next to each input, then converts to `.pdf` via LibreOffice headless if `soffice` is on PATH.
+Run generation after tracker state is saved so rendering failure does not block the application record.
 
-Handle failures in two buckets:
+Handle failures:
 
-- **Content validation failure** — if the script says the markdown is "not ready to render" (for example unresolved placeholders, template comments, `[ASK:]`, `[VERIFY:]`, or `year TBD`), do **not** surface that raw failure as the final answer. Treat it as an internal quality gate. Read the exact blocker(s), fix the tailored markdown, and rerun automatically. Only ask the user a follow-up if the blocker depends on a missing fact that the JD + evidence layer cannot answer.
-- **Infrastructure/rendering failure** — if the markdown is valid but `.docx` build or PDF conversion fails, report which file(s) failed with the exact rerun command.
+- **Content validation failure:** fix unresolved placeholders, comments, `[ASK:]`, `[VERIFY:]`, or `year TBD` internally and rerun. Ask the user only when the blocker requires a missing fact.
+- **Infrastructure/rendering failure:** report the failed file and exact rerun command.
 
-If LibreOffice isn't installed the `.docx` files still land — they're valid submittable artifacts on their own — and the script prints install instructions; do not treat that as a failure. The script renders each file independently and the exit code is non-zero only if a `.docx` build or `.pdf` conversion *actually* errored. On infrastructure/rendering failure, report which file(s) failed with the exact rerun command:
+If LibreOffice is missing but `.docx` files are written, treat the run as successful and report only that PDF conversion was skipped.
 
-> Tailored markdown and tracker updated. PDF conversion failed for `my-documents/applications/{id}/resume.md`: `<error message>`. The `.docx` is in place; rerun once fixed: `python scripts/generate-docx.py my-documents/applications/{id}/resume.md`
+### 9. Summary and post-run prompt
 
-**Never modify canonical files** unless explicitly asked.
+Report:
 
-### 6. Summary and post-run prompt
-
-Report to the user: key changes and why, alignment strengths, `[ASK]` gaps, `[VERIFY]` flags, and anything to review manually. Show the tracker row for this application.
+- Files written.
+- Key changes and why.
+- Alignment strengths.
+- Any remaining manual review notes.
+- The tracker row for this application.
 
 Then ask:
 
 > Did you submit this application? If so, I can update the status to `applied`.
 
-If the user confirms, upsert `applications.md` with `status: applied` and `updated: {today ISO}`. Only the user can trigger this transition — the skill never auto-advances past `saved`.
+If the user confirms, upsert `applications.md` with `status: applied` and `updated: {today ISO}`. Only the user can trigger this transition.
+
+## Cover-Letter-Only Mode
+
+When invoked by the `cover-letter` skill or when the user explicitly asks for only a cover letter:
+
+- Still select and read the source work document for evidence.
+- Still run claim verification before save.
+- Save only `my-documents/applications/{id}/coverletter.md` for a specific role, or `my-documents/coverletter.md` only when building a source letter for a tightly defined lane.
+- Do not generate a generic letter.
 
 ## Common Mistakes
 
-- **Keyword stuffing.** Matching terminology ≠ cramming keywords. Swap naturally where their language differs from yours.
-- **Only changing the summary.** Tailoring means reordering and reframing bullets throughout, not just editing the top paragraph.
-- **Modifying canonicals.** This skill writes to `applications/` subdirectories. The originals are sacred.
-- **Tightening inference beyond the canonical.** The canonical may state two separate facts — e.g. "pipeline X processes Y data" and "I work on project Z" — without asserting a connection between them. Tailoring can reorder and reframe, but it cannot assert the connection as a new fact ("I apply Y to project Z") unless the canonical already says so. This is a subtler form of inventing experience: plausible, but not in the source. When you notice the temptation, either keep the canonical's separation of facts or flag the tightened claim as `[VERIFY: {tightened claim} — tighter than canonical, confirm with user]` so the user can decide before save.
+- **Keyword stuffing.** Match terminology naturally; do not cram keywords.
+- **Only changing the top section.** Tailoring means relevance ordering across the document.
+- **Changing the source document.** This skill writes to `applications/` only.
+- **Forcing CV into resume or resume into CV.** Preserve the selected source format.
+- **Tightening inference beyond evidence.** If the source states facts separately, do not assert a new connection unless the user confirms it.

@@ -19,32 +19,39 @@ const DIRS = [
 
 const APPLICATIONS_MD = `# Applications
 
-| id | company | role | status | updated | link |
-|----|---------|------|--------|---------|------|
+| id | company | role | status | comp_expected | source | next_action_date | updated | link |
+|----|---------|------|--------|---------------|--------|------------------|---------|------|
 
 ## Notes
 `;
 
 const STORY_BANK_MD = `# Story Bank
 
-STAR+R stories used by interview-coach and as evidence by resume-tailor / resume-drift-check.
+STAR+R stories for behavioral interviews and claim evidence. Add one H2 section per story.
 
-Each story uses YAML metadata followed by a STAR+R body:
+<!--
+Schema - one section per story:
+
+## {Short memorable title}
 
 \`\`\`yaml
----
-id: distributed-team-migration
-title: Migrating a distributed team off Slack-only sync
-themes: [remote, async, leadership]
-archetypes: [conflict-resolution, process-change]
----
+id: {kebab-case-slug}
+themes: [leadership, delivery, conflict, failure-learning, scope, stakeholder, crisis, ambiguity]
+archetypes: [technical-leadership, scope-negotiation, cross-functional, turnaround, mentorship]
+created: YYYY-MM-DD
+usage: []
 \`\`\`
 
-**Situation:** Context and setting.
-**Task:** What you needed to accomplish.
-**Action:** Specific steps you took (emphasize your own decisions).
-**Result:** Quantified outcomes, learnings, follow-on impact.
-**Reflection:** What you'd do differently, what surprised you, what this taught you.
+**Situation:** Where and when. One or two sentences of context.
+
+**Task:** What you were responsible for. Make the stakes visible.
+
+**Action:** What you specifically did. First person, concrete verbs.
+
+**Result:** Quantified outcome where possible; scope and qualitative impact where numbers are not available.
+
+**Reflection:** What you would do differently, what you learned, or how this changed your approach.
+-->
 `;
 
 function rel(p) {

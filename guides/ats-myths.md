@@ -27,15 +27,17 @@ You've seen this stat everywhere. Blog posts, LinkedIn influencers, resume servi
 
 This is not how most ATS platforms work.
 
-None of the major platforms auto-reject resumes based on parsing them alone. When you submit an application through Greenhouse, Lever, or Ashby, your resume gets parsed, stored, and added to the candidate pool. The ATS is organizing information, not secretly reading your bullet points and throwing you out because it didn't like your phrasing.
+The better-supported claim is narrower: modern ATS products are not usually rejecting you because a parser disliked your resume phrasing. When you submit an application through Greenhouse, Lever, or Ashby, your resume gets parsed, stored, and routed into the employer's hiring workflow. The ATS is organizing information and applying employer-configured workflow rules.
 
 The exception — and it's an important one — is **application rules tied to screening questions or other configured conditions**. Greenhouse and Ashby both support auto-reject rules based on answers to application questions (e.g., "Are you authorized to work in the US?" → "No" → automatic rejection). That's not your resume being algorithmically judged. It's an employer configuring a filter on information you submitted in the application flow.
+
+Some ATS products now include AI-assisted screening, matching, summarization, or prioritization. Treat that as another reason to write clearly and answer required criteria directly, not as proof that hidden keyword tricks work. The practical advice is unchanged: make your relevant evidence easy for both software and people to find.
 
 This is the distinction that matters:
 
 - **Resume parsing/searching/sorting** is normal ATS behavior.
 - **Application-question knockout rules** are real and can reject you automatically.
-- **Secret resume scoring that auto-rejects 75% of applicants** is the myth.
+- **Secret resume scoring that auto-rejects 75% of applicants based only on resume wording** is the myth.
 
 Enterprise systems like Workday and Taleo often use knockout questions the same way. This is the single biggest source of "automated rejection" in modern hiring, and it has nothing to do with hidden keywords in your resume. It's filtering on *your answers*, not parsing your resume for invisible signals.
 
@@ -73,7 +75,7 @@ Here's what can actually go wrong:
 
 | Element | Recommendation |
 | --- | --- |
-| **File format** | PDF for modern ATS (Greenhouse, Lever, Ashby, current Workday) — text-based PDFs parse reliably and preserve your formatting. Switch to .docx if the portal is Taleo, older iCIMS, or clearly legacy — still common at large enterprise and government employers. If the job post gives you a format, follow the instructions. |
+| **File format** | Use the format the job post requests. If the portal accepts both, keep a clean text-based PDF and a clean .docx available. Text-based PDFs preserve formatting well; .docx is still a safe fallback for older or stricter portals. Never upload a scanned/image PDF. |
 | **Fonts** | Calibri, Arial, Garamond, Helvetica. Nothing fancy. |
 | **Hierarchy** | Company name, role title, dates, bullet points. Consistent formatting throughout. |
 | **Headers/footers** | Keep name and contact info in the main document body. Some parsers skip header/footer content. |
@@ -105,5 +107,6 @@ Your resume needs to do two things: parse cleanly into structured data, and conv
 ## Sources
 
 - **Greenhouse Support** — `Application rules overview` and `Auto-Reject` documentation describing automatic rejection based on custom application-question responses, not resume parsing. [support.greenhouse.io](https://support.greenhouse.io/hc/en-us/articles/203105595-Application-rules-overview)
-- **Ashby** — `Pre-Screen Candidates with Auto-Reject` product documentation describing application-based auto-reject conditions. [ashbyhq.com](https://www.ashbyhq.com/product-updates/pre-screen-candidates-with-auto-reject)
-- **Lever** — Official ATS myth guide explaining that ATS platforms centralize applications and support recruiter review rather than acting as a black-box resume shredder. [lever.co](https://www.lever.co/blog/applicant-tracking-system-myths/)
+- **Ashby** — `Auto-Reject Applications` documentation describing employer-configured rejection conditions on application submissions. [docs.ashbyhq.com](https://docs.ashbyhq.com/auto-reject-applications)
+- **Lever** — Official ATS myth guide explaining that ATS and AI features support recruiter review rather than replacing human hiring decisions. [lever.co](https://www.lever.co/blog/applicant-tracking-system-myths/)
+- **Axios / Greenhouse** — Interview with Greenhouse co-founder Jon Stross describing application order, referral visibility, and average application volume. [axios.com](https://www.axios.com/2024/04/11/how-to-get-hired-new-job-greenhouse)

@@ -1,245 +1,177 @@
-# Job Hunt OS
-### AI-assisted toolkit for a smarter remote/hybrid job search
+# Job Hunt Skills
 
-Built by [Remotivated](https://remotivated.com) - the job platform where remote means remote.
+Practical AI-assisted skills, prompts, guides, and templates for a more honest job search.
 
----
+Built by [Remotivated](https://remotivated.com).
 
-Remote roles make up **8-12% of job postings** but attract **over 40% of applications**. Cold applications convert at 0.1-2%. The math is brutal, and volume makes it worse.
+Job Hunt Skills helps you turn real experience into stronger resumes, cover letters, company research, interview prep, LinkedIn copy, and proof assets. It is designed for jobseekers first: simple enough to use as a prompt library, structured enough to run as Claude Code or Cowork skills, and strict about not inventing claims.
 
-Job Hunt OS is a markdown-first toolkit for the other approach: guided Claude skills, copy/paste prompts, practical guides, and a DOCX/PDF export script built around one bet: **5 tailored applications beat 50 generic ones**.
+The core bet is simple: a few specific, truthful applications beat a large stack of generic ones.
 
-It helps you produce better materials faster. It does **not** turn the job search into a fully automated operating system.
+## Use The Skills
 
----
-
-## Best Fit
-
-- Guided prompts + Claude skills for resume, cover letter, research, and interview work
-- Resume/CV/cover letter generation with ATS-safe DOCX/PDF export
-- Company vetting and interview prep for remote/hybrid roles
-- Optional local workspace for repeat users who want saved canonicals and reports
-
-**CV support:** canonical build flows support both a US resume and a UK/EU CV. Downstream workflows are strongest on resume-first paths today, so review CV-derived outputs carefully.
-
-## Start Here
-
-These are the 4 workflows to lead with:
-
-| Workflow | Use it when... |
-| -------- | --------------- |
-| [get-started](skills/get-started/SKILL.md) | You are new and want the fastest path to a first draft |
-| [resume-builder](skills/resume-builder/SKILL.md) | You want to build or update a canonical resume, CV, or cover letter |
-| [resume-tailor](skills/resume-tailor/SKILL.md) | You have a specific job posting and want a targeted version |
-| [remote-culture-check](skills/remote-culture-check/SKILL.md) | You want to vet whether a company is actually remote/hybrid-friendly |
-
-Once you have traction, add `interview-coach` for interview prep and `resume-auditor` if you want a harder critique.
-
-## Advanced / Optional Workflows
-
-| Workflow | What it does |
-| -------- | ------------- |
-| [resume-auditor](skills/resume-auditor/SKILL.md) | Gives critical resume feedback instead of generic praise |
-| [interview-coach](skills/interview-coach/SKILL.md) | Builds an interview prep brief from your actual experience |
-| [resume-drift-check](skills/resume-drift-check/SKILL.md) | Advanced verification pass for repeat users checking tailored materials |
-| [linkedin-optimizer](skills/linkedin-optimizer/SKILL.md) | Audits and rewrites LinkedIn sections |
-| [proof-asset-creator](skills/proof-asset-creator/SKILL.md) | Helps turn experience into case studies and proof assets |
-
-## Prompts and Guides
-
-### Prompts (Any LLM)
-
-| Prompt | Use it when... |
-| ------ | --------------- |
-| [resume-audit](prompts/resume-audit.md) | You want blunt feedback on a resume |
-| [resume-tailor](prompts/resume-tailor.md) | You want a tailored resume and cover letter without plugins |
-| [interview-prep](prompts/interview-prep.md) | You want likely questions, talking points, and questions to ask |
-| [company-research](prompts/company-research.md) | You want a structured remote/hybrid company vetting pass |
-| [cover-letter](prompts/cover-letter.md) | You want a targeted cover letter for one specific role |
-| [linkedin-audit](prompts/linkedin-audit.md) | You want LinkedIn positioning help |
-
-### Guides (Methodology)
-
-| Guide | What it covers |
-| ----- | --------------- |
-| [Remote Job Market](guides/remote-job-market.md) | Why strategy beats volume |
-| [Resume Philosophy](guides/resume-philosophy.md) | Outcomes, angles, and anti-sycophancy |
-| [ATS Myths](guides/ats-myths.md) | What ATS systems actually do |
-| [Company Research](guides/company-research.md) | A 15-minute employer vetting stack |
-| [Interview Framework](guides/interview-framework.md) | How to prepare and what to ask back |
-| [Networking](guides/networking-guide.md) | The 3/1/1 rhythm for warm opportunities |
-| [Sustainable Search](guides/sustainable-search.md) | Weekly pacing that does not burn you out |
-
-## Sample Outputs
-
-Curated, polished sample outputs live in [examples/](examples/):
-
-- [US resume example](examples/resume-tech-lead.md)
-- [Cover letter example](examples/coverletter-computational-biology.md)
-- [Interview prep brief example](examples/interview-prep-engineering-manager.md)
-
-`tests/personas/` is for internal evaluation fixtures, not public samples. Those files may include synthetic edge cases or testing annotations.
-
-## DOCX and PDF Generation
-
-`resume-builder` and `resume-tailor` can produce ATS-safe `.docx` files next to the markdown they save. Under the hood, [`scripts/generate-docx.py`](scripts/generate-docx.py) walks the markdown into styled paragraphs with `python-docx` and `markdown-it-py`, then converts each `.docx` to `.pdf` with LibreOffice when `soffice` is available.
-
-### One-time setup
-
-```bash
-pip install python-docx markdown-it-py
-```
-
-To also auto-generate PDFs, install LibreOffice and make sure `soffice` is on your `PATH`:
-
-| OS | Install command |
-| -- | --------------- |
-| macOS | `brew install --cask libreoffice` |
-| Windows | `winget install TheDocumentFoundation.LibreOffice` |
-| Linux | `apt install libreoffice` |
-
-### Manual invocation
-
-```bash
-python scripts/generate-docx.py my-documents/resume.md my-documents/coverletter.md
-python scripts/generate-docx.py my-documents/applications/acme-engineer/resume.md my-documents/applications/acme-engineer/coverletter.md
-```
-
-If LibreOffice is missing, the script still writes valid `.docx` files and skips PDF conversion.
-
-### Trust checks
-
-```bash
-python scripts/test_generate_docx.py
-python scripts/check-content-hygiene.py
-```
-
-The first checks the renderer. The second is a lightweight guardrail for public docs and curated examples.
-
-## Optional Local Workspace
-
-The `my-documents/` tree is useful if you are running the Claude skills repeatedly and want saved canonicals, application folders, reports, and story-bank entries.
-
-It is **optional**. If you are using prompts in ChatGPT, Gemini, or Claude.ai without plugins, you can ignore it and manage your own files.
-
-```text
-my-documents/
-|- resume.md or cv.md
-|- coverletter.md
-|- applications/
-|- reports/
-|- story-bank.md
-`- proof-assets/
-```
-
-Advanced users can inspect the full contract in [`skills/_shared/state-layer.md`](skills/_shared/state-layer.md).
-
-## Install
+Install the plugin if you use Claude Code or Cowork and want guided workflows that can read and write local markdown files.
 
 ### Claude Code
 
-Install as a plugin:
-
 ```bash
-claude plugin marketplace add Remotivated/job-hunt-os
-claude plugin install job-hunt-os@job-hunt-os
+claude plugin marketplace add Remotivated/job-hunt-skills
+claude plugin install job-hunt-skills@job-hunt-skills
 ```
 
-Run `/reload-plugins` (or restart Claude Code). The skills become available under the `/job-hunt-os:` namespace, but plain-language requests also work.
+Run `/reload-plugins` or restart Claude Code. Skills are available under the `/job-hunt-skills:` namespace, and plain-language requests also work.
 
 Clone fallback:
 
 ```bash
-git clone https://github.com/Remotivated/job-hunt-os.git
-cd job-hunt-os
+git clone https://github.com/Remotivated/job-hunt-skills.git
+cd job-hunt-skills
 claude
 ```
 
 ### Cowork
 
-1. Add the Job Hunt OS marketplace and install the plugin.
-2. Bind your Project to a local folder if you want the optional local workspace.
-3. Ask: **"Help me get started."**
+1. Add the Job Hunt Skills marketplace in Cowork.
+2. Install the plugin.
+3. Bind a local folder if you want saved files.
+4. Ask: **Help me get started.**
 
-Plugin installation requires a Claude Pro or Team plan.
+Plugin installation requires a Claude plan that supports plugins.
 
-### Any LLM (ChatGPT, Gemini, Claude.ai without plugins)
+### Start Here
 
-Use the prompts in [`prompts/`](prompts/). No plugins, no saved workspace, no automatic export - just copy, paste, and work from the prompt plus your materials.
+| Skill | Use it when... |
+| --- | --- |
+| [get-started](skills/get-started/SKILL.md) | You are new and want the fastest path to a first draft |
+| [resume-builder](skills/resume-builder/SKILL.md) | You want to build or update a resume/CV-format work document |
+| [resume-tailor](skills/resume-tailor/SKILL.md) | You have a specific job posting and want targeted materials |
+| [company-research](skills/company-research/SKILL.md) | You want to decide whether a company or role is worth your time |
+| [cover-letter](skills/cover-letter/SKILL.md) | You only need a specific cover letter |
 
-### What works where
+Once you have traction, add [interviewing](skills/interviewing/SKILL.md) to manage interview-stage notes, [interview-coach](skills/interview-coach/SKILL.md) for deep prep, and [resume-auditor](skills/resume-auditor/SKILL.md) for a harder critique.
 
-| Feature | Claude Code | Cowork | Other LLMs |
-| ------- | :---------: | :----: | :--------: |
-| Hero workflows | Yes | Yes | Prompt-only |
-| Optional local workspace | Yes | Yes | No |
-| DOCX/PDF generation | Yes | Yes | No |
-| Copy/paste prompts | Yes | Yes | Yes |
+### Optional Skills
 
-See [GETTING-STARTED.md](GETTING-STARTED.md) for a faster walkthrough.
+| Skill | What it does |
+| --- | --- |
+| [resume-auditor](skills/resume-auditor/SKILL.md) | Gives direct resume feedback instead of generic praise |
+| [interview-coach](skills/interview-coach/SKILL.md) | Builds an interview prep brief from your actual experience |
+| [interviewing](skills/interviewing/SKILL.md) | Tracks interview stages, notes, and follow-ups |
+| [linkedin-optimizer](skills/linkedin-optimizer/SKILL.md) | Audits and rewrites LinkedIn sections |
+| [proof-asset-creator](skills/proof-asset-creator/SKILL.md) | Helps turn experience into case studies and portfolio proof |
+| [claim-check](skills/claim-check/SKILL.md) | Checks final materials for unsupported or inflated claims |
 
-## Quick Start
+## Use The Prompts
 
-1. **Build your first draft** - "Help me get started."
-2. **Vet the company** - "Research Acme's remote culture."
-3. **Tailor for the role** - "Tailor my resume for this job: paste the posting."
-4. **Prep once you get traction** - "Help me prepare for the Acme interview."
+If you use ChatGPT, Gemini, Claude.ai, or another LLM without plugins, start with the copy/paste prompts in [prompts/](prompts/). They do not require installation or local files.
 
-That sequence covers the core value of the repo without needing every optional workflow.
+| Prompt | Use it when... |
+| --- | --- |
+| [resume-builder](prompts/resume-builder.md) | You need a source work document in resume or CV format |
+| [resume-audit](prompts/resume-audit.md) | You want blunt feedback on a resume |
+| [resume-tailor](prompts/resume-tailor.md) | You want a tailored resume and cover letter for one role |
+| [company-research](prompts/company-research.md) | You want a structured employer research pass |
+| [interview-prep](prompts/interview-prep.md) | You want likely questions, talking points, and questions to ask |
+| [cover-letter](prompts/cover-letter.md) | You want a specific cover letter for one role |
+| [linkedin-audit](prompts/linkedin-audit.md) | You want LinkedIn positioning help |
+| [proof-asset](prompts/proof-asset.md) | You want a case study, portfolio piece, or proof idea |
+| [claim-check](prompts/claim-check.md) | You want a final unsupported-claims check before sending |
+
+Prompt-only use has one important rule: verify anything the model adds or reframes before you send it. The skills can check saved evidence; prompts rely on your manual review.
+
+## Read The Guides
+
+The guides explain the methodology behind the skills and prompts.
+
+| Guide | What it covers |
+| --- | --- |
+| [Resume Philosophy](guides/resume-philosophy.md) | Outcomes, angles, and honest tailoring |
+| [ATS Myths](guides/ats-myths.md) | What ATS systems do and do not do |
+| [Company Research](guides/company-research.md) | A practical employer vetting process |
+| [Remote Job Market](guides/remote-job-market.md) | Why remote roles need sharper targeting |
+| [Interview Framework](guides/interview-framework.md) | How to prepare and what to ask back |
+| [Networking](guides/networking-guide.md) | A low-cringe relationship-building rhythm |
+| [Proof Assets](guides/proof-assets.md) | How to show evidence beyond a resume |
+| [Negotiation](guides/negotiation-guide.md) | How to handle offers and tradeoffs |
+| [Sustainable Search](guides/sustainable-search.md) | Weekly pacing that does not burn you out |
+
+## Sample Outputs
+
+Curated sample outputs live in [examples/](examples/):
+
+- [US resume example](examples/resume-tech-lead.md)
+- [Cover letter example](examples/coverletter-computational-biology.md)
+- [Interview prep brief example](examples/interview-prep-engineering-manager.md)
+
+`tests/personas/` is for internal evaluation fixtures, not public samples.
+
+## Optional Local Workspace
+
+Claude Code and Cowork users can save work in `my-documents/`. The folder is gitignored so personal materials do not get committed.
+
+```text
+my-documents/
+|- resume.md and/or cv.md
+|- coverletter.md
+|- applications/
+|  `- {company-role}/
+|     |- resume.md or cv.md
+|     |- coverletter.md
+|     |- interview-prep.md
+|     `- interview-log.md
+|- reports/
+|- story-bank.md
+`- proof-assets/
+```
+
+Prompt-only users can ignore this and manage their own files.
+
+## DOCX and PDF Export
+
+The skills save markdown first. `scripts/generate-docx.py` can render resumes, CVs, and cover letters to `.docx`; it also creates PDFs when LibreOffice is installed.
+
+```bash
+pip install python-docx markdown-it-py
+python scripts/generate-docx.py my-documents/resume.md my-documents/coverletter.md
+```
+
+LibreOffice is optional. If it is missing, the script still writes valid `.docx` files.
+
+## Quality Checks
+
+```bash
+python scripts/check-content-hygiene.py
+python scripts/test_generate_docx.py
+python scripts/test_skill_contracts.py
+```
+
+The hygiene check catches old names, unresolved public placeholders, and promotional copy that does not belong in a jobseeker-first resource. The DOCX tests cover the markdown renderer. The skill contract tests catch missing skills, schema drift, and stale state-layer conventions.
 
 ## Repository Structure
 
 | Path | What it is |
-| ---- | ---------- |
-| `skills/` | Claude Code skills |
+| --- | --- |
+| `skills/` | Claude Code and Cowork skills |
 | `prompts/` | Copy/paste prompts for any LLM |
-| `guides/` | Methodology and strategy guides |
+| `guides/` | Job search methodology |
 | `templates/` | Resume, CV, and cover letter scaffolds |
-| `scripts/` | DOCX/PDF export plus lightweight checks |
+| `scripts/` | Export and quality-check scripts |
 | `examples/` | Curated sample outputs |
-| `tests/personas/` | Internal evaluation fixtures |
-| `my-documents/` | Optional local workspace, gitignored |
+| `tests/personas/` | Synthetic evaluation fixtures |
 | `research/` | Source notes behind the guides |
-
-## Troubleshooting
-
-**Skills not discovered.** Run `/reload-plugins` in Claude Code. If that does not help, open `/plugin` and check the Errors tab.
-
-**LibreOffice not installed.** `.docx` still generates. Install LibreOffice later if you want automatic PDFs.
-
-**"No canonical resume found."** Run `resume-builder` once before `resume-tailor`.
-
-**Need a simpler path?** Use the prompts. They skip the local workspace and get you straight to output.
 
 ## Philosophy
 
-> **The average corporate job posting gets 250 applications.** You're not going to out-volume that. Out-prepare it.
-
-> **Nobody got hired because their resume said "results-driven."** Show outcomes. Kill the buzzwords.
-
-> **15 minutes of research saves you from a company that calls Slack pings "async."** Vet before you apply.
-
-> **Your resume is an argument, not a history.** Different reader, different argument.
-
-> **AI is a power tool, not a ghostwriter.** It sharpens your thinking. It doesn't replace it.
-
-## About Remotivated
-
-[Remotivated](https://remotivated.com) is the job platform where remote means remote. Too many job boards let "remote" mean "remote until we change our mind." We classify companies by how they actually work - fully remote, remote-first, hybrid, or onsite - so you know what you're signing up for before you apply.
-
-## Stay Updated
-
-- **Star this repo** to get notified of new skills and updates
-- **[Work is a Verb](https://remotivated.com/newsletter)** - our newsletter on remote work, job search strategy, and building a career on your terms
+- Tell the truth, specifically.
+- Write for humans first. ATS compatibility is clean formatting, not magic.
+- Tailor the argument, not the facts.
+- Research companies before spending serious time applying.
+- AI should sharpen your thinking, not replace your judgment.
 
 ## Contributing
 
-This is an open-source project and contributions are welcome:
-
-- **Prompt improvements** - if a prompt works better with different wording, open a PR
-- **Guide suggestions** - if there is a topic we should cover, open an issue
-- **Bug fixes** - if a sample, doc, or script is broken, send a patch
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the standards this repo uses: useful first, truthful always, and non-promotional by default.
 
 ## License
 
-MIT - use it, fork it, share it. See [LICENSE](LICENSE) for details.
+MIT. See [LICENSE](LICENSE) for details.
