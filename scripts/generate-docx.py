@@ -32,7 +32,7 @@ from markdown_it import MarkdownIt
 # --------------------------------------------------------------------------
 # Design tokens — match templates/shared.css from the prior pipeline so the
 # DOCX output is visually equivalent to "single-column serif with restrained
-# navy accent." See research/resume-format-options.md for the full rationale.
+# navy accent."
 # --------------------------------------------------------------------------
 
 NAVY = RGBColor(0x2C, 0x5F, 0x8A)
@@ -295,9 +295,7 @@ def render_inline(paragraph, inline_tokens, *, default_color=None,
             # Navy is reserved for name and section headers (set via
             # default_color by emit_header/emit_h2). Body-level **bold**
             # inherits the paragraph default so role titles and skill
-            # labels stay near-black — matches Option B in
-            # research/resume-format-options.md ("accent in 2-3 places,
-            # never more").
+            # labels stay near-black — accent in 2-3 places, never more.
             color = default_color
             style_run(run, size=default_size, bold=bold, italic=italic,
                       color=color)

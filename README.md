@@ -158,7 +158,6 @@ The hygiene check catches old names, unresolved public placeholders, and promoti
 | `scripts/` | Export and quality-check scripts |
 | `examples/` | Curated sample outputs |
 | `tests/personas/` | Synthetic evaluation fixtures |
-| `research/` | Source notes behind the guides |
 
 ## Philosophy
 
