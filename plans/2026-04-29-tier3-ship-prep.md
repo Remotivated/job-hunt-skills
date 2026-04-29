@@ -9,7 +9,7 @@
 **Tech Stack:** Markdown skills/commands, JSON settings, Python tests, GitHub Actions YAML.
 
 **Context Chain:**
-- GitHub issue: https://github.com/Remotivated/job-hunt-os/issues/21 (Tier 3 - structural cleanup)
+- GitHub issue: Tier 3 structural cleanup (issue #21 in the source repo)
 - Audit commit: `24a075e` (v1.0.0 cutover + Tier 1)
 - State-layer contract: `skills/_shared/state-layer.md`
 
@@ -452,6 +452,6 @@ Print the URL `gh pr create` returns.
 2. Copy the working tree (no `.git/`) into a fresh local clone of that repo.
 3. Initial commit. No issue or commit-history baggage.
 4. Publish to the marketplace under the new name.
-5. Archive `Remotivated/job-hunt-os` (GitHub auto-redirects old URLs).
+5. Archive the original repo (GitHub auto-redirects old URLs).
 
 This is the user's manual final step. Do not attempt it inside this plan.
