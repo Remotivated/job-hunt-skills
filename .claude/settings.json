@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(skills/**)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(python scripts/test_skill_contracts.py)",
+      "Bash(python scripts/check-content-hygiene.py)",
+      "Bash(node scripts/scaffold-state.mjs)",
+      "Edit(/.claude/skills/resume-auditor/**)"
+    ]
+  }
+}

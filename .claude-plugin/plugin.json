@@ -1,0 +1,22 @@
+{
+  "name": "job-hunt-skills",
+  "version": "1.0.0",
+  "description": "Tailor resumes, cover letters, and interview prep to specific roles and organize your job search. Covers research, applications, interviews, LinkedIn, and proof assets — saved as local markdown you control.",
+  "author": {
+    "name": "Remotivated",
+    "url": "https://remotivated.com"
+  },
+  "homepage": "https://github.com/Remotivated/job-hunt-skills#readme",
+  "repository": "https://github.com/Remotivated/job-hunt-skills",
+  "license": "MIT",
+  "keywords": [
+    "job-search",
+    "resume",
+    "cover-letter",
+    "interview-prep",
+    "interviewing",
+    "claim-check",
+    "company-research",
+    "career"
+  ]
+}

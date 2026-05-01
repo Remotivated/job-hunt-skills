@@ -1,0 +1,15 @@
+{
+  "name": "job-hunt-skills",
+  "description": "Practical AI-assisted skills for job hunting — resume customization, cover letters, company research, interview prep, LinkedIn, and proof assets, with built-in checks against LLM hallucinations.",
+  "owner": {
+    "name": "Remotivated",
+    "url": "https://remotivated.com"
+  },
+  "plugins": [
+    {
+      "name": "job-hunt-skills",
+      "source": "./",
+      "description": "Tailor resumes, cover letters, and interview prep to specific roles and organize your job search. Covers research, applications, interviews, LinkedIn, and proof assets — saved as local markdown you control."
+    }
+  ]
+}

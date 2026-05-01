@@ -1,0 +1,32 @@
+# User's personal documents — never committed.
+# Pattern: ignore everything under my-documents/, then re-include specific
+# directory entries and their .gitkeep files so the directory structure stays in-repo.
+# See: https://git-scm.com/docs/gitignore#_pattern_format
+my-documents/**
+!my-documents/.gitkeep
+!my-documents/applications/
+!my-documents/applications/.gitkeep
+!my-documents/reports/
+!my-documents/reports/.gitkeep
+!my-documents/proof-assets/
+!my-documents/proof-assets/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local dev: junctions that expose the plugin bundle to the VS Code extension
+# (Claude Code scans .claude/ for project commands/skills; plugin bundles live at the repo root)
+.claude/commands
+.claude/skills
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Local-only files
+plans/
+.claude/settings.local.json
