@@ -94,7 +94,7 @@ Start with a plain-language request:
 Help me get started.
 ```
 
-If you prefer explicit commands, use `/job-hunt-skills:get-started`. The plugin also includes quick slash commands such as `/job-hunt-skills:build-resume` and `/job-hunt-skills:cover-letter`.
+If you prefer explicit commands, use `/job-hunt-skills:get-started`. The plugin also includes quick slash commands such as `/job-hunt-skills:resume-builder` and `/job-hunt-skills:cover-letter`.
 
 Clone fallback:
 
