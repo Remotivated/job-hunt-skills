@@ -150,7 +150,7 @@ summary: One-line tailoring angle.
 ---
 ```
 
-Body: the angle chosen, important section or bullet changes, evidence gaps resolved, and any manual review notes. **For the cover letter opening: record all variants with their angle labels, then mark which one the user chose** — so a future rerun can revisit unchosen angles without redrafting from scratch.
+Body: the angle chosen, important section or bullet changes, evidence gaps resolved, and any manual review notes. **For the cover letter opening: record all variants with their angle labels, then mark which one the user chose** — so a future rerun can revisit unchosen angles without redrafting from scratch. **For capture pass: record what was offered, what was accepted, where it was routed, and what was skipped** — so a future rerun or audit can trace canonical-layer growth back to its source application.
 
 **Tracker:** upsert `applications.md` with `status: saved` if no row exists, or leave existing status alone if it has already advanced. Follow the upsert and status rules in [state-layer section 3](../_shared/state-layer.md#3-applicationsmd-schema).
 
@@ -177,6 +177,52 @@ Handle failures:
 
 If LibreOffice is missing but `.docx` files are written, treat the run as successful and report only that PDF conversion was skipped.
 
+### 8.5. Capture pass
+
+Once the application is on disk, diff the tailored output against the source work document and source cover letter (if one exists). The goal: identify content that is **meaningfully different** — newly verified evidence the user signed off on — and offer to capture it in the right canonical home before the skill exits.
+
+**Floor threshold.** Skip this step silently if nothing passes the meaningfulness bar. Do not prompt with "0 captures available."
+
+**Meaningfulness.** Use judgment. The bar is "would future-me want this in canonical evidence, or is it just role-specific phrasing?"
+
+| Class | Examples | Action |
+|---|---|---|
+| Meaningfully new fact | New metric, new tool/skill, new scope (team size, budget, users), new outcome, new role detail not previously stated | Capture candidate |
+| New STAR+R narrative | Story content surfaced during tailoring that has situation, task, action, result shape | Capture candidate |
+| Notable cover-letter phrasing | Strong opening, sharp "why now" paragraph, reusable hook tied to a target lane | Capture candidate |
+| Phrasing variant | Same fact in posting vocabulary, synonym swap, clause reorder, active/passive change | Skip |
+| Reordering / emphasis | Existing content moved or promoted | Skip |
+| Removed for fit | Source content cut from tailored version | Skip |
+
+**Route each candidate** to a proposed destination:
+
+- **New bullet, metric, tool, or scope under an existing role** → source work document (`resume.md` / `cv.md`)
+- **STAR+R-shaped narrative** → `story-bank.md`
+- **Reusable case study with metrics and narrative** → `proof-assets/{slug}.md`
+- **Notable cover-letter phrasing** → source `coverletter.md` if one exists for this lane; otherwise offer to seed one
+- **Ambiguous** → ask the user
+
+**Prompt shape:**
+
+> Claim-check passed and the tailored {label} introduced 2 new facts not in your source:
+>
+> 1. "Reduced onboarding time 40% via async docs"
+>    Propose: capture as new bullet under {Role at Company} in {document_filename}
+>    [accept / redirect to story-bank / redirect to proof-asset / skip]
+>
+> 2. "Led incident response during the 2024 Stripe outage"
+>    Propose: capture as story-bank entry (STAR+R shape detected)
+>    [accept / redirect to resume bullet / skip]
+
+**Write semantics:**
+
+- **Source work-document captures:** hand off to `resume-builder` in update mode with the new content. `resume-builder` owns the `version` bump and `updated`. Never write to `resume.md`/`cv.md` directly from this skill.
+- **Story-bank captures:** append to `story-bank.md` using [state-layer §7](../_shared/state-layer.md#7-story-bank-schema). Generate a kebab-case `id`, infer `themes` from content, set `created` to today, `usage: []`.
+- **Proof-asset captures:** write `my-documents/proof-assets/{slug}.md`. Confirm the slug with the user.
+- **Source cover-letter captures:** append to or seed `my-documents/coverletter.md`. Confirm before creating from scratch.
+
+Captures are derived from material already validated by claim-check, so no second verification pass is needed. Skip the prompt entirely when nothing qualifies.
+
 ### 9. Summary and post-run prompt
 
 Report:
@@ -186,6 +232,7 @@ Report:
 - Alignment strengths.
 - Any remaining manual review notes.
 - The tracker row for this application.
+- Anything captured to the canonical layer, or note that nothing qualified.
 
 Then ask:
 
@@ -206,6 +253,7 @@ When invoked by the `cover-letter` skill or when the user explicitly asks for on
 
 - **Keyword stuffing.** Match terminology naturally; do not cram keywords.
 - **Only changing the top section.** Tailoring means relevance ordering across the document.
-- **Changing the source document.** This skill writes to `applications/` only.
+- **Direct writes to source.** Capture pass surfaces meaningfully new facts as user-gated candidates and hands off to `resume-builder` for source updates. This skill never modifies `resume.md`/`cv.md` directly.
+- **Over-prompting capture pass.** Skip silently when nothing is meaningfully different. Posting-vocabulary rewording is not a capture candidate.
 - **Forcing CV into resume or resume into CV.** Preserve the selected source format.
 - **Tightening inference beyond evidence.** If the source states facts separately, do not assert a new connection unless the user confirms it.

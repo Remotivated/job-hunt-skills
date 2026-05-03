@@ -63,6 +63,8 @@ Probe for outcomes, not responsibilities.
 - **Story/angle:** specialist, generalist, leader, career changer, academic-to-industry, or another honest frame.
 - **CV-format extras:** Personal Statement seed, languages with proficiency, target country/region, and whether Publications/Selected Talks are relevant for industry.
 
+**STAR+R inline enrichment.** While probing accomplishments, watch for ones with clear STAR shape (situation, task, action, result). When you find one, ask the Reflection prompt inline — "What would you do differently, or what did you learn?" — so the story is complete enough to bank in step 6.5 without a second round of prompting. Skip the prompt for routine accomplishments that are not story-bank candidates.
+
 ### 5. Generate outputs
 
 Produce markdown for the requested documents. Do not save yet; claim verification runs first.
@@ -93,6 +95,32 @@ Handle findings:
 
 Only save after every non-cosmetic finding is resolved.
 
+### 6.5. Capture pass for interview overflow
+
+Source work documents are space-constrained. A structured interview surfaces more material than fits in 1-2 pages. After claim-check passes, identify content the user told you that did not make it into the work document but has a natural canonical home outside it.
+
+**Floor threshold.** Skip silently if nothing qualifies.
+
+**Meaningfulness.** Same bar as `resume-tailor` capture pass: would future-me want this in canonical evidence, or is it scaffolding chatter? Routine context, vague aspirations, and accomplishments already covered by a saved bullet are not capture candidates.
+
+**Route each candidate:**
+
+- **STAR+R-shaped narrative captured during the interview** → `story-bank.md` entry
+- **Reusable case study with metrics and ≥1 paragraph of narrative** → `proof-assets/{slug}.md`
+- **Ambiguous** → ask the user
+
+**Prompt shape:**
+
+> The interview surfaced 2 stories that didn't fit in the work document but are worth banking:
+>
+> 1. "Stripe outage incident response" — STAR+R complete
+>    Propose: capture as story-bank entry [accept / redirect / skip]
+>
+> 2. "Migration of legacy billing system, 6-month project, $2M cost reduction"
+>    Propose: capture as proof-asset {legacy-billing-migration} [accept / redirect / skip]
+
+**Write semantics:** story-bank entries follow [state-layer §7](../_shared/state-layer.md#7-story-bank-schema) — kebab-case `id`, themes inferred from content, `created` set to today, `usage: []`. Proof-assets use a confirmed kebab-case slug. Captures are derived from material the user just told you, validated implicitly by the conversation, so no second claim-check pass is needed. Captured artifacts are persisted in step 7 alongside the source work document.
+
 ### 7. Save and version
 
 Source work-document frontmatter:
@@ -108,6 +136,8 @@ label: resume
 On first build, set `version: 1`. On update, increment only the file changed and preserve `label` verbatim. If both `resume.md` and `cv.md` exist, they version independently because they are separate files, but the skills treat them as work-document format variants.
 
 `coverletter.md` does not need frontmatter.
+
+**Captured artifacts from step 6.5** (if any) are written in this step alongside the source work document — story-bank entries appended to `story-bank.md`, proof-assets created at `my-documents/proof-assets/{slug}.md`. Captures do not affect the source work document's `version`.
 
 ### 8. Generate DOCX, PDF, and HTML preview
 
@@ -138,6 +168,7 @@ If LibreOffice is missing but `.docx` files are written, treat that as success w
 - **CV format:** writes `my-documents/cv.md`.
 - **Just cover letter:** requires specificity; do not force a generic letter.
 - **Update:** select the relevant source work document, ask what changed, revise, and bump only that file's `version`.
+- **Capture pass hand-off:** when invoked by `resume-tailor` capture pass with new content already specified, skip the "what changed" prompt, integrate the content into the appropriate role/section, run claim-check on the integrated draft, and bump `version` on save. The user has already approved the content; do not re-litigate it.
 
 ## Common Mistakes
 

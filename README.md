@@ -12,6 +12,8 @@ Built by [Remotivated](https://remotivated.com) | [LinkedIn](https://www.linkedi
 
 Most paid "AI for job seekers" tools optimize for volume: auto-applying at scale, filling applications with LLM hallucinations and AI slop. Job Hunt Skills takes the opposite approach. It helps you turn real experience into stronger resumes, cover letters, company research, interview prep, LinkedIn copy, and proof assets — using Claude Code, Claude Cowork, ChatGPT, Gemini, or any LLM you already have access to. Simple enough to use as a prompt library, structured enough to run as your full job search system, and strict about not inventing claims.
 
+It also compounds. Every verified bullet, story, or proof point you confirm during one application is offered for capture into your canonical files, so each tailoring starts from richer source material than the last.
+
 ## Start Here
 
 Choose the path that matches how you want to work.
@@ -34,6 +36,7 @@ After installation, [Getting Started](GETTING-STARTED.md) walks through the firs
 - **Sharpen** LinkedIn headline, About, and Experience sections.
 - **Show** your work with case studies and proof assets.
 - **Verify** every claim before you hit send.
+- **Grow** your canonical evidence base — verified facts and stories from each application feed back into your source files, so the next one starts ahead.
 
 ## How The Workflow Fits Together
 
@@ -52,6 +55,8 @@ The main workflow is intentionally simple:
 7. Track interviews, follow-ups, offers, and negotiation notes.
 
 Everything else in the repo supports that loop.
+
+The loop is also a flywheel. After each tailoring run, the skills offer to capture meaningfully new facts you verified during that application — into your source resume, story bank, or proof assets. The more you use it, the less work each application takes, because the canonical evidence the next tailoring draws on keeps getting richer.
 
 ## New To Claude Code, Cowork, Plugins, Or Skills?
 
@@ -235,6 +240,7 @@ LibreOffice is optional. If it is missing, the script still writes valid `.docx`
 - Research companies before spending serious time applying.
 - Use the AI you already pay for. No new subscriptions, no auto-apply middleman.
 - AI should sharpen your thinking, not replace your judgment.
+- Nothing earned is lost. Verified evidence from every application flows back into your canonical files, so the system gets better the more you use it.
 
 ## Contributing
 

@@ -13,6 +13,8 @@ Start small. Build one accurate source work document in resume or CV format, res
 
 That sequence is the heart of the repo. Everything else is useful, but optional.
 
+The sequence also compounds. After each tailoring run, `resume-tailor` offers to capture meaningfully new facts you verified — into your source resume, story bank, or proof assets. The next application starts from richer canonical material, so it takes less effort than the last.
+
 In Claude Code, the most common entry points are slash commands: `/get-started` (first-time setup), `/build-resume` (build or update the source work document), and `/cover-letter` (tailored or source letter). All skills also activate by description — just describe what you want (e.g. "audit my resume", "research this company", "I have an interview at X").
 
 ## What You Can Create
