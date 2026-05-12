@@ -29,7 +29,7 @@ After installation, [Getting Started](GETTING-STARTED.md) walks through the firs
 
 ## What You Can Do
 
-- **Build** truthful resumes and CVs from real experience.
+- **Build** resumes and CVs with an interactive interview or enhance your existing one
 - **Tailor** per-role applications without inflating claims.
 - **Research** companies and roles before spending serious time applying.
 - **Prep** for interviews and track them through to offer.
@@ -49,14 +49,14 @@ The main workflow is intentionally simple:
 1. Build a source resume or CV that captures the real story in depth.
 2. Save proof points, constraints, preferences, and applications in local files.
 3. Research a company before deciding whether to spend serious time applying.
-4. Tailor a resume and cover letter for one real role.
-5. Claim-check the final materials against evidence.
+4. Tailor a resume and (and cover letter if required) for each role.
+5. Claim-check the final materials against canonical docs to keep your LLM honest.
 6. Prepare for interviews using the same source material, story bank, and company research.
 7. Track interviews, follow-ups, offers, and negotiation notes.
 
 Everything else in the repo supports that loop.
 
-The loop is also a flywheel. After each tailoring run, the skills offer to capture meaningfully new facts you verified during that application — into your source resume, story bank, or proof assets. The more you use it, the less work each application takes, because the canonical evidence the next tailoring draws on keeps getting richer.
+After each tailoring run, the skills offer to capture meaningfully new facts you verified during that application into your source resume, story bank, or proof assets. The more you use it, the less work each application takes as your past resumes build the context for your future ones.
 
 ## New To Claude Code, Cowork, Plugins, Or Skills?
 
@@ -189,27 +189,6 @@ The guides explain the methodology behind the skills and prompts.
 <p align="center"><sub>Senior backend tech lead (US resume) | Bootcamp grad and former teacher (US resume) | Academia-to-industry computational biologist (UK CV)</sub></p>
 
 Source markdown and rendered PDFs for each example live in [examples/](examples/). All three are synthetic personas, generated end-to-end through the same pipeline real users get.
-
-## Your Data Stays On Your Machine
-
-Your resume, application history, interview notes, and other personal materials live in a local `my-documents/` folder. The folder is gitignored by default so personal materials do not get committed. Auto-apply tools build a database out of your job search; this builds a folder you own.
-
-```text
-my-documents/
-|- resume.md and/or cv.md
-|- coverletter.md
-|- applications/
-|  `- {company-role}/
-|     |- resume.md or cv.md
-|     |- coverletter.md
-|     |- interview-prep.md
-|     `- interview-log.md
-|- reports/
-|- story-bank.md
-`- proof-assets/
-```
-
-Prompt-only users can ignore this and manage their own files.
 
 ## Real Submission-Ready Files
 
