@@ -113,7 +113,7 @@ claude
 
 Use this path if you want the guided workflows in Claude Desktop. Cowork users on any paid plan (Pro, Max, Team, Enterprise) can install the plugin via custom upload:
 
-1. Download the latest ZIP: [job-hunt-skills-main.zip](https://github.com/Remotivated/job-hunt-skills/archive/refs/heads/main.zip).
+1. Download the latest ZIP: [job-hunt-skills.zip](https://github.com/Remotivated/job-hunt-skills/releases/latest/download/job-hunt-skills.zip). This release artifact is packaged so the plugin manifest sits at the root of the ZIP, which is what Cowork's custom upload expects (the default GitHub source ZIP wraps everything in an extra folder and will not install).
 2. In Cowork, open **Customize → Browse plugins**.
 3. Use the custom-upload option and select the ZIP.
 4. Choose or create a local folder for your job-search files when prompted.

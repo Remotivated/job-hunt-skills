@@ -1,0 +1,5 @@
+# Files excluded from `git archive` output (the Cowork-ready ZIP).
+# See scripts/build-cowork-zip.mjs.
+/.gitattributes export-ignore
+/.gitignore     export-ignore
+/.github/       export-ignore

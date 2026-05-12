@@ -27,6 +27,9 @@ node_modules/
 __pycache__/
 *.pyc
 
+# Build output
+dist/
+
 # Local-only files
 plans/
 .claude/settings.local.json

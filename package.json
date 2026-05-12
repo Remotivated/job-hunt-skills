@@ -12,6 +12,7 @@
   "license": "MIT",
   "scripts": {
     "scaffold": "node scripts/scaffold-state.mjs",
+    "build:zip": "node scripts/build-cowork-zip.mjs",
     "docx": "python scripts/generate-docx.py",
     "test:docx": "python scripts/test_generate_docx.py",
     "test:skills": "python scripts/test_skill_contracts.py",
