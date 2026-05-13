@@ -27,7 +27,13 @@ Format-specific conventions:
 
 ### 1. First-run scaffolding
 
-Run `node scripts/scaffold-state.mjs` once before the interview. The script is idempotent and only creates missing state files/directories.
+Follow the [Workspace Preflight (state-layer §10)](../_shared/state-layer.md#10-workspace-preflight).
+
+- **If `my-documents/` does not yet exist** at the resolved path, hand off to `get-started` for the workspace confirmation flow. Do not run the scaffolder yourself — the user needs the novice-friendly "where will my files live" conversation before any file is written.
+- **If `my-documents/` already exists**, run `node scripts/scaffold-state.mjs` to fill in any missing pieces. If it exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop. If it fails for any other reason (Node missing, no shell access), fall back to creating any missing structure with native file tools per state-layer §10 step 5.
+- **Verify before writing.** Regardless of which path was taken, confirm the four canonical directories and two markdown files exist under `my-documents/` before producing a resume. A skill that generates a resume into an unscaffolded workspace is the failure mode that left an early tester's document floating in chat.
+
+On first scaffold per session, mention the path once: "Your files will live under `{absolute path}`."
 
 ### 2. Decide scope and format
 
@@ -49,6 +55,8 @@ Ask:
 If provided, read and analyze it before asking follow-ups. If starting from scratch, run the structured interview below.
 
 ### 4. Structured interview
+
+**Set expectations before the first prompt.** Before any structured form, batched questionnaire, or interview-style question is presented, briefly recap in conversational prose: what's about to happen (gathering work history, accomplishments, target roles), how long it will take, that blanks are fine and gaps will be surfaced later rather than invented, and what the user will have at the end. Only after that recap may the interview begin. A batched form is acceptable; a batched form delivered *before* the user knows what it's for is what testers reported as confusing.
 
 Probe for outcomes, not responsibilities.
 

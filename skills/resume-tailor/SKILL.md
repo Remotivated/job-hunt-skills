@@ -13,7 +13,7 @@ Reshape the user's work document for a specific role. This is not keyword swappi
 
 ### 0. Scaffold and select the source work document
 
-Run `node scripts/scaffold-state.mjs` if the state layer is missing.
+Follow the [Workspace Preflight (state-layer §10)](../_shared/state-layer.md#10-workspace-preflight). Run `node scripts/scaffold-state.mjs` if the state layer is missing; fall back to native file tools per §10 step 5 if Node is unavailable. If the scaffolder exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop — the source document may already exist in the user's real workspace and is invisible only because no folder is bound. Verify the four canonical directories and two markdown files exist before continuing.
 
 Select the source work document using [state-layer section 6](../_shared/state-layer.md#6-work-document-frontmatter-and-selection):
 
@@ -21,7 +21,7 @@ Select the source work document using [state-layer section 6](../_shared/state-l
 2. If the job posting clearly implies a format, use the matching file when it exists.
 3. If only one of `my-documents/resume.md` or `my-documents/cv.md` exists, use it.
 4. If both exist and the choice is ambiguous, ask which work document to tailor.
-5. If neither exists, offer `resume-builder` first or proceed from pasted source material with limited evidence checking.
+5. If neither exists, distinguish the two cases per [state-layer §10](../_shared/state-layer.md#10-workspace-preflight): empty/missing `my-documents/` likely means the workspace is unbound (rerun the preflight, do not offer `resume-builder` yet); populated `my-documents/` without a source work document means offer `resume-builder` or proceed from pasted source material with limited evidence checking.
 
 Read the selected file's `version` and `label`. Let:
 

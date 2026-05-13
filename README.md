@@ -116,7 +116,7 @@ Use this path if you want the guided workflows in Claude Desktop. Cowork users o
 1. Download the latest ZIP: [job-hunt-skills.zip](https://github.com/Remotivated/job-hunt-skills/releases/latest/download/job-hunt-skills.zip). This release artifact is packaged so the plugin manifest sits at the root of the ZIP, which is what Cowork's custom upload expects (the default GitHub source ZIP wraps everything in an extra folder and will not install).
 2. In Cowork, open **Customize → Browse plugins**.
 3. Use the custom-upload option and select the ZIP.
-4. Choose or create a local folder for your job-search files when prompted.
+4. **Pick a local folder for your job-search files when prompted — don't skip this step.** This is where your resume, cover letters, applications, and notes get saved. Any folder you control is fine (your Documents folder is a common choice). Without this, Claude has no place on your computer to save what you generate. If you do skip it, just ask `Help me get started.` and Claude will walk you through setting one up before writing anything.
 5. Ask `Help me get started.`
 
 Cowork is best when you want the agent to work through a multi-step task while keeping progress visible. Your Claude plan and Anthropic account govern model usage; this repo itself does not run a hosted service or collect your job-search files.

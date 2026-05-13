@@ -7,8 +7,27 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const REPO_ROOT = path.resolve(__dirname, "..");
-const ROOT = path.join(REPO_ROOT, "my-documents");
+const SCRIPT_REPO_ROOT = path.resolve(__dirname, "..");
+const TARGET_ROOT = process.cwd();
+
+// Workspace preflight (state-layer §10): refuse to scaffold inside the plugin
+// install dir. Early Cowork testers hit this — files landed in the plugin
+// folder, invisible to the user, and the next session "couldn't find" them.
+if (path.resolve(TARGET_ROOT) === path.resolve(SCRIPT_REPO_ROOT)) {
+  const myDocsExists = fs.existsSync(path.join(TARGET_ROOT, "my-documents"));
+  if (!myDocsExists && !process.env.JOB_HUNT_SKILLS_DEV) {
+    console.error(
+      `scaffold-state: working directory is the plugin install dir, not a user workspace.\n\n` +
+      `Your job-hunt files belong in your own folder, not inside the plugin.\n\n` +
+      `  Cowork:       Customize → Folders → pick a local folder, then ask Claude to start over.\n` +
+      `  Claude Code:  cd into your workspace folder, then run 'claude' there.\n\n` +
+      `Set JOB_HUNT_SKILLS_DEV=1 only if you are intentionally developing the plugin itself.`
+    );
+    process.exit(2);
+  }
+}
+
+const ROOT = path.join(TARGET_ROOT, "my-documents");
 
 const DIRS = [
   ROOT,
@@ -55,7 +74,7 @@ usage: []
 `;
 
 function rel(p) {
-  return path.relative(REPO_ROOT, p).replaceAll("\\", "/");
+  return path.relative(TARGET_ROOT, p).replaceAll("\\", "/");
 }
 
 function ensureDir(dir) {
