@@ -33,3 +33,10 @@ dist/
 # Local-only files
 plans/
 .claude/settings.local.json
+.superpowers/
+
+# Launch-video outputs — talking-head and over-budget renders are YouTube-hosted, not committed.
+# Small motion-graphics loops (hero, cowork-setup) remain committed for inline README rendering.
+assets/launch/
+docs/launch/b-roll/
+
