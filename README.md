@@ -186,7 +186,7 @@ The guides explain the methodology behind the skills and prompts.
   <img src="examples/screenshots/aisha-okonkwo-cv.png" alt="Computational biologist, UK CV" width="32%">
 </p>
 
-<p align="center"><sub>Senior backend tech lead (US resume) | Bootcamp grad and former teacher (US resume) | Academia-to-industry computational biologist (UK CV)</sub></p>
+<p align="center"><sub>Senior backend tech lead (US resume) | Bootcamp grad and former teacher (US resume) | Academia-to-industry computational biologist (UK CV)<br>A fourth persona — <strong>Avery Castillo</strong>, senior solutions engineer — is featured in the launch walkthrough. Files live in <code>examples/avery-castillo/</code>.</sub></p>
 
 Source markdown and rendered PDFs for each example live in [examples/](examples/). All three are synthetic personas, generated end-to-end through the same pipeline real users get.
 
