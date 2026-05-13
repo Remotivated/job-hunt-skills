@@ -3,6 +3,7 @@ import { Composition } from 'remotion';
 import { Placeholder } from './compositions/Placeholder';
 import { HeroLoop } from './compositions/HeroLoop';
 import { CoworkSetup } from './compositions/CoworkSetup';
+import { HookInserts } from './compositions/HookInserts';
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -43,12 +44,11 @@ export const RemotionRoot: React.FC = () => (
     />
     <Composition
       id="HookInserts"
-      component={Placeholder}
+      component={HookInserts}
       durationInFrames={600}
       fps={30}
       width={1920}
       height={1080}
-      defaultProps={{ label: 'HookInserts' }}
     />
   </>
 );
