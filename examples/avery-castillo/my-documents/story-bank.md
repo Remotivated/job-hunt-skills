@@ -6,8 +6,12 @@ STAR+R stories for behavioral interviews and claim evidence.
 
 ```yaml
 id: demo-environment-refactor
-themes: [leadership, delivery, scope]
-archetypes: [technical-leadership]
+themes:
+  - leadership
+  - delivery
+  - scope
+archetypes:
+  - technical-leadership
 created: 2026-02-14
 usage: []
 ```
@@ -26,8 +30,12 @@ usage: []
 
 ```yaml
 id: poc-no-go
-themes: [conflict, failure-learning, stakeholder]
-archetypes: [scope-negotiation]
+themes:
+  - conflict
+  - failure-learning
+  - stakeholder
+archetypes:
+  - scope-negotiation
 created: 2026-03-02
 usage: []
 ```
@@ -46,8 +54,11 @@ usage: []
 
 ```yaml
 id: integration-guide-snowflake
-themes: [delivery, stakeholder]
-archetypes: [cross-functional]
+themes:
+  - delivery
+  - stakeholder
+archetypes:
+  - cross-functional
 created: 2026-03-21
 usage: []
 ```
