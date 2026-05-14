@@ -47,7 +47,7 @@ After installation, [Getting Started](GETTING-STARTED.md) walks through the firs
 
 ## What You Can Do
 
-- **Build** truthful resumes and CVs from real experience.
+- **Build** resumes and CVs with an interactive interview or enhance your existing one
 - **Tailor** per-role applications without inflating claims.
 - **Research** companies and roles before spending serious time applying.
 - **Prep** for interviews and track them through to offer.
@@ -67,14 +67,14 @@ The main workflow is intentionally simple:
 1. Build a source resume or CV that captures the real story in depth.
 2. Save proof points, constraints, preferences, and applications in local files.
 3. Research a company before deciding whether to spend serious time applying.
-4. Tailor a resume and cover letter for one real role.
-5. Claim-check the final materials against evidence.
+4. Tailor a resume and (and cover letter if required) for each role.
+5. Claim-check the final materials against canonical docs to keep your LLM honest.
 6. Prepare for interviews using the same source material, story bank, and company research.
 7. Track interviews, follow-ups, offers, and negotiation notes.
 
 Everything else in the repo supports that loop.
 
-The loop is also a flywheel. After each tailoring run, the skills offer to capture meaningfully new facts you verified during that application — into your source resume, story bank, or proof assets. The more you use it, the less work each application takes, because the canonical evidence the next tailoring draws on keeps getting richer.
+After each tailoring run, the skills offer to capture meaningfully new facts you verified during that application into your source resume, story bank, or proof assets. The more you use it, the less work each application takes as your past resumes build the context for your future ones.
 
 ## New To Claude Code, Cowork, Plugins, Or Skills?
 
@@ -134,7 +134,7 @@ Use this path if you want the guided workflows in Claude Desktop. Cowork users o
 1. Download the latest ZIP: [job-hunt-skills.zip](https://github.com/Remotivated/job-hunt-skills/releases/latest/download/job-hunt-skills.zip). This release artifact is packaged so the plugin manifest sits at the root of the ZIP, which is what Cowork's custom upload expects (the default GitHub source ZIP wraps everything in an extra folder and will not install).
 2. In Cowork, open **Customize → Browse plugins**.
 3. Use the custom-upload option and select the ZIP.
-4. Choose or create a local folder for your job-search files when prompted.
+4. **Pick a local folder for your job-search files when prompted — don't skip this step.** This is where your resume, cover letters, applications, and notes get saved. Any folder you control is fine (your Documents folder is a common choice). Without this, Claude has no place on your computer to save what you generate. If you do skip it, just ask `Help me get started.` and Claude will walk you through setting one up before writing anything.
 5. Ask `Help me get started.`
 
 Cowork is best when you want the agent to work through a multi-step task while keeping progress visible. Your Claude plan and Anthropic account govern model usage; this repo itself does not run a hosted service or collect your job-search files.
@@ -207,27 +207,6 @@ The guides explain the methodology behind the skills and prompts.
 <p align="center"><sub>Senior backend tech lead (US resume) | Bootcamp grad and former teacher (US resume) | Academia-to-industry computational biologist (UK CV)<br>A fourth persona — <strong>Avery Castillo</strong>, senior solutions engineer — is featured in the launch walkthrough. Files live in <code>examples/avery-castillo/</code>.</sub></p>
 
 Source markdown and rendered PDFs for each example live in [examples/](examples/). All three are synthetic personas, generated end-to-end through the same pipeline real users get.
-
-## Your Data Stays On Your Machine
-
-Your resume, application history, interview notes, and other personal materials live in a local `my-documents/` folder. The folder is gitignored by default so personal materials do not get committed. Auto-apply tools build a database out of your job search; this builds a folder you own.
-
-```text
-my-documents/
-|- resume.md and/or cv.md
-|- coverletter.md
-|- applications/
-|  `- {company-role}/
-|     |- resume.md or cv.md
-|     |- coverletter.md
-|     |- interview-prep.md
-|     `- interview-log.md
-|- reports/
-|- story-bank.md
-`- proof-assets/
-```
-
-Prompt-only users can ignore this and manage their own files.
 
 ## Real Submission-Ready Files
 
