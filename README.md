@@ -201,10 +201,10 @@ The guides explain the methodology behind the skills and prompts.
 <p align="center">
   <img src="examples/screenshots/maya-chen-resume.png" alt="Senior backend tech lead, US resume" width="32%">
   <img src="examples/screenshots/devon-park-resume.png" alt="Bootcamp grad and former teacher, US resume" width="32%">
-  <img src="examples/screenshots/aisha-okonkwo-cv.png" alt="Computational biologist, UK CV" width="32%">
+  <img src="examples/screenshots/avery-castillo-resume.png" alt="Senior solutions engineer, US resume" width="32%">
 </p>
 
-<p align="center"><sub>Senior backend tech lead (US resume) | Bootcamp grad and former teacher (US resume) | Academia-to-industry computational biologist (UK CV)<br>A fourth persona — <strong>Avery Castillo</strong>, senior solutions engineer — is featured in the launch walkthrough. Files live in <code>examples/avery-castillo/</code>.</sub></p>
+<p align="center"><sub>Senior backend tech lead | Bootcamp grad and former teacher | Senior solutions engineer — all US resumes.</sub></p>
 
 Source markdown and rendered PDFs for each example live in [examples/](examples/). All three are synthetic personas, generated end-to-end through the same pipeline real users get.
 

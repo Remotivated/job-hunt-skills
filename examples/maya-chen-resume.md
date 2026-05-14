@@ -6,7 +6,7 @@ label: resume
 
 # Maya Chen
 
-[maya.chen@example.com](mailto:maya.chen@example.com) · [linkedin.com/in/mayachen](https://linkedin.com/in/mayachen) · Oakland, CA · Open to remote (US)
+[maya.chen@example.com](mailto:maya.chen@example.com) · [linkedin.com/in/mayachen](https://linkedin.com/in/mayachen) · Oakland, CA
 
 ---
 

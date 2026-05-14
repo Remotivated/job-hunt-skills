@@ -6,7 +6,7 @@ label: resume
 
 # Devon Park
 
-[devon.park@example.com](mailto:devon.park@example.com) · [linkedin.com/in/devonpark](https://linkedin.com/in/devonpark) · [github.com/devonpark](https://github.com/devonpark) · Minneapolis, MN · Open to remote (US)
+[devon.park@example.com](mailto:devon.park@example.com) · [linkedin.com/in/devonpark](https://linkedin.com/in/devonpark) · [github.com/devonpark](https://github.com/devonpark) · Minneapolis, MN
 
 ---
 

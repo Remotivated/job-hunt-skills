@@ -5,6 +5,14 @@ tailored_date: 2026-05-12
 application_id: polaris-data-senior-se
 ---
 
+# Avery Castillo
+
+[avery.castillo@example.com](mailto:avery.castillo@example.com) · [linkedin.com/in/averycastillo](https://linkedin.com/in/averycastillo) · Austin, TX
+
+---
+
+May 12, 2026
+
 Hiring Team,
 
 The Polaris Data posting asks for an SE who can run technical discovery without a co-pilot and who has shown the GTM pairing chops to multi-thread an enterprise deal. Both halves of that describe my last two years at NorthwindSync.
@@ -16,4 +24,5 @@ What's drawing me to Polaris Data is two things. First, the product. I have spen
 I'd welcome the chance to walk through a live-coded discovery for your typical mid-market prospect. Happy to bring my Docker demo stack along if useful.
 
 Best,
+
 Avery Castillo

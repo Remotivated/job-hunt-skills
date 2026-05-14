@@ -1,9 +1,9 @@
 # [Your Name]
 
-[your.email@example.com](mailto:your.email@example.com) · [LinkedIn](https://linkedin.com/in/yourprofile) · [Portfolio/Website](https://yoursite.com) · City, Country (or "Remote")
+[your.email@example.com](mailto:your.email@example.com) · [LinkedIn](https://linkedin.com/in/yourprofile) · [Portfolio/Website](https://yoursite.com) · City, Country
 
 <!-- HEADER: UK/EU convention is basically the same as a US resume header —
-     email, LinkedIn, optionally portfolio, city or "Remote". Photos are
+     email, LinkedIn, optionally portfolio, and EITHER city/country OR "Remote" (pick one — don't include both). Photos are
      still common in some continental European markets and uncommon in the UK.
      This template skips the photo by default; only add one if you know the
      target country, employer, or industry expects it.

@@ -1,9 +1,9 @@
 # [Your Name]
 
-[your.email@example.com](mailto:your.email@example.com) · [LinkedIn](https://linkedin.com/in/yourprofile) · [Portfolio/Website](https://yoursite.com) · City, State (or "Remote")
+[your.email@example.com](mailto:your.email@example.com) · [LinkedIn](https://linkedin.com/in/yourprofile) · [Portfolio/Website](https://yoursite.com) · City, State
 
 <!-- CONTACT INFO: Include email, LinkedIn, and optionally a portfolio link or personal site.
-     Location: List city/state if relevant, or "Remote" if you're location-flexible.
+     Location: pick one — your city/state, or "Remote" if you have no fixed location. Do not include both (e.g. avoid "Austin, TX · Open to remote"); pick the one that's true.
      Skip: Physical address, photo, date of birth. -->
 
 ---

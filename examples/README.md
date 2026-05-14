@@ -8,7 +8,7 @@ Each example has the source markdown plus the generated `.docx`, `.pdf`, `.html`
 | --- | --- | --- |
 | [maya-chen-resume.md](maya-chen-resume.md) | [maya-chen-resume.pdf](maya-chen-resume.pdf) | US resume, senior backend tech lead targeting EM roles |
 | [devon-park-resume.md](devon-park-resume.md) | [devon-park-resume.pdf](devon-park-resume.pdf) | US resume, bootcamp grad and former teacher |
-| [aisha-okonkwo-cv.md](aisha-okonkwo-cv.md) | [aisha-okonkwo-cv.pdf](aisha-okonkwo-cv.pdf) | UK CV, computational biologist moving from academia to industry |
+| [avery-castillo/](avery-castillo/) | [avery-castillo/my-documents/applications/polaris-data-senior-se/resume.pdf](avery-castillo/my-documents/applications/polaris-data-senior-se/resume.pdf) | US resume, senior solutions engineer at a B2B data-integration SaaS — full end-to-end example with tailored resume, cover letter, story bank, research report, and interview prep |
 
 ## Regenerating
 

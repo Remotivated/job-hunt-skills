@@ -8,7 +8,9 @@ application_id: polaris-data-senior-se
 
 # Avery Castillo
 
-Senior Solutions Engineer · avery.castillo@example.com · linkedin.com/in/averycastillo · Austin, TX (remote)
+[avery.castillo@example.com](mailto:avery.castillo@example.com) · [linkedin.com/in/averycastillo](https://linkedin.com/in/averycastillo) · Austin, TX
+
+---
 
 ## Summary
 
