@@ -24,7 +24,5 @@ jobs:
       - name: Attach ZIP to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            dist/job-hunt-skills.zip
-            dist/job-hunt-skills-*.zip
+          files: dist/job-hunt-skills.zip
           generate_release_notes: true

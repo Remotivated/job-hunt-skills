@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 940" width="1600" height="940">
+  <defs>
+    
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.5" fill="#08104e" opacity="0.16"></circle>
+    </pattern>
+    
+    <marker id="ah-navy" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7199"></path>
+    </marker>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#fd484c"></path>
+    </marker>
+    
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#08104e" flood-opacity="0.12"></feDropShadow>
+    </filter>
+  </defs>
+
+  
+  <rect width="1600" height="940" fill="#f7fafb"></rect>
+  <rect width="1600" height="940" fill="url(#dots)" opacity="0.35"></rect>
+
+  
+  <text x="60" y="68" font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="52" letter-spacing="-0.02em" fill="#08104e">From source docs to tailored applications</text>
+  <text x="60" y="100" font-family="Montserrat, sans-serif" font-size="15" font-weight="500" fill="#3d4470">Build once, tailor easily, learn from each application.</text>
+
+  
+  <g font-family="Montserrat, sans-serif">
+    <text x="1240" y="50" font-size="11" font-weight="700" fill="#fd484c" letter-spacing="0.16em">LEGEND</text>
+    <rect x="1240" y="68" width="14" height="14" rx="3" fill="#08104e"></rect>
+    <text x="1262" y="79" font-size="12" font-weight="500" fill="#3d4470">source docs</text>
+    <rect x="1410" y="68" width="14" height="14" rx="3" fill="#fd484c"></rect>
+    <text x="1432" y="79" font-size="12" font-weight="500" fill="#3d4470">skill actions</text>
+    <rect x="1240" y="94" width="14" height="14" rx="3" fill="#ffedd5" stroke="#c2410c" stroke-width="1.5"></rect>
+    <text x="1262" y="105" font-size="12" font-weight="500" fill="#3d4470">tailored outputs</text>
+    <line x1="1410" y1="101" x2="1424" y2="101" stroke="#fd484c" stroke-width="2.5"></line>
+    <text x="1432" y="105" font-size="12" font-weight="500" fill="#3d4470">feedback loop</text>
+  </g>
+
+  
+  <path d="M240,320 L278,320" stroke="#6b7199" stroke-width="2" stroke-dasharray="6 6" fill="none" marker-end="url(#ah-navy)"></path>
+  <path d="M450,320 L488,320" stroke="#6b7199" stroke-width="2" stroke-dasharray="6 6" fill="none" marker-end="url(#ah-navy)"></path>
+  <path d="M770,320 L808,320" stroke="#6b7199" stroke-width="2" stroke-dasharray="6 6" fill="none" marker-end="url(#ah-navy)"></path>
+  <path d="M1170,320 L1208,320" stroke="#6b7199" stroke-width="2" stroke-dasharray="6 6" fill="none" marker-end="url(#ah-navy)"></path>
+
+  
+  <g filter="url(#shadow)">
+    <rect x="40" y="200" width="200" height="240" rx="14" fill="#08104e"></rect>
+  </g>
+  <text x="140" y="240" font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="26" letter-spacing="-0.01em" fill="#ffffff" text-anchor="middle">Jobseeker</text>
+  <text x="140" y="260" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10.5" letter-spacing="0.05em" fill="rgba(255,255,255,0.65)" text-anchor="middle">source/</text>
+  <line x1="64" y1="278" x2="216" y2="278" stroke="rgba(255,255,255,0.18)" stroke-width="1"></line>
+  <g font-family="&#39;JetBrains Mono&#39;, monospace" font-size="12" letter-spacing="0.02em" fill="rgba(255,255,255,0.85)" text-anchor="middle">
+    <text x="140" y="304">existing resume</text>
+    <text x="140" y="328">linkedin</text>
+    <text x="140" y="352">notes</text>
+    <text x="140" y="376">job goals</text>
+    <text x="140" y="400">work history</text>
+  </g>
+
+  
+  <g filter="url(#shadow)">
+    <rect x="280" y="240" width="170" height="160" rx="14" fill="#fd484c"></rect>
+  </g>
+  <text x="365" y="284" font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="24" letter-spacing="-0.01em" fill="#ffffff" text-anchor="middle">get-started</text>
+  <text x="365" y="304" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10.5" letter-spacing="0.05em" fill="rgba(255,255,255,0.75)" text-anchor="middle">skill</text>
+  <line x1="310" y1="320" x2="420" y2="320" stroke="rgba(255,255,255,0.28)" stroke-width="1"></line>
+  <g font-family="Montserrat, sans-serif" font-size="13" font-weight="500" fill="#ffffff" text-anchor="middle">
+    <text x="365" y="346">setup +</text>
+    <text x="365" y="366">structured</text>
+    <text x="365" y="386">interview</text>
+  </g>
+
+  
+  <rect x="490" y="170" width="280" height="360" rx="16" fill="#ffffff" stroke="#b3b8cc" stroke-width="1.5" stroke-dasharray="6 5"></rect>
+  <text x="508" y="200" font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="22" letter-spacing="-0.01em" fill="#08104e">my-documents/</text>
+  <text x="508" y="220" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10.5" letter-spacing="0.05em" fill="#6b7199">local files you control</text>
+  <g font-family="&#39;JetBrains Mono&#39;, monospace" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">
+    <g filter="url(#shadow)"><rect x="508" y="240" width="244" height="42" rx="10" fill="#08104e"></rect></g>
+    <text x="630" y="266">resume.md  /  cv.md</text>
+    <g filter="url(#shadow)"><rect x="508" y="294" width="244" height="42" rx="10" fill="#08104e"></rect></g>
+    <text x="630" y="320">story-bank.md</text>
+    <g filter="url(#shadow)"><rect x="508" y="348" width="244" height="42" rx="10" fill="#08104e"></rect></g>
+    <text x="630" y="374">proof-assets/</text>
+    <g filter="url(#shadow)"><rect x="508" y="402" width="244" height="42" rx="10" fill="#08104e"></rect></g>
+    <text x="630" y="428">applications/</text>
+    <g filter="url(#shadow)"><rect x="508" y="456" width="244" height="42" rx="10" fill="#08104e"></rect></g>
+    <text x="630" y="482">coverletter.md</text>
+  </g>
+
+  
+  <rect x="810" y="170" width="360" height="360" rx="16" fill="#ffffff" stroke="#b3b8cc" stroke-width="1.5" stroke-dasharray="6 5"></rect>
+  <text x="828" y="200" font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="22" letter-spacing="-0.01em" fill="#08104e">Tailoring</text>
+  <text x="828" y="220" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10.5" letter-spacing="0.05em" fill="#6b7199">one truthful pass per role</text>
+
+  <text x="828" y="250" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700" fill="#6b7199" letter-spacing="0.16em">JOB POSTINGS</text>
+  
+  <g font-family="&#39;JetBrains Mono&#39;, monospace" font-size="12" font-weight="600" fill="#08104e" text-anchor="middle">
+    <rect x="828" y="258" width="100" height="32" rx="16" fill="#ffffff" stroke="#08104e" stroke-width="1.5"></rect>
+    <text x="878" y="278">posting A</text>
+    <rect x="938" y="258" width="100" height="32" rx="16" fill="#ffffff" stroke="#08104e" stroke-width="1.5"></rect>
+    <text x="988" y="278">posting B</text>
+    <rect x="1048" y="258" width="100" height="32" rx="16" fill="#ffffff" stroke="#08104e" stroke-width="1.5"></rect>
+    <text x="1098" y="278">posting C</text>
+  </g>
+
+  
+  <line x1="990" y1="298" x2="990" y2="346" stroke="#6b7199" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#ah-navy)"></line>
+
+  
+  <g font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="20" letter-spacing="-0.01em" fill="#ffffff" text-anchor="middle">
+    <g filter="url(#shadow)"><rect x="870" y="352" width="240" height="40" rx="10" fill="#fd484c"></rect></g>
+    <text x="990" y="378">company-research</text>
+    <g filter="url(#shadow)"><rect x="870" y="400" width="240" height="40" rx="10" fill="#fd484c"></rect></g>
+    <text x="990" y="426">resume-tailor</text>
+    <g filter="url(#shadow)"><rect x="870" y="448" width="240" height="40" rx="10" fill="#fd484c"></rect></g>
+    <text x="990" y="474">claim-check</text>
+  </g>
+  
+  <line x1="990" y1="392" x2="990" y2="398" stroke="#fd484c" stroke-width="2"></line>
+  <line x1="990" y1="440" x2="990" y2="446" stroke="#fd484c" stroke-width="2"></line>
+
+  <text x="990" y="512" font-family="Montserrat, sans-serif" font-size="11" font-style="italic" fill="#6b7199" text-anchor="middle">claim-check verifies before any draft leaves your machine</text>
+
+  
+  <text x="1210" y="186" font-family="Montserrat, sans-serif" font-size="11" font-weight="700" fill="#c2410c" letter-spacing="0.16em">TAILORED OUTPUTS</text>
+  <g font-family="&#39;JetBrains Mono&#39;, monospace">
+    <rect x="1210" y="200" width="350" height="80" rx="12" fill="#ffedd5" stroke="#c2410c" stroke-width="1.5"></rect>
+    <text x="1228" y="230" font-size="14" font-weight="700" fill="#7a3a0e">applications/acme-pm/</text>
+    <text x="1228" y="256" font-size="12" fill="#9a4a14">• resume.md</text>
+
+    <rect x="1210" y="296" width="350" height="80" rx="12" fill="#ffedd5" stroke="#c2410c" stroke-width="1.5"></rect>
+    <text x="1228" y="326" font-size="14" font-weight="700" fill="#7a3a0e">applications/orbit-eng/</text>
+    <text x="1228" y="352" font-size="12" fill="#9a4a14">• resume.md</text>
+
+    <rect x="1210" y="392" width="350" height="80" rx="12" fill="#ffedd5" stroke="#c2410c" stroke-width="1.5"></rect>
+    <text x="1228" y="422" font-size="14" font-weight="700" fill="#7a3a0e">applications/lumen-design/</text>
+    <text x="1228" y="448" font-size="12" fill="#9a4a14">• resume.md   • coverletter.md</text>
+  </g>
+
+  
+  <path d="M 1385 478 C 1385 540, 932 565, 932 618" fill="none" stroke="#6b7199" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#ah-navy)"></path>
+
+  
+  
+  <g filter="url(#shadow)">
+    <rect x="842" y="620" width="180" height="70" rx="14" fill="#fd484c"></rect>
+  </g>
+  <text x="932" y="650" font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="22" letter-spacing="-0.01em" fill="#ffffff" text-anchor="middle">interview-prep</text>
+  <text x="932" y="672" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10.5" letter-spacing="0.05em" fill="rgba(255,255,255,0.75)" text-anchor="middle">skill</text>
+
+  <line x1="1022" y1="655" x2="1044" y2="655" stroke="#6b7199" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#ah-navy)"></line>
+
+  
+  <g filter="url(#shadow)">
+    <rect x="1046" y="620" width="200" height="70" rx="14" fill="#ffffff" stroke="#b3b8cc" stroke-width="1.5"></rect>
+  </g>
+  <text x="1146" y="650" font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="22" letter-spacing="-0.01em" fill="#08104e" text-anchor="middle">interview notes</text>
+  <text x="1146" y="672" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10.5" letter-spacing="0.05em" fill="#3d4470" text-anchor="middle">&amp; follow-ups</text>
+
+  <line x1="1246" y1="655" x2="1268" y2="655" stroke="#6b7199" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#ah-navy)"></line>
+
+  
+  <g filter="url(#shadow)">
+    <rect x="1270" y="620" width="180" height="70" rx="14" fill="#ffffff" stroke="#b3b8cc" stroke-width="1.5"></rect>
+  </g>
+  <text x="1360" y="650" font-family="&#39;Yanone Kaffeesatz&#39;, sans-serif" font-weight="700" font-size="22" letter-spacing="-0.01em" fill="#08104e" text-anchor="middle">outcomes</text>
+  <text x="1360" y="672" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="10.5" letter-spacing="0.05em" fill="#3d4470" text-anchor="middle">&amp; learnings</text>
+
+  
+  <path d="M 1360 692 C 1360 780, 900 800, 600 788 C 380 780, 300 742, 300 660 C 300 580, 320 520, 320 462" fill="none" stroke="#fd484c" stroke-width="2.5" stroke-linecap="round" marker-end="url(#ah-red)"></path>
+  <text x="860" y="828" font-family="Montserrat, sans-serif" font-size="13" font-weight="700" letter-spacing="0.04em" fill="#fd484c" text-anchor="middle">applications become context</text>
+
+  
+  <g transform="translate(60, 878) scale(0.0938)">
+    <path fill="#fd484c" d="M617.42,65.36a151.3,151.3,0,0,1,199.16-2.08l9.77-9.77a165,165,0,0,0-218.7,2.09Z"></path>
+    <path fill="#08104d" d="M137.89,293.23l-66-73.52H50.64v73.52H10V93h95.92c43,0,71.72,25.41,71.72,63.36,0,33.46-22.41,57.37-57.38,62.45l67.24,74.41ZM105.92,183c18.83,0,31.38-10.76,31.38-26.59s-12.55-26.6-31.38-26.6H50.64V183Z"></path>
+    <path fill="#08104d" d="M352.05,293.23H200V93h151.5v36.76H240.59v45.12h102.2v36.16H240.59v45.42H352.05Z"></path>
+    <path fill="#08104d" d="M601.8,293.23H562.35v-115L499.6,293.23H481.37l-63.05-115V293.23H378.88V93h35.56l75.9,138.36L566.54,93H601.8Z"></path>
+    <path fill="#08104d" d="M917.92,129.77V293.23H877.29V129.77H810.65V93H984.56v36.76Z"></path>
+    <path fill="#fd484c" d="M1004.05,293.23V93h32V293.23Z"></path>
+    <path fill="#fd484c" d="M1166.7,293.23h-30.78L1049,93h35.26l66.94,156.89L1218.09,93h35.56Z"></path>
+    <path fill="#fd484c" d="M1372.13,293.23l-19.72-46.62H1255l-19.72,46.62h-34.66L1288.76,93h29.88l88.15,200.22ZM1303.7,132.16l-36.16,85.16h72.32Z"></path>
+    <path fill="#fd484c" d="M1475.21,122V293.23h-32.27V122h-70.22V93h173v29Z"></path>
+    <path fill="#fd484c" d="M1709.48,293.23H1560.37V93h148.82v29H1592.35v56.48h107.87v28.68H1592.35v57.08h117.13Z"></path>
+    <path fill="#fd484c" d="M1799.44,93C1867.57,93,1910,134.85,1910,193.12s-42.43,100.11-110.56,100.11h-69.93V93Zm0,171.23c48.7,0,78.29-29.58,78.29-71.12S1848.14,122,1799.44,122h-38V264.24Z"></path>
+    <path fill="#fd484c" d="M716,82.45a95.39,95.39,0,0,0-95.39,95.39c0,72.95,86.66,139,95.39,139,7.48,0,95.39-63.6,95.39-139A95.39,95.39,0,0,0,716,82.45Zm.61,148.49a52.87,52.87,0,1,1,52.87-52.87A52.87,52.87,0,0,1,716.57,230.94Z"></path>
+    <path fill="#08104d" d="M716.57,248.18a70.11,70.11,0,1,1,70.1-70.11A70.19,70.19,0,0,1,716.57,248.18Zm0-105.74a35.63,35.63,0,1,0,35.63,35.63A35.67,35.67,0,0,0,716.57,142.44Z"></path>
+    <path fill="#fd484c" d="M641,89A118,118,0,0,1,793,86.91l9.79-9.79a131.8,131.8,0,0,0-171.48,2.09Z"></path>
+  </g>
+
+</svg>

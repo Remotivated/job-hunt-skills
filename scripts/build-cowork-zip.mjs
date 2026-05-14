@@ -21,18 +21,13 @@ const distDir = join(repoRoot, "dist");
 mkdirSync(distDir, { recursive: true });
 
 const stableName = `${pkg.name}.zip`;
-const versionedName = `${pkg.name}-v${pkg.version}.zip`;
 const stablePath = join(distDir, stableName);
-const versionedPath = join(distDir, versionedName);
 
-for (const out of [stablePath, versionedPath]) {
-  execFileSync(
-    "git",
-    ["archive", "--worktree-attributes", "--format=zip", "-o", out, "HEAD"],
-    { cwd: repoRoot, stdio: "inherit" },
-  );
-}
+execFileSync(
+  "git",
+  ["archive", "--worktree-attributes", "--format=zip", "-o", stablePath, "HEAD"],
+  { cwd: repoRoot, stdio: "inherit" },
+);
 
 const size = (p) => `${(statSync(p).size / 1024).toFixed(1)} KB`;
 console.log(`Wrote ${stablePath} (${size(stablePath)})`);
-console.log(`Wrote ${versionedPath} (${size(versionedPath)})`);
