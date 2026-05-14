@@ -5,10 +5,10 @@
 # Job Hunt Skills
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Built by Remotivated](https://img.shields.io/badge/Built%20by-Remotivated-08104E?logoColor=white)](https://remotivated.com)
+[![Follow on LinkedIn](https://img.shields.io/badge/Follow%20on%20LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jimatremotivated/)
 
 Practical AI-assisted skills, prompts, guides, and templates to give you an edge in your job search. Open source and free — designed to work with the AI subscription you already pay for.
-
-Built by [Remotivated](https://remotivated.com) | [LinkedIn](https://www.linkedin.com/in/jimatremotivated/)
 
 Most paid "AI for job seekers" tools optimize for volume: auto-applying at scale, filling applications with LLM hallucinations and AI slop. Job Hunt Skills takes the opposite approach. It helps you turn real experience into stronger resumes, cover letters, company research, interview prep, LinkedIn copy, and proof assets — using Claude Code, Claude Cowork, ChatGPT, Gemini, or any LLM you already have access to. Simple enough to use as a prompt library, structured enough to run as your full job search system, and strict about not inventing claims.
 
