@@ -14,16 +14,34 @@ Most paid "AI for job seekers" tools optimize for volume: auto-applying at scale
 
 It also compounds. Every verified bullet, story, or proof point you confirm during one application is offered for capture into your canonical files, so each tailoring starts from richer source material than the last.
 
+## Contents
+
+- [Start Here](#start-here) — pick your install path
+- [What You Can Do](#what-you-can-do)
+- [How The Workflow Fits Together](#how-the-workflow-fits-together)
+- [New To Claude Code, Cowork, Plugins, Or Skills?](#new-to-claude-code-cowork-plugins-or-skills)
+- [Use The Claude Code Plugin](#use-the-claude-code-plugin)
+- [Use The Cowork Plugin](#use-the-cowork-plugin)
+- [Start With These Skills](#start-with-these-skills)
+- [Use The Prompts](#use-the-prompts)
+- [Read The Guides](#read-the-guides)
+- [Example Outputs](#example-outputs)
+- [Your Data Stays On Your Machine](#your-data-stays-on-your-machine)
+- [Real Submission-Ready Files](#real-submission-ready-files)
+- [Repository Map](#repository-map)
+- [Philosophy](#philosophy)
+- [Contributing](#contributing)
+
 ## Start Here
 
 Choose the path that matches how you want to work.
 
 | Path | Best for | First action |
 | --- | --- | --- |
-| Claude Code plugin | You are comfortable opening a terminal and want Claude to read and write local job-search files. | Install the plugin, then ask `Help me get started.` |
-| Cowork plugin | You want the same guided workflows in Claude Desktop without living in the terminal. | Install the plugin in Cowork, choose a local folder, then ask `Help me get started.` |
-| Prompt library | You want to use ChatGPT, Gemini, Claude.ai, or another LLM without plugin access. | Open [prompts/README.md](prompts/README.md). |
-| Manual clone | You want to inspect the repo, run scripts, or use Claude Code from a local checkout. | Clone this repo and start Claude Code from the repo folder. |
+| Claude Code plugin | You are comfortable opening a terminal and want Claude to read and write local job-search files. | [Install the plugin](#use-the-claude-code-plugin), then ask `Help me get started.` |
+| Cowork plugin | You want the same guided workflows in Claude Desktop without living in the terminal. | [Install the plugin in Cowork](#use-the-cowork-plugin), choose a local folder, then ask `Help me get started.` |
+| Prompt library | You want to use ChatGPT, Gemini, Claude.ai, or another LLM without plugin access. | Jump to [Use The Prompts](#use-the-prompts) or open [prompts/README.md](prompts/README.md). |
+| Manual clone | You want to inspect the repo, run scripts, or use Claude Code from a local checkout. | See the [clone fallback](#use-the-claude-code-plugin) and start Claude Code from the repo folder. |
 
 After installation, [Getting Started](GETTING-STARTED.md) walks through the first useful week: build one source work document, research one real company, tailor one application, and prepare for one interview.
 
@@ -41,7 +59,7 @@ After installation, [Getting Started](GETTING-STARTED.md) walks through the firs
 ## How The Workflow Fits Together
 
 <p align="center">
-  <img src="docs/jobseeker-workflow.svg" alt="Jobseeker workflow: from canonical source documents in my-documents/, through company-research, resume-tailor, and claim-check for each posting, into per-role application folders, then submit and interview, with a feedback loop back into the source documents.">
+  <img src="assets/jobseeker-workflow.svg" alt="Jobseeker workflow: from canonical source documents in my-documents/, through company-research, resume-tailor, and claim-check for each posting, into per-role application folders, then submit and interview, with a feedback loop back into the source documents.">
 </p>
 
 The main workflow is intentionally simple:
@@ -89,7 +107,7 @@ Then run these commands inside Claude Code:
 
 ```text
 /plugin marketplace add Remotivated/job-hunt-skills
-/plugin install job-hunt-skills@job-hunt-skills
+/plugin install job-hunt-skills@remotivated
 /reload-plugins
 ```
 
