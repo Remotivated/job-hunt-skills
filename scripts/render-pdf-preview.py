@@ -4,7 +4,7 @@
 Used to produce the example-output thumbnails shown in the README.
 Run from repo root:
 
-    python scripts/render-pdf-preview.py examples/*.pdf
+    python scripts/render-pdf-preview.py examples/*/resume.pdf
 """
 
 import sys
@@ -15,12 +15,24 @@ import pypdfium2 as pdfium
 SCALE = 2.0
 
 
+def screenshot_name(pdf_path: Path) -> str:
+    # Examples now live under examples/{candidate}/.../resume.pdf. Use the
+    # candidate folder name so multiple resume.pdf files don't clobber each
+    # other in examples/screenshots/.
+    parts = pdf_path.resolve().parts
+    if "examples" in parts:
+        i = parts.index("examples")
+        if i + 1 < len(parts) - 1:
+            return f"{parts[i + 1]}-{pdf_path.stem}"
+    return pdf_path.stem
+
+
 def render(pdf_path: Path, out_dir: Path) -> Path:
     pdf = pdfium.PdfDocument(str(pdf_path))
     page = pdf[0]
     bitmap = page.render(scale=SCALE)
     pil = bitmap.to_pil()
-    out_path = out_dir / f"{pdf_path.stem}.png"
+    out_path = out_dir / f"{screenshot_name(pdf_path)}.png"
     pil.save(out_path, "PNG", optimize=True)
     return out_path
 
