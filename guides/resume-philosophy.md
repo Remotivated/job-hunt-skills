@@ -2,7 +2,7 @@
 
 Your resume is not a job description in reverse. It's a sales document. Every line should answer one question: **"What evidence do I have that this person will deliver results?"**
 
-That's what hiring managers are scanning for. Not your responsibilities. Not your job titles. Evidence.
+That's what hiring managers are scanning for. Every line should provide that evidence and build a larger story about you.
 
 ---
 
@@ -22,37 +22,141 @@ In that window, hiring managers are **pattern-matching for signals**: numbers, o
 
 That's it. Every bullet point on your resume should follow this structure. Not every outcome needs a percentage or dollar figure -- but it needs to be *specific*. "Improved onboarding" is vague. "Redesigned onboarding flow that reduced time-to-first-value from 14 days to 3" is a story.
 
-Numbers are good, but if you don't have specific numbers, still state the outcomes.
+Numbers are good, but if you don't have specific numbers, just state the outcomes.
 
 ---
 
-## Language Swaps: Generic to Compelling
+## Make It Easy to Say Yes
 
-Here's what the shift looks like in practice, across different roles:
+> Every second the reader spends decoding your resume tempts them to move on to the next one.
 
-| Generic | Compelling |
-| --- | --- |
-| "Managed a team of 5" | "Led a team of 5 that shipped the v2 billing system in 8 weeks, eliminating 200+ monthly support tickets" |
-| "Worked on marketing campaigns" | "Designed and executed email nurture campaign that generated $140K in pipeline over 6 weeks" |
-| "Responsible for customer success" | "Increased customer retention by 23% through proactive outreach program targeting at-risk accounts" |
-| "Developed new features for the platform" | "Built real-time notification system serving 50K daily active users, reducing missed-event rate by 60%" |
-| "Managed project timelines and deliverables" | "Coordinated cross-functional launch of enterprise tier across engineering, design, and sales -- delivered 2 weeks ahead of schedule" |
-| "Handled operations and process improvement" | "Automated invoice reconciliation process, cutting monthly close time from 5 days to 1.5 days and eliminating manual errors" |
-| "Provided technical support to customers" | "Resolved 95% of Tier 2 escalations within 4 hours with a CSAT score of 4.8/5" |
+The hiring manager is triaging a stack. Your goal should be to make the "yes" the path of least resistance. Lower the reading effort, raise the chance they actually finish.
 
-Notice the pattern. The "generic" versions describe a role. The "compelling" versions describe **what happened because you were in that role**. That's the difference between a resume that gets skimmed and one that gets a call.
+A few tactics:
+
+- **Front-load every bullet.** The strongest information should hit the eye first. "Increased trial-to-paid conversion 34%" lands harder than "Through a series of onboarding experiments, increased trial-to-paid conversion 34%." Save the context for the back half.
+- **Make the connection for them.** Don't ask the reader to infer that your B2C growth experience translates to a B2B demand gen role. State the bridge. Career changers fail here most often -- the dots are obvious to you and invisible to everyone else.
+- **Don't make them Google.** If your previous employer is not a household name,give context to what they do. Acronyms internal to your last employer ("Drove BSP through Q3"), niche internal tools, or unusual job titles force the reader to either look something up or skip the bullet.
+- **Use consistent visual structure.** Same date format for every role. Same place for company name. Same bullet shape. Inconsistency creates micro-friction the reader can't name but can feel.
+This is part of why job-hunt-skills uses a fairly generic format. Creating your own resume format might look great but it also makes it harder to scan and the reader could miss key information.
+- **Keep tense consistent.** Past tense for past roles, present for the current one. Mixing them inside the same role reads like proofreading was skipped.
+- **Name the file well.** `Jane-Smith-Marketing-Manager.pdf` beats `resume_final_v7_USE_THIS.pdf`. The hiring manager sees the filename before they see the resume.
+
+Each is small in isolation. Together they're the difference between a resume that gets read and one that gets bounced off.
 
 ---
 
 ## Terminology Matching
 
-This is not keyword stuffing. This is readability.
+Adapt your language to match the employer's vocabulary. This is not keyword stuffing.
 
-When a job description says "clients," your resume should say "clients" -- not "customers" or "accounts." When they reference "ARR," use "ARR" -- not "annual revenue." When the posting mentions "cross-functional collaboration," mirror that language.
+When a job description says "clients," your resume should say "clients" -- not "customers" or "accounts." When they reference "ARR," use "ARR" -- not "EACV".
 
 Why? Because the person reading your resume is comparing it against a mental model shaped by the job description. When your language matches theirs, it *reads faster*. It reduces cognitive load. The hiring manager doesn't have to translate "accounts" to "clients" in their head -- they just see alignment.
 
-This is not gaming a system. It's professional communication.
+**Matching is not stuffing.**
+
+Keyword stuffing is jamming terms from the posting into your resume without them describing anything you actually did. It looks like a "Skills" section with forty buzzwords. Or a bullet that reads *"Leveraged SaaS, B2B, and cross-functional synergies to drive ARR, KPIs, and OKRs."* That sentence describes nothing.
+
+Matching looks different. You took a real bullet and picked the version of a word that aligns with the posting's vocabulary:
+
+| The posting says | You wrote | Now you write |
+| --- | --- | --- |
+| "clients" | "Grew customer base 40% YoY" | "Grew client base 40% YoY" |
+| "platform" | "Built a system for..." | "Built a platform for..." |
+| "GTM" | "Coordinated with sales and marketing" | "Coordinated GTM with sales and marketing" |
+
+The underlying evidence doesn't change. The word choice does. A reader skimming your resume after reading the posting will pattern-match faster.
+
+**The test:** if you removed a phrase, would the reader lose real information about what you did? Matching survives this test. Stuffing doesn't.
+
+This is not gaming a system. It is a myth that ATS systems reject applications based on keywords. The goal here is to make things easier for your human audience, not to "beat" an ATS process that doesn't exist.
+
+---
+
+## Tailor, Don't Blast
+
+Sending the same resume to every posting is faster. It's also why most applications go nowhere.
+
+Terminology Matching is the language-level form of tailoring. The deeper form is structural: reorder bullets so the most role-relevant evidence sits at the top of each section. Drop or shorten experience that doesn't apply. Lead with the proof that maps to *this* posting.
+
+You don't need to rewrite the whole resume each time. Most of it stays. But the top of each role, where the eye lands first, should be tuned to what this employer is hiring for. Five minutes of reordering is worth more than five hours blasting the same document at fifty postings.
+
+Each application is its own pitch. The resume is the argument. The argument changes when the audience changes.
+
+---
+
+## Summary: When It Earns Its Space
+
+A summary is a two- to four-line block at the top of your resume that frames who you are. Sometimes it's the smartest use of prime real estate. Sometimes it's filler the reader skips on the way to your most recent role.
+
+It depends on what your resume is fighting against.
+
+**A summary earns its space when:**
+
+- Your last title doesn't obviously match the role you're applying for -- career changer, returning to an older specialty, pivoting domains.
+- You're senior enough that positioning matters more than scope -- executive, principal IC, fractional roles.
+- The narrative across your roles isn't obvious from titles alone and you need to name the through-line.
+
+**A summary wastes its space when:**
+
+- Your titles and companies already tell the story. A "Senior Data Engineer at Stripe" applying to "Senior Data Engineer at Square" doesn't need a summary that says "Senior data engineer with 8 years of experience." That's just delay.
+- The summary is generic enough to fit any candidate. *"Results-driven professional with a passion for excellence"* is filler that wastes valuable real estate on the page.
+
+If you write one, make it specific. Not "10 years of marketing experience" but "10 years scaling B2B SaaS marketing from $5M to $40M ARR." Show-don't-tell still applies. A summary should introduce whatever story the rest of your resume is intended to tell.
+
+---
+
+## Edit Aggressively
+
+Your resume has roughly thirty to forty lines of real estate before the reader has to scroll. Every line that isn't carrying evidence is stealing attention from one that does.
+
+Things to cut, almost always:
+
+- **"References available upon request."** This goes without saying.
+- **Skills sections listing common tools.** "Microsoft Word, Email, Google Calendar" are almost never worth mentioning.
+- **Photos, age, marital status.** In most markets these are at best irrelevant and at worst an unconscious-bias trigger. Region-specific norms exist -- some European markets still expect a photo -- but when in doubt, omit.
+
+Each cut frees attention for evidence.
+
+---
+
+## Reverse Chronological by Default
+
+Most resumes should be reverse chronological: most recent role at the top, working backward. This is what hiring managers expect. Anything else triggers a question: *what is this candidate hiding?*
+
+The other common format is "functional" or "skills-based" -- roles de-emphasized, capabilities grouped together. Recruiters read this as concealment. Sometimes the concealment is real. Sometimes it isn't. Either way, the format works against you.
+
+The exceptions are narrow:
+
+- **Significant career change** where chronological order buries the relevance of older work.
+- **Multi-year gap** where leading with the gap costs more than departing from the default does.
+
+If you're in one of those situations, a hybrid works: lead with a short summary or projects section, then return to reverse chronological for experience. Fully functional resumes are almost always the wrong call.
+
+---
+
+## One Page vs. Two
+
+The "one page" rule is a guideline, not a law. It's advice from an era when we were actually printing resumes and it matters quite a bit less in a digital format.
+That said, it can still be useful as an editing rule of thumb and it does still feel more polished.
+
+**One page** is right when:
+
+- You have less than roughly ten years of relevant experience.
+- You're applying into a high-volume pipeline -- tech, consulting, IB, anywhere a recruiter is triaging hundreds of applications per role.
+- If your second page would only have a few lines on it
+
+**Two pages** is right when:
+
+- You have more than ten years of relevant experience and forcing it to one page means cutting evidence that matters.
+- You're applying to senior level roles where recruiters are inclined to spend more time on each resume.
+- You're in academia, research, or government, where longer documents are the norm.
+- Your second page has at least a full section on it or more.
+
+What's never right: padding to fill a second page, or shrinking to 8pt to keep it on one. Both make the document harder to read, which is the opposite of the goal.
+
+The honest test: if you cut your resume to one page, do you lose evidence that would change a hiring manager's mind? If yes, take two. If no, take one.
 
 ---
 

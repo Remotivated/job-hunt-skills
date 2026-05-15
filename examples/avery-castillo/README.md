@@ -38,10 +38,3 @@ python scripts/generate-docx.py \
 ```
 
 PDF output requires LibreOffice on PATH. On Windows: `winget install TheDocumentFoundation.LibreOffice`. With LibreOffice installed, the same command also writes `resume.pdf` / `coverletter.pdf` alongside the DOCX.
-
-## Following along
-
-Two paths:
-
-1. **End-state reference** — read `my-documents/` to see what every skill produces. No setup required.
-2. **Run the walkthrough yourself** — copy `starter/my-documents/` into a fresh local folder, launch Claude Code or Cowork there, and run the skills described in [`docs/launch/scripts/walkthrough.md`](../../docs/launch/scripts/walkthrough.md).
