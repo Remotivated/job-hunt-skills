@@ -26,7 +26,6 @@ It also compounds. Every verified bullet, story, or proof point you confirm duri
 - [Use The Prompts](#use-the-prompts)
 - [Read The Guides](#read-the-guides)
 - [Example Outputs](#example-outputs)
-- [Your Data Stays On Your Machine](#your-data-stays-on-your-machine)
 - [Real Submission-Ready Files](#real-submission-ready-files)
 - [Repository Map](#repository-map)
 - [Philosophy](#philosophy)
@@ -166,21 +165,21 @@ Once you have traction, add [interviewing](skills/interviewing/SKILL.md) to mana
 
 ## Use The Prompts
 
-If you use ChatGPT, Gemini, Claude.ai, or another LLM without plugins, start with the copy/paste prompts in [prompts/](prompts/). They do not require installation or local files.
+If you use ChatGPT, Gemini, Claude.ai, or another LLM without plugins, start with the copy/paste prompts in [prompts/](prompts/). No installation, no local files — each one is built to deliver something useful in its first response.
 
 | Prompt | Use it when... |
 | --- | --- |
-| [resume-builder](prompts/resume-builder.md) | You need a source work document in resume or CV format. |
-| [resume-audit](prompts/resume-audit.md) | You want blunt feedback on a resume. |
-| [resume-tailor](prompts/resume-tailor.md) | You want a tailored resume and cover letter for one role. |
-| [company-research](prompts/company-research.md) | You want a structured employer research pass. |
-| [interview-prep](prompts/interview-prep.md) | You want likely questions, talking points, and questions to ask. |
-| [cover-letter](prompts/cover-letter.md) | You want a specific cover letter for one role. |
-| [linkedin-audit](prompts/linkedin-audit.md) | You want LinkedIn positioning help. |
-| [proof-asset](prompts/proof-asset.md) | You want a case study, portfolio piece, or proof idea. |
-| [claim-check](prompts/claim-check.md) | You want a final unsupported-claims check before sending. |
+| [resume-audit](prompts/resume-audit.md) | You want the 30-second hiring-manager read: verdict, scorecard, worst bullets rewritten. |
+| [resume-tailor](prompts/resume-tailor.md) | You found a real posting and want a repositioned resume plus a pre-send checklist. |
+| [company-research](prompts/company-research.md) | You want a verdict and graded report card before spending hours on an application. |
+| [interview-prep](prompts/interview-prep.md) | You want the make-or-break questions, then a live mock interviewer. |
+| [resume-builder](prompts/resume-builder.md) | You need a source resume or UK/EU CV built by interview, not by form. |
+| [cover-letter](prompts/cover-letter.md) | You need one letter that leads with proof and couldn't be sent anywhere else. |
+| [linkedin-audit](prompts/linkedin-audit.md) | You want a five-second credibility read of your headline, then a guided profile audit. |
+| [proof-asset](prompts/proof-asset.md) | You want a case study or portfolio piece that shows how you think. |
+| [claim-check](prompts/claim-check.md) | You are about to hit send and want the truth pass first. |
 
-Prompt-only use has one important rule: verify anything the model adds or reframes before you send it. The skills can check saved evidence; prompts rely on your manual review.
+Every prompt refuses to invent metrics, tools, or experience — when a stronger output would need a fact you didn't provide, you get a question instead of a fabrication. The last word is yours: treat each prompt's verification list as a blocker, not a suggestion.
 
 ## Read The Guides
 
