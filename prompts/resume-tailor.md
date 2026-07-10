@@ -1,64 +1,63 @@
-# Resume Tailor
+# Resume Tailor: One Resume, One Real Posting
 
-Use this prompt when you a job posting and want to tailor your resume and cover letter in ChatGPT, Gemini, Claude.ai, or another LLM. The prompt asks the model to flag any claim it adds or tightens so you can verify it before sending.
+Generic resumes lose to tailored ones — but "tailoring" done by most AI tools means keyword stuffing and quietly invented experience. This prompt repositions what you've actually done for one real role, and hands you a pre-send checklist of everything you need to be able to stand behind.
 
-## What you'll need
-
-- Your resume, pasted as plain text
-- The job posting, pasted as plain text
-- Why this company or role interests you, optional
-- Story notes, proof assets, or case studies, optional
-- Background reading: [resume-philosophy.md](../guides/resume-philosophy.md)
+**Paste:** your resume + one job posting. **Get:** the angle, a change map, the tailored resume, and your pre-send checklist. **Works in:** ChatGPT, Claude, Gemini, or any AI chat.
 
 ## The prompt
 
+Copy the box into a fresh chat and add your two pastes at the bottom.
+
 ```
-Tailor my resume for this specific role. This is not keyword stuffing. It is reshaping which experiences lead and how they are framed.
+Tailor my resume to the specific job posting below. This is repositioning, not keyword stuffing: choose which of my real experiences lead and how they are framed for this role. Never invent experience, metrics, tools, titles, or dates.
+
+Rules:
+- Reorder and reframe freely; fabricate nothing.
+- Keep my honest qualifiers ("intermediate," "learning," "~1 year"). Do not upgrade "contributed to" into "led."
+- Broad stays broad: if I wrote "AWS," do not name specific services I did not list.
+- Where the posting begs for a number I did not provide, write [what was the result?] instead of inventing one.
+
+Give me exactly this, in this order:
+
+1. THE ANGLE
+   Three sentences max: what this role is actually hiring for underneath the bullet points, what my resume currently leads with, and the strongest honest repositioning between the two.
+
+2. THE CHANGE MAP
+   A compact table: what leads now → what should lead for this posting → why it wins. Include terminology swaps where their language and mine differ but mean the same thing.
+
+3. THE TAILORED RESUME
+   The full text, reordered and reframed. You may add or reshape a summary section; do not delete sections.
+
+4. THE PRE-SEND CHECKLIST
+   Everything I must be able to back up before sending:
+   - Each claim you strengthened or reframed — and the follow-up question an interviewer would ask about it.
+   - Every [what was the result?] gap.
+   - Anything in the posting I simply do not have, named plainly, with the honest way to handle it.
+
+Then ask whether I want the matching cover letter — and if I say yes, write one that expands on the strongest alignment point instead of repeating the resume.
 
 MY RESUME:
-[paste full resume text]
+[paste your resume]
 
-JOB POSTING:
-[paste full posting text]
+THE JOB POSTING:
+[paste the full posting]
 
-WHY THIS COMPANY / WHY THIS ROLE:
-[paste notes, or write "not sure yet"]
-
-SOURCE NOTES / PROOF ASSETS:
-[paste relevant story notes, case studies, or write "resume only"]
-
-Follow this process:
-
-0. INPUT CHECK - if the resume, job posting, and optional notes do not contain enough evidence to tailor responsibly, ask up to 5 targeted questions before drafting. Prioritize questions about missing outcomes, scope, why this company/role, and any honest gaps. If the inputs are sufficient, continue.
-
-1. ANALYZE THE POSTING - extract the top 3-5 requirements, terminology, values, and any remote/timezone specifics.
-
-2. IDENTIFY THE ANGLE - for this role, which of my experiences maps best to their priorities? What story should lead? How should emphasis shift from my current resume?
-
-3. CHANGE MAP - provide a compact table with:
-   - Current emphasis
-   - Tailored emphasis
-   - Why the shift helps for this posting
-
-4. TAILOR THE RESUME - match terminology where my language differs, reorder bullets by relevance, and surface remote-readiness signals where relevant. You may add or reshape a Summary section, but do not remove sections from my resume. Do not invent experience.
-
-5. CLAIM GUARDRAIL:
-   - For any bullet you add, rewrite, or reframe where the specific claim is not clearly supported by the resume I pasted, append [VERIFY: claim - what I should check] on the same line.
-   - Flag inference tightening, such as connecting two facts my resume states separately.
-   - Flag harder verbs that may overstate scope, such as "contributed to" becoming "led."
-   - Keep proficiency qualifiers such as "intermediate," "scripting only," "~1 year," or "learning."
-   - Do not turn broad tools into specific ones. If my resume says AWS, do not write AWS Lambda or S3 unless I named those services.
-   - For quantitative gaps, use [ASK: what was the result?] instead of inventing a number.
-
-6. SUMMARY:
-   - Key changes made and why
-   - Alignment strengths
-   - Every [ASK] gap
-   - Every [VERIFY] flag I must confirm before sending
-
-Output the posting analysis, angle, change map, full tailored resume, and summary.
+ANYTHING ELSE WORTH WEIGHING:
+[optional — why this company, extra context. Or delete this line.]
 ```
 
-## What you'll get
+## After the first response
 
-A reordered and reframed resume, a matching cover letter, and a closing summary listing every `[ASK]` gap and every `[VERIFY]` flag you need to confirm before sending. Treat the `[VERIFY]` list as a required manual pass.
+- **"yes"** — get the matching cover letter, built to complement rather than repeat.
+- **"I can't back that up"** — point at any checklist item and it will soften or remove the claim.
+- **"make it one page"** — it already knows what matters least for this posting.
+- Answer the `[what was the result?]` gaps and ask it to fold the numbers in.
+
+## The checklist is the point
+
+Section 4 is what separates this from every AI resume tool that quietly upgrades you. Instead of discovering mid-interview that a claim reads stronger than reality, you discover it now, while it's still editable. Send nothing until every checklist item is a yes.
+
+## Go deeper
+
+- The [resume-tailor skill](../skills/resume-tailor/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) does this from your saved resume and story bank, keeps a folder per application, and exports submission-ready DOCX/PDF.
+- Targeting remote roles? [Remotivated](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=prompts) lists roles vetted to be genuinely remote — worth tailoring for.

@@ -1,96 +1,64 @@
-# Interview Prep
+# Interview Prep + Mock Interviewer
 
-Use this prompt when you have an interview coming up and want role-specific questions, talking points, and questions to ask the company. Paste your resume and the job posting so the model can ground the prep in your actual experience.
+A prep brief is useful. Practice is what changes the outcome. This prompt gives you both: the questions that will decide your interview, honest handling for your gaps, then a live mock interview with blunt feedback after every answer.
 
-## What you'll need
-
-- Job posting, pasted as plain text
-- Company name
-- Your resume, pasted as plain text
-- Interview stage, interviewer role, format, and duration, if known
-- Company research brief, optional
-- Anything you already know about the company, optional
-- Background reading: [interview-framework.md](../guides/interview-framework.md)
+**Paste:** the job posting + your resume. **Get:** a focused brief, then a mock interviewer on demand. **Works in:** ChatGPT, Claude, Gemini, or any AI chat.
 
 ## The prompt
 
+Copy the box into a fresh chat and add your pastes at the bottom.
+
 ```
-Help me prepare for an interview. I want to evaluate them as much as they evaluate me.
+Prepare me for an interview, then coach me through a mock round. Ground everything in my actual resume below — never script an answer that uses experience I do not have.
 
-COMPANY:
-[company name]
+Rules:
+- Talking points come from my resume, not from an imaginary ideal candidate.
+- If a strong answer needs a story or number I have not provided, ask me for it instead of inventing it.
+- When I practice, judge my answers honestly. "Good enough" feedback before a real interview is sabotage.
 
-INTERVIEW STAGE:
-[recruiter screen / hiring manager / technical / panel / final / unknown]
+PART 1 — THE BRIEF. Give me exactly this, in this order:
 
-INTERVIEWER(S):
-[names and roles if known, or write "unknown"]
+1. WHAT THIS INTERVIEW IS REALLY TESTING
+   For my stage (or your best guess if unknown): what the interviewer needs to walk away believing, and where an hour of my prep time pays off most.
 
-FORMAT AND DURATION:
-[video/phone/onsite, expected length, presentation or coding exercise if any, or write "unknown"]
+2. THE SIX QUESTIONS THAT MATTER
+   The most likely and highest-stakes questions for this specific role. For each: why they ask it, and which line of my resume the strong answer is built on. Mark the one or two MAKE-OR-BREAK questions — the ones where this role is won or lost.
 
-JOB POSTING:
-[paste full posting text]
+3. YOUR GAPS, HANDLED
+   The biggest mismatches between their requirements and my resume, named plainly. For each, a response that owns the gap honestly and redirects to a real strength. No spin.
+
+4. ASK THEM
+   Four questions I should ask, each with the green-flag answer and the red-flag answer to listen for.
+
+PART 2 — THE MOCK. After the brief, say: "Ready to practice? Say 'start' and I'll interview you, one question at a time."
+
+In mock mode:
+- Ask one question, then wait for my typed answer.
+- After each answer give me: what worked, what a real interviewer would push back on, and a stronger version built only from facts I have given you.
+- If my answer is vague, push with a follow-up exactly like a skeptical interviewer would.
+- After six questions, debrief: my two strongest moments, my riskiest habit, and the one thing to fix before the real interview.
+
+THE JOB POSTING:
+[paste the posting]
 
 MY RESUME:
-[paste full resume text]
+[paste your resume]
 
-COMPANY RESEARCH BRIEF:
-[paste research notes, or write "not available"]
-
-WHAT I KNOW ABOUT THE COMPANY:
-[paste notes, or write "nothing yet"]
-
-Generate the prep brief in this order:
-
-1. INTERVIEW STRATEGY:
-   - What this stage is likely testing
-   - What the interviewer probably cares about
-   - How I should spend my preparation time
-
-2. LIKELY QUESTIONS (8-12):
-   - 3-4 behavioral questions specific to this role's requirements
-   - 2-3 technical/domain questions from the posting
-   - 2-3 remote-work or collaboration questions if relevant
-   For each question, provide talking points drawn from my actual resume. Reference specific achievements. Do not give generic advice like "be a team player."
-
-3. TOP 3 ANSWER SKELETONS:
-   For the three most likely or highest-stakes questions, draft a 60-90 second answer structure:
-   - Opening thesis
-   - Evidence from my resume
-   - Result or impact
-   - Bridge back to this role
-   Do not invent story details. Use [ASK: ...] for missing specifics.
-
-4. QUESTIONS I SHOULD ASK (5-8), categorized as:
-   - How They Work
-   - Career Growth
-   - Culture
-   - Remote/Hybrid Operations, if relevant
-   For each, include a green-flag answer and a red-flag answer so I know what to listen for.
-
-5. ANGLES TO HIGHLIGHT:
-   - My 3 strongest selling points for this role, each tied to a specific resume line
-   - Remote-readiness or self-direction talking points where relevant
-   - The narrative to lead with in "tell me about yourself"
-
-6. POTENTIAL WEAKNESSES:
-   - Gaps between my resume and their requirements, named specifically
-   - For each, a scripted response that acknowledges the gap honestly and redirects to a strength. Do not spin or hide.
-
-7. STAR+R STORIES TO DRAFT:
-   List the stories I should have ready before the interview - the behavioral questions from section 2 where my resume does not already contain a usable answer. For each, provide a fill-in template I can complete on my own:
-   - Story title (the question or theme it answers)
-   - Situation: [prompt for what context I should describe]
-   - Task: [prompt for the stakes I should make visible]
-   - Action: [prompt for the specific moves I should name]
-   - Result: [prompt for the concrete outcome to capture]
-   - Reflection: [prompt for what I learned or would do differently]
-   Do not draft the stories yourself. Do not invent details. The output of this section is a checklist of stories I need to write before the interview.
-
-Do not invent specifics about my experience anywhere in the brief. If a story would benefit from a number I have not provided, use [ASK: what was the outcome?].
+INTERVIEW STAGE / FORMAT:
+[recruiter screen / hiring manager / technical / panel / final — or "unknown"]
 ```
 
-## What you'll get
+## After the first response
 
-A prep brief with stage-specific strategy, likely questions, answer skeletons tied to your resume, questions to ask the company, weakness scripts, and prompts for stronger STAR+R stories.
+- **"start"** — begin the mock interview. Type your answers as you'd say them out loud; you get a debrief after six questions.
+- **"harder"** — same mock, skeptical-interviewer mode: more push-back, more "can you be specific?"
+- **"help me build the story for question N"** — it interviews *you* for the details of a make-or-break answer, then structures what you actually said. It won't write fiction for you.
+- **"90-second check"** — paste a drafted answer and ask whether it would run long.
+
+## Practice that stays honest
+
+The mock's feedback loop only ever strengthens answers with facts you've given it. If your answer to "tell me about a time you led through conflict" is thin, you'll be told it's thin — and asked for the real story, not handed an invented one you'd have to defend later.
+
+## Go deeper
+
+- The [interview-coach skill](../skills/interview-coach/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) preps from your saved story bank and company research, and the [interviewing skill](../skills/interviewing/SKILL.md) tracks every stage to offer. The method is in the [interview framework guide](../guides/interview-framework.md).

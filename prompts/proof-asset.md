@@ -1,91 +1,57 @@
-# Proof Asset
+# Proof Asset: Show, Don't Claim
 
-Use this prompt when you want a case study, portfolio idea, project brief, or other proof-of-value asset that shows employers how you think. A proof asset should demonstrate judgment and process, not just repeat resume claims.
+Every resume says "strong communicator, proven results." A proof asset — a case study, a teardown, a documented build — *shows* how you think, and hiring managers trust demonstrations over adjectives. This prompt finds the gap in your evidence and turns one real project into something you can link.
 
-## What you'll need
-
-- Resume or work-history evidence
-- Target roles or job postings
-- Existing portfolio pieces, if any
-- One project, accomplishment, or story you might turn into proof
-- Confidentiality limits
-- Background reading: [proof-assets.md](../guides/proof-assets.md)
-
-## What you'll get up front
-
-If your project notes are concrete (clear situation, specific actions, real outcome), expect a 500-800 word case-study draft plus the planning sections. If your notes are rough or missing, expect a scoped idea brief plus targeted questions to fill the gaps before drafting.
+**Paste:** your target role + one project you're proud of (rough notes are fine). **Get:** the trust gap in your materials, three concrete asset ideas, and a draft or build plan for the winner. **Works in:** ChatGPT, Claude, Gemini, or any AI chat.
 
 ## The prompt
 
+Copy the box into a fresh chat and fill in the bottom. Don't polish your project notes first — extracting the story is the prompt's job.
+
 ```
-Help me create a proof asset for my job search. I want something concrete I can link from LinkedIn, include in an application, or mention in an interview. Do not invent outcomes, metrics, tools, employers, or project details.
+Help me create a proof asset: a concrete artifact (case study, teardown, sample analysis, documented project) that demonstrates my thinking to employers beyond resume claims. Everything must come from what I tell you — do not invent outcomes, metrics, employers, or project details.
 
-TARGET ROLES:
-[roles, industries, seniority, and work model I am aiming for]
+Give me exactly this, in this order:
 
-JOB POSTINGS OR ROLE REQUIREMENTS:
-[paste relevant postings or repeated requirements, or write "not available"]
+1. THE TRUST GAP
+   For my target role: the one or two things a hiring manager must believe about me that a resume claim alone cannot prove. Two sentences.
 
-MY RESUME / WORK HISTORY:
-[paste resume or relevant work history]
+2. THREE ASSET IDEAS
+   Three specific, buildable pieces — not formats ("write a blog post") but actual artifacts ("a before/after teardown of the onboarding flow you rebuilt, with the decision points annotated"). For each:
+   - What it is, concretely
+   - What it proves that my resume cannot
+   - Honest effort estimate in hours
+   - Confidentiality risk, and the anonymization move if there is one
+   - Where it works hardest: application, LinkedIn Featured, interview follow-up
 
-EXISTING PROOF ASSETS:
-[paste links/descriptions, or write "none"]
+3. THE PICK
+   Which to build first on leverage vs. effort, and why.
 
-POSSIBLE STORIES OR PROJECTS:
-[paste project notes, STAR stories, accomplishments, side projects, writing samples, or write "not sure yet"]
+4. THE DRAFT OR THE PLAN
+   - If my project notes have enough substance: draft the case study, 500-800 words, structured Situation → Approach → Outcome → Learning. Where a fact is missing, write [need: ...] — never fill it in yourself.
+   - If not: a build outline with the exact questions I need to answer, so my next reply finishes the draft.
+
+MY TARGET ROLE:
+[role, industry, seniority]
+
+THE PROJECT OR STORY:
+[rough notes are fine — what the situation was, what you did, what changed]
 
 CONFIDENTIALITY LIMITS:
-[what cannot be named, shared, quantified, or shown]
-
-TIME / TOOLS AVAILABLE:
-[hours available, writing/design/coding/no-code tools, or write "not sure"]
-
-Follow this process:
-
-1. INPUT CHECK
-   If I have not provided enough evidence to recommend or draft a proof asset, ask up to 5 targeted questions before producing ideas. Prioritize target role, strongest project, actual outcome, confidentiality, and time available.
-
-2. GAP ANALYSIS
-   Identify what my target roles need to trust that my current materials do not prove yet. State the gap in 1-2 sentences.
-
-3. IDEA OPTIONS
-   Suggest 3-5 concrete proof assets. Do not give generic formats like "write a blog post." Make each idea specific enough to picture.
-   For each idea, include:
-   - What it is
-   - What it proves
-   - Which target requirement it supports
-   - Effort estimate
-   - Confidentiality approach
-   - Best place to use it: application, LinkedIn Featured, follow-up email, portfolio, or interview
-
-4. RECOMMENDATION
-   Pick the best first asset based on effort vs. leverage. Explain why.
-
-5. PRODUCE THE OUTPUT
-   If I provided a specific story or project with enough detail, draft a 500-800 word case study using:
-   - Situation
-   - Approach
-   - Outcome
-   - Learning
-
-   If I did not provide enough detail for a finished case study, create an idea brief:
-   - Chosen idea
-   - Why it fits
-   - Rough scope
-   - What it proves
-   - Acceptance criteria
-   - Next step
-
-6. CLAIM GUARDRAIL
-   - Every concrete claim must trace to what I pasted.
-   - If a metric, tool, action, or outcome is missing, mark it [ASK: ...].
-   - If a detail may be confidential, mark it [VERIFY CONFIDENTIALITY: ...].
-   - Offer anonymized wording where needed.
-
-Output the gap analysis, idea options, recommendation, and either the finished case study or idea brief.
+[what can't be named, shown, or quantified — or "none"]
 ```
 
-## What you'll get
+## After the first response
 
-A concrete proof-asset plan, plus either a draft case study or a scoped brief you can build from.
+- Answer the `[need: ...]` gaps and ask for the finished draft.
+- **"anonymize it"** — same story with employer and specifics masked, honestly labeled.
+- **"make the LinkedIn Featured version"** — shorter, hook-first cut of the same asset.
+- **"which of my resume bullets deserves an asset?"** — paste your resume and let it scout for the highest-leverage story you're sitting on.
+
+## Real proof only
+
+An invented case study isn't a proof asset — it's a liability with formatting. Every fact in the draft traces to your notes, and gaps come back to you as `[need: ...]` questions, because the entire value of proof is that it's checkable.
+
+## Go deeper
+
+- The [proof-asset-creator skill](../skills/proof-asset-creator/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves finished assets into your evidence base, where they back up future resume claims automatically. The method is in the [proof assets guide](../guides/proof-assets.md).

@@ -1,73 +1,63 @@
-# Claim Check
+# Claim Check: The Truth Pass Before You Send
 
-Use this prompt before sending a resume, cover letter, LinkedIn rewrite, proof asset, or interview story. It compares the draft against source material you paste in and flags unsupported, inflated, or unclear claims.
+One inflated bullet can cost you an offer three interviews later, when someone finally asks you to explain a number you never earned. This is the final pass that catches it now — while it's still just an edit.
 
-## What you'll need
-
-- Final draft material
-- Source resume or CV
-- Story notes, proof assets, or work-history evidence
-- Job posting, if the draft was tailored
+**Paste:** the draft you're about to send + the source material it came from. **Get:** a send / don't-send verdict and every claim that wouldn't survive a follow-up question. **Works in:** ChatGPT, Claude, Gemini, or any AI chat.
 
 ## The prompt
 
+Copy the box into a fresh chat and add your pastes at the bottom. In a hurry? The draft can be a single bullet — a ten-second truth read.
+
 ```
-Check this job-search material for unsupported or inflated claims before I send it. This is a truth and fidelity review, not a copy edit. Compare the draft only against the source material I paste below.
-
-SOURCE RESUME / CV:
-[paste source resume or CV]
-
-SOURCE STORY NOTES / PROOF ASSETS:
-[paste STAR stories, project notes, case studies, or write "none"]
-
-JOB POSTING, IF RELEVANT:
-[paste posting, or write "not relevant"]
-
-DRAFT TO CHECK:
-[paste resume, cover letter, LinkedIn copy, proof asset, interview answer, or other draft]
-
-Review the draft in this order:
-
-1. VERDICT
-   Give one of:
-   - READY AFTER MINOR EDITS
-   - NEEDS VERIFICATION BEFORE SENDING
-   - DO NOT SEND YET
-
-2. HARD BLOCKERS
-   List any claim that appears fabricated, contradicted, or materially unsupported by the pasted sources. Include:
-   - Draft span
-   - Problem
-   - Best matching source, if any
-   - Fix: remove, soften, or ask me to verify
-
-3. SOFT ISSUES
-   List subtler risk areas:
-   - Inference tightening, where two separate facts became one stronger claim
-   - Verb inflation, such as "contributed to" becoming "led"
-   - Dropped qualifiers, such as "learning" or "scripting only" disappearing
-   - Broad tools becoming specific tools
-   - Metrics or scope that need confirmation
-
-4. PLACEHOLDERS AND ASK ITEMS
-   Find every [ASK], [VERIFY], TBD, placeholder, vague date, or unresolved bracket.
-
-5. CLAIM TABLE
-   Create a table:
-   | Draft claim | Supported by source? | Risk | Recommended action |
-   | --- | --- | --- | --- |
-   Use Supported / Partially supported / Not found / Contradicted.
-
-6. CLEANED VERSION
-   Provide a cleaned version only if the fixes are straightforward and do not require new facts from me. Do not silently replace unsupported claims with new invented claims.
+Truth-check this draft before I send it. Compare it only against the source material below. The question is not "is this well written" — it is "can I defend every line of it out loud in an interview."
 
 Rules:
-- Do not use outside knowledge.
-- Do not assume common tools, typical metrics, or likely responsibilities.
-- If a claim might be true but is not in the pasted source material, mark it [VERIFY: ...].
-- Preserve the strongest truthful version. Do not overcorrect into vague filler.
+- Use no outside knowledge. Do not assume typical tools, likely metrics, or common responsibilities.
+- A claim that might be true but is not in my source material is unverified. Flag it; do not excuse it.
+- Do not overcorrect truthful strength into vague mush. The goal is the strongest version of what is real.
+
+Deliver exactly this, in this order:
+
+1. THE VERDICT
+   One of: SAFE TO SEND / VERIFY THE FLAGGED ITEMS FIRST / DO NOT SEND YET — with a one-sentence reason.
+
+2. WOULD NOT SURVIVE A FOLLOW-UP
+   The claims an interviewer could break with one question. For each: the exact draft text → what is unsupported → the question that breaks it → the fix (remove, soften, or the exact fact I need to confirm).
+
+3. QUIET INFLATION
+   The subtle upgrades:
+   - Two separate facts merged into one stronger claim
+   - "Contributed to" that became "led"
+   - Dropped qualifiers — "learning," "intermediate," "~1 year"
+   - Broad tools that became specific ones (AWS quietly becoming Lambda)
+   - Numbers that appear nowhere in my source material
+
+4. LEFTOVER PLACEHOLDERS
+   Any [bracketed] items, TBDs, or template text still sitting in the draft.
+
+5. THE CLEAN VERSION
+   Only if every fix can be made without new facts from me; otherwise list exactly what you need. Never patch an unsupported claim by writing a different unsupported claim.
+
+THE DRAFT I'M ABOUT TO SEND:
+[paste the resume, cover letter, LinkedIn copy, or interview story — or one bullet]
+
+SOURCE MATERIAL — WHAT IS ACTUALLY TRUE:
+[paste your source resume, project notes, story drafts — the evidence]
+
+THE JOB POSTING, IF THE DRAFT WAS TAILORED TO ONE:
+[paste it, or "skip"]
 ```
 
-## What you'll get
+## After the first response
 
-A send/no-send verdict, a list of claim risks, and a cleaned version when the fixes do not require new facts.
+- Confirm or correct the flagged items — **"item 2 is true, here's the number"** — and ask for the clean version.
+- Run every final artifact through this before it leaves your hands: tailored resume, cover letter, LinkedIn rewrite, even a prepared interview story.
+- **"stricter"** — re-run treating anything unsourced as a blocker, for high-stakes sends.
+
+## Why this exists
+
+AI wrote your draft faster than you could — and somewhere in that speed, "helped migrate" may have become "led the migration." Nobody else will catch that for you: not the AI that wrote it, not the recruiter, not until the worst possible moment. Two pastes now is what it costs to be unbreakable in the room.
+
+## Go deeper
+
+- The [claim-check skill](../skills/claim-check/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) checks tailored documents against your entire saved evidence base — source resume, story bank, proof assets — and knows which version each draft came from.

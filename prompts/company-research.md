@@ -1,99 +1,67 @@
-# Company Research
+# Company Research: Is This Job Worth Your Time?
 
-Use this prompt when you want to decide whether a company or role is worth your time. It works in ChatGPT, Gemini, Claude.ai, or another LLM if you paste the raw source material yourself.
+The worst job-search outcome isn't rejection — it's spending twenty hours winning a role you should have skipped. Before you tailor anything, get a verdict.
 
-## What you'll need
-
-- Company name
-- Job posting text, if you have it
-- Careers/about page text
-- Review themes from Glassdoor, Blind, Reddit, or similar sources
-- LinkedIn observations about team location, leadership concentration, or churn
-- Recent news about funding, layoffs, return-to-office changes, leadership changes, or product shifts
-- Source URLs and dates, if your LLM can browse or you collected them
-- Background reading: [company-research.md](../guides/company-research.md)
+**Paste:** a company name and a role (the posting if you have it). **Get:** a verdict, a graded report card, and the questions to ask them. **Works in:** ChatGPT, Claude, Gemini, or any AI chat — with or without web browsing.
 
 ## The prompt
 
+Copy the box into a fresh chat and fill in the two lines at the bottom. You don't need to gather research first — the prompt tells you what's worth adding later.
+
 ```
-Evaluate this company and role using a practical employer research framework. I want to know whether this is worth my time, what I should verify, and what questions I should ask if I proceed.
+Evaluate whether this company and role are worth my time. Be the skeptical friend who has seen every hiring red flag, not a cheerleader.
+
+Evidence rules — these matter:
+- If you can browse the web, check current sources and date every major claim.
+- If you cannot browse, say so up front, then keep two layers clearly separate: (a) what I pasted below, and (b) what you remember about this company, always marked "as of my training data" and possibly stale.
+- Never present a stale or assumed fact as current. An honest "unknown" beats a confident guess.
+
+Give me exactly this, in this order:
+
+1. THE VERDICT
+   One of: PRIORITIZE / PROCEED WITH CAUTION / SKIP FOR NOW — with a two-sentence justification. Severity beats quantity: one hard signal (layoffs while hiring, fake-remote, exec exodus) outweighs five soft positives.
+
+2. THE REPORT CARD
+   Grade each A-F, one line of evidence, and a confidence tag (solid / thin / stale):
+   - Role clarity — is this a real, scoped job with realistic requirements and stated pay?
+   - Business direction — do they make money, and do they know where they are going?
+   - Remote reality — if they claim remote or hybrid: does the evidence say genuinely distributed, or office-culture-with-exceptions? Watch for "remote (within 30 miles of office)," timezone restrictions, and leadership all in one city.
+   - Reputation — themes that repeat across recent reviews, not one angry outlier.
+   - Stability — funding, layoffs, leadership churn, pivots.
+   Grade what you cannot support as "?" — never fill a gap with optimism.
+
+3. RED FLAGS AND GREEN FLAGS
+   Specific and sourced. "Culture seems off" is not a flag; "three of five engineering leaders left within a year (LinkedIn)" is.
+
+4. ASK THEM THIS
+   Three to five pointed interview questions aimed at the thin or red areas above — phrased so I can say them out loud without burning the room.
+
+5. WHAT WOULD CHANGE THE GRADE
+   The two or three checks that would firm up your lowest-confidence grades — recent Glassdoor/Blind themes, the team's LinkedIn geography, funding news. Tell me to paste any of them and you will re-grade.
 
 COMPANY:
 [company name]
 
 ROLE / JOB POSTING:
-[paste posting, or write "not available"]
+[paste the posting or the role title — or "just vetting the company"]
 
-CAREERS / ABOUT PAGE:
-[paste relevant text, or write "not available"]
-
-REVIEWS:
-[paste review excerpts or summarize repeated themes, or write "not available"]
-
-LINKEDIN OBSERVATIONS:
-[describe employee geography, leadership concentration, recent departures, or write "not checked"]
-
-RECENT NEWS:
-[paste funding, layoffs, RTO announcements, acquisitions, leadership changes, or write "nothing notable"]
-
-BROWSING / SOURCE MODE:
-[write "can browse current web" or "pasted sources only"]
-
-Source rule:
-- If you can browse current web, cite the source and date for each major signal.
-- If you cannot browse, use only the source material I pasted and mark stale or missing areas clearly.
-- Do not treat uncited memory as current evidence.
-
-Run all five stages. Do not skip a stage just because the job posting looks good.
-
-Start with SOURCES AND CONFIDENCE:
-| Signal | Source | Date observed/published | Confidence |
-| --- | --- | --- | --- |
-Use High / Medium / Low confidence. Low confidence means stale, secondhand, uncited, or thin evidence.
-
-Stage 1 - Job posting:
-- What problem is this role meant to solve?
-- Are the must-haves realistic?
-- Are scope, seniority, compensation, location, and work model clear?
-- Name any red flags: vague scope, unrealistic requirements, missing compensation where expected, title/scope mismatch, unclear hiring process.
-
-Stage 2 - Company direction:
-- What does the company do, who buys or uses it, and why now?
-- Look for business model, product clarity, customer signals, funding, layoffs, pivots, or public contradictions.
-- Name what looks strong and what needs verification.
-
-Stage 3 - Work model and remote/hybrid fit:
-- Does the posting clearly state remote, hybrid, onsite, timezone, travel, or office expectations?
-- Does the company show distributed habits: documentation, async communication, remote onboarding, location-transparent benefits?
-- Name red flags such as vague "flexibility," city-only signals for a remote role, recent return-to-office pressure, or remote workers appearing second-class.
-
-Stage 4 - Reviews and reputation:
-- What recent themes repeat?
-- Separate role-specific signals from general noise.
-- Watch for poor management, chaotic priorities, unpaid overtime, high churn, interview bait-and-switches, or second-class remote employees.
-
-Stage 5 - Team and LinkedIn signals:
-- Is the relevant team geographically distributed?
-- Is leadership concentrated in one office?
-- Do people in similar roles appear to stay long enough to grow?
-- Are there recent departures from the relevant function?
-
-For every red flag, name the specific signal and where it came from. "Culture seems off" is not actionable.
-
-WEIGH AND RECOMMEND:
-Severity matters more than count. One hard signal can outweigh several soft positives. A pile of weak concerns may only mean I should ask sharper questions.
-
-Deliver one of three verdicts:
-- PRIORITIZE - worth applying or preparing seriously.
-- PROCEED WITH CAUTION - worth pursuing, but only with specific questions to ask.
-- SKIP FOR NOW - hard signals suggest I should spend time elsewhere.
-
-End with:
-1. The 3-5 signals driving the verdict.
-2. Specific questions I should ask in interviews.
-3. Anything that may be stale or needs current verification.
+WHAT I ALREADY KNOW OR FOUND:
+[optional — reviews, news, LinkedIn observations. Or delete this line and add it later.]
 ```
 
-## What you'll get
+## After the first response
 
-A company research brief with role fit, company direction, remote/hybrid evidence, review themes, team signals, a clear verdict, and questions to ask if you proceed.
+The report card is built to be improved in-place:
+
+- Paste review themes, LinkedIn observations, or news from section 5 and say **"re-grade."**
+- **"compare with [other company]"** — same report card, side by side, when you're choosing where to spend your week.
+- **"draft the ask-them-this questions for a recruiter screen"** — softer phrasings of the same probes.
+
+## Honest by construction
+
+The prompt forces the model to separate what it verified, what you told it, and what it merely remembers — and to grade unknowns as unknowns. A "?" on the report card is a research task, not a reassurance.
+
+## Go deeper
+
+- The [company-research skill](../skills/company-research/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves every verdict as a numbered report and tracks the company in your application pipeline. The full vetting method is in the [company research guide](../guides/company-research.md).
+- The "Remote reality" grade is Remotivated's whole thesis: [remotivated.com](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=prompts) lists remote jobs vetted to actually be remote.

@@ -1,98 +1,55 @@
-# Resume Builder
+# Resume Builder: An Interview, Not a Form
 
-Use this prompt when you need to build a strong source resume or UK/EU work CV before tailoring for individual jobs. This is for work documents, not US academic CVs with publications, grants, and teaching sections.
+Your best material never makes it onto a first-draft resume — it comes out when someone asks the right follow-up question. This prompt turns the AI into that interviewer: it questions you in short rounds, shows you rebuilt bullets as you go, and assembles a truthful resume or UK/EU CV from what you actually said.
 
-## What you'll need
-
-- Existing resume, LinkedIn export, or rough work history
-- Target roles and industries
-- Accomplishments, metrics, scope, tools, and projects
-- Education, certifications, and languages
-- Region: US resume or UK/EU work CV
-- Background reading: [resume-philosophy.md](../guides/resume-philosophy.md), [ats-myths.md](../guides/ats-myths.md)
+**Paste:** whatever you have — an old resume, your LinkedIn, rough notes, or nothing at all. **Get:** an interviewer that extracts your real accomplishments, then the document built from them. **Works in:** ChatGPT, Claude, Gemini, or any AI chat.
 
 ## The prompt
 
+Copy the box into a fresh chat. If you have an old resume or LinkedIn profile, paste it at the bottom; "starting from scratch" works too.
+
 ```
-Build or rebuild my source work document. I want one truthful, reusable base document that I can later tailor for specific jobs. Do not invent facts, metrics, tools, employers, dates, titles, credentials, or outcomes.
+Interview me, then build my resume (or UK/EU CV) from my answers. You are a resume writer who knows the good material only comes out under questioning. Every line of the final document must trace to something I told you — invent nothing.
 
-DOCUMENT TYPE / REGION:
-[US resume / UK work CV / EU work CV / not sure]
+How to run the interview:
+- Short rounds: 3-4 questions at a time, never a wall of questions.
+- Chase outcomes: when I describe a duty, ask what changed because I did it — numbers, scale, before/after.
+- Chase scope: team size, budget, users, timelines — whatever makes it concrete.
+- Keep my qualifiers honest: if I say I am "still learning" a tool, that nuance survives into the document.
+- Show progress early: as soon as I give you one solid accomplishment, show me the finished bullet you would write from it (BEFORE/AFTER if I pasted an old version), so I can see where this is going.
 
-TARGET ROLES:
-[roles, seniority, industries, and work model I am aiming for]
+Round 1 — ask me only these three, then wait:
+1. What roles am I targeting, and remote, hybrid, or on-site?
+2. Is this for a US-style resume or a UK/EU-style CV? (If I am not sure: where will I be applying?)
+3. What is the strongest thing I have done professionally that a stranger would never learn from my current materials?
 
-EXISTING RESUME OR LINKEDIN:
-[paste text, or write "none"]
+Keep interviewing round by round, most recent role first, until you can fill every section without guessing. Then deliver:
 
-WORK HISTORY:
-[for each role: employer, title, dates, location, responsibilities, accomplishments, projects, metrics, team size, tools]
+1. THE DOCUMENT
+   In the right regional format. Accomplishment bullets — action verb + what I did + result or scope — in past tense. Where a metric is missing, write [what was the result?] rather than inventing one.
+   For a UK/EU CV: a 2-4 sentence personal statement, education with degree classification if I gave one, languages with CEFR levels if I gave them; no photo, birth date, or marital status.
 
-EDUCATION / CERTIFICATIONS:
-[paste details]
+2. THE STRENGTH REPORT
+   My three strongest bullets and why they will land; my three weakest and the exact fact that would fix each.
 
-SKILLS / TOOLS:
-[paste tools, technologies, platforms, methods, languages, proficiency qualifiers]
+3. THE GAPS LIST
+   Every question I still owe an answer to, so the document keeps improving as I remember things.
 
-REMOTE / HYBRID SIGNALS:
-[remote work, async work, cross-timezone collaboration, documentation, independent delivery, or write "none listed"]
-
-ANYTHING NOT TO OVERSTATE:
-[known gaps, skills I am learning, tools I only used lightly, claims I do not want inflated]
-
-Follow this process:
-
-1. DOCUMENT TYPE CHECK
-   - If I wrote "CV" but did not name UK or EU, ask whether this is for a UK/EU work CV or a US resume before drafting.
-   - If I appear to need a US academic CV, say that this prompt is not designed for academic CVs and ask whether I want a US resume or UK/EU work CV instead.
-
-2. INPUT CHECK
-   If the input is too thin to build responsibly, ask up to 8 targeted questions before drafting. Prioritize:
-   - Current role accomplishments and outcomes
-   - Metrics, scope, scale, and business impact
-   - Promotions or title changes
-   - Tool proficiency qualifiers
-   - Target role angle
-   - Remote-readiness evidence
-
-3. ANGLE
-   Identify the strongest positioning for my target roles: specialist, generalist, career changer, first-time manager, technical expert, operator, or another clear angle. Explain the choice in 2-3 sentences.
-
-4. CONTENT RULES
-   - Write accomplishment bullets, not responsibility lists.
-   - Bullet structure: action verb + what I did + result or scope.
-   - Use past tense throughout, including current role.
-   - Preserve qualifiers such as "intermediate," "learning," "scripting only," "~1 year," or "exposure to."
-   - Do not expand broad tools into specific services. If I wrote AWS, do not add S3, EC2, Lambda, or other services unless I named them.
-   - If a metric would help but I did not provide one, write [ASK: what was the result?] rather than inventing a number.
-
-5. OUTPUT FORMAT
-   If US resume:
-   - Name and contact line
-   - Professional Summary, only if it sharpens the angle
-   - Experience
-   - Skills
-   - Education
-
-   If UK/EU work CV:
-   - Name and contact line
-   - Personal Statement, 2-4 sentences
-   - Experience
-   - Education, including degree classification if provided
-   - Skills and spoken languages with CEFR levels if provided
-   - References available on request
-   - Do not include photo, date of birth, marital status, or full home address unless I explicitly ask.
-
-6. QUALITY CHECK
-   After drafting, include:
-   - Strongest 3 bullets and why they work
-   - Weakest 3 bullets and what information would improve them
-   - Every [ASK] gap I need to answer
-   - Every claim that may be over-specific or unsupported
-
-Output the full document and the quality check.
+WHAT I HAVE TODAY:
+[paste an old resume, LinkedIn profile text, rough notes — or write "starting from scratch"]
 ```
 
-## What you'll get
+## After the first response
 
-A source resume or UK/EU work CV grounded in your own evidence, plus a list of missing facts to fill before tailoring for specific applications.
+- Answer round by round — short, honest answers beat polished ones; polishing is the AI's job, remembering is yours.
+- Come back later with **"I remembered a number"** and it folds new facts into the document.
+- When it's done, run the result through [resume-audit](resume-audit.md) for the 30-second test, or take it straight to [resume-tailor](resume-tailor.md) with a real posting.
+- Keep the final markdown somewhere safe: it's the source document every other prompt in this library builds on.
+
+## Built truthful
+
+Nothing enters the document that you didn't say. The trade: it will keep asking until it has real material, because a slower honest draft beats fast fiction that collapses in an interview.
+
+## Go deeper
+
+- The [resume-builder skill](../skills/resume-builder/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves this as a versioned source document and exports real DOCX/PDF files. The thinking is in [resume-philosophy](../guides/resume-philosophy.md).
