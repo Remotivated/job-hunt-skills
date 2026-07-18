@@ -24,22 +24,63 @@ def read(path: Path) -> str:
 class ProviderCompatibilityTests(unittest.TestCase):
     def test_proof_asset_handoff_is_provider_neutral(self) -> None:
         text = read(SKILLS / "proof-asset-creator" / "SKILL.md")
-        self.assertNotIn("works with Claude directly", text)
-        self.assertNotIn("fresh Claude conversation", text)
-        self.assertIn("fresh agent conversation", text)
+        self.assertNotRegex(text, r"(?i)\bClaude\b")
+        self.assertNotIn("normal agent conversation", text)
+        self.assertNotIn("current agent conversation", text)
+        self.assertGreaterEqual(text.count("fresh agent conversation"), 4)
 
     def test_workspace_recovery_covers_codex_and_existing_claude_surfaces(self) -> None:
         state = read(SKILLS / "_shared" / "state-layer.md")
         get_started = read(SKILLS / "get-started" / "SKILL.md")
         scaffold = read(ROOT / "scripts" / "scaffold-state.mjs")
-        for label, text in (
-            ("state-layer", state),
-            ("get-started", get_started),
-            ("scaffold", scaffold),
+        for label, text in (("state-layer", state), ("get-started", get_started)):
+            self.assertRegex(
+                text,
+                r"(?i)\*\*Codex CLI/IDE:\*\*[^\n]*(?:open|cd)[^\n]*folder"
+                r"[^\n]*start Codex",
+                label,
+            )
+            self.assertRegex(
+                text,
+                r"(?i)\*\*Desktop agents with folder controls[^\n]*:\*\*"
+                r"[^\n]*folder/workspace control[^\n]*select a folder"
+                r"[^\n]*start a new conversation",
+                label,
+            )
+            self.assertRegex(
+                text,
+                r"(?i)\*\*Claude Code:\*\*[^\n]*cd[^\n]*chosen folder"
+                r"[^\n]*run `claude`",
+                label,
+            )
+
+        for pattern in (
+            r"Codex CLI/IDE:[^\n]*open or cd[^\n]*job-hunt folder[^\n]*start Codex",
+            r"Desktop agent:[^\n]*select a folder[^\n]*folder/workspace control"
+            r"[^\n]*start again",
+            r"Claude Code:[^\n]*cd[^\n]*job-hunt folder[^\n]*run 'claude'",
         ):
-            self.assertIn("Codex CLI/IDE", text, label)
-            self.assertIn("Claude Code", text, label)
-            self.assertRegex(text, r"(?i)desktop", label)
+            self.assertRegex(scaffold, pattern)
+
+    def test_workspace_recovery_preserves_confirmation_hard_stop(self) -> None:
+        state = read(SKILLS / "_shared" / "state-layer.md")
+        get_started = read(SKILLS / "get-started" / "SKILL.md")
+
+        for phrase in (
+            "Confirm the path with the user before scaffolding.",
+            "wait for explicit acceptance",
+            "surface the message verbatim to the user and stop",
+            "Do not retry",
+        ):
+            self.assertIn(phrase, state)
+
+        for phrase in (
+            "do not scaffold until they have confirmed a real folder",
+            "stop until they come back",
+            "Wait for the user to fix the folder",
+            "surface that message verbatim and go back to 3c",
+        ):
+            self.assertIn(phrase, get_started)
 
 
 class SkillDiscoveryTests(unittest.TestCase):

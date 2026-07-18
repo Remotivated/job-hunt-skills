@@ -76,6 +76,47 @@ describe("Installed-plugin resource resolution", () => {
       rmSync(workspace, { recursive: true, force: true });
     }
   });
+
+  test("scaffolder refuses the plugin root without creating user state", () => {
+    const stateFiles = [
+      join(ROOT, "my-documents/applications.md"),
+      join(ROOT, "my-documents/story-bank.md"),
+    ];
+    for (const file of stateFiles) {
+      assert.equal(existsSync(file), false, `${file} must start absent`);
+    }
+
+    try {
+      const scaffold = spawnSync(
+        process.execPath,
+        [join(ROOT, "scripts/scaffold-state.mjs")],
+        {
+          cwd: ROOT,
+          encoding: "utf8",
+          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
+        },
+      );
+
+      assert.equal(scaffold.status, 2, scaffold.stderr);
+      assert.match(
+        scaffold.stderr,
+        /Codex CLI\/IDE:  open or cd into your job-hunt folder, then start Codex there\./,
+      );
+      assert.match(
+        scaffold.stderr,
+        /Desktop agent:  select a folder you own with the app's folder\/workspace control, then start again\./,
+      );
+      assert.match(
+        scaffold.stderr,
+        /Claude Code:    cd into your job-hunt folder, then run 'claude' there\./,
+      );
+      for (const file of stateFiles) {
+        assert.equal(existsSync(file), false, "refusal must not create state");
+      }
+    } finally {
+      for (const file of stateFiles) rmSync(file, { force: true });
+    }
+  });
 });
 
 describe("Codex plugin manifest", () => {

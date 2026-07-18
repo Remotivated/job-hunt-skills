@@ -14,8 +14,7 @@ const TARGET_ROOT = process.cwd();
 // install dir. Early Cowork testers hit this — files landed in the plugin
 // folder, invisible to the user, and the next session "couldn't find" them.
 if (path.resolve(TARGET_ROOT) === path.resolve(SCRIPT_REPO_ROOT)) {
-  const myDocsExists = fs.existsSync(path.join(TARGET_ROOT, "my-documents"));
-  if (!myDocsExists && !process.env.JOB_HUNT_SKILLS_DEV) {
+  if (!process.env.JOB_HUNT_SKILLS_DEV) {
     console.error(
       `scaffold-state: working directory is the plugin install dir, not a user workspace.\n\n` +
       `Your job-hunt files belong in a folder you chose, not inside the plugin.\n\n` +

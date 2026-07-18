@@ -1,6 +1,6 @@
 ---
 name: proof-asset-creator
-description: Use when the user wants to figure out what proof-of-value asset to build — case study, portfolio piece, personal site content, or any artifact that demonstrates their skills to employers. Ideation and scoping only; once an idea is chosen, the user continues in a normal agent conversation to produce the asset. Triggers on "proof," "portfolio," "show my work," or "what should I build."
+description: Use when the user wants to figure out what proof-of-value asset to build — case study, portfolio piece, personal site content, or any artifact that demonstrates their skills to employers. Ideation and scoping only; once an idea is chosen, the user continues in a fresh agent conversation to produce the asset. Triggers on "proof," "portfolio," "show my work," or "what should I build."
 ---
 
 ## Overview
@@ -9,7 +9,7 @@ Help the user figure out what proof-of-value asset to build, tailored to their t
 
 This skill is an ideation partner, not a producer. The hard part — and the only part this skill does — is matching *what the user already has* against *what their target roles need* against *what they can actually ship*. Once that match is decided and a brief is saved, the skill is done.
 
-Drafting the actual case study, building the demo, or designing the portfolio piece is a job for a normal agent conversation, where it has full context-window flexibility instead of being constrained by a skill workflow. Hand off the brief and continue in the current agent conversation.
+Drafting the actual case study, building the demo, or designing the portfolio piece is a job for a fresh agent conversation, where it has full context-window flexibility instead of being constrained by a skill workflow. Hand off the brief and continue there.
 
 ## Workflow
 
