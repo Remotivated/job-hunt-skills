@@ -60,3 +60,14 @@ describe("Codex marketplace", () => {
     assert.equal(plugin.category, "Productivity");
   });
 });
+
+describe("Codex repository guidance", () => {
+  test("routes skill edits through the canonical state contract and checks", () => {
+    const guidance = readFileSync(join(ROOT, "AGENTS.md"), "utf8");
+    assert.match(guidance, /skills\/_shared\/state-layer\.md/);
+    assert.match(guidance, /npm run test:codex/);
+    assert.match(guidance, /python3 scripts\/test_skill_contracts\.py/);
+    assert.match(guidance, /Do not duplicate/i);
+    assert.match(guidance, /Claude Code and Cowork/i);
+  });
+});
