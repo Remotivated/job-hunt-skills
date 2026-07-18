@@ -43,6 +43,11 @@ jobs:
           curl -fsSL "https://github.com/typst/typst/releases/download/${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" | tar -xJ
           echo "$PWD/typst-x86_64-unknown-linux-musl" >> "$GITHUB_PATH"
 
+      # Contributor-side check scripts only — nothing here runs on a user
+      # machine (markdown-it-py is needed by check-internal-links.py).
+      - name: Install Python dependencies for check scripts
+        run: python -m pip install markdown-it-py
+
       - name: Run content hygiene
         run: python scripts/check-content-hygiene.py
 
