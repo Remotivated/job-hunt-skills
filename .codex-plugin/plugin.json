@@ -1,0 +1,41 @@
+{
+  "name": "job-hunt-skills",
+  "version": "1.1.0",
+  "description": "Tailor resumes, cover letters, and interview prep to specific roles and organize your job search. Covers research, applications, interviews, LinkedIn, and proof assets — saved as local markdown you control.",
+  "author": {
+    "name": "Remotivated",
+    "url": "https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=plugin-manifest"
+  },
+  "homepage": "https://github.com/Remotivated/job-hunt-skills#readme",
+  "repository": "https://github.com/Remotivated/job-hunt-skills",
+  "license": "MIT",
+  "keywords": [
+    "job-search",
+    "resume",
+    "cover-letter",
+    "interview-prep",
+    "interviewing",
+    "claim-check",
+    "company-research",
+    "career"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Job Hunt Skills",
+    "shortDescription": "Truthful, practical AI-assisted job search workflows",
+    "longDescription": "Build and tailor resumes and cover letters, research employers, prepare for interviews, improve LinkedIn, and maintain reusable evidence in local files you control.",
+    "developerName": "Remotivated",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/Remotivated/job-hunt-skills",
+    "defaultPrompt": [
+      "Help me get started with Job Hunt Skills.",
+      "Tailor my resume to this job without inventing any claims.",
+      "Research this company and tell me whether the role is worth pursuing."
+    ],
+    "brandColor": "#08104E"
+  }
+}

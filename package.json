@@ -15,6 +15,7 @@
     "strength": "node scripts/profile-strength.mjs",
     "build:zip": "node scripts/build-cowork-zip.mjs",
     "test:skills": "python scripts/test_skill_contracts.py",
+    "test:codex": "node --test scripts/test-codex-support.mjs",
     "check:hygiene": "python scripts/check-content-hygiene.py",
     "check:links": "python scripts/check-internal-links.py",
     "build:vendor": "esbuild scripts/vendor-entry.mjs --bundle --format=esm --platform=node --legal-comments=none --minify --outfile=scripts/vendor/export-deps.mjs",

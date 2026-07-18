@@ -1,0 +1,20 @@
+{
+  "name": "remotivated",
+  "interface": {
+    "displayName": "Remotivated"
+  },
+  "plugins": [
+    {
+      "name": "job-hunt-skills",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
