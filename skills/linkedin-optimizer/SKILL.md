@@ -88,7 +88,7 @@ All rewritten sections ready to copy-paste, with char counts shown for any field
 
 **Save as a report:** `my-documents/reports/{###}-linkedin-audit-{YYYY-MM-DD}.md`. Frontmatter: `report_id`, `company: null`, `role: null`, `application_id: null`, `skill: linkedin-optimizer`, `date`, `summary` (e.g., `"Headline + About rewritten; top-3 Skills flagged"`). Body: ratings, rewrites, and any `[ASK: ...]` placeholders. **For Headline, About hook, and About full draft: record all variants with their angle labels, then mark which one the user chose** — so a future rerun can revisit unchosen angles without redrafting from scratch.
 
-Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("your public profile now matches the story your resume tells"), then show the **profile-strength line** (`node scripts/profile-strength.mjs`, or derive it natively) so the user sees where their profile stands and the best next step.
+Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("your public profile now matches the story your resume tells"), then show the **profile-strength line** (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively) so the user sees where their profile stands and the best next step.
 
 ## Common Mistakes
 

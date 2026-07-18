@@ -15,7 +15,7 @@ Use `interview-coach` when the user only wants a prep brief. Use `interviewing` 
 
 ### 1. Identify the application
 
-Run `node scripts/scaffold-state.mjs` if state files are missing.
+Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` if state files are missing.
 
 Gather:
 
@@ -115,7 +115,7 @@ If the user reports an offer, rejection, withdrawal, or acceptance, offer to adv
 Then the reward beats from [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
 
 - **What this unlocked** — e.g. "Your interview notes are captured, so follow-up drafting and future prep for this company build on them."
-- **Momentum pulse** — since this run touched the tracker, print the momentum line (`node scripts/profile-strength.mjs --pulse`, or derive it natively). An interviewing count on the board is real progress in a demoralizing process — surface it. If the user advanced a status, reprint the pulse so the move is visible.
+- **Momentum pulse** — since this run touched the tracker, print the momentum line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs" --pulse`, or derive it natively). An interviewing count on the board is real progress in a demoralizing process — surface it. If the user advanced a status, reprint the pulse so the move is visible.
 
 ## Common Mistakes
 

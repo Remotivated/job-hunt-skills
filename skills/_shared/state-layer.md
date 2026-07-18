@@ -29,9 +29,21 @@ my-documents/
 
 `resume.md` and `cv.md` are format variants of the same work-document concept, not separate product lines. Every resume-oriented skill must be able to work with either format. If only one exists, use it. If both exist and the user, role, or region does not make the choice clear, ask which work document to use.
 
+## Bundled resource root
+
+At skill activation, resolve `job_hunt_skills_root` from the active skill file, not from the shell working folder:
+
+1. Start with the absolute path of the active `skills/{skill-name}/SKILL.md`.
+2. Take its parent directory, then resolve `../..`.
+3. The result is `job_hunt_skills_root`; verify it contains the `scripts`, `templates`, and `skills` directories.
+4. Invoke bundled scripts with an absolute path such as `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"`.
+5. Keep the command working folder set to the confirmed user workspace. This is what makes `process.cwd()` and relative `my-documents/` inputs resolve to the user's files rather than the installed plugin.
+
+If the active skill path is unavailable or the resolved root does not contain the expected directories, do not guess an installation path. Use the documented native-file fallback for scaffolding and profile strength. For document export, produce markdown plus the browser preview with native file tools and explain that the bundled exporter could not be located.
+
 ## 2. First-Run Scaffolding
 
-If any of the following are missing when a skill needs them, the skill runs `node scripts/scaffold-state.mjs` once before proceeding. The script is idempotent: safe to call repeatedly and never overwrites existing files.
+If any of the following are missing when a skill needs them, the skill runs `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` once before proceeding. The script is idempotent: safe to call repeatedly and never overwrites existing files.
 
 Scaffolded paths:
 
@@ -258,7 +270,7 @@ Skills that read or write `my-documents/` MUST verify the user is operating in t
    - **Different subfolder under the same location** → adjust the target (e.g. `{cwd}/job-hunt-skills/` instead of `{cwd}/`), offer to create the subfolder, and warn that creating a new folder may require a permission prompt. Re-confirm before scaffolding.
    - **User has no folder yet / doesn't know what to pick** → guide them: in Cowork, the recovery path is Customize → Folders → pick a local folder, then restart the conversation; in Claude Code, exit and re-launch `claude` from the desired folder. Do NOT scaffold a "best guess" location on their behalf.
    - **Path looks like a plugin install or system temp location** → treat as "no folder yet" and instruct as above.
-3. Run `node scripts/scaffold-state.mjs`. The script enforces the same preflight in code: it exits with a non-zero status and a Cowork/Claude-Code-specific message when the working directory looks like the plugin install dir rather than a user workspace.
+3. Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"`. The script enforces the same preflight in code: it exits with a non-zero status and a Cowork/Claude-Code-specific message when the working directory looks like the plugin install dir rather than a user workspace.
 4. If the scaffolder exits non-zero with the workspace-binding message, **surface the message verbatim to the user and stop**. Do not retry, do not silently fall back to in-context writes, and do not generate documents that have nowhere to be saved. The recovery path is user-side: bind a folder in Cowork, or `cd` into a workspace before launching Claude Code.
 5. **Fallback when the Node script cannot run** (Node not installed, no shell access, command not found, non-zero exit for any reason *other* than the workspace-binding refusal): scaffold manually using native file tools. Cowork users are typically not developers; Node is not a safe prerequisite. The structure to create is fixed and small:
    - Directories: `my-documents/`, `my-documents/applications/`, `my-documents/reports/`, `my-documents/proof-assets/`. Each gets an empty `.gitkeep`.
@@ -288,8 +300,8 @@ A job search is long and demoralizing, and the compounding value of the state la
 1. **What you just unlocked** — one sentence naming the concrete new capability this run earned, in terms of what the user can now *do*. Not "saved 3 files"; instead "these 3 stories now back claims in future tailors and feed interview prep." State the next capability, not the file count.
 2. **Strength + next unlock** — the profile-strength line (below). Skip this beat only when the run did not change the state layer (a pure read, e.g. an audit with no save).
 
-**Profile strength.** `node scripts/profile-strength.mjs` prints `Profile strength: N/7 — <single highest-leverage next step>`. The score is a live checklist over the state layer — source work document, audited, story bank (≥3), a proof asset, a tailored application, a verified claim, a source cover letter — computed fresh each call with no stored state. `--json` returns the structured form for skills that render it themselves; `--pulse` returns the tracker momentum line instead. Prefer running the script. When Node is unavailable, derive the same line natively: count the seven signals present under `my-documents/` and name the first missing one as the next unlock, using the priority order the script encodes.
+**Profile strength.** `node "{job_hunt_skills_root}/scripts/profile-strength.mjs"` prints `Profile strength: N/7 — <single highest-leverage next step>`. The score is a live checklist over the state layer — source work document, audited, story bank (≥3), a proof asset, a tailored application, a verified claim, a source cover letter — computed fresh each call with no stored state. `--json` returns the structured form for skills that render it themselves; `--pulse` returns the tracker momentum line instead. Prefer running the script. When Node is unavailable, derive the same line natively: count the seven signals present under `my-documents/` and name the first missing one as the next unlock, using the priority order the script encodes.
 
-**Tracker pulse.** Any skill that writes `applications.md` prints the momentum line (`node scripts/profile-strength.mjs --pulse`, or the native equivalent) after the write: in-flight count, interviewing count, and the nearest kept next action. The tracker is the user's scoreboard; surface it every time it changes. Frame it around progress and the next concrete action, never as pressure.
+**Tracker pulse.** Any skill that writes `applications.md` prints the momentum line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs" --pulse`, or the native equivalent) after the write: in-flight count, interviewing count, and the nearest kept next action. The tracker is the user's scoreboard; surface it every time it changes. Frame it around progress and the next concrete action, never as pressure.
 
 **Vocabulary.** Keep the internal terms out of user-facing prose (`state layer`, `signal`, `score` are fine internally; to the user say "your job-hunt profile", "what this unlocked", "where things stand"). Use the work document's `label` per §6 when naming it.

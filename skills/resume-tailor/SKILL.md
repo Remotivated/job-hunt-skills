@@ -13,7 +13,7 @@ Reshape the user's work document for a specific role. This is not keyword swappi
 
 ### 0. Scaffold and select the source work document
 
-Follow the [Workspace Preflight (state-layer §10)](../_shared/state-layer.md#10-workspace-preflight). Run `node scripts/scaffold-state.mjs` if the state layer is missing; fall back to native file tools per §10 step 5 if Node is unavailable. If the scaffolder exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop — the source document may already exist in the user's real workspace and is invisible only because no folder is bound. Verify the four canonical directories and two markdown files exist before continuing.
+Follow the [Workspace Preflight (state-layer §10)](../_shared/state-layer.md#10-workspace-preflight). Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` if the state layer is missing; fall back to native file tools per §10 step 5 if Node is unavailable. If the scaffolder exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop — the source document may already exist in the user's real workspace and is invisible only because no folder is bound. Verify the four canonical directories and two markdown files exist before continuing.
 
 Select the source work document using [state-layer section 6](../_shared/state-layer.md#6-work-document-frontmatter-and-selection):
 
@@ -191,12 +191,12 @@ If the existing tracker row was read with a missing-column header (state-layer �
 **DOCX/PDF:** after the tailored artifacts, report, and tracker have been persisted, invoke the export script once with both tailored files:
 
 ```bash
-node scripts/export-documents.mjs my-documents/applications/{id}/{document_filename} my-documents/applications/{id}/coverletter.md
+node "{job_hunt_skills_root}/scripts/export-documents.mjs" my-documents/applications/{id}/{document_filename} my-documents/applications/{id}/coverletter.md
 ```
 
 The script writes `.docx`, `.pdf`, and `.html` next to each input. The HTML preview lets the user eyeball formatting in a browser without opening the docx — DOCX and PDF remain canonical for submission. Run the export after tracker state is saved so rendering failure does not block the application record.
 
-Every run produces a PDF; the script's last stdout line reports the tier. On `EXPORT_TIER=2`, mention that installing Typst (one command, ~50MB) upgrades future PDFs to the typeset version. On `EXPORT_TIER=3`, nothing to add. If Node itself is unavailable, fill `templates/preview-template.html` natively (Tier 1) and tell the user markdown + preview are ready — installing Node unlocks the Word file and PDF. Tiers are capability unlocks, never degraded runs.
+Every run produces a PDF; the script's last stdout line reports the tier. On `EXPORT_TIER=2`, mention that installing Typst (one command, ~50MB) upgrades future PDFs to the typeset version. On `EXPORT_TIER=3`, nothing to add. If Node itself is unavailable, fill `{job_hunt_skills_root}/templates/preview-template.html` natively (Tier 1) and tell the user markdown + preview are ready — installing Node unlocks the Word file and PDF. Tiers are capability unlocks, never degraded runs.
 
 Handle failures:
 
@@ -263,7 +263,7 @@ Report:
 Then the closing beats from [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
 
 - **What this unlocked** — one sentence naming what the user can now do, e.g. "This application is on your board and anything we captured strengthens every future tailor." If the capture pass banked a story or proof asset, name that gain specifically.
-- **Momentum pulse** — since this run wrote `applications.md`, print the tracker momentum line (`node scripts/profile-strength.mjs --pulse`, or derive it natively): in-flight count, interviewing count, and the nearest next action. This is the user's scoreboard; frame it around progress and the next concrete step, never as pressure to apply more.
+- **Momentum pulse** — since this run wrote `applications.md`, print the tracker momentum line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs" --pulse`, or derive it natively): in-flight count, interviewing count, and the nearest next action. This is the user's scoreboard; frame it around progress and the next concrete step, never as pressure to apply more.
 
 Then ask:
 

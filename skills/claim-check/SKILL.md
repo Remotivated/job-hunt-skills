@@ -50,7 +50,7 @@ The caller passes the candidate tailored work document and/or cover letter befor
 
 The caller passes the generated content plus the current interview conversation. Treat the conversation transcript and any user-supplied source material (existing resume, LinkedIn export, notes) as highest-trust evidence. Skip source-version comparison because the source work document is not saved yet.
 
-Run `node scripts/scaffold-state.mjs` if state files are missing.
+Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` if state files are missing.
 
 ### 3. Read evidence
 

@@ -469,10 +469,11 @@ describe("tier detection", () => {
 });
 
 describe("CLI end-to-end", () => {
-  function runExport(args, env = {}) {
+  function runExport(args, env = {}, cwd = undefined) {
     return spawnSync(process.execPath, [EXPORT_SCRIPT, ...args], {
       encoding: "utf8",
       env: { ...process.env, ...env },
+      cwd,
     });
   }
 
@@ -481,7 +482,7 @@ describe("CLI end-to-end", () => {
     try {
       const mdPath = join(tmp, "resume.md");
       writeFileSync(mdPath, SAMPLE_RESUME, "utf8");
-      const result = runExport([mdPath]);
+      const result = runExport([mdPath], {}, tmp);
       assert.equal(result.status, 0, result.stderr);
       for (const ext of [".html", ".docx", ".pdf"]) {
         const out = join(tmp, `resume${ext}`);
@@ -505,7 +506,7 @@ describe("CLI end-to-end", () => {
         "# Jane Doe\n\njane@x.com\n\n---\n\n[Date]\n\nDear Hiring Team,\n",
         "utf8",
       );
-      const result = runExport([mdPath]);
+      const result = runExport([mdPath], {}, tmp);
       assert.notEqual(result.status, 0);
       assert.match(result.stderr, /not ready to render/);
       assert.match(result.stderr, /fix the markdown and rerun/);

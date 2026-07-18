@@ -15,7 +15,7 @@ For interview process tracking, post-interview notes, and follow-up drafts, use 
 
 ### 0. Scaffold, tracker check, and source selection
 
-Run `node scripts/scaffold-state.mjs` if the state layer is missing.
+Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` if the state layer is missing.
 
 Read `my-documents/applications.md`. If no row exists for this company + role, warn but do not block:
 
@@ -43,7 +43,7 @@ If a recent `company-research` report exists for this application, read it and r
 
 ### 3. Load the story bank
 
-Read `my-documents/story-bank.md`. If it does not exist, run `node scripts/scaffold-state.mjs`.
+Read `my-documents/story-bank.md`. If it does not exist, run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"`.
 
 Parse stories using the canonical schema in [state-layer section 7](../_shared/state-layer.md#7-story-bank-schema):
 
@@ -114,7 +114,7 @@ summary: One-line prep angle.
 
 The prep artifact is candidate-facing. Keep internal uncertainty, self-grading notes, and unresolved checklists out of it. Resolve uncertainty in conversation or put evidence gaps in the story bank, not in the final prep brief.
 
-Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("you're prepped for this interview, and any stories we banked are now reusable across future rounds"), then show the **profile-strength line** (`node scripts/profile-strength.mjs`, or derive it natively). If new stories were banked, call that gain out specifically.
+Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("you're prepped for this interview, and any stories we banked are now reusable across future rounds"), then show the **profile-strength line** (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively). If new stories were banked, call that gain out specifically.
 
 ## Common Mistakes
 

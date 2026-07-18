@@ -1,5 +1,12 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import {
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, test } from "node:test";
@@ -10,6 +17,66 @@ const ROOT = resolve(SCRIPT_DIR, "..");
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(ROOT, relativePath), "utf8"));
 }
+
+function userFacingSkillFiles() {
+  return [
+    "claim-check",
+    "company-research",
+    "cover-letter",
+    "get-started",
+    "interview-coach",
+    "interviewing",
+    "linkedin-optimizer",
+    "proof-asset-creator",
+    "resume-auditor",
+    "resume-builder",
+    "resume-tailor",
+  ].map((name) => join(ROOT, "skills", name, "SKILL.md"));
+}
+
+describe("Installed-plugin resource resolution", () => {
+  test("skills never assume bundled scripts live in the user workspace", () => {
+    const files = [
+      ...userFacingSkillFiles(),
+      join(ROOT, "skills/_shared/state-layer.md"),
+    ];
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      assert.doesNotMatch(text, /node scripts\//, file);
+    }
+
+    const state = readFileSync(
+      join(ROOT, "skills/_shared/state-layer.md"),
+      "utf8",
+    );
+    assert.match(state, /job_hunt_skills_root/);
+    assert.match(state, /confirmed user workspace/);
+  });
+
+  test("bundled state scripts operate on a separate user workspace", () => {
+    const workspace = mkdtempSync(join(tmpdir(), "job-hunt-codex-"));
+    try {
+      const scaffold = spawnSync(
+        process.execPath,
+        [join(ROOT, "scripts/scaffold-state.mjs")],
+        { cwd: workspace, encoding: "utf8" },
+      );
+      assert.equal(scaffold.status, 0, scaffold.stderr);
+      assert.ok(existsSync(join(workspace, "my-documents/applications.md")));
+      assert.ok(existsSync(join(workspace, "my-documents/story-bank.md")));
+
+      const strength = spawnSync(
+        process.execPath,
+        [join(ROOT, "scripts/profile-strength.mjs")],
+        { cwd: workspace, encoding: "utf8" },
+      );
+      assert.equal(strength.status, 0, strength.stderr);
+      assert.match(strength.stdout, /^Profile strength: 0\/7/);
+    } finally {
+      rmSync(workspace, { recursive: true, force: true });
+    }
+  });
+});
 
 describe("Codex plugin manifest", () => {
   test("declares the existing skills directory without unsupported components", () => {

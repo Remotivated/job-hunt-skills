@@ -30,7 +30,7 @@ Format-specific conventions:
 Follow the [Workspace Preflight (state-layer §10)](../_shared/state-layer.md#10-workspace-preflight).
 
 - **If `my-documents/` does not yet exist** at the resolved path, hand off to `get-started` for the workspace confirmation flow. Do not run the scaffolder yourself — the user needs the novice-friendly "where will my files live" conversation before any file is written.
-- **If `my-documents/` already exists**, run `node scripts/scaffold-state.mjs` to fill in any missing pieces. If it exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop. If it fails for any other reason (Node missing, no shell access), fall back to creating any missing structure with native file tools per state-layer §10 step 5.
+- **If `my-documents/` already exists**, run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` to fill in any missing pieces. If it exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop. If it fails for any other reason (Node missing, no shell access), fall back to creating any missing structure with native file tools per state-layer §10 step 5.
 - **Verify before writing.** Regardless of which path was taken, confirm the four canonical directories and two markdown files exist under `my-documents/` before producing a resume. A skill that generates a resume into an unscaffolded workspace is the failure mode that left an early tester's document floating in chat.
 
 On first scaffold per session, mention the path once: "Your files will live under `{absolute path}`."
@@ -85,9 +85,9 @@ Probe for outcomes, not responsibilities.
 
 Produce markdown for the requested documents. Do not save yet; claim verification runs first.
 
-**Resume format:** follow `templates/resume-template.md`. Use achievement bullets: action + work + outcome. Use past tense throughout, including current role. Include remote-readiness evidence where relevant. Target path: `my-documents/resume.md`.
+**Resume format:** follow `{job_hunt_skills_root}/templates/resume-template.md`. Use achievement bullets: action + work + outcome. Use past tense throughout, including current role. Include remote-readiness evidence where relevant. Target path: `my-documents/resume.md`.
 
-**CV format:** follow `templates/resume-eu-template.md`. Lead with a Personal Statement rather than a US-style Professional Summary. Preserve useful academic-to-industry evidence such as selected publications or talks only when it strengthens the target role. Skip photo, DOB, full address, and marital status unless the user explicitly needs a locale where they are expected. Target path: `my-documents/cv.md`.
+**CV format:** follow `{job_hunt_skills_root}/templates/resume-eu-template.md`. Lead with a Personal Statement rather than a US-style Professional Summary. Preserve useful academic-to-industry evidence such as selected publications or talks only when it strengthens the target role. Skip photo, DOB, full address, and marital status unless the user explicitly needs a locale where they are expected. Target path: `my-documents/cv.md`.
 
 **Cover letter:** generate `my-documents/coverletter.md` only when there is enough specificity to write something the user would actually send. Minimum bar: one exact role or tight lane, one concrete employer or company type/stage, one clear problem, and two proof points. If the answers are vague, say so and skip the letter.
 
@@ -160,13 +160,13 @@ On first build, set `version: 1`. On update, increment only the file changed and
 After writing markdown, invoke the export script once with all files written:
 
 ```bash
-node scripts/export-documents.mjs my-documents/resume.md my-documents/coverletter.md
+node "{job_hunt_skills_root}/scripts/export-documents.mjs" my-documents/resume.md my-documents/coverletter.md
 ```
 
 or:
 
 ```bash
-node scripts/export-documents.mjs my-documents/cv.md my-documents/coverletter.md
+node "{job_hunt_skills_root}/scripts/export-documents.mjs" my-documents/cv.md my-documents/coverletter.md
 ```
 
 In single-document modes, pass only the file written. The script writes `.docx`, `.pdf`, and `.html` next to each input. The `.html` is a browser-openable preview that mirrors the page geometry; DOCX and PDF remain canonical for submission. Every run produces a PDF — its last stdout line reports which renderer produced it:
@@ -174,7 +174,7 @@ In single-document modes, pass only the file written. The script writes `.docx`,
 - `EXPORT_TIER=3` — the PDF was typeset with Typst. Nothing to add.
 - `EXPORT_TIER=2` — the PDF came from the built-in renderer. Mention that this is the standard render, and that installing Typst (one command, ~50MB: `brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) upgrades future PDFs to the typeset version.
 
-If Node itself is unavailable, fall back to Tier 1: fill `templates/preview-template.html` (`{{name}}`/`{{contact}}`/`{{body}}` slots) with native file tools and tell the user their markdown and browser-openable preview are ready — installing Node unlocks the Word file and PDF. Report tiers as what the user has, plus the one command that unlocks the next tier — never as a degraded run.
+If Node itself is unavailable, fall back to Tier 1: fill `{job_hunt_skills_root}/templates/preview-template.html` (`{{name}}`/`{{contact}}`/`{{body}}` slots) with native file tools and tell the user their markdown and browser-openable preview are ready — installing Node unlocks the Word file and PDF. Report tiers as what the user has, plus the one command that unlocks the next tier — never as a degraded run.
 
 Handle failures:
 
@@ -186,7 +186,7 @@ Handle failures:
 After the files are saved and exported, end with the two closing beats from [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
 
 - **What this unlocked** — name the new capability in plain terms, e.g. "Your {label} now lives here as a source document, so tailoring to a role, honest audits, and interview prep all draw from it — and any stories we banked will back up claims automatically." Not a file count; a capability.
-- **Where things stand** — show the profile-strength line (`node scripts/profile-strength.mjs`, or derive it natively when Node is unavailable) so the user sees their progress and the single highest-leverage next step. Frame it as momentum, not a to-do list.
+- **Where things stand** — show the profile-strength line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively when Node is unavailable) so the user sees their progress and the single highest-leverage next step. Frame it as momentum, not a to-do list.
 
 ### 9. Modes
 
