@@ -90,7 +90,7 @@ Resolve the absolute path where files would land and ask plainly:
 
 - **"I haven't picked a folder" / "I don't know what this is" / "That path looks wrong"** → see 3c. Do **not** scaffold a guess.
 
-- **The resolved path looks like the plugin install location** (no `my-documents/` exists there and the path matches the plugin directory) → treat as "haven't picked a folder" and go to 3c.
+- **The resolved path looks like the plugin install location** → treat as "haven't picked a folder" and go to 3c.
 
 **3c. Help a novice set up a folder.**
 

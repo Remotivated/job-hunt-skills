@@ -82,6 +82,18 @@ class ProviderCompatibilityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, get_started)
 
+    def test_get_started_always_recovers_from_plugin_root(self) -> None:
+        get_started = read(SKILLS / "get-started" / "SKILL.md")
+        self.assertIn(
+            '**The resolved path looks like the plugin install location** → treat as '
+            '"haven\'t picked a folder" and go to 3c.',
+            get_started,
+        )
+        self.assertNotIn(
+            "no `my-documents/` exists there and the path matches the plugin directory",
+            get_started,
+        )
+
 
 class SkillDiscoveryTests(unittest.TestCase):
     def test_required_user_facing_skills_exist(self) -> None:
