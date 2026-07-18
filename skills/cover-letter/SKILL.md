@@ -97,17 +97,19 @@ For specific applications, upsert `applications.md` with `status: saved` if no r
 
 ### 6. Render
 
-Run DOCX/PDF generation for the saved cover letter. The script also writes a `.html` preview the user can open in any browser to eyeball formatting:
+Run the export script for the saved cover letter. It writes `.docx`, `.pdf`, and a `.html` preview the user can open in any browser to eyeball formatting:
 
 ```bash
-python scripts/generate-docx.py my-documents/applications/{id}/coverletter.md
+node scripts/export-documents.mjs my-documents/applications/{id}/coverletter.md
 ```
 
 or:
 
 ```bash
-python scripts/generate-docx.py my-documents/coverletter.md
+node scripts/export-documents.mjs my-documents/coverletter.md
 ```
+
+Every run produces a PDF; the script's last stdout line reports the tier. On `EXPORT_TIER=2`, mention that installing Typst (one command, ~50MB) upgrades future PDFs to the typeset version. If Node itself is unavailable, fill `templates/preview-template.html` natively (Tier 1) and tell the user markdown + preview are ready — installing Node unlocks the Word file and PDF. Tiers are capability unlocks, never degraded runs.
 
 Handle content validation failures internally when possible. Report infrastructure/rendering failures with the exact rerun command.
 

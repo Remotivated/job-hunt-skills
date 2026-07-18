@@ -147,28 +147,31 @@ On first build, set `version: 1`. On update, increment only the file changed and
 
 **Captured artifacts from step 6.5** (if any) are written in this step alongside the source work document — story-bank entries appended to `story-bank.md`, proof-assets created at `my-documents/proof-assets/{slug}.md`. Captures do not affect the source work document's `version`.
 
-### 8. Generate DOCX, PDF, and HTML preview
+### 8. Export DOCX, PDF, and HTML preview
 
-After writing markdown, invoke the generation script once with all files written:
+After writing markdown, invoke the export script once with all files written:
 
 ```bash
-python scripts/generate-docx.py my-documents/resume.md my-documents/coverletter.md
+node scripts/export-documents.mjs my-documents/resume.md my-documents/coverletter.md
 ```
 
 or:
 
 ```bash
-python scripts/generate-docx.py my-documents/cv.md my-documents/coverletter.md
+node scripts/export-documents.mjs my-documents/cv.md my-documents/coverletter.md
 ```
 
-In single-document modes, pass only the file written. The script writes `.docx` and `.html` next to each input, and adds `.pdf` when LibreOffice is available. The `.html` is a browser-openable preview that mirrors the page geometry — useful for eyeballing formatting without Word/LibreOffice. Docx and PDF remain canonical for submission.
+In single-document modes, pass only the file written. The script writes `.docx`, `.pdf`, and `.html` next to each input. The `.html` is a browser-openable preview that mirrors the page geometry; DOCX and PDF remain canonical for submission. Every run produces a PDF — its last stdout line reports which renderer produced it:
+
+- `EXPORT_TIER=3` — the PDF was typeset with Typst. Nothing to add.
+- `EXPORT_TIER=2` — the PDF came from the built-in renderer. Mention that this is the standard render, and that installing Typst (one command, ~50MB: `brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) upgrades future PDFs to the typeset version.
+
+If Node itself is unavailable, fall back to Tier 1: fill `templates/preview-template.html` (`{{name}}`/`{{contact}}`/`{{body}}` slots) with native file tools and tell the user their markdown and browser-openable preview are ready — installing Node unlocks the Word file and PDF. Report tiers as what the user has, plus the one command that unlocks the next tier — never as a degraded run.
 
 Handle failures:
 
 - **Content validation failure:** fix unresolved placeholders, template comments, `[ASK:]`, `[VERIFY:]`, or `year TBD` internally and rerun. Ask the user only when a missing fact is required.
 - **Infrastructure/rendering failure:** report the file, error, and exact rerun command.
-
-If LibreOffice is missing but `.docx` files are written, treat that as success with skipped PDF conversion.
 
 ### 9. Modes
 

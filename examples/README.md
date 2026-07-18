@@ -1,6 +1,6 @@
 # Sample Outputs
 
-Curated sample resumes and CVs rendered through the same pipeline real users get (`scripts/generate-docx.py`). The candidates are synthetic — not real people.
+Curated sample resumes and CVs rendered through the same pipeline real users get (`scripts/export-documents.mjs`). The candidates are synthetic — not real people.
 
 Each example has the source markdown plus the generated `.docx`, `.pdf`, `.html` preview, and a PNG of the first PDF page (in [`screenshots/`](screenshots/)) used in the project README.
 
@@ -13,6 +13,8 @@ Each example has the source markdown plus the generated `.docx`, `.pdf`, `.html`
 ## Regenerating
 
 ```bash
-python scripts/generate-docx.py examples/*/resume.md
+node scripts/export-documents.mjs examples/*/resume.md
 python scripts/render-pdf-preview.py examples/*/resume.pdf
 ```
+
+The checked-in PDFs are the Typst-typeset renders (Tier 3), so regenerate with `typst` on PATH.

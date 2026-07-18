@@ -17,7 +17,7 @@ The committed end-state lives one level up at [`examples/avery-castillo/my-docum
 - No tailored resume / coverletter — `resume-tailor` and `cover-letter` produce these.
 - No company-research report — `company-research` produces it (Beat 3).
 - No interview-prep brief — `interview-coach` produces it (Beat 7).
-- No DOCX / PDF — `scripts/generate-docx.py` produces them (Beat 8).
+- No DOCX / PDF — `scripts/export-documents.mjs` produces them (Beat 8).
 
 **How to use:**
 

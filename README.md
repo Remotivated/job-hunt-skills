@@ -211,14 +211,19 @@ Source markdown and rendered PDFs for each example live in [examples/](examples/
 
 ## Real Submission-Ready Files
 
-Most AI job-search tools stop at copy-paste output. This one produces real files you can attach. The skills save markdown first, then `scripts/generate-docx.py` renders resumes, CVs, and cover letters to `.docx` and writes a `.html` preview next to each input; it also creates PDFs when LibreOffice is installed.
+Most AI job-search tools stop at copy-paste output. This one produces real files you can attach. The skills save markdown first, then `scripts/export-documents.mjs` renders resumes, CVs, and cover letters to `.docx`, `.pdf`, and a `.html` preview next to each input. All JavaScript dependencies ship bundled in the repo — Node is the only requirement, with no `npm install` step.
 
 ```bash
-pip install python-docx markdown-it-py
-python scripts/generate-docx.py my-documents/resume.md my-documents/coverletter.md
+node scripts/export-documents.mjs my-documents/resume.md my-documents/coverletter.md
 ```
 
-LibreOffice is optional. If it is missing, the script still writes valid `.docx` and `.html` files. The HTML mirrors page geometry, so you can open it in any browser to eyeball formatting without Word or LibreOffice. DOCX and PDF remain canonical for submission.
+Output scales with what's installed, and each step up is an unlock:
+
+- **Nothing installed** — the markdown is submission-ready, and the skills can still write the `.html` preview from `templates/preview-template.html`. The HTML mirrors page geometry, so you can open it in any browser to eyeball formatting.
+- **Node** — adds the `.docx` and a `.pdf` from the built-in renderer, fonts embedded.
+- **Node + [Typst](https://typst.app)** (`brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) — the `.pdf` is typeset by Typst from a vendored template instead. One PDF per document, always.
+
+PDFs embed the vendored [Gelasio](https://fonts.google.com/specimen/Gelasio) fonts (SIL OFL, metric-compatible with Georgia), so the same bytes render identically everywhere; DOCX and HTML use Georgia. DOCX and PDF remain canonical for submission.
 
 ## Repository Map
 

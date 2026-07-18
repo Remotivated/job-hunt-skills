@@ -24,17 +24,17 @@ Synthetic example used in the Job Hunt Skills launch walkthrough video. Files in
 | `my-documents/applications/polaris-data-senior-se/resume.md` | Tailored resume — links back to source by `source_version`. |
 | `my-documents/applications/polaris-data-senior-se/coverletter.md` | Tailored cover letter. |
 | `my-documents/applications/polaris-data-senior-se/interview-prep.md` | Behavioral + technical prep brief mapped to the story-bank. |
-| `my-documents/applications/polaris-data-senior-se/resume.docx` / `.html` | DOCX output + HTML preview from `scripts/generate-docx.py`. |
-| `my-documents/applications/polaris-data-senior-se/coverletter.docx` / `.html` | Same, for the cover letter. |
+| `my-documents/applications/polaris-data-senior-se/resume.docx` / `.pdf` / `.html` | DOCX + PDF output and HTML preview from `scripts/export-documents.mjs`. |
+| `my-documents/applications/polaris-data-senior-se/coverletter.docx` / `.pdf` / `.html` | Same, for the cover letter. |
 
 ## Regenerating the DOCX/PDF
 
-The committed `.docx` and `.html` files come from:
+The committed `.docx`, `.pdf`, and `.html` files come from:
 
 ```bash
-python scripts/generate-docx.py \
+node scripts/export-documents.mjs \
   examples/avery-castillo/my-documents/applications/polaris-data-senior-se/resume.md \
   examples/avery-castillo/my-documents/applications/polaris-data-senior-se/coverletter.md
 ```
 
-PDF output requires LibreOffice on PATH. On Windows: `winget install TheDocumentFoundation.LibreOffice`. With LibreOffice installed, the same command also writes `resume.pdf` / `coverletter.pdf` alongside the DOCX.
+Every run writes all three files. The checked-in PDFs are the Typst-typeset renders (Tier 3) — install [Typst](https://typst.app) (`brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) before regenerating so the output matches; without it the script produces the built-in renderer's PDF instead.

@@ -162,20 +162,20 @@ When inserting a new row, also populate:
 
 If the existing tracker row was read with a missing-column header (state-layer §3 rule 6), emit the full canonical schema on write per rule 7.
 
-**DOCX/PDF:** after the tailored artifacts, report, and tracker have been persisted, invoke the generation script once with both tailored files:
+**DOCX/PDF:** after the tailored artifacts, report, and tracker have been persisted, invoke the export script once with both tailored files:
 
 ```bash
-python scripts/generate-docx.py my-documents/applications/{id}/{document_filename} my-documents/applications/{id}/coverletter.md
+node scripts/export-documents.mjs my-documents/applications/{id}/{document_filename} my-documents/applications/{id}/coverletter.md
 ```
 
-The script writes `.docx` and `.html` next to each input, plus `.pdf` when LibreOffice is available. The HTML preview lets the user eyeball formatting in a browser without opening the docx — docx and PDF remain canonical for submission. Run generation after tracker state is saved so rendering failure does not block the application record.
+The script writes `.docx`, `.pdf`, and `.html` next to each input. The HTML preview lets the user eyeball formatting in a browser without opening the docx — DOCX and PDF remain canonical for submission. Run the export after tracker state is saved so rendering failure does not block the application record.
+
+Every run produces a PDF; the script's last stdout line reports the tier. On `EXPORT_TIER=2`, mention that installing Typst (one command, ~50MB) upgrades future PDFs to the typeset version. On `EXPORT_TIER=3`, nothing to add. If Node itself is unavailable, fill `templates/preview-template.html` natively (Tier 1) and tell the user markdown + preview are ready — installing Node unlocks the Word file and PDF. Tiers are capability unlocks, never degraded runs.
 
 Handle failures:
 
 - **Content validation failure:** fix unresolved placeholders, comments, `[ASK:]`, `[VERIFY:]`, or `year TBD` internally and rerun. Ask the user only when the blocker requires a missing fact.
 - **Infrastructure/rendering failure:** report the failed file and exact rerun command.
-
-If LibreOffice is missing but `.docx` files are written, treat the run as successful and report only that PDF conversion was skipped.
 
 ### 8.5. Capture pass
 

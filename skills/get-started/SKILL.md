@@ -22,7 +22,8 @@ Convey:
 - Later, the same material can support company research, tailored applications, honest feedback, and interview prep.
 
 Vocabulary:
-- Avoid internal terms in user-facing text: canonical, state layer, drift check, scaffolding, DOCX, PATH, LibreOffice.
+- Avoid internal terms in user-facing text: canonical, state layer, drift check, scaffolding, DOCX, PATH, Typst, tier.
+- When describing outputs, say "Word file", "PDF", and "a preview you can open in your browser". Frame extra output capability as an unlock ("installing Node gets you the Word file and PDF automatically"), never as something missing or degraded.
 
 End the orientation with a plain-language scope question:
 
@@ -92,7 +93,7 @@ On success, briefly recap: "Your files will live under `{absolute path}`, and I'
 
 ### 3. Build the source documents
 
-Invoke `resume-builder` and run its workflow end-to-end: gather existing materials, run the structured interview, generate outputs with claim checks, save, and generate Word/PDF files where possible.
+Invoke `resume-builder` and run its workflow end-to-end: gather existing materials, run the structured interview, generate outputs with claim checks, save, and export the Word file, PDF, and browser preview.
 
 If the user signaled scope, pass it through so `resume-builder` can route to the right mode.
 

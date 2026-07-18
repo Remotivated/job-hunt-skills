@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Markdown -> HTML preview + DOCX + PDF exporter for resumes, CVs, and
-// cover letters. Replaces the former Python/LibreOffice pipeline.
+// cover letters. Replaces the former Python-based pipeline.
 //
 // Tier model (capability unlocks, not failure states):
 //   Tier 1 — markdown + HTML preview (no dependencies; when Node is absent
@@ -422,7 +422,7 @@ export function buildHtml(name, contact, bodyMd, kind) {
 }
 
 // --------------------------------------------------------------------------
-// DOCX — `docx` npm lib. Ports the python-docx emitters: four-slot font
+// DOCX — `docx` npm lib. Ports the former Python emitters: four-slot font
 // setting, navy h2 with 0.5pt bottom border + tracking + uppercase,
 // h3/company-line/bullet/cover spacing, real external hyperlinks,
 // keep-with-next.

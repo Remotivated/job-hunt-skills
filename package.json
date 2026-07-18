@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "AI-assisted job search skills, prompts, guides, and ATS-safe DOCX/PDF export",
+  "description": "AI-assisted job search skills, prompts, guides, and ATS-safe DOCX/PDF export (Node + Typst)",
   "homepage": "https://github.com/Remotivated/job-hunt-skills#readme",
   "repository": {
     "type": "git",
@@ -13,8 +13,6 @@
   "scripts": {
     "scaffold": "node scripts/scaffold-state.mjs",
     "build:zip": "node scripts/build-cowork-zip.mjs",
-    "docx": "python scripts/generate-docx.py",
-    "test:docx": "python scripts/test_generate_docx.py",
     "test:skills": "python scripts/test_skill_contracts.py",
     "check:hygiene": "python scripts/check-content-hygiene.py",
     "check:links": "python scripts/check-internal-links.py",
