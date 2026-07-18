@@ -5,7 +5,7 @@
 # Job Hunt Skills
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Built by Remotivated](https://img.shields.io/badge/Built%20by-Remotivated-08104E?logoColor=white)](https://remotivated.com)
+[![Built by Remotivated](https://img.shields.io/badge/Built%20by-Remotivated-08104E?logoColor=white)](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=badge)
 [![Follow on LinkedIn](https://img.shields.io/badge/Follow%20on%20LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jimatremotivated/)
 
 Practical AI-assisted skills, prompts, guides, and templates to give you an edge in your job search. Open source and free — designed to work with the AI subscription you already pay for.

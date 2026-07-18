@@ -48,7 +48,7 @@ Use web browsing when available: job posting, careers page, about page, product 
 
 ### 4. Optional Remotivated check
 
-If the company has a [Remotivated](https://remotivated.com) profile, reference its work-model classification as one external source.
+If the company has a [Remotivated](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=skill) profile, reference its work-model classification as one external source.
 
 ### 5. Recommend
 
