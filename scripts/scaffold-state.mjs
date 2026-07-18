@@ -18,9 +18,10 @@ if (path.resolve(TARGET_ROOT) === path.resolve(SCRIPT_REPO_ROOT)) {
   if (!myDocsExists && !process.env.JOB_HUNT_SKILLS_DEV) {
     console.error(
       `scaffold-state: working directory is the plugin install dir, not a user workspace.\n\n` +
-      `Your job-hunt files belong in your own folder, not inside the plugin.\n\n` +
-      `  Cowork:       Customize → Folders → pick a local folder, then ask Claude to start over.\n` +
-      `  Claude Code:  cd into your workspace folder, then run 'claude' there.\n\n` +
+      `Your job-hunt files belong in a folder you chose, not inside the plugin.\n\n` +
+      `  Codex CLI/IDE:  open or cd into your job-hunt folder, then start Codex there.\n` +
+      `  Desktop agent:  select a folder you own with the app's folder/workspace control, then start again.\n` +
+      `  Claude Code:    cd into your job-hunt folder, then run 'claude' there.\n\n` +
       `Set JOB_HUNT_SKILLS_DEV=1 only if you are intentionally developing the plugin itself.`
     );
     process.exit(2);

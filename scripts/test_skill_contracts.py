@@ -21,6 +21,27 @@ def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+class ProviderCompatibilityTests(unittest.TestCase):
+    def test_proof_asset_handoff_is_provider_neutral(self) -> None:
+        text = read(SKILLS / "proof-asset-creator" / "SKILL.md")
+        self.assertNotIn("works with Claude directly", text)
+        self.assertNotIn("fresh Claude conversation", text)
+        self.assertIn("fresh agent conversation", text)
+
+    def test_workspace_recovery_covers_codex_and_existing_claude_surfaces(self) -> None:
+        state = read(SKILLS / "_shared" / "state-layer.md")
+        get_started = read(SKILLS / "get-started" / "SKILL.md")
+        scaffold = read(ROOT / "scripts" / "scaffold-state.mjs")
+        for label, text in (
+            ("state-layer", state),
+            ("get-started", get_started),
+            ("scaffold", scaffold),
+        ):
+            self.assertIn("Codex CLI/IDE", text, label)
+            self.assertIn("Claude Code", text, label)
+            self.assertRegex(text, r"(?i)desktop", label)
+
+
 class SkillDiscoveryTests(unittest.TestCase):
     def test_required_user_facing_skills_exist(self) -> None:
         expected = {

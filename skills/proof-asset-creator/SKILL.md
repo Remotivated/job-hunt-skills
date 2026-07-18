@@ -1,6 +1,6 @@
 ---
 name: proof-asset-creator
-description: Use when the user wants to figure out what proof-of-value asset to build — case study, portfolio piece, personal site content, or any artifact that demonstrates their skills to employers. Ideation and scoping only; once an idea is chosen, the user works with Claude directly to produce the asset. Triggers on "proof," "portfolio," "show my work," or "what should I build."
+description: Use when the user wants to figure out what proof-of-value asset to build — case study, portfolio piece, personal site content, or any artifact that demonstrates their skills to employers. Ideation and scoping only; once an idea is chosen, the user continues in a normal agent conversation to produce the asset. Triggers on "proof," "portfolio," "show my work," or "what should I build."
 ---
 
 ## Overview
@@ -9,7 +9,7 @@ Help the user figure out what proof-of-value asset to build, tailored to their t
 
 This skill is an ideation partner, not a producer. The hard part — and the only part this skill does — is matching *what the user already has* against *what their target roles need* against *what they can actually ship*. Once that match is decided and a brief is saved, the skill is done.
 
-Drafting the actual case study, building the demo, or designing the portfolio piece is a job for Claude in a normal conversation, where it has full context-window flexibility instead of being constrained by a skill workflow. Hand off the brief and continue there.
+Drafting the actual case study, building the demo, or designing the portfolio piece is a job for a normal agent conversation, where it has full context-window flexibility instead of being constrained by a skill workflow. Hand off the brief and continue in the current agent conversation.
 
 ## Workflow
 
@@ -76,7 +76,7 @@ Help the user choose based on effort vs. leverage vs. which gap it closes. If th
 **Next step:** the single next action.
 ```
 
-**Hand off, don't draft.** The skill ends with the brief saved. To actually write the case study, build the demo, or design the portfolio piece, the user takes the brief to a fresh Claude conversation — drafting is better done natively than inside a skill workflow. The brief file persists in `proof-assets/`; the user can iterate it in place as the asset takes shape.
+**Hand off, don't draft.** The skill ends with the brief saved. To actually write the case study, build the demo, or design the portfolio piece, the user takes the brief to a fresh agent conversation — drafting is better done natively than inside a skill workflow. The brief file persists in `proof-assets/`; the user can iterate it in place as the asset takes shape.
 
 ### 6. Confidentiality
 
@@ -99,7 +99,7 @@ Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-pro
 - **Fabricating outcomes.** Proof assets are public and stay indexed. Every metric, scope claim, and outcome traces to a primary source or gets `[ASK: ...]`. Never guess.
 - **Ending without a file.** A session that ends with "great ideas, I'll think about it" is a failed run. Save the brief, even if the artifact itself will be built later.
 - **Ignoring existing proof-assets.** If the user already has a case study on X, don't suggest another one on X. Find the gap.
-- **Drafting the asset inside the skill.** This skill produces a brief, not finished prose or built artifacts. If the user asks "now write the case study," save the brief and tell them to start a fresh Claude conversation — context-window and tool flexibility there beats anything we can cram into a skill workflow.
+- **Drafting the asset inside the skill.** This skill produces a brief, not finished prose or built artifacts. If the user asks "now write the case study," save the brief and tell them to start a fresh agent conversation — context-window and tool flexibility there beats anything we can cram into a skill workflow.
 
 ## Reference
 

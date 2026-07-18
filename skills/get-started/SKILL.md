@@ -96,9 +96,9 @@ Resolve the absolute path where files would land and ask plainly:
 
 If the user doesn't have a folder yet, give them the platform-specific recovery and stop until they come back:
 
-- **Cowork:** "Cowork doesn't know which folder of yours to use yet. Open Cowork's settings, find **Customize → Folders**, and pick a folder where your job-hunt files should live — your Documents folder is a fine choice. Then come back to this conversation and tell me to start over."
-
-- **Claude Code:** "Exit Claude Code (Ctrl+D or `/exit`), open a terminal, navigate into the folder where you want your files (e.g. `cd ~/Documents/job-hunt-skills` — create that folder first if it doesn't exist), then run `claude` again from there."
+- **Codex CLI/IDE:** close the current run if necessary, open a terminal or IDE workspace at the folder the user wants, and start Codex from that folder. Example: create `~/Documents/job-hunt`, `cd` into it, then run `codex`; in an IDE, open that folder as the workspace before starting the skill again.
+- **Desktop agents with folder controls (Codex in the ChatGPT desktop app, Work mode, or Cowork):** use the app's folder/workspace control to select a folder the user owns, then start a new conversation with that folder available. Use the current product label shown in the app; do not invent a settings-menu path that was not verified.
+- **Claude Code:** exit Claude Code, `cd` into the chosen folder, then run `claude` again.
 
 Do not try to "just save it somewhere reasonable" — that is the bug. Wait for the user to fix the folder, then restart cleanly.
 
