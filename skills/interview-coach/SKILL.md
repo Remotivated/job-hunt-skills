@@ -114,6 +114,8 @@ summary: One-line prep angle.
 
 The prep artifact is candidate-facing. Keep internal uncertainty, self-grading notes, and unresolved checklists out of it. Resolve uncertainty in conversation or put evidence gaps in the story bank, not in the final prep brief.
 
+Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("you're prepped for this interview, and any stories we banked are now reusable across future rounds"), then show the **profile-strength line** (`node scripts/profile-strength.mjs`, or derive it natively). If new stories were banked, call that gain out specifically.
+
 ## Common Mistakes
 
 - **Generic questions.** "Tell me about yourself" is obvious; generate questions specific to this role.

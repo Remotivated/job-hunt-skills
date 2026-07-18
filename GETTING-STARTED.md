@@ -4,6 +4,8 @@ Install Job Hunt Skills first — see the **Use The Skills** section of [README.
 
 Start small. Build one accurate source work document in resume or CV format, research one real company, tailor one application, and prepare for one interview.
 
+**In a hurry?** If you already have a resume and a job posting, the fastest way to see what this does is to paste both and ask `Help me get started.` — you'll get a tailored draft and an honest audit back in a few minutes, entirely in chat, before setting anything up. Saving your files and building the full source document is the next step, not a prerequisite.
+
 ## The Core Sequence
 
 1. **Build your source document** with `get-started` or `resume-builder`.

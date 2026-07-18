@@ -276,3 +276,20 @@ Skills that read or write `my-documents/` MUST verify the user is operating in t
 - `my-documents/` exists with other files but the source work document is missing → offer `resume-builder` or `get-started`.
 
 Conflating these two cases caused testers to rebuild from scratch when their actual file was sitting in the plugin dir from a prior unbound run.
+
+## 11. Progress and Reward
+
+A job search is long and demoralizing, and the compounding value of the state layer is invisible if nothing surfaces it. Every skill closes by showing the user the ground they just gained. This is not decoration — it is the retention mechanic. The rules below keep it consistent and keep it honest.
+
+**Reward depth and follow-through, never volume.** This product sells a *truthful* search. Progress signals celebrate evidence depth (stories banked, claims verified, proof assets) and momentum (applications advancing, next actions kept). Never invent urgency, never reward raw application count, never nudge toward spray-and-pray. A user who sends three well-evidenced applications is further ahead than one who sends thirty generic ones, and the framing must say so.
+
+**Two closing beats.** Skills that touch `my-documents/` end their run with, in this order:
+
+1. **What you just unlocked** — one sentence naming the concrete new capability this run earned, in terms of what the user can now *do*. Not "saved 3 files"; instead "these 3 stories now back claims in future tailors and feed interview prep." State the next capability, not the file count.
+2. **Strength + next unlock** — the profile-strength line (below). Skip this beat only when the run did not change the state layer (a pure read, e.g. an audit with no save).
+
+**Profile strength.** `node scripts/profile-strength.mjs` prints `Profile strength: N/7 — <single highest-leverage next step>`. The score is a live checklist over the state layer — source work document, audited, story bank (≥3), a proof asset, a tailored application, a verified claim, a source cover letter — computed fresh each call with no stored state. `--json` returns the structured form for skills that render it themselves; `--pulse` returns the tracker momentum line instead. Prefer running the script. When Node is unavailable, derive the same line natively: count the seven signals present under `my-documents/` and name the first missing one as the next unlock, using the priority order the script encodes.
+
+**Tracker pulse.** Any skill that writes `applications.md` prints the momentum line (`node scripts/profile-strength.mjs --pulse`, or the native equivalent) after the write: in-flight count, interviewing count, and the nearest kept next action. The tracker is the user's scoreboard; surface it every time it changes. Frame it around progress and the next concrete action, never as pressure.
+
+**Vocabulary.** Keep the internal terms out of user-facing prose (`state layer`, `signal`, `score` are fine internally; to the user say "your job-hunt profile", "what this unlocked", "where things stand"). Use the work document's `label` per §6 when naming it.

@@ -58,6 +58,14 @@ If provided, read and analyze it before asking follow-ups. If starting from scra
 
 **Set expectations before the first prompt.** Before any structured form, batched questionnaire, or interview-style question is presented, briefly recap in conversational prose: what's about to happen (gathering work history, accomplishments, target roles), how long it will take, that blanks are fine and gaps will be surfaced later rather than invented, and what the user will have at the end. Only after that recap may the interview begin. A batched form is acceptable; a batched form delivered *before* the user knows what it's for is what testers reported as confusing.
 
+**Run the interview as episodes, not one long form.** A 20-minute unbroken interview is where first-timers abandon. Break it into chapters, and after each chapter show visible progress so the user feels the document taking shape rather than filling out a survey:
+
+- **Chapter 1 — work history:** current and prior roles, titles, timeframes. After it, show a *skeleton draft* — the document's structure with roles and dates in place, bullets still to come. The user sees an actual document appear.
+- **Chapter 2 — accomplishments and proof:** probe outcomes per role. After it, show the bullets sharpening on the roles already on screen.
+- **Chapter 3 — targeting and extras:** target roles, skills, education, CV-format extras, cover-letter specificity if in scope.
+
+Each chapter ends with a one-line "here's what we have so far" beat before the next begins. Keep chapters short; a user who sees the resume growing after five minutes stays for the next five. This is presentation, not a different data model — the same fields get gathered, just paced so progress is visible.
+
 Probe for outcomes, not responsibilities.
 
 - **Current role:** title, day-to-day, 4-6 strongest accomplishments. Push for numbers, timeframes, scope, users, revenue, costs, quality, speed, risk, or research impact.
@@ -172,6 +180,13 @@ Handle failures:
 
 - **Content validation failure:** fix unresolved placeholders, template comments, `[ASK:]`, `[VERIFY:]`, or `year TBD` internally and rerun. Ask the user only when a missing fact is required.
 - **Infrastructure/rendering failure:** report the file, error, and exact rerun command.
+
+### 8.5. Close the run
+
+After the files are saved and exported, end with the two closing beats from [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
+
+- **What this unlocked** — name the new capability in plain terms, e.g. "Your {label} now lives here as a source document, so tailoring to a role, honest audits, and interview prep all draw from it — and any stories we banked will back up claims automatically." Not a file count; a capability.
+- **Where things stand** — show the profile-strength line (`node scripts/profile-strength.mjs`, or derive it natively when Node is unavailable) so the user sees their progress and the single highest-leverage next step. Frame it as momentum, not a to-do list.
 
 ### 9. Modes
 

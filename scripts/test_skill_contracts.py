@@ -195,6 +195,105 @@ class VariantDisciplineTests(unittest.TestCase):
             )
 
 
+class ProgressRewardContractTests(unittest.TestCase):
+    """The progress/reward loop (state-layer §11) is a prose contract spread
+    across the shared file and the skills. These checks keep the load-bearing
+    pieces from silently disappearing: the §11 section itself, the
+    anti-volume guardrail, the profile-strength script it points at, and the
+    closing beats in the skills that write to the state layer."""
+
+    def test_state_layer_defines_section_11(self) -> None:
+        state = read(SKILLS / "_shared" / "state-layer.md")
+        self.assertIn("## 11. Progress and Reward", state)
+        self.assertIn("profile-strength.mjs", state)
+        # The truthful-search guardrail must be explicit: reward depth and
+        # follow-through, never raw application volume.
+        self.assertRegex(
+            state,
+            r"(?i)never reward raw application count|reward depth and follow-through, never volume",
+            "state-layer §11 must forbid rewarding raw application volume",
+        )
+        # Both closing beats named.
+        self.assertIn("What you just unlocked", state)
+        self.assertIn("Strength + next unlock", state)
+
+    def test_profile_strength_script_exists_and_is_wired(self) -> None:
+        script = ROOT / "scripts" / "profile-strength.mjs"
+        self.assertTrue(script.exists(), script)
+        text = read(script)
+        # The three CLI surfaces skills call.
+        for flag in ("--pulse", "--json"):
+            self.assertIn(flag, text, f"profile-strength.mjs must support {flag}")
+        pkg = read(ROOT / "package.json")
+        self.assertIn("profile-strength.mjs", pkg,
+                      "package.json must expose the profile-strength script")
+
+    def test_state_writing_skills_close_with_reward_beats(self) -> None:
+        # Every skill that writes to my-documents/ links §11 at its close so
+        # the loop stays consistent instead of each skill reinventing it.
+        expected = {
+            "get-started",
+            "resume-builder",
+            "resume-tailor",
+            "resume-auditor",
+            "company-research",
+            "interviewing",
+            "interview-coach",
+            "linkedin-optimizer",
+            "proof-asset-creator",
+        }
+        for name in expected:
+            text = read(SKILLS / name / "SKILL.md")
+            self.assertIn(
+                "#11-progress-and-reward",
+                text,
+                f"{name}: must reference state-layer §11 (progress/reward beats)",
+            )
+
+    def test_tracker_writing_skills_print_the_pulse(self) -> None:
+        # Skills that upsert applications.md surface the momentum pulse.
+        for name in ("resume-tailor", "company-research", "interviewing"):
+            text = read(SKILLS / name / "SKILL.md")
+            self.assertIn(
+                "--pulse",
+                text,
+                f"{name}: must print the tracker momentum pulse after writing "
+                f"applications.md",
+            )
+
+
+class FastPathContractTests(unittest.TestCase):
+    """The fast path (issue #30) is what cuts time-to-first-wow. These checks
+    keep get-started's two-door routing and resume-tailor's in-chat quick
+    mode from regressing back to interview-first."""
+
+    def test_get_started_offers_the_fast_path(self) -> None:
+        text = read(SKILLS / "get-started" / "SKILL.md")
+        self.assertIn("fast path", text.lower())
+        # The fast path must run before any disk write / preflight.
+        self.assertRegex(
+            text,
+            r"(?i)in-chat first|nothing is written to disk until",
+            "get-started fast path must run in-chat before touching disk",
+        )
+        # Routing description must admit resume+posting first-timers.
+        fm = re.match(r"\A---\r?\n(.*?)\r?\n---", text, re.DOTALL).group(1)
+        self.assertIn("tailor it for this job", fm,
+                      "get-started description must route pasted resume+posting users")
+
+    def test_resume_tailor_defines_quick_mode(self) -> None:
+        text = read(SKILLS / "resume-tailor" / "SKILL.md")
+        self.assertIn("Quick-tailor mode", text)
+        self.assertRegex(
+            text,
+            r"(?i)no scaffold|nothing (is )?written to disk|no preflight",
+            "resume-tailor quick mode must skip scaffold/preflight",
+        )
+        # The read-back → before/after → honest-flag output shape.
+        self.assertIn("read-back", text.lower())
+        self.assertIn("before/after", text.lower())
+
+
 class PublicDocsContractTests(unittest.TestCase):
     def test_docs_expose_user_facing_wrappers(self) -> None:
         readme = read(ROOT / "README.md")

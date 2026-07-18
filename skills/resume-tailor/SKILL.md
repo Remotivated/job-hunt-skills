@@ -31,6 +31,32 @@ Read the selected file's `version` and `label`. Let:
 
 Use `{label}` in all user-facing prose.
 
+### 0.5. Quick-tailor mode (in-chat, no scaffold)
+
+Use this mode when invoked by `get-started`'s fast path, or whenever a first-time user pastes a resume and a posting and just wants to see what tailoring does before committing to setup. The point is time-to-value: a tailored draft plus an honest read in minutes, entirely in conversation, **with nothing written to disk**. The full path (steps 0–9) remains the default for users who already have a bound workspace and a source document.
+
+**When to use it:**
+
+- The user pasted resume/CV text (or a LinkedIn profile) rather than pointing at `my-documents/resume.md`, and
+- there is no bound workspace yet, or they explicitly want a fast preview first.
+
+**What it does — skip the plumbing, keep the honesty:**
+
+1. **No preflight, no scaffold, no writes.** Do not run `scaffold-state.mjs` and do not confirm a workspace folder. This mode never touches disk. Evidence is the pasted material only.
+2. **Analyze the posting and pick the angle** exactly as steps 3–4 describe.
+3. **Tailor from the pasted source** per step 5's rules. The never-invent rule is absolute here too — with only pasted material as evidence, be *more* conservative, not less. Anything the pasted text doesn't support gets flagged, not asserted.
+4. **Condensed audit pass.** Run a lightweight `resume-auditor` read focused on the single most callback-blocking issue, rather than a full bullet-by-bullet audit.
+5. **Output shape** — in this order, tuned for a first "wow":
+   - **60-second read-back:** one short paragraph proving you understood the material and how it maps to the posting.
+   - **Two or three before/after bullet rewrites:** show the transform as a diff with the reasoning, not a wall of finished text.
+   - **One honest audit flag:** the top issue, plus any claim the pasted material doesn't support, named plainly.
+6. **Claim verification is paste-based.** There is no evidence layer to check against, so classify claims against the pasted source only and say so. Do not imply deeper verification happened than did.
+7. **Close with the unlock hook**, per [state-layer §11](../_shared/state-layer.md#11-progress-and-reward): name what a saved workspace and source document would add (verified claims instead of flagged ones, a baseline every future application starts from), then offer to save.
+   - **User wants to save** → now run step 0's preflight and scaffold, then continue through the normal save path (steps 7–9), treating the pasted resume as the source material. If no source document exists yet, offer `resume-builder` for a proper build rather than silently promoting the pasted text to a source of truth.
+   - **User is done** → that's a complete run. Do not force the save.
+
+Do not run the dedup check, tracker upsert, capture pass, or export in quick mode — those all assume disk. They apply only after the user opts to save and the run continues through the normal steps.
+
 ### 1. Dedup check
 
 Read `my-documents/applications.md`. Compute the target `id` as `{company-slug}-{role-slug}` unless the user supplies a specific application id.
@@ -234,11 +260,16 @@ Report:
 - The tracker row for this application.
 - Anything captured to the canonical layer, or note that nothing qualified.
 
+Then the closing beats from [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
+
+- **What this unlocked** — one sentence naming what the user can now do, e.g. "This application is on your board and anything we captured strengthens every future tailor." If the capture pass banked a story or proof asset, name that gain specifically.
+- **Momentum pulse** — since this run wrote `applications.md`, print the tracker momentum line (`node scripts/profile-strength.mjs --pulse`, or derive it natively): in-flight count, interviewing count, and the nearest next action. This is the user's scoreboard; frame it around progress and the next concrete step, never as pressure to apply more.
+
 Then ask:
 
 > Did you submit this application? If so, I can update the status to `applied`.
 
-If the user confirms, upsert `applications.md` with `status: applied` and `updated: {today ISO}`. Only the user can trigger this transition.
+If the user confirms, upsert `applications.md` with `status: applied` and `updated: {today ISO}`. Only the user can trigger this transition, then reprint the momentum pulse so the advance is visible.
 
 ## Cover-Letter-Only Mode
 

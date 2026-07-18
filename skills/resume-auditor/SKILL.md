@@ -100,6 +100,8 @@ If the audit is role-specific and tied to a tracked application, set `company`, 
 
 **Source work documents remain untouched.** If the user wants to apply auditor suggestions, run `resume-builder` or edit manually so versioning stays correct.
 
+Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)): the audit itself is the value, so name **what this unlocked** ("you now know exactly what's blocking callbacks and the highest-leverage fix"), then — because the run saved an audit report — show the **profile-strength line** (`node scripts/profile-strength.mjs`, or derive it natively). Keep the framing honest: a critical audit is progress, not a setback.
+
 ## Common Mistakes
 
 - **Leading with praise.** Start with the weakest part.

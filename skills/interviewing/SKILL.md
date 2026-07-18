@@ -112,6 +112,11 @@ Show:
 
 If the user reports an offer, rejection, withdrawal, or acceptance, offer to advance the tracker to `offer`, `closed`, or `hired` according to the state-layer rules.
 
+Then the reward beats from [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
+
+- **What this unlocked** — e.g. "Your interview notes are captured, so follow-up drafting and future prep for this company build on them."
+- **Momentum pulse** — since this run touched the tracker, print the momentum line (`node scripts/profile-strength.mjs --pulse`, or derive it natively). An interviewing count on the board is real progress in a demoralizing process — surface it. If the user advanced a status, reprint the pulse so the move is visible.
+
 ## Common Mistakes
 
 - **Skipping tracker confirmation.** Do not advance statuses without user confirmation.

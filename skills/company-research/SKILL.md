@@ -81,6 +81,11 @@ Severity matters more than count. A single hard signal can outweigh several soft
 
 If a row already exists, leave its status alone - the user may have already progressed. Follow the upsert + status-advancement rules in [state-layer §3](../_shared/state-layer.md#3-applicationsmd-schema). If the existing table was read with the back-compat path (missing new columns), emit the full canonical schema on write.
 
+**Close with the reward beats** ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)):
+
+- **What this unlocked** — e.g. "This company is now on your board with a research report behind it, so tailoring and interview prep can draw on what we found."
+- **Momentum pulse** — since this run wrote the tracker, print the momentum line (`node scripts/profile-strength.mjs --pulse`, or derive it natively). Frame it as where the search stands and the next action, never as pressure to add more companies.
+
 ## Common Mistakes
 
 - **Vague red flags.** "Culture seems off" is not actionable. Name the specific signal and where you found it.

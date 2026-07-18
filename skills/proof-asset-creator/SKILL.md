@@ -90,6 +90,8 @@ Once saved, tell the user what to do with it:
 - **Resume Projects section** — cite it by filename in `resume-builder`
 - **Cover letters** — reference it from `resume-tailor` ("see my case study on X")
 
+Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("you now have a concrete proof asset to point to across applications and on LinkedIn"), then show the **profile-strength line** (`node scripts/profile-strength.mjs`, or derive it natively) so the user sees their progress and best next step.
+
 ## Common Mistakes
 
 - **Generic "a case study" suggestion.** If the idea isn't tailored to the user's specific role, capability, and gap, you skipped discovery. Go back and read the evidence layer.

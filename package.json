@@ -12,13 +12,15 @@
   "license": "MIT",
   "scripts": {
     "scaffold": "node scripts/scaffold-state.mjs",
+    "strength": "node scripts/profile-strength.mjs",
     "build:zip": "node scripts/build-cowork-zip.mjs",
     "test:skills": "python scripts/test_skill_contracts.py",
     "check:hygiene": "python scripts/check-content-hygiene.py",
     "check:links": "python scripts/check-internal-links.py",
     "build:vendor": "esbuild scripts/vendor-entry.mjs --bundle --format=esm --platform=node --legal-comments=none --minify --outfile=scripts/vendor/export-deps.mjs",
     "export": "node scripts/export-documents.mjs",
-    "test:export": "node --test scripts/test-export.mjs"
+    "test:export": "node --test scripts/test-export.mjs",
+    "test:strength": "node --test scripts/test-profile-strength.mjs"
   },
   "devDependencies": {
     "docx": "^9.7.1",

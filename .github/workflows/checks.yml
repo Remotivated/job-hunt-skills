@@ -61,5 +61,9 @@ jobs:
           typst --version
           npm run test:export
 
+      # Pure Node, no dependencies — same as a user machine.
+      - name: Run profile-strength tests
+        run: npm run test:strength
+
       - name: Run skill contract tests
         run: python scripts/test_skill_contracts.py
