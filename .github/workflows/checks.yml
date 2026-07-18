@@ -5,6 +5,22 @@ on:
   pull_request:
 
 jobs:
+  vendor-bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - run: npm ci
+
+      - name: Verify checked-in vendor bundle is up to date with the lockfile
+        run: |
+          npm run build:vendor
+          git diff --exit-code scripts/vendor
+
   content-and-docx:
     runs-on: ubuntu-latest
     steps:

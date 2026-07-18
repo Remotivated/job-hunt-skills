@@ -17,6 +17,13 @@
     "test:docx": "python scripts/test_generate_docx.py",
     "test:skills": "python scripts/test_skill_contracts.py",
     "check:hygiene": "python scripts/check-content-hygiene.py",
-    "check:links": "python scripts/check-internal-links.py"
+    "check:links": "python scripts/check-internal-links.py",
+    "build:vendor": "esbuild scripts/vendor-entry.mjs --bundle --format=esm --platform=node --legal-comments=none --minify --outfile=scripts/vendor/export-deps.mjs"
+  },
+  "devDependencies": {
+    "docx": "^9.7.1",
+    "esbuild": "^0.28.1",
+    "markdown-it": "^14.3.0",
+    "pdfmake": "^0.3.11"
   }
 }
