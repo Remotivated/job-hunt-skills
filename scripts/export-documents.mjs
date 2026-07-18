@@ -700,6 +700,13 @@ const MARGIN_X_PT = 0.55 * 72;
 const MARGIN_Y_PT = 0.5 * 72;
 const CONTENT_WIDTH_PT = PAGE_WIDTH_PT - 2 * MARGIN_X_PT;
 
+// pdfmake's lineHeight multiplies the font's natural line height. The DOCX
+// renders in Word with Georgia (natural height 1.136em) at "multiple 1.35"
+// = a 1.533em baseline pitch; the PDF embeds Gelasio, whose natural height
+// is 1.2695em. 1.533 / 1.2695 keeps the same 16.1pt pitch at 10.5pt body,
+// which is what makes page breaks match the DOCX (issue #31 bake-off).
+const PDF_LINE_HEIGHT = (LINE_SPACING * 1.136) / 1.2695;
+
 let pdfmakeConfigured = false;
 
 function configurePdfmake() {
@@ -781,22 +788,18 @@ function buildPdfDocDefinition(name, contact, bodyMd, kind) {
 
   walkBlocks(md.parse(bodyMd, {}), kind === "coverletter", {
     h2(inline) {
-      // Header + hairline as one sticky unit: headlineLevel drives the
-      // keep-with-next pageBreakBefore rule below.
+      // Header text + hairline as sibling nodes, both tagged headlineLevel
+      // so the keep-with-next pageBreakBefore rule below treats them as one
+      // sticky unit (a stack would hide the tag from its children).
       content.push({
         headlineLevel: 1,
-        stack: [
-          {
-            text: pdfInline(uppercaseTextTokens(inline), { bold: true }),
-            fontSize: 10.5,
-            color: `#${NAVY}`,
-            characterSpacing: 0.63, // 0.06em at 10.5pt
-            margin: [0, 0, 0, 1],
-          },
-          navyRule(CONTENT_WIDTH_PT, 0.5, 4),
-        ],
-        margin: [0, 13, 0, 0],
+        text: pdfInline(uppercaseTextTokens(inline), { bold: true }),
+        fontSize: 10.5,
+        color: `#${NAVY}`,
+        characterSpacing: 0.63, // 0.06em at 10.5pt
+        margin: [0, 13, 0, 1],
       });
+      content.push({ ...navyRule(CONTENT_WIDTH_PT, 0.5, 4), headlineLevel: 1 });
     },
     h3(inline) {
       content.push({
@@ -842,13 +845,17 @@ function buildPdfDocDefinition(name, contact, bodyMd, kind) {
     defaultStyle: {
       font: "Gelasio",
       fontSize: BODY_SIZE_PT,
-      lineHeight: LINE_SPACING,
+      lineHeight: PDF_LINE_HEIGHT,
       color: `#${TEXT}`,
     },
     // Keep-with-next: never leave a section/role header stranded at the
-    // bottom of a page.
-    pageBreakBefore: (currentNode, followingNodesOnPage) =>
-      currentNode.headlineLevel === 1 && followingNodesOnPage.length === 0,
+    // bottom of a page. A header breaks to the next page when nothing but
+    // other header nodes (its own underline rule) follows it on the page.
+    pageBreakBefore: (node, ctx) =>
+      node.headlineLevel === 1 &&
+      ctx
+        .getFollowingNodesOnPage()
+        .every((following) => following.headlineLevel === 1),
     content,
   };
 }
