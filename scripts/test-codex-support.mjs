@@ -325,7 +325,18 @@ describe("OpenAI skill metadata", () => {
 describe("Public Codex documentation", () => {
   test("README documents install, invocation, and local-file behavior", () => {
     const readme = readFileSync(join(ROOT, "README.md"), "utf8");
+    const codexPluginSection = readme.match(
+      /## Use The Codex Plugin[\s\S]*?(?=\n## Use The Claude Code Plugin)/,
+    )?.[0];
+    const codexPluginRow = readme.match(/^\| Codex plugin \|.*$/m)?.[0];
+
+    assert.ok(codexPluginSection, "Codex plugin section must exist");
+    assert.ok(codexPluginRow, "Codex plugin start-path row must exist");
     assert.match(readme, /## Use The Codex Plugin/);
+    assert.match(codexPluginSection, /Codex CLI/);
+    assert.match(codexPluginSection, /ChatGPT desktop app/);
+    assert.doesNotMatch(codexPluginSection, /IDE extension/);
+    assert.doesNotMatch(codexPluginRow, /IDE extension/);
     assert.match(
       readme,
       /codex plugin marketplace add Remotivated\/job-hunt-skills/,

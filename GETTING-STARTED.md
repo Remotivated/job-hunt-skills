@@ -17,7 +17,7 @@ That sequence is the heart of the repo. Everything else is useful, but optional.
 
 The sequence also compounds. After each tailoring run, `resume-tailor` offers to capture meaningfully new facts you verified — into your source resume, story bank, or proof assets. The next application starts from richer canonical material, so it takes less effort than the last.
 
-In Codex, ask in plain language or explicitly choose `$job-hunt-skills:get-started`, `$job-hunt-skills:resume-builder`, or `$job-hunt-skills:cover-letter`. In Claude Code, the corresponding plugin slash commands remain available. On every supported agent surface, skill descriptions also activate from ordinary requests such as "audit my resume", "research this company", or "I have an interview at X".
+In Codex CLI or the ChatGPT desktop app, ask in plain language or explicitly choose `$job-hunt-skills:get-started`, `$job-hunt-skills:resume-builder`, or `$job-hunt-skills:cover-letter`. In Claude Code, the corresponding plugin slash commands remain available. On every supported agent surface, skill descriptions also activate from ordinary requests such as "audit my resume", "research this company", or "I have an interview at X".
 
 ## What You Can Create
 

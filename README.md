@@ -38,7 +38,7 @@ Choose the path that matches how you want to work.
 
 | Path | Best for | First action |
 | --- | --- | --- |
-| Codex plugin | You want guided skills in Codex CLI, the IDE extension, or the ChatGPT desktop app with local file access. | [Install the plugin](#use-the-codex-plugin), open your job-search folder, then ask `Help me get started.` |
+| Codex plugin | You want guided skills in Codex CLI or the ChatGPT desktop app with local file access. | [Install the plugin](#use-the-codex-plugin), open your job-search folder, then ask `Help me get started.` |
 | Claude Code plugin | You are comfortable opening a terminal and want Claude to read and write local job-search files. | [Install the plugin](#use-the-claude-code-plugin), then ask `Help me get started.` |
 | Cowork plugin | You want the same guided workflows in Claude Desktop without living in the terminal. | [Install the plugin in Cowork](#use-the-cowork-plugin), choose a local folder, then ask `Help me get started.` |
 | Prompt library | You want to use ChatGPT, Gemini, Claude.ai, or another LLM without plugin access. | Jump to [Use The Prompts](#use-the-prompts) or open [prompts/README.md](prompts/README.md). |
@@ -81,7 +81,7 @@ After each tailoring run, the skills offer to capture meaningfully new facts you
 
 You do not need to understand the internals to use this repo, but these terms help:
 
-- **Codex** is OpenAI's coding and file-working agent, available in a CLI, IDE extension, and the ChatGPT desktop app.
+- **Codex** is OpenAI's coding and file-working agent, available in Codex CLI, the Codex IDE extension, and the ChatGPT desktop app.
 - **Claude Code** is Anthropic's terminal-based agent. You open a folder, start `claude`, and ask it to work with files in that folder.
 - **Cowork** is the Claude Desktop agentic workspace. It uses a graphical app instead of a terminal and can work on local files you choose to share.
 - **Plugins** are installable bundles of agent capabilities. This plugin packages the job-search workflows in this repo.
@@ -91,7 +91,7 @@ The practical difference from a normal chat is file access. With Codex, Claude C
 
 ## Use The Codex Plugin
 
-Use this path if you want Job Hunt Skills in Codex CLI, the Codex IDE extension, or Codex in the ChatGPT desktop app.
+Use this path if you want Job Hunt Skills in Codex CLI or Codex in the ChatGPT desktop app.
 
 Prerequisites:
 
@@ -117,7 +117,7 @@ For explicit invocation, choose the installed skill from Codex's skill selector 
 $job-hunt-skills:get-started
 ```
 
-Codex CLI and the IDE extension work directly from the folder you opened. In the ChatGPT desktop app, make your chosen folder available with the app's current folder/workspace control before asking a skill to save anything. Job Hunt Skills stores resumes, applications, reports, and notes under that folder's `my-documents/`; it does not upload them to a service operated by this repository.
+Codex CLI works directly from the folder you opened. In the ChatGPT desktop app, make your chosen folder available with the app's current folder/workspace control before asking a skill to save anything. Job Hunt Skills stores resumes, applications, reports, and notes under that folder's `my-documents/`; it does not upload them to a service operated by this repository.
 
 If the plugin or a newly updated skill does not appear, start a new Codex session. To refresh a marketplace snapshot after an update:
 
