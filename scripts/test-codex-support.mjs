@@ -3,11 +3,12 @@ import { spawnSync } from "node:child_process";
 import {
   existsSync,
   mkdtempSync,
+  readdirSync,
   readFileSync,
   rmSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, dirname, join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, test } from "node:test";
 
@@ -18,20 +19,29 @@ function readJson(relativePath) {
   return JSON.parse(readFileSync(join(ROOT, relativePath), "utf8"));
 }
 
+function skillDirectoryNames() {
+  return readdirSync(join(ROOT, "skills"), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && entry.name !== "_shared")
+    .map((entry) => entry.name)
+    .sort();
+}
+
+function userFacingSkillNames() {
+  return skillDirectoryNames().filter((name) =>
+    existsSync(join(ROOT, "skills", name, "SKILL.md")),
+  );
+}
+
 function userFacingSkillFiles() {
-  return [
-    "claim-check",
-    "company-research",
-    "cover-letter",
-    "get-started",
-    "interview-coach",
-    "interviewing",
-    "linkedin-optimizer",
-    "proof-asset-creator",
-    "resume-auditor",
-    "resume-builder",
-    "resume-tailor",
-  ].map((name) => join(ROOT, "skills", name, "SKILL.md"));
+  return userFacingSkillNames().map((name) =>
+    join(ROOT, "skills", name, "SKILL.md"),
+  );
+}
+
+function openAiMetadataSkillNames() {
+  return skillDirectoryNames().filter((name) =>
+    existsSync(join(ROOT, "skills", name, "agents/openai.yaml")),
+  );
 }
 
 describe("Installed-plugin resource resolution", () => {
@@ -181,75 +191,133 @@ describe("Codex repository guidance", () => {
 });
 
 describe("OpenAI skill metadata", () => {
-  test("every user-facing skill has concise interface metadata", () => {
-    const expectedInterface = {
-      "claim-check": [
-        "Claim Check",
-        "Verify application claims before submission",
-      ],
-      "company-research": [
-        "Company Research",
-        "Vet a company and role before applying",
-      ],
-      "cover-letter": [
-        "Cover Letter",
-        "Write a truthful role-specific cover letter",
-      ],
-      "get-started": [
-        "Get Started",
-        "Start a guided, truthful job-search workflow",
-      ],
-      "interview-coach": [
-        "Interview Coach",
-        "Prepare for a specific upcoming interview",
-      ],
-      interviewing: [
-        "Interview Tracker",
-        "Track interviews, notes, and follow-ups",
-      ],
-      "linkedin-optimizer": [
-        "LinkedIn Optimizer",
-        "Audit and improve a LinkedIn profile",
-      ],
-      "proof-asset-creator": [
-        "Proof Asset Creator",
-        "Scope a portfolio asset that proves capability",
-      ],
-      "resume-auditor": [
-        "Resume Auditor",
-        "Give direct, evidence-based resume feedback",
-      ],
-      "resume-builder": [
-        "Resume Builder",
-        "Build or update a truthful source resume or CV",
-      ],
-      "resume-tailor": [
-        "Resume Tailor",
-        "Tailor a resume or CV to a specific role",
-      ],
-    };
+  const expectedInterface = {
+    "claim-check": {
+      displayName: "Claim Check",
+      shortDescription: "Verify application claims before submission",
+      defaultPrompt:
+        "Use $claim-check to check this application material for unsupported, inflated, or invented claims.",
+    },
+    "company-research": {
+      displayName: "Company Research",
+      shortDescription: "Vet a company and role before applying",
+      defaultPrompt:
+        "Use $company-research to research this company and role, then tell me whether it is worth pursuing.",
+    },
+    "cover-letter": {
+      displayName: "Cover Letter",
+      shortDescription: "Write a truthful role-specific cover letter",
+      defaultPrompt:
+        "Use $cover-letter to write a cover letter for this role using only claims supported by my materials.",
+    },
+    "get-started": {
+      displayName: "Get Started",
+      shortDescription: "Start a guided, truthful job-search workflow",
+      defaultPrompt:
+        "Use $get-started to help me get started with Job Hunt Skills.",
+    },
+    "interview-coach": {
+      displayName: "Interview Coach",
+      shortDescription: "Prepare for a specific upcoming interview",
+      defaultPrompt:
+        "Use $interview-coach to help me prepare for this interview using my actual experience and saved materials.",
+    },
+    interviewing: {
+      displayName: "Interview Tracker",
+      shortDescription: "Track interviews, notes, and follow-ups",
+      defaultPrompt:
+        "Use $interviewing to update my interview process and help me plan the next follow-up.",
+    },
+    "linkedin-optimizer": {
+      displayName: "LinkedIn Optimizer",
+      shortDescription: "Audit and improve a LinkedIn profile",
+      defaultPrompt:
+        "Use $linkedin-optimizer to audit my LinkedIn profile and improve the sections that weaken my positioning.",
+    },
+    "proof-asset-creator": {
+      displayName: "Proof Asset Creator",
+      shortDescription: "Scope a portfolio asset that proves capability",
+      defaultPrompt:
+        "Use $proof-asset-creator to help me choose and scope a proof-of-value asset for my target roles.",
+    },
+    "resume-auditor": {
+      displayName: "Resume Auditor",
+      shortDescription: "Give direct, evidence-based resume feedback",
+      defaultPrompt:
+        "Use $resume-auditor to audit my resume honestly and identify the highest-leverage fixes.",
+    },
+    "resume-builder": {
+      displayName: "Resume Builder",
+      shortDescription: "Build or update a truthful source resume or CV",
+      defaultPrompt:
+        "Use $resume-builder to build or update my source resume or CV from my real experience.",
+    },
+    "resume-tailor": {
+      displayName: "Resume Tailor",
+      shortDescription: "Tailor a resume or CV to a specific role",
+      defaultPrompt:
+        "Use $resume-tailor to tailor my resume or CV to this posting without changing the facts.",
+    },
+  };
 
-    const skillFiles = userFacingSkillFiles();
-    assert.equal(skillFiles.length, 11);
-    for (const skillFile of skillFiles) {
-      const skillDir = dirname(skillFile);
-      const skillName = basename(skillDir);
-      const metadataPath = join(skillDir, "agents/openai.yaml");
-      assert.ok(existsSync(metadataPath), metadataPath);
-      const yaml = readFileSync(metadataPath, "utf8");
-      const [displayName, shortDescription] = expectedInterface[skillName];
-      assert.match(
-        yaml,
-        new RegExp(
-          `^interface:\\n` +
-            `  display_name: "${displayName}"\\n` +
-            `  short_description: "${shortDescription}"\\n` +
-            `  default_prompt: ".+\\$${skillName}.+"\\n$`,
-        ),
-        metadataPath,
+  function assertOpenAiInterface(yaml, expected, metadataPath) {
+    const expectedYaml = `interface:
+  display_name: "${expected.displayName}"
+  short_description: "${expected.shortDescription}"
+  default_prompt: "${expected.defaultPrompt}"
+`;
+    assert.equal(
+      yaml,
+      expectedYaml,
+      `${metadataPath}: metadata must exactly match the approved interface`,
+    );
+    assert.ok(
+      expected.shortDescription.length >= 25 &&
+        expected.shortDescription.length <= 64,
+      `${metadataPath}: short description must be 25-64 characters`,
+    );
+  }
+
+  test("every user-facing skill has exact interface metadata", () => {
+    const expectedSkillNames = Object.keys(expectedInterface).sort();
+    assert.deepEqual(
+      userFacingSkillNames(),
+      expectedSkillNames,
+      "user-facing skill directories must match the metadata contract",
+    );
+    assert.deepEqual(
+      openAiMetadataSkillNames(),
+      expectedSkillNames,
+      "OpenAI metadata files must match the user-facing skill set",
+    );
+
+    for (const skillName of expectedSkillNames) {
+      const metadataPath = join(
+        ROOT,
+        "skills",
+        skillName,
+        "agents/openai.yaml",
       );
-      assert.match(yaml, /^  short_description: ".{25,64}"\n/m, metadataPath);
-      assert.doesNotMatch(yaml, /^policy:|^dependencies:/m, metadataPath);
+      const yaml = readFileSync(metadataPath, "utf8");
+      assertOpenAiInterface(yaml, expectedInterface[skillName], metadataPath);
     }
+  });
+
+  test("rejects prompt text that only preserves the skill identifier", () => {
+    const yaml = `interface:
+  display_name: "Claim Check"
+  short_description: "Verify application claims before submission"
+  default_prompt: "Use $claim-check to write an unrelated networking email."
+`;
+
+    assert.throws(
+      () =>
+        assertOpenAiInterface(
+          yaml,
+          expectedInterface["claim-check"],
+          "mismatched prompt fixture",
+        ),
+      { name: "AssertionError" },
+    );
   });
 });
