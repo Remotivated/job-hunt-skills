@@ -23,10 +23,10 @@ jobs:
 
       - name: Verify plugin manifests in archive
         run: |
-          unzip -l dist/job-hunt-skills.zip | grep -F ".claude-plugin/plugin.json"
-          unzip -l dist/job-hunt-skills.zip | grep -F ".codex-plugin/plugin.json"
-          unzip -l dist/job-hunt-skills.zip | grep -F ".agents/plugins/marketplace.json"
-          unzip -l dist/job-hunt-skills.zip | grep -F "skills/get-started/agents/openai.yaml"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".claude-plugin/plugin.json"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".codex-plugin/plugin.json"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".agents/plugins/marketplace.json"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/agents/openai.yaml"
 
       - name: Attach ZIP to GitHub Release
         uses: softprops/action-gh-release@v2

@@ -15,6 +15,38 @@ import { describe, test } from "node:test";
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SCRIPT_DIR, "..");
 
+const RELEASE_ARCHIVE_PATHS = [
+  ".claude-plugin/plugin.json",
+  ".codex-plugin/plugin.json",
+  ".agents/plugins/marketplace.json",
+  "skills/get-started/agents/openai.yaml",
+];
+
+function assertGitArchiveEligible(relativePath) {
+  const tracked = spawnSync(
+    "git",
+    ["ls-files", "--error-unmatch", "--", relativePath],
+    { cwd: ROOT, encoding: "utf8" },
+  );
+  assert.equal(
+    tracked.status,
+    0,
+    `${relativePath} must be tracked: ${tracked.stderr.trim()}`,
+  );
+
+  const attribute = spawnSync(
+    "git",
+    ["check-attr", "export-ignore", "--", relativePath],
+    { cwd: ROOT, encoding: "utf8" },
+  );
+  assert.equal(attribute.status, 0, attribute.stderr);
+  assert.equal(
+    attribute.stdout.trim(),
+    `${relativePath}: export-ignore: unspecified`,
+    `${relativePath} must not be export-ignored; got ${attribute.stdout.trim()}`,
+  );
+}
+
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(ROOT, relativePath), "utf8"));
 }
@@ -368,11 +400,30 @@ describe("Public Codex documentation", () => {
 });
 
 describe("Release archive configuration", () => {
-  test("Codex packaging is tracked and not export-ignored", () => {
-    const attributes = readFileSync(join(ROOT, ".gitattributes"), "utf8");
-    assert.doesNotMatch(attributes, /\/\.codex-plugin\/.*export-ignore/);
-    assert.doesNotMatch(attributes, /\/\.agents\/.*export-ignore/);
-    assert.ok(existsSync(join(ROOT, ".codex-plugin/plugin.json")));
-    assert.ok(existsSync(join(ROOT, ".agents/plugins/marketplace.json")));
+  test("release metadata is tracked and not effectively export-ignored", () => {
+    for (const relativePath of RELEASE_ARCHIVE_PATHS) {
+      assertGitArchiveEligible(relativePath);
+    }
+  });
+
+  test("eligibility helper rejects untracked paths", () => {
+    assert.throws(
+      () => assertGitArchiveEligible("not-a-tracked-release-entry.fixture"),
+      /not-a-tracked-release-entry\.fixture must be tracked/,
+    );
+  });
+
+  test("release workflow verifies exact archive entry names", () => {
+    const workflow = readFileSync(
+      join(ROOT, ".github/workflows/release.yml"),
+      "utf8",
+    );
+    for (const relativePath of RELEASE_ARCHIVE_PATHS) {
+      const exactCheck = `unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "${relativePath}"`;
+      assert.ok(
+        workflow.includes(exactCheck),
+        `${relativePath} must use an exact archive entry check`,
+      );
+    }
   });
 });
