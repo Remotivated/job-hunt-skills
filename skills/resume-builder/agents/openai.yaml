@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resume Builder"
+  short_description: "Build or update a truthful source resume or CV"
+  default_prompt: "Use $resume-builder to build or update my source resume or CV from my real experience."

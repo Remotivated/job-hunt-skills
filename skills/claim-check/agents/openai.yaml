@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claim Check"
+  short_description: "Verify application claims before submission"
+  default_prompt: "Use $claim-check to check this application material for unsupported, inflated, or invented claims."

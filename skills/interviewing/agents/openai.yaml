@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interview Tracker"
+  short_description: "Track interviews, notes, and follow-ups"
+  default_prompt: "Use $interviewing to update my interview process and help me plan the next follow-up."

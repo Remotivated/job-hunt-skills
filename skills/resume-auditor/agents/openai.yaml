@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resume Auditor"
+  short_description: "Give direct, evidence-based resume feedback"
+  default_prompt: "Use $resume-auditor to audit my resume honestly and identify the highest-leverage fixes."

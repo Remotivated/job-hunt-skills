@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interview Coach"
+  short_description: "Prepare for a specific upcoming interview"
+  default_prompt: "Use $interview-coach to help me prepare for this interview using my actual experience and saved materials."

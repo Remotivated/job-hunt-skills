@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resume Tailor"
+  short_description: "Tailor a resume or CV to a specific role"
+  default_prompt: "Use $resume-tailor to tailor my resume or CV to this posting without changing the facts."

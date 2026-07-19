@@ -1,0 +1,4 @@
+interface:
+  display_name: "Get Started"
+  short_description: "Start a guided, truthful job-search workflow"
+  default_prompt: "Use $get-started to help me get started with Job Hunt Skills."

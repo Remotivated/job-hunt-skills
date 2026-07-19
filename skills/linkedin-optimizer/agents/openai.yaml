@@ -1,0 +1,4 @@
+interface:
+  display_name: "LinkedIn Optimizer"
+  short_description: "Audit and improve a LinkedIn profile"
+  default_prompt: "Use $linkedin-optimizer to audit my LinkedIn profile and improve the sections that weaken my positioning."

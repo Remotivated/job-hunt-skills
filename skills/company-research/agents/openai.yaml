@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Research"
+  short_description: "Vet a company and role before applying"
+  default_prompt: "Use $company-research to research this company and role, then tell me whether it is worth pursuing."

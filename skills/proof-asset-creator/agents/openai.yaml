@@ -1,0 +1,4 @@
+interface:
+  display_name: "Proof Asset Creator"
+  short_description: "Scope a portfolio asset that proves capability"
+  default_prompt: "Use $proof-asset-creator to help me choose and scope a proof-of-value asset for my target roles."

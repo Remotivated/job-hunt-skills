@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cover Letter"
+  short_description: "Write a truthful role-specific cover letter"
+  default_prompt: "Use $cover-letter to write a cover letter for this role using only claims supported by my materials."

@@ -7,7 +7,7 @@ import {
   rmSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, test } from "node:test";
 
@@ -177,5 +177,79 @@ describe("Codex repository guidance", () => {
     assert.match(guidance, /python3 scripts\/test_skill_contracts\.py/);
     assert.match(guidance, /Do not duplicate/i);
     assert.match(guidance, /Claude Code and Cowork/i);
+  });
+});
+
+describe("OpenAI skill metadata", () => {
+  test("every user-facing skill has concise interface metadata", () => {
+    const expectedInterface = {
+      "claim-check": [
+        "Claim Check",
+        "Verify application claims before submission",
+      ],
+      "company-research": [
+        "Company Research",
+        "Vet a company and role before applying",
+      ],
+      "cover-letter": [
+        "Cover Letter",
+        "Write a truthful role-specific cover letter",
+      ],
+      "get-started": [
+        "Get Started",
+        "Start a guided, truthful job-search workflow",
+      ],
+      "interview-coach": [
+        "Interview Coach",
+        "Prepare for a specific upcoming interview",
+      ],
+      interviewing: [
+        "Interview Tracker",
+        "Track interviews, notes, and follow-ups",
+      ],
+      "linkedin-optimizer": [
+        "LinkedIn Optimizer",
+        "Audit and improve a LinkedIn profile",
+      ],
+      "proof-asset-creator": [
+        "Proof Asset Creator",
+        "Scope a portfolio asset that proves capability",
+      ],
+      "resume-auditor": [
+        "Resume Auditor",
+        "Give direct, evidence-based resume feedback",
+      ],
+      "resume-builder": [
+        "Resume Builder",
+        "Build or update a truthful source resume or CV",
+      ],
+      "resume-tailor": [
+        "Resume Tailor",
+        "Tailor a resume or CV to a specific role",
+      ],
+    };
+
+    const skillFiles = userFacingSkillFiles();
+    assert.equal(skillFiles.length, 11);
+    for (const skillFile of skillFiles) {
+      const skillDir = dirname(skillFile);
+      const skillName = basename(skillDir);
+      const metadataPath = join(skillDir, "agents/openai.yaml");
+      assert.ok(existsSync(metadataPath), metadataPath);
+      const yaml = readFileSync(metadataPath, "utf8");
+      const [displayName, shortDescription] = expectedInterface[skillName];
+      assert.match(
+        yaml,
+        new RegExp(
+          `^interface:\\n` +
+            `  display_name: "${displayName}"\\n` +
+            `  short_description: "${shortDescription}"\\n` +
+            `  default_prompt: ".+\\$${skillName}.+"\\n$`,
+        ),
+        metadataPath,
+      );
+      assert.match(yaml, /^  short_description: ".{25,64}"\n/m, metadataPath);
+      assert.doesNotMatch(yaml, /^policy:|^dependencies:/m, metadataPath);
+    }
   });
 });
