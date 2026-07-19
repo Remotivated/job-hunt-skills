@@ -65,5 +65,8 @@ jobs:
       - name: Run profile-strength tests
         run: npm run test:strength
 
+      - name: Run Codex plugin contract tests
+        run: npm run test:codex
+
       - name: Run skill contract tests
         run: python scripts/test_skill_contracts.py

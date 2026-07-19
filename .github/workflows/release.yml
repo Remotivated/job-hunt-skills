@@ -18,8 +18,15 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Build Cowork-ready ZIP
+      - name: Build dual-compatible plugin ZIP
         run: node scripts/build-cowork-zip.mjs
+
+      - name: Verify plugin manifests in archive
+        run: |
+          unzip -l dist/job-hunt-skills.zip | grep -F ".claude-plugin/plugin.json"
+          unzip -l dist/job-hunt-skills.zip | grep -F ".codex-plugin/plugin.json"
+          unzip -l dist/job-hunt-skills.zip | grep -F ".agents/plugins/marketplace.json"
+          unzip -l dist/job-hunt-skills.zip | grep -F "skills/get-started/agents/openai.yaml"
 
       - name: Attach ZIP to GitHub Release
         uses: softprops/action-gh-release@v2

@@ -366,3 +366,13 @@ describe("Public Codex documentation", () => {
     assert.match(contributing, /npm run test:codex/);
   });
 });
+
+describe("Release archive configuration", () => {
+  test("Codex packaging is tracked and not export-ignored", () => {
+    const attributes = readFileSync(join(ROOT, ".gitattributes"), "utf8");
+    assert.doesNotMatch(attributes, /\/\.codex-plugin\/.*export-ignore/);
+    assert.doesNotMatch(attributes, /\/\.agents\/.*export-ignore/);
+    assert.ok(existsSync(join(ROOT, ".codex-plugin/plugin.json")));
+    assert.ok(existsSync(join(ROOT, ".agents/plugins/marketplace.json")));
+  });
+});

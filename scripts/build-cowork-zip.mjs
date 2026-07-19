@@ -1,14 +1,12 @@
 #!/usr/bin/env node
-// Builds a Cowork-ready plugin ZIP from the current git HEAD.
+// Builds a Claude/Cowork/Codex-ready plugin ZIP from the current git HEAD.
 //
 // Uses `git archive --format=zip` so:
-//   - tracked files only (ignored paths like my-documents/ user content,
-//     node_modules/, __pycache__/, plans/, .claude/settings.local.json
-//     are excluded automatically),
-//   - no top-level wrapper directory (Cowork needs .claude-plugin/plugin.json
-//     at the ZIP root, not nested under job-hunt-skills-main/),
-//   - .gitattributes `export-ignore` entries drop .github/, .gitignore, and
-//     .gitattributes itself.
+//   - tracked files only are included,
+//   - no top-level wrapper directory is added,
+//   - both .claude-plugin/plugin.json and .codex-plugin/plugin.json sit at
+//     the ZIP root in the locations their respective plugin loaders expect,
+//   - .gitattributes export-ignore entries remove contributor-only files.
 
 import { execFileSync } from "node:child_process";
 import { mkdirSync, readFileSync, statSync } from "node:fs";
