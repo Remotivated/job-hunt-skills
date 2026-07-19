@@ -23,7 +23,7 @@ The committed end-state lives one level up at [`examples/avery-castillo/my-docum
 
 1. Create a fresh test folder, e.g. `~/dev/launch-shoot/avery/`.
 2. Copy `starter/my-documents/` into the test folder so it lives at `~/dev/launch-shoot/avery/my-documents/`.
-3. Launch Claude Code or Cowork in that test folder.
+3. Launch Codex, Claude Code, or Cowork in that test folder.
 4. Run the walkthrough beats in order. Each one writes into the test folder, not back into this repo.
 
 After the walkthrough, the test folder's `my-documents/` should look like the committed end-state at [`../my-documents/`](../my-documents/). Compare to verify.

@@ -321,3 +321,37 @@ describe("OpenAI skill metadata", () => {
     );
   });
 });
+
+describe("Public Codex documentation", () => {
+  test("README documents install, invocation, and local-file behavior", () => {
+    const readme = readFileSync(join(ROOT, "README.md"), "utf8");
+    assert.match(readme, /## Use The Codex Plugin/);
+    assert.match(
+      readme,
+      /codex plugin marketplace add Remotivated\/job-hunt-skills/,
+    );
+    assert.match(
+      readme,
+      /codex plugin add job-hunt-skills@remotivated/,
+    );
+    assert.match(readme, /\$job-hunt-skills:get-started/);
+    assert.match(readme, /Codex CLI/);
+    assert.match(readme, /Codex IDE extension/);
+    assert.match(readme, /ChatGPT desktop app/);
+  });
+
+  test("getting-started and contributing docs include Codex", () => {
+    const gettingStarted = readFileSync(
+      join(ROOT, "GETTING-STARTED.md"),
+      "utf8",
+    );
+    const contributing = readFileSync(
+      join(ROOT, "CONTRIBUTING.md"),
+      "utf8",
+    );
+    assert.match(gettingStarted, /Codex/);
+    assert.match(gettingStarted, /\$job-hunt-skills:get-started/);
+    assert.match(contributing, /\.codex-plugin/);
+    assert.match(contributing, /npm run test:codex/);
+  });
+});

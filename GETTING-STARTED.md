@@ -1,6 +1,6 @@
 # Getting Started With Job Hunt Skills
 
-Install Job Hunt Skills first — see the **Use The Skills** section of [README.md](README.md) for Claude Code, Cowork, and clone-fallback instructions, plus the prompt-library path for any LLM. This page is the "what to do this week" walkthrough once installation is done.
+Install Job Hunt Skills first — see the **Start Here** section of [README.md](README.md) for Codex, Claude Code, Cowork, and clone-fallback instructions, plus the prompt-library path for any LLM. This page is the "what to do this week" walkthrough once installation is done.
 
 Start small. Build one accurate source work document in resume or CV format, research one real company, tailor one application, and prepare for one interview.
 
@@ -17,7 +17,7 @@ That sequence is the heart of the repo. Everything else is useful, but optional.
 
 The sequence also compounds. After each tailoring run, `resume-tailor` offers to capture meaningfully new facts you verified — into your source resume, story bank, or proof assets. The next application starts from richer canonical material, so it takes less effort than the last.
 
-In Claude Code, the most common entry points are slash commands: `/get-started` (first-time setup), `/build-resume` (build or update the source work document), and `/cover-letter` (tailored or source letter). All skills also activate by description — just describe what you want (e.g. "audit my resume", "research this company", "I have an interview at X").
+In Codex, ask in plain language or explicitly choose `$job-hunt-skills:get-started`, `$job-hunt-skills:resume-builder`, or `$job-hunt-skills:cover-letter`. In Claude Code, the corresponding plugin slash commands remain available. On every supported agent surface, skill descriptions also activate from ordinary requests such as "audit my resume", "research this company", or "I have an interview at X".
 
 ## What You Can Create
 

@@ -10,7 +10,7 @@
 
 Practical AI-assisted skills, prompts, guides, and templates to give you an edge in your job search. Open source and free — designed to work with the AI subscription you already pay for.
 
-Most paid "AI for job seekers" tools optimize for volume: auto-applying at scale, filling applications with LLM hallucinations and AI slop. Job Hunt Skills takes the opposite approach. It helps you turn real experience into stronger resumes, cover letters, company research, interview prep, LinkedIn copy, and proof assets — using Claude Code, Claude Cowork, ChatGPT, Gemini, or any LLM you already have access to. Simple enough to use as a prompt library, structured enough to run as your full job search system, and strict about not inventing claims.
+Most paid "AI for job seekers" tools optimize for volume: auto-applying at scale, filling applications with LLM hallucinations and AI slop. Job Hunt Skills takes the opposite approach. It helps you turn real experience into stronger resumes, cover letters, company research, interview prep, LinkedIn copy, and proof assets — using Codex, Claude Code, Cowork, ChatGPT, Gemini, or any LLM you already have access to. Simple enough to use as a prompt library, structured enough to run as your full job search system, and strict about not inventing claims.
 
 It also compounds. Every verified bullet, story, or proof point you confirm during one application is offered for capture into your canonical files, so each tailoring starts from richer source material than the last.
 
@@ -19,7 +19,8 @@ It also compounds. Every verified bullet, story, or proof point you confirm duri
 - [Start Here](#start-here) — pick your install path
 - [What You Can Do](#what-you-can-do)
 - [How The Workflow Fits Together](#how-the-workflow-fits-together)
-- [New To Claude Code, Cowork, Plugins, Or Skills?](#new-to-claude-code-cowork-plugins-or-skills)
+- [New To Codex, Claude Code, Cowork, Plugins, Or Skills?](#new-to-codex-claude-code-cowork-plugins-or-skills)
+- [Use The Codex Plugin](#use-the-codex-plugin)
 - [Use The Claude Code Plugin](#use-the-claude-code-plugin)
 - [Use The Cowork Plugin](#use-the-cowork-plugin)
 - [Start With These Skills](#start-with-these-skills)
@@ -37,6 +38,7 @@ Choose the path that matches how you want to work.
 
 | Path | Best for | First action |
 | --- | --- | --- |
+| Codex plugin | You want guided skills in Codex CLI, the IDE extension, or the ChatGPT desktop app with local file access. | [Install the plugin](#use-the-codex-plugin), open your job-search folder, then ask `Help me get started.` |
 | Claude Code plugin | You are comfortable opening a terminal and want Claude to read and write local job-search files. | [Install the plugin](#use-the-claude-code-plugin), then ask `Help me get started.` |
 | Cowork plugin | You want the same guided workflows in Claude Desktop without living in the terminal. | [Install the plugin in Cowork](#use-the-cowork-plugin), choose a local folder, then ask `Help me get started.` |
 | Prompt library | You want to use ChatGPT, Gemini, Claude.ai, or another LLM without plugin access. | Jump to [Use The Prompts](#use-the-prompts) or open [prompts/README.md](prompts/README.md). |
@@ -75,16 +77,53 @@ Everything else in the repo supports that loop.
 
 After each tailoring run, the skills offer to capture meaningfully new facts you verified during that application into your source resume, story bank, or proof assets. The more you use it, the less work each application takes as your past resumes build the context for your future ones.
 
-## New To Claude Code, Cowork, Plugins, Or Skills?
+## New To Codex, Claude Code, Cowork, Plugins, Or Skills?
 
 You do not need to understand the internals to use this repo, but these terms help:
 
+- **Codex** is OpenAI's coding and file-working agent, available in a CLI, IDE extension, and the ChatGPT desktop app.
 - **Claude Code** is Anthropic's terminal-based agent. You open a folder, start `claude`, and ask it to work with files in that folder.
 - **Cowork** is the Claude Desktop agentic workspace. It uses a graphical app instead of a terminal and can work on local files you choose to share.
-- **Plugins** are installable bundles of Claude capabilities. This plugin packages the job-search workflows in this repo.
-- **Skills** are focused workflows inside the plugin, such as `resume-builder`, `company-research`, `resume-tailor`, and `claim-check`. Claude can load a skill when your request matches it, or you can invoke one by name.
+- **Plugins** are installable bundles of agent capabilities. This plugin packages the job-search workflows in this repo.
+- **Agent Skills** are focused workflows such as `resume-builder`, `company-research`, and `claim-check`. An agent can select one from your request, or you can invoke one explicitly.
 
-The practical difference from a normal chat is file access. With Claude Code or Cowork, the skills can keep your source documents, story bank, reports, and application folders together in a local workspace. With prompt-only use, you paste the relevant material yourself and manually verify the output.
+The practical difference from a normal chat is file access. With Codex, Claude Code, or Cowork, the skills can keep your source documents, story bank, reports, and application folders together in a local workspace. With prompt-only use, you paste the relevant material yourself and manually verify the output.
+
+## Use The Codex Plugin
+
+Use this path if you want Job Hunt Skills in Codex CLI, the Codex IDE extension, or Codex in the ChatGPT desktop app.
+
+Prerequisites:
+
+- A current Codex installation with plugin support.
+- A folder where you want your job-search files to live.
+
+Add the repository marketplace and install the plugin:
+
+```bash
+codex plugin marketplace add Remotivated/job-hunt-skills
+codex plugin add job-hunt-skills@remotivated
+```
+
+Open or `cd` into your chosen job-search folder before starting Codex. Then use a plain-language request:
+
+```text
+Help me get started.
+```
+
+For explicit invocation, choose the installed skill from Codex's skill selector or use:
+
+```text
+$job-hunt-skills:get-started
+```
+
+Codex CLI and the IDE extension work directly from the folder you opened. In the ChatGPT desktop app, make your chosen folder available with the app's current folder/workspace control before asking a skill to save anything. Job Hunt Skills stores resumes, applications, reports, and notes under that folder's `my-documents/`; it does not upload them to a service operated by this repository.
+
+If the plugin or a newly updated skill does not appear, start a new Codex session. To refresh a marketplace snapshot after an update:
+
+```bash
+codex plugin marketplace upgrade remotivated
+```
 
 ## Use The Claude Code Plugin
 
@@ -229,7 +268,7 @@ PDFs embed the vendored [Gelasio](https://fonts.google.com/specimen/Gelasio) fon
 
 | Path | What it contains |
 | --- | --- |
-| [skills/](skills/) | Claude Code and Cowork skills. |
+| [skills/](skills/) | Shared Codex, Claude Code, and Cowork skills. |
 | [prompts/](prompts/) | Copy/paste prompts for any LLM. |
 | [guides/](guides/) | Job-search methodology and decision support. |
 | [templates/](templates/) | Resume, CV, and cover letter scaffolds. |

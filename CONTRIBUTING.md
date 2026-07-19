@@ -13,7 +13,9 @@ Thanks for improving Job Hunt Skills. This repo is meant to be useful to jobseek
 
 | Path | What it is |
 | --- | --- |
-| `skills/` | Claude Code and Cowork skills |
+| `skills/` | Shared Codex, Claude Code, and Cowork skills |
+| `.codex-plugin/` | Codex plugin manifest |
+| `.agents/plugins/` | Codex marketplace metadata |
 | `prompts/` | Copy/paste prompts for any LLM |
 | `guides/` | Job search methodology |
 | `templates/` | Resume, CV, and cover letter scaffolds |
@@ -22,10 +24,11 @@ Thanks for improving Job Hunt Skills. This repo is meant to be useful to jobseek
 ## Local Checks
 
 ```bash
-python scripts/check-content-hygiene.py
-python scripts/check-internal-links.py
-python scripts/test_generate_docx.py
-python scripts/test_skill_contracts.py
+python3 scripts/check-content-hygiene.py
+python3 scripts/check-internal-links.py
+python3 scripts/test_skill_contracts.py
+npm run test:codex
+npm run test:export
 ```
 
-The hygiene check catches unresolved placeholders and HTML comments leaking into rendered samples. The link checker validates that internal markdown links point at files that exist. The DOCX tests cover the markdown renderer. The skill contract tests catch missing skills, schema drift, and stale state-layer conventions.
+The hygiene check catches unresolved placeholders and HTML comments leaking into rendered samples. The link checker validates that internal markdown links point at files that exist. The skill contract tests catch missing skills, schema drift, and stale state-layer conventions. The Codex checks cover plugin metadata and public Codex documentation. The export tests cover the document renderer.
