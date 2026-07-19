@@ -1,3 +1,12 @@
+/*!
+ * Google Brotli decompressor portions embedded by pdfmake.
+ * Copyright 2013 Google Inc. All Rights Reserved.
+ * @license Apache-2.0
+ *
+ * The complete Apache License, Version 2.0 and the original per-file notices
+ * are reproduced in scripts/vendor/LICENSES.md.
+ */
+
 // Entry point for the checked-in vendor bundle (scripts/vendor/export-deps.mjs).
 //
 // Built with `npm run build:vendor` (esbuild). The bundle is committed so

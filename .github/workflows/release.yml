@@ -26,6 +26,8 @@ jobs:
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".claude-plugin/plugin.json"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".codex-plugin/plugin.json"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".agents/plugins/marketplace.json"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/LICENSES.md"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/export-deps.mjs.LEGAL.txt"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/agents/openai.yaml"
 
       - name: Attach ZIP to GitHub Release
