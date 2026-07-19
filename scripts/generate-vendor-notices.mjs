@@ -14,6 +14,28 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const modules = join(root, "node_modules");
 const output = join(root, "scripts/vendor/LICENSES.md");
+
+function normalizeGeneratedText(text) {
+  return text
+    .replaceAll("\r\n", "\n")
+    .replaceAll("\r", "\n")
+    .split("\n")
+    .map((line) => line.trimEnd())
+    .join("\n")
+    .trimEnd() + "\n";
+}
+
+if (process.argv.includes("--normalize-legal")) {
+  const legalPath = join(root, "scripts/vendor/export-deps.mjs.LEGAL.txt");
+  writeFileSync(
+    legalPath,
+    normalizeGeneratedText(readFileSync(legalPath, "utf8")),
+    "utf8",
+  );
+  console.log(`Normalized ${legalPath}`);
+  process.exit(0);
+}
+
 const pdfmakeMap = JSON.parse(
   readFileSync(join(modules, "pdfmake/build/pdfmake.js.map"), "utf8"),
 );
@@ -128,5 +150,9 @@ for (const notice of embeddedNotices) {
   lines.push("```text", notice, "```", "");
 }
 
-writeFileSync(output, `${lines.join("\n").trimEnd()}\n`, "utf8");
+writeFileSync(
+  output,
+  normalizeGeneratedText(lines.join("\n")),
+  "utf8",
+);
 console.log(`Wrote ${output}`);

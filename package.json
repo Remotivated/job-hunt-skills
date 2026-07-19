@@ -18,7 +18,7 @@
     "test:codex": "node --test scripts/test-codex-support.mjs",
     "check:hygiene": "python scripts/check-content-hygiene.py",
     "check:links": "python scripts/check-internal-links.py",
-    "build:vendor": "node scripts/generate-vendor-notices.mjs && esbuild scripts/vendor-entry.mjs --bundle --format=esm --platform=node --legal-comments=external --minify --outfile=scripts/vendor/export-deps.mjs",
+    "build:vendor": "node scripts/generate-vendor-notices.mjs && esbuild scripts/vendor-entry.mjs --bundle --format=esm --platform=node --legal-comments=external --minify --outfile=scripts/vendor/export-deps.mjs && node scripts/generate-vendor-notices.mjs --normalize-legal",
     "export": "node scripts/export-documents.mjs",
     "test:export": "node --test scripts/test-export.mjs",
     "test:strength": "node --test scripts/test-profile-strength.mjs"

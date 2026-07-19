@@ -230,6 +230,10 @@ describe("Vendor licensing", () => {
     );
     assert.match(legal, /Google Brotli/i);
     assert.match(legal, /Apache-2\.0/);
+    for (const [name, text] of [["LICENSES.md", notices], ["LEGAL.txt", legal]]) {
+      assert.doesNotMatch(text, /\r/, `${name} must use LF line endings`);
+      assert.doesNotMatch(text, /[ \t]+$/m, `${name} must not have trailing whitespace`);
+    }
   });
 });
 
