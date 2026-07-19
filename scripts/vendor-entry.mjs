@@ -1,12 +1,3 @@
-/*!
- * Google Brotli decompressor portions embedded by pdfmake.
- * Copyright 2013 Google Inc. All Rights Reserved.
- * @license Apache-2.0
- *
- * The complete Apache License, Version 2.0 and the original per-file notices
- * are reproduced in scripts/vendor/LICENSES.md.
- */
-
 // Entry point for the checked-in vendor bundle (scripts/vendor/export-deps.mjs).
 //
 // Built with `npm run build:vendor` (esbuild). The bundle is committed so
@@ -16,7 +7,18 @@
 export * as docx from "docx";
 export { default as MarkdownIt } from "markdown-it";
 
-// pdfmake's prebuilt browser bundle is self-contained (pdfkit inlined, no
-// filesystem font lookups); fonts are supplied at runtime via a base64 VFS.
-import pdfMakeModule from "pdfmake/build/pdfmake.js";
+// Use pdfmake's server/source entry so every dependency comes from this
+// repository's lockfile. The published browser build contains an opaque build-
+// time dependency graph without exact version metadata, so it is not vendored.
+import pdfMakeModule from "pdfmake";
 export const pdfMake = pdfMakeModule.default ?? pdfMakeModule;
+
+pdfMake.addVirtualFileSystem = (vfs) => {
+  for (const [name, data] of Object.entries(vfs)) {
+    pdfMake.virtualfs.writeFileSync(name, Buffer.from(data, "base64"));
+  }
+};
+
+// Exported documents never fetch remote or arbitrary local resources.
+pdfMake.setUrlAccessPolicy(() => false);
+pdfMake.setLocalAccessPolicy(() => false);

@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import {
+  copyFileSync,
   existsSync,
   mkdtempSync,
+  mkdirSync,
   readdirSync,
   readFileSync,
   rmSync,
@@ -16,12 +18,28 @@ import { describe, test } from "node:test";
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SCRIPT_DIR, "..");
 
+function makePluginFixture() {
+  const tmp = mkdtempSync(join(tmpdir(), "job-hunt-plugin-fixture-"));
+  const pluginRoot = join(tmp, "plugin");
+  const scriptsDir = join(pluginRoot, "scripts");
+  const skillsDir = join(pluginRoot, "skills");
+  mkdirSync(scriptsDir, { recursive: true });
+  mkdirSync(skillsDir, { recursive: true });
+  copyFileSync(
+    join(ROOT, "scripts/scaffold-state.mjs"),
+    join(scriptsDir, "scaffold-state.mjs"),
+  );
+  return { tmp, pluginRoot, skillsDir };
+}
+
 const RELEASE_ARCHIVE_PATHS = [
   ".claude-plugin/plugin.json",
   ".codex-plugin/plugin.json",
   ".agents/plugins/marketplace.json",
   "scripts/vendor/LICENSES.md",
+  "scripts/vendor/embedded-docx-notices.md",
   "scripts/vendor/export-deps.mjs.LEGAL.txt",
+  "scripts/vendor/vendor-inputs.json",
   "skills/get-started/agents/openai.yaml",
 ];
 
@@ -123,20 +141,15 @@ describe("Installed-plugin resource resolution", () => {
   });
 
   test("scaffolder refuses the plugin root without creating user state", () => {
-    const stateFiles = [
-      join(ROOT, "my-documents/applications.md"),
-      join(ROOT, "my-documents/story-bank.md"),
-    ];
-    for (const file of stateFiles) {
-      assert.equal(existsSync(file), false, `${file} must start absent`);
-    }
-
+    const fixture = makePluginFixture();
+    const script = join(fixture.pluginRoot, "scripts/scaffold-state.mjs");
+    const stateRoot = join(fixture.pluginRoot, "my-documents");
     try {
       const scaffold = spawnSync(
         process.execPath,
-        [join(ROOT, "scripts/scaffold-state.mjs")],
+        [script],
         {
-          cwd: ROOT,
+          cwd: fixture.pluginRoot,
           encoding: "utf8",
           env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
@@ -155,45 +168,51 @@ describe("Installed-plugin resource resolution", () => {
         scaffold.stderr,
         /Claude Code:    cd into your job-hunt folder, then run 'claude' there\./,
       );
-      for (const file of stateFiles) {
-        assert.equal(existsSync(file), false, "refusal must not create state");
-      }
+      assert.equal(
+        existsSync(stateRoot),
+        false,
+        "refusal must not create state",
+      );
     } finally {
-      for (const file of stateFiles) rmSync(file, { force: true });
+      rmSync(fixture.tmp, { recursive: true, force: true });
     }
   });
 
   test("scaffolder refuses descendants of the plugin root", () => {
-    const descendant = join(ROOT, "skills");
-    const stateRoot = join(descendant, "my-documents");
-    rmSync(stateRoot, { recursive: true, force: true });
+    const fixture = makePluginFixture();
+    const script = join(fixture.pluginRoot, "scripts/scaffold-state.mjs");
+    const stateRoot = join(fixture.skillsDir, "my-documents");
     try {
       const scaffold = spawnSync(
         process.execPath,
-        [join(ROOT, "scripts/scaffold-state.mjs")],
+        [script],
         {
-          cwd: descendant,
+          cwd: fixture.skillsDir,
           encoding: "utf8",
           env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
       assert.equal(scaffold.status, 2, scaffold.stderr);
-      assert.equal(existsSync(stateRoot), false, "refusal must not create state");
+      assert.equal(
+        existsSync(stateRoot),
+        false,
+        "refusal must not create state",
+      );
     } finally {
-      rmSync(stateRoot, { recursive: true, force: true });
+      rmSync(fixture.tmp, { recursive: true, force: true });
     }
   });
 
   test("scaffolder refuses symlinked descendants of the plugin root", () => {
-    const tmp = mkdtempSync(join(tmpdir(), "job-hunt-link-"));
-    const linkedRoot = join(tmp, "plugin");
-    const stateRoot = join(ROOT, "skills", "my-documents");
-    rmSync(stateRoot, { recursive: true, force: true });
+    const fixture = makePluginFixture();
+    const linkedRoot = join(fixture.tmp, "linked-plugin");
+    const script = join(fixture.pluginRoot, "scripts/scaffold-state.mjs");
+    const stateRoot = join(fixture.skillsDir, "my-documents");
     try {
-      symlinkSync(ROOT, linkedRoot, "dir");
+      symlinkSync(fixture.pluginRoot, linkedRoot, "dir");
       const scaffold = spawnSync(
         process.execPath,
-        [join(ROOT, "scripts/scaffold-state.mjs")],
+        [script],
         {
           cwd: join(linkedRoot, "skills"),
           encoding: "utf8",
@@ -201,38 +220,70 @@ describe("Installed-plugin resource resolution", () => {
         },
       );
       assert.equal(scaffold.status, 2, scaffold.stderr);
-      assert.equal(existsSync(stateRoot), false, "refusal must not create state");
+      assert.equal(
+        existsSync(stateRoot),
+        false,
+        "refusal must not create state",
+      );
     } finally {
-      rmSync(stateRoot, { recursive: true, force: true });
-      rmSync(tmp, { recursive: true, force: true });
+      rmSync(fixture.tmp, { recursive: true, force: true });
     }
   });
+
 });
 
 describe("Vendor licensing", () => {
   test("build preserves legal comments and ships deterministic notices", () => {
     const pkg = readJson("package.json");
-    assert.doesNotMatch(pkg.scripts["build:vendor"], /--legal-comments=none/);
-    assert.match(pkg.scripts["build:vendor"], /--legal-comments=external/);
+    assert.equal(pkg.scripts["build:vendor"], "node scripts/build-vendor.mjs");
+    const buildSource = readFileSync(join(ROOT, "scripts/build-vendor.mjs"), "utf8");
+    assert.match(buildSource, /legalComments:\s*["']external["']/);
+    assert.doesNotMatch(buildSource, /legalComments:\s*["']none["']/);
+    assert.match(buildSource, /target:\s*["']node18["']/);
+    assert.match(buildSource, /metafile:\s*true/);
 
     const notices = readFileSync(
       join(ROOT, "scripts/vendor/LICENSES.md"),
       "utf8",
     );
-    assert.match(notices, /Google Brotli/i);
+    assert.match(notices, /Copyright 2013 Google Inc\./i);
     assert.match(notices, /Apache License, Version 2\.0/);
-    assert.match(notices, /BSD 3-Clause/i);
+    assert.match(notices, /BSD[- ]3-Clause/i);
     assert.doesNotMatch(notices, /All bundled code is MIT-licensed/i);
 
     const legal = readFileSync(
       join(ROOT, "scripts/vendor/export-deps.mjs.LEGAL.txt"),
       "utf8",
     );
-    assert.match(legal, /Google Brotli/i);
-    assert.match(legal, /Apache-2\.0/);
+    assert.match(legal, /ieee754\. BSD-3-Clause License/);
+    assert.match(legal, /JSZip v3\.10\.1/);
     for (const [name, text] of [["LICENSES.md", notices], ["LEGAL.txt", legal]]) {
       assert.doesNotMatch(text, /\r/, `${name} must use LF line endings`);
       assert.doesNotMatch(text, /[ \t]+$/m, `${name} must not have trailing whitespace`);
+    }
+
+    const entry = readFileSync(join(ROOT, "scripts/vendor-entry.mjs"), "utf8");
+    assert.doesNotMatch(
+      entry,
+      /pdfmake\/build\/pdfmake\.js/,
+      "do not redistribute pdfmake's opaque prebuilt browser dependency graph",
+    );
+
+    const inventory = readJson("scripts/vendor/vendor-inputs.json");
+    assert.deepEqual(inventory.unresolved, [], "vendor inputs need zero silent omissions");
+    assert.ok(inventory.packages.length > 5);
+    for (const record of inventory.packages) {
+      assert.ok(record.name && record.version && record.declaredLicense, JSON.stringify(record));
+      assert.ok(record.licenseFiles.length > 0, `${record.name} lacks a license file`);
+    }
+    assert.ok(inventory.embedded.length > 0, "opaque docx notices must be explicit");
+    for (const record of inventory.embedded) {
+      assert.ok(record.name && record.notice && record.licenseTextSource, JSON.stringify(record));
+    }
+
+    assert.match(notices, /Zero unresolved build-input packages: yes/);
+    for (const record of [...inventory.packages, ...inventory.embedded]) {
+      assert.match(notices, new RegExp(record.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
     }
   });
 });

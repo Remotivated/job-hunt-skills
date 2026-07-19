@@ -1,0 +1,1073 @@
+{
+  "buildInputs": [
+    {
+      "path": "node_modules/@noble/ciphers/_polyval.js",
+      "package": "@noble/ciphers@1.3.0"
+    },
+    {
+      "path": "node_modules/@noble/ciphers/aes.js",
+      "package": "@noble/ciphers@1.3.0"
+    },
+    {
+      "path": "node_modules/@noble/ciphers/utils.js",
+      "package": "@noble/ciphers@1.3.0"
+    },
+    {
+      "path": "node_modules/@noble/hashes/_md.js",
+      "package": "@noble/hashes@1.8.0"
+    },
+    {
+      "path": "node_modules/@noble/hashes/_u64.js",
+      "package": "@noble/hashes@1.8.0"
+    },
+    {
+      "path": "node_modules/@noble/hashes/cryptoNode.js",
+      "package": "@noble/hashes@1.8.0"
+    },
+    {
+      "path": "node_modules/@noble/hashes/sha2.js",
+      "package": "@noble/hashes@1.8.0"
+    },
+    {
+      "path": "node_modules/@noble/hashes/utils.js",
+      "package": "@noble/hashes@1.8.0"
+    },
+    {
+      "path": "node_modules/@swc/helpers/cjs/_define_property.cjs",
+      "package": "@swc/helpers@0.5.23"
+    },
+    {
+      "path": "node_modules/@swc/helpers/cjs/_ts_decorate.cjs",
+      "package": "@swc/helpers@0.5.23"
+    },
+    {
+      "path": "node_modules/base64-js/lib/b64.js",
+      "package": "base64-js@0.0.8"
+    },
+    {
+      "path": "node_modules/brotli/dec/bit_reader.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/dec/context.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/dec/decode.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/dec/dictionary-data.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/dec/dictionary.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/dec/huffman.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/dec/prefix.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/dec/streams.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/dec/transform.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/brotli/decompress.js",
+      "package": "brotli@1.3.3"
+    },
+    {
+      "path": "node_modules/clone/clone.js",
+      "package": "clone@2.1.2"
+    },
+    {
+      "path": "node_modules/dfa/index.js",
+      "package": "dfa@1.2.0"
+    },
+    {
+      "path": "node_modules/docx/dist/index.mjs",
+      "package": "docx@9.7.1"
+    },
+    {
+      "path": "node_modules/entities/lib/esm/decode_codepoint.js",
+      "package": "entities@4.5.0"
+    },
+    {
+      "path": "node_modules/entities/lib/esm/decode.js",
+      "package": "entities@4.5.0"
+    },
+    {
+      "path": "node_modules/entities/lib/esm/encode.js",
+      "package": "entities@4.5.0"
+    },
+    {
+      "path": "node_modules/entities/lib/esm/escape.js",
+      "package": "entities@4.5.0"
+    },
+    {
+      "path": "node_modules/entities/lib/esm/generated/decode-data-html.js",
+      "package": "entities@4.5.0"
+    },
+    {
+      "path": "node_modules/entities/lib/esm/generated/decode-data-xml.js",
+      "package": "entities@4.5.0"
+    },
+    {
+      "path": "node_modules/entities/lib/esm/generated/encode-html.js",
+      "package": "entities@4.5.0"
+    },
+    {
+      "path": "node_modules/entities/lib/esm/index.js",
+      "package": "entities@4.5.0"
+    },
+    {
+      "path": "node_modules/fast-deep-equal/index.js",
+      "package": "fast-deep-equal@3.1.3"
+    },
+    {
+      "path": "node_modules/fontkit/dist/main.cjs",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/js-md5/src/md5.js",
+      "package": "js-md5@0.8.3"
+    },
+    {
+      "path": "node_modules/linebreak/dist/main.cjs",
+      "package": "linebreak@1.1.0"
+    },
+    {
+      "path": "node_modules/linkify-it/index.mjs",
+      "package": "linkify-it@5.0.2"
+    },
+    {
+      "path": "node_modules/linkify-it/lib/re.mjs",
+      "package": "linkify-it@5.0.2"
+    },
+    {
+      "path": "node_modules/markdown-it/index.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/common/html_blocks.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/common/html_re.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/common/utils.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/helpers/index.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/helpers/parse_link_destination.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/helpers/parse_link_label.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/helpers/parse_link_title.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/index.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/parser_block.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/parser_core.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/parser_inline.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/presets/commonmark.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/presets/default.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/presets/zero.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/renderer.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/ruler.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/blockquote.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/code.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/fence.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/heading.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/hr.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/html_block.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/lheading.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/list.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/paragraph.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/reference.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/state_block.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_block/table.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_core/block.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_core/inline.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_core/linkify.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_core/normalize.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_core/replacements.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_core/smartquotes.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_core/state_core.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_core/text_join.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/autolink.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/backticks.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/balance_pairs.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/emphasis.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/entity.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/escape.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/fragments_join.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/html_inline.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/image.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/link.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/linkify.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/newline.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/state_inline.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/strikethrough.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/rules_inline/text.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/markdown-it/lib/token.mjs",
+      "package": "markdown-it@14.3.0"
+    },
+    {
+      "path": "node_modules/mdurl/index.mjs",
+      "package": "mdurl@2.0.0"
+    },
+    {
+      "path": "node_modules/mdurl/lib/decode.mjs",
+      "package": "mdurl@2.0.0"
+    },
+    {
+      "path": "node_modules/mdurl/lib/encode.mjs",
+      "package": "mdurl@2.0.0"
+    },
+    {
+      "path": "node_modules/mdurl/lib/format.mjs",
+      "package": "mdurl@2.0.0"
+    },
+    {
+      "path": "node_modules/mdurl/lib/parse.mjs",
+      "package": "mdurl@2.0.0"
+    },
+    {
+      "path": "node_modules/pdfkit/js/pdfkit.js",
+      "package": "pdfkit@0.19.1"
+    },
+    {
+      "path": "node_modules/pdfmake/js/3rd-party/svg-to-pdfkit.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/3rd-party/svg-to-pdfkit/source.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/base.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/columnCalculator.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/DocMeasure.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/DocPreprocessor.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/DocumentContext.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/ElementWriter.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/helpers/node.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/helpers/tools.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/helpers/variableType.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/index.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/LayoutBuilder.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/Line.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/OutputDocument.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/OutputDocumentServer.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/PageElementWriter.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/PageSize.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/PDFDocument.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/Printer.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/qrEnc.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/Renderer.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/standardPageSizes.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/StyleContextStack.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/SVGMeasure.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/tableLayouts.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/TableProcessor.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/TextBreaker.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/TextDecorator.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/TextInlines.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/URLResolver.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/pdfmake/js/virtual-fs.js",
+      "package": "pdfmake@0.3.11"
+    },
+    {
+      "path": "node_modules/png-js/lib/png-js.cjs",
+      "package": "png-js@1.1.0"
+    },
+    {
+      "path": "node_modules/punycode.js/punycode.js",
+      "package": "punycode.js@2.3.1"
+    },
+    {
+      "path": "node_modules/restructure/dist/main.cjs",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/sax/lib/sax.js",
+      "package": "sax@1.6.0"
+    },
+    {
+      "path": "node_modules/tiny-inflate/index.js",
+      "package": "tiny-inflate@1.0.3"
+    },
+    {
+      "path": "node_modules/tslib/tslib.es6.mjs",
+      "package": "tslib@2.8.1"
+    },
+    {
+      "path": "node_modules/uc.micro/categories/Cc/regex.mjs",
+      "package": "uc.micro@2.1.0"
+    },
+    {
+      "path": "node_modules/uc.micro/categories/Cf/regex.mjs",
+      "package": "uc.micro@2.1.0"
+    },
+    {
+      "path": "node_modules/uc.micro/categories/P/regex.mjs",
+      "package": "uc.micro@2.1.0"
+    },
+    {
+      "path": "node_modules/uc.micro/categories/S/regex.mjs",
+      "package": "uc.micro@2.1.0"
+    },
+    {
+      "path": "node_modules/uc.micro/categories/Z/regex.mjs",
+      "package": "uc.micro@2.1.0"
+    },
+    {
+      "path": "node_modules/uc.micro/index.mjs",
+      "package": "uc.micro@2.1.0"
+    },
+    {
+      "path": "node_modules/uc.micro/properties/Any/regex.mjs",
+      "package": "uc.micro@2.1.0"
+    },
+    {
+      "path": "node_modules/unicode-properties/dist/main.cjs",
+      "package": "unicode-properties@1.4.1"
+    },
+    {
+      "path": "node_modules/unicode-properties/node_modules/base64-js/index.js",
+      "package": "base64-js@1.5.1"
+    },
+    {
+      "path": "node_modules/unicode-trie/index.js",
+      "package": "unicode-trie@2.0.0"
+    },
+    {
+      "path": "node_modules/unicode-trie/swap.js",
+      "package": "unicode-trie@2.0.0"
+    },
+    {
+      "path": "node_modules/xmldoc/lib/xmldoc.js",
+      "package": "xmldoc@2.0.3"
+    }
+  ],
+  "packages": [
+    {
+      "name": "@noble/ciphers",
+      "version": "1.3.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/@noble/ciphers/LICENSE"
+      ]
+    },
+    {
+      "name": "@noble/hashes",
+      "version": "1.8.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/@noble/hashes/LICENSE"
+      ]
+    },
+    {
+      "name": "@swc/helpers",
+      "version": "0.5.23",
+      "declaredLicense": "Apache-2.0",
+      "licenseFiles": [
+        "node_modules/@swc/helpers/LICENSE"
+      ]
+    },
+    {
+      "name": "base64-js",
+      "version": "0.0.8",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/base64-js/LICENSE.MIT"
+      ]
+    },
+    {
+      "name": "base64-js",
+      "version": "1.5.1",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/unicode-properties/node_modules/base64-js/LICENSE"
+      ]
+    },
+    {
+      "name": "brotli",
+      "version": "1.3.3",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/@swc/helpers/LICENSE",
+        "node_modules/brotli/dec/bit_reader.js",
+        "node_modules/brotli/readme.md"
+      ]
+    },
+    {
+      "name": "clone",
+      "version": "2.1.2",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/clone/LICENSE"
+      ]
+    },
+    {
+      "name": "dfa",
+      "version": "1.2.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/dfa/README.md"
+      ]
+    },
+    {
+      "name": "docx",
+      "version": "9.7.1",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/docx/LICENSE"
+      ]
+    },
+    {
+      "name": "entities",
+      "version": "4.5.0",
+      "declaredLicense": "BSD-2-Clause",
+      "licenseFiles": [
+        "node_modules/entities/LICENSE"
+      ]
+    },
+    {
+      "name": "fast-deep-equal",
+      "version": "3.1.3",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/fast-deep-equal/LICENSE"
+      ]
+    },
+    {
+      "name": "fontkit",
+      "version": "2.0.4",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/fontkit/README.md"
+      ]
+    },
+    {
+      "name": "js-md5",
+      "version": "0.8.3",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/js-md5/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "linebreak",
+      "version": "1.1.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/linebreak/LICENSE"
+      ]
+    },
+    {
+      "name": "linkify-it",
+      "version": "5.0.2",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/linkify-it/LICENSE"
+      ]
+    },
+    {
+      "name": "markdown-it",
+      "version": "14.3.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/markdown-it/LICENSE"
+      ]
+    },
+    {
+      "name": "mdurl",
+      "version": "2.0.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/mdurl/LICENSE"
+      ]
+    },
+    {
+      "name": "pdfkit",
+      "version": "0.19.1",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/pdfkit/LICENSE"
+      ]
+    },
+    {
+      "name": "pdfmake",
+      "version": "0.3.11",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/pdfmake/LICENSE"
+      ]
+    },
+    {
+      "name": "png-js",
+      "version": "1.1.0",
+      "declaredLicense": "see included package license file",
+      "licenseFiles": [
+        "node_modules/png-js/LICENSE"
+      ]
+    },
+    {
+      "name": "punycode.js",
+      "version": "2.3.1",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/punycode.js/LICENSE-MIT.txt"
+      ]
+    },
+    {
+      "name": "restructure",
+      "version": "3.0.2",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/restructure/LICENSE"
+      ]
+    },
+    {
+      "name": "sax",
+      "version": "1.6.0",
+      "declaredLicense": "BlueOak-1.0.0",
+      "licenseFiles": [
+        "node_modules/sax/LICENSE.md"
+      ]
+    },
+    {
+      "name": "tiny-inflate",
+      "version": "1.0.3",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/tiny-inflate/LICENSE"
+      ]
+    },
+    {
+      "name": "tslib",
+      "version": "2.8.1",
+      "declaredLicense": "0BSD",
+      "licenseFiles": [
+        "node_modules/tslib/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "uc.micro",
+      "version": "2.1.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/uc.micro/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "unicode-properties",
+      "version": "1.4.1",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/unicode-properties/LICENSE"
+      ]
+    },
+    {
+      "name": "unicode-trie",
+      "version": "2.0.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/unicode-trie/LICENSE"
+      ]
+    },
+    {
+      "name": "xmldoc",
+      "version": "2.0.3",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/xmldoc/LICENSE"
+      ]
+    }
+  ],
+  "embedded": [
+    {
+      "name": "@types/node",
+      "version": "25.9.5",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/@types/node/LICENSE"
+      ],
+      "notice": "Bundled inside docx 9.7.1's distributed module",
+      "licenseTextSource": "node_modules/@types/node/LICENSE"
+    },
+    {
+      "name": "core-util-is",
+      "version": "1.0.3",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/core-util-is/LICENSE"
+      ],
+      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
+      "licenseTextSource": "node_modules/core-util-is/LICENSE"
+    },
+    {
+      "name": "docx-browser-buffer",
+      "version": "embedded in docx 9.7.1; upstream version not encoded",
+      "declaredLicense": "MIT",
+      "notice": "Buffer browser shim attribution preserved by esbuild",
+      "licenseTextSource": "scripts/vendor/embedded-docx-notices.md#buffer-browser-shim",
+      "licenseFiles": [
+        "scripts/vendor/embedded-docx-notices.md"
+      ]
+    },
+    {
+      "name": "docx-browser-fromcodepoint",
+      "version": "0.1.0",
+      "declaredLicense": "MIT",
+      "notice": "fromcodepoint attribution preserved by esbuild",
+      "licenseTextSource": "scripts/vendor/embedded-docx-notices.md#fromcodepoint",
+      "licenseFiles": [
+        "scripts/vendor/embedded-docx-notices.md"
+      ]
+    },
+    {
+      "name": "docx-browser-ieee754",
+      "version": "embedded in docx 9.7.1; upstream version not encoded",
+      "declaredLicense": "BSD-3-Clause",
+      "notice": "ieee754 attribution preserved by esbuild",
+      "licenseTextSource": "scripts/vendor/embedded-docx-notices.md#ieee754",
+      "licenseFiles": [
+        "scripts/vendor/embedded-docx-notices.md"
+      ]
+    },
+    {
+      "name": "hash.js",
+      "version": "1.1.7",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/@swc/helpers/LICENSE",
+        "node_modules/hash.js/README.md",
+        "node_modules/hash.js/lib/hash/utils.js"
+      ],
+      "notice": "Bundled inside docx 9.7.1's distributed module",
+      "licenseTextSource": "node_modules/@swc/helpers/LICENSE, node_modules/hash.js/README.md, node_modules/hash.js/lib/hash/utils.js"
+    },
+    {
+      "name": "immediate",
+      "version": "3.0.6",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/immediate/LICENSE.txt"
+      ],
+      "notice": "Bundled inside lie 3.3.0's distributed module",
+      "licenseTextSource": "node_modules/immediate/LICENSE.txt"
+    },
+    {
+      "name": "inherits",
+      "version": "2.0.4",
+      "declaredLicense": "ISC",
+      "licenseFiles": [
+        "node_modules/inherits/LICENSE"
+      ],
+      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
+      "licenseTextSource": "node_modules/inherits/LICENSE"
+    },
+    {
+      "name": "isarray",
+      "version": "1.0.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/isarray/README.md"
+      ],
+      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
+      "licenseTextSource": "node_modules/isarray/README.md"
+    },
+    {
+      "name": "jszip",
+      "version": "3.10.1",
+      "declaredLicense": "(MIT OR GPL-3.0-or-later)",
+      "licenseFiles": [
+        "node_modules/jszip/LICENSE.markdown"
+      ],
+      "notice": "Bundled inside docx 9.7.1's distributed module",
+      "licenseTextSource": "node_modules/jszip/LICENSE.markdown"
+    },
+    {
+      "name": "lie",
+      "version": "3.3.0",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/lie/license.md"
+      ],
+      "notice": "Bundled inside jszip 3.10.1's distributed module",
+      "licenseTextSource": "node_modules/lie/license.md"
+    },
+    {
+      "name": "minimalistic-assert",
+      "version": "1.0.1",
+      "declaredLicense": "ISC",
+      "licenseFiles": [
+        "node_modules/minimalistic-assert/LICENSE"
+      ],
+      "notice": "Bundled inside hash.js 1.1.7's distributed module",
+      "licenseTextSource": "node_modules/minimalistic-assert/LICENSE"
+    },
+    {
+      "name": "nanoid",
+      "version": "5.1.16",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/nanoid/LICENSE"
+      ],
+      "notice": "Bundled inside docx 9.7.1's distributed module",
+      "licenseTextSource": "node_modules/nanoid/LICENSE"
+    },
+    {
+      "name": "pako",
+      "version": "1.0.11",
+      "declaredLicense": "(MIT AND Zlib)",
+      "licenseFiles": [
+        "node_modules/pako/LICENSE"
+      ],
+      "notice": "Bundled inside jszip 3.10.1's distributed module",
+      "licenseTextSource": "node_modules/pako/LICENSE"
+    },
+    {
+      "name": "process-nextick-args",
+      "version": "2.0.1",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/process-nextick-args/license.md"
+      ],
+      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
+      "licenseTextSource": "node_modules/process-nextick-args/license.md"
+    },
+    {
+      "name": "readable-stream",
+      "version": "2.3.8",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/readable-stream/LICENSE"
+      ],
+      "notice": "Bundled inside jszip 3.10.1's distributed module",
+      "licenseTextSource": "node_modules/readable-stream/LICENSE"
+    },
+    {
+      "name": "safe-buffer",
+      "version": "5.1.2",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/safe-buffer/LICENSE"
+      ],
+      "notice": "Bundled inside string_decoder 1.1.1's distributed module",
+      "licenseTextSource": "node_modules/safe-buffer/LICENSE"
+    },
+    {
+      "name": "sax",
+      "version": "1.6.0",
+      "declaredLicense": "BlueOak-1.0.0",
+      "licenseFiles": [
+        "node_modules/sax/LICENSE.md"
+      ],
+      "notice": "Bundled inside xml-js 1.6.11's distributed module",
+      "licenseTextSource": "node_modules/sax/LICENSE.md"
+    },
+    {
+      "name": "setimmediate",
+      "version": "1.0.5",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/setimmediate/LICENSE.txt"
+      ],
+      "notice": "Bundled inside jszip 3.10.1's distributed module",
+      "licenseTextSource": "node_modules/setimmediate/LICENSE.txt"
+    },
+    {
+      "name": "string_decoder",
+      "version": "1.1.1",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/string_decoder/LICENSE"
+      ],
+      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
+      "licenseTextSource": "node_modules/string_decoder/LICENSE"
+    },
+    {
+      "name": "undici-types",
+      "version": "7.24.6",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/undici-types/LICENSE"
+      ],
+      "notice": "Bundled inside @types/node 25.9.5's distributed module",
+      "licenseTextSource": "node_modules/undici-types/LICENSE"
+    },
+    {
+      "name": "util-deprecate",
+      "version": "1.0.2",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/util-deprecate/LICENSE"
+      ],
+      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
+      "licenseTextSource": "node_modules/util-deprecate/LICENSE"
+    },
+    {
+      "name": "xml-js",
+      "version": "1.6.11",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/xml-js/LICENSE"
+      ],
+      "notice": "Bundled inside docx 9.7.1's distributed module",
+      "licenseTextSource": "node_modules/xml-js/LICENSE"
+    },
+    {
+      "name": "xml",
+      "version": "1.0.1",
+      "declaredLicense": "MIT",
+      "licenseFiles": [
+        "node_modules/xml/LICENSE"
+      ],
+      "notice": "Bundled inside docx 9.7.1's distributed module",
+      "licenseTextSource": "node_modules/xml/LICENSE"
+    }
+  ],
+  "unresolved": []
+}

@@ -1,40 +1,23 @@
-/*!
- * Google Brotli decompressor portions embedded by pdfmake.
- * Copyright 2013 Google Inc. All Rights Reserved.
- * @license Apache-2.0
- *
- * The complete Apache License, Version 2.0 and the original per-file notices
- * are reproduced in scripts/vendor/LICENSES.md.
- */
-
 Bundled license information:
 
-pdfmake/build/pdfmake.js:
-  /*! pdfmake v0.3.11, @license MIT, @link http://pdfmake.org */
-  /*!
-   * The buffer module from node.js, for the browser.
-   *
-   * @author   Feross Aboukhadijeh <https://feross.org>
-   * @license  MIT
-   */
-  /*! noble-ciphers - MIT License (c) 2023 Paul Miller (paulmillr.com) */
+@noble/hashes/utils.js:
   /*! noble-hashes - MIT License (c) 2022 Paul Miller (paulmillr.com) */
-  /*!
-   * The buffer module from node.js, for the browser.
-   *
-   * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
-   * @license  MIT
-   */
-  /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+js-md5/src/md5.js:
   /**
-  * [js-md5]{@link https://github.com/emn178/js-md5}
-  *
-  * @namespace md5
-  * @version 0.8.3
-  * @author Chen, Yi-Cyuan [emn178@gmail.com]
-  * @copyright Chen, Yi-Cyuan 2014-2023
-  * @license MIT
-  */
+   * [js-md5]{@link https://github.com/emn178/js-md5}
+   *
+   * @namespace md5
+   * @version 0.8.3
+   * @author Chen, Yi-Cyuan [emn178@gmail.com]
+   * @copyright Chen, Yi-Cyuan 2014-2023
+   * @license MIT
+   */
+
+@noble/ciphers/utils.js:
+  /*! noble-ciphers - MIT License (c) 2023 Paul Miller (paulmillr.com) */
+
+sax/lib/sax.js:
   /*! http://mths.be/fromcodepoint v0.1.0 by @mathias */
 
 docx/dist/index.mjs:
