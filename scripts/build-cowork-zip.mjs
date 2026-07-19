@@ -23,7 +23,7 @@ const stablePath = join(distDir, stableName);
 
 execFileSync(
   "git",
-  ["archive", "--worktree-attributes", "--format=zip", "-o", stablePath, "HEAD"],
+  ["archive", "--format=zip", "-o", stablePath, "HEAD"],
   { cwd: repoRoot, stdio: "inherit" },
 );
 

@@ -10,11 +10,19 @@ const __dirname = path.dirname(__filename);
 const SCRIPT_REPO_ROOT = path.resolve(__dirname, "..");
 const TARGET_ROOT = process.cwd();
 
+function isWithin(candidate, parent) {
+  const relative = path.relative(parent, candidate);
+  return relative === "" ||
+    (!relative.startsWith(`..${path.sep}`) && relative !== ".." && !path.isAbsolute(relative));
+}
+
 // Workspace preflight (state-layer §10): refuse to scaffold inside the plugin
 // install dir. Early Cowork testers hit this — files landed in the plugin
 // folder, invisible to the user, and the next session "couldn't find" them.
-if (path.resolve(TARGET_ROOT) === path.resolve(SCRIPT_REPO_ROOT)) {
-  if (!process.env.JOB_HUNT_SKILLS_DEV) {
+const canonicalRepoRoot = fs.realpathSync(SCRIPT_REPO_ROOT);
+const canonicalTargetRoot = fs.realpathSync(TARGET_ROOT);
+if (isWithin(canonicalTargetRoot, canonicalRepoRoot)) {
+  if (process.env.JOB_HUNT_SKILLS_DEV !== "1") {
     console.error(
       `scaffold-state: working directory is the plugin install dir, not a user workspace.\n\n` +
       `Your job-hunt files belong in a folder you chose, not inside the plugin.\n\n` +

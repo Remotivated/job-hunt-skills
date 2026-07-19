@@ -367,6 +367,27 @@ class FastPathContractTests(unittest.TestCase):
         self.assertIn("read-back", text.lower())
         self.assertIn("before/after", text.lower())
 
+    def test_fast_path_save_imports_a_versioned_source_before_tailoring(self) -> None:
+        get_started = read(SKILLS / "get-started" / "SKILL.md")
+        tailor = read(SKILLS / "resume-tailor" / "SKILL.md")
+        for name, text in (("get-started", get_started), ("resume-tailor", tailor)):
+            self.assertIn(
+                "Resume Builder import/update transition",
+                text,
+                f"{name}: fast-path save must name the cross-skill transition",
+            )
+            self.assertRegex(
+                text,
+                r"(?is)user.confirm.*resume-builder.*version.*resume-tailor.*source_version",
+                f"{name}: save must be user-confirmed, version the source through "
+                "resume-builder, then tailor against that source version",
+            )
+        self.assertNotIn(
+            "they already have a tailored draft on disk",
+            get_started,
+            "the in-chat fast path must not be described as already persisted",
+        )
+
 
 class PublicDocsContractTests(unittest.TestCase):
     def test_docs_expose_user_facing_wrappers(self) -> None:

@@ -6,6 +6,7 @@ import {
   readdirSync,
   readFileSync,
   rmSync,
+  symlinkSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -19,6 +20,8 @@ const RELEASE_ARCHIVE_PATHS = [
   ".claude-plugin/plugin.json",
   ".codex-plugin/plugin.json",
   ".agents/plugins/marketplace.json",
+  "scripts/vendor/LICENSES.md",
+  "scripts/vendor/export-deps.mjs.LEGAL.txt",
   "skills/get-started/agents/openai.yaml",
 ];
 
@@ -158,6 +161,75 @@ describe("Installed-plugin resource resolution", () => {
     } finally {
       for (const file of stateFiles) rmSync(file, { force: true });
     }
+  });
+
+  test("scaffolder refuses descendants of the plugin root", () => {
+    const descendant = join(ROOT, "skills");
+    const stateRoot = join(descendant, "my-documents");
+    rmSync(stateRoot, { recursive: true, force: true });
+    try {
+      const scaffold = spawnSync(
+        process.execPath,
+        [join(ROOT, "scripts/scaffold-state.mjs")],
+        {
+          cwd: descendant,
+          encoding: "utf8",
+          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
+        },
+      );
+      assert.equal(scaffold.status, 2, scaffold.stderr);
+      assert.equal(existsSync(stateRoot), false, "refusal must not create state");
+    } finally {
+      rmSync(stateRoot, { recursive: true, force: true });
+    }
+  });
+
+  test("scaffolder refuses symlinked descendants of the plugin root", () => {
+    const tmp = mkdtempSync(join(tmpdir(), "job-hunt-link-"));
+    const linkedRoot = join(tmp, "plugin");
+    const stateRoot = join(ROOT, "skills", "my-documents");
+    rmSync(stateRoot, { recursive: true, force: true });
+    try {
+      symlinkSync(ROOT, linkedRoot, "dir");
+      const scaffold = spawnSync(
+        process.execPath,
+        [join(ROOT, "scripts/scaffold-state.mjs")],
+        {
+          cwd: join(linkedRoot, "skills"),
+          encoding: "utf8",
+          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
+        },
+      );
+      assert.equal(scaffold.status, 2, scaffold.stderr);
+      assert.equal(existsSync(stateRoot), false, "refusal must not create state");
+    } finally {
+      rmSync(stateRoot, { recursive: true, force: true });
+      rmSync(tmp, { recursive: true, force: true });
+    }
+  });
+});
+
+describe("Vendor licensing", () => {
+  test("build preserves legal comments and ships deterministic notices", () => {
+    const pkg = readJson("package.json");
+    assert.doesNotMatch(pkg.scripts["build:vendor"], /--legal-comments=none/);
+    assert.match(pkg.scripts["build:vendor"], /--legal-comments=external/);
+
+    const notices = readFileSync(
+      join(ROOT, "scripts/vendor/LICENSES.md"),
+      "utf8",
+    );
+    assert.match(notices, /Google Brotli/i);
+    assert.match(notices, /Apache License, Version 2\.0/);
+    assert.match(notices, /BSD 3-Clause/i);
+    assert.doesNotMatch(notices, /All bundled code is MIT-licensed/i);
+
+    const legal = readFileSync(
+      join(ROOT, "scripts/vendor/export-deps.mjs.LEGAL.txt"),
+      "utf8",
+    );
+    assert.match(legal, /Google Brotli/i);
+    assert.match(legal, /Apache-2\.0/);
   });
 });
 
@@ -425,5 +497,13 @@ describe("Release archive configuration", () => {
         `${relativePath} must use an exact archive entry check`,
       );
     }
+  });
+
+  test("archive is derived only from HEAD attributes", () => {
+    const builder = readFileSync(
+      join(ROOT, "scripts/build-cowork-zip.mjs"),
+      "utf8",
+    );
+    assert.doesNotMatch(builder, /--worktree-attributes/);
   });
 });

@@ -60,8 +60,12 @@ The goal: a first-timer with an existing resume reaches a tailored draft plus an
 
 > This is what it does with zero setup. It gets much stronger once your resume lives here as a source document and you've banked a few stories — the audit could *verify* those claims instead of just flagging them, and every future application starts from this baseline. Want me to save this and build that out now?
 
-- **User wants to save / continue** → run the workspace preflight (step 3), then save the tailored draft via `resume-tailor`'s normal save path and, if they want it, move into the deep build (step 4).
+- **User wants to save / continue** → run the workspace preflight (step 3), then use the transition below. Do not save the in-chat tailored draft directly.
 - **User is done for now** → that's a complete, successful first run. Don't force the save. Leave them with the one-line invitation to come back and `resume-builder` when ready.
+
+**Resume Builder import/update transition.** After the user confirms which pasted resume/CV material should become their baseline, invoke `resume-builder` in a short import/update pass. It must preserve the user's chosen label, resolve any hard claim questions, save `my-documents/resume.md` or `my-documents/cv.md`, and assign or increment its integer `version`. Wait for the user to confirm that versioned source document before invoking `resume-tailor` again. The second tailor pass reads that saved source, reruns claim verification, and only then may save the tailored artifact with `source_document` and `source_version` frontmatter matching the source. The preview remains useful raw material, but it is never provenance.
+
+If the user wants only the baseline saved, stop after `resume-builder`. If they also want the role-specific artifact, continue through `resume-tailor` steps 1–9 against the newly versioned source.
 
 ### 3. Confirm the workspace, then scaffold
 
@@ -124,7 +128,7 @@ On success, briefly recap: "Your files will live under `{absolute path}`, and I'
 
 Invoke `resume-builder` and run its workflow end-to-end: gather existing materials, run the structured interview, generate outputs with claim checks, save, and export the Word file, PDF, and browser preview.
 
-If the user signaled scope, pass it through so `resume-builder` can route to the right mode. If they arrived here from the fast path, they already have a tailored draft on disk — feed it in as raw material so the interview builds on it rather than starting cold.
+If the user signaled scope, pass it through so `resume-builder` can route to the right mode. If they arrived here from the fast path, feed the in-chat preview and original pasted material into the short import/update transition as raw material so the build starts warm without treating the preview as saved provenance.
 
 ### 5. Seed the story bank
 

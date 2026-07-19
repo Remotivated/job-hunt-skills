@@ -22,8 +22,10 @@
 import { execFileSync } from "node:child_process";
 import {
   copyFileSync,
+  existsSync,
   mkdtempSync,
   readFileSync,
+  renameSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -332,37 +334,36 @@ function escapeHtml(s) {
 
 function renderInlineHtml(inlineTokens) {
   const parts = [];
-  let openLink = null;
-  let openBold = false;
-  let openItalic = false;
+  let openTags = [];
 
-  // Emit well-formed nested tags by tracking transitions.
   const sync = (state) => {
-    // Close in reverse order of opening.
-    if (openItalic && !state.italic) {
-      parts.push("</em>");
-      openItalic = false;
+    const wanted = [];
+    if (state.linkUrl != null) wanted.push({ name: "a", value: state.linkUrl });
+    if (state.bold) wanted.push({ name: "strong", value: null });
+    if (state.italic) wanted.push({ name: "em", value: null });
+
+    let shared = 0;
+    while (
+      shared < openTags.length &&
+      shared < wanted.length &&
+      openTags[shared].name === wanted[shared].name &&
+      openTags[shared].value === wanted[shared].value
+    ) {
+      shared += 1;
     }
-    if (openBold && !state.bold) {
-      parts.push("</strong>");
-      openBold = false;
+
+    for (let i = openTags.length - 1; i >= shared; i -= 1) {
+      parts.push(`</${openTags[i].name}>`);
     }
-    if (openLink !== null && state.linkUrl !== openLink) {
-      parts.push("</a>");
-      openLink = null;
+    for (let i = shared; i < wanted.length; i += 1) {
+      const tag = wanted[i];
+      parts.push(
+        tag.name === "a"
+          ? `<a href="${escapeHtml(tag.value)}">`
+          : `<${tag.name}>`,
+      );
     }
-    if (state.linkUrl != null && openLink === null) {
-      parts.push(`<a href="${escapeHtml(state.linkUrl)}">`);
-      openLink = state.linkUrl;
-    }
-    if (state.bold && !openBold) {
-      parts.push("<strong>");
-      openBold = true;
-    }
-    if (state.italic && !openItalic) {
-      parts.push("<em>");
-      openItalic = true;
-    }
+    openTags = wanted;
   };
 
   walkInline(inlineTokens, {
@@ -998,6 +999,39 @@ function withSuffix(path, ext) {
   return path.replace(/\.[^./\\]+$/, "") + ext;
 }
 
+function commitOutputSet(entries, stageDir) {
+  const prepared = entries.map(({ staged, final }) => ({
+    staged,
+    final,
+    backup: join(stageDir, `${basename(final)}.previous`),
+    hadPrevious: false,
+    installed: false,
+  }));
+
+  try {
+    for (const entry of prepared) {
+      if (existsSync(entry.final)) {
+        renameSync(entry.final, entry.backup);
+        entry.hadPrevious = true;
+      }
+    }
+    for (const entry of prepared) {
+      renameSync(entry.staged, entry.final);
+      entry.installed = true;
+    }
+  } catch (error) {
+    for (const entry of prepared) {
+      if (entry.installed) rmSync(entry.final, { force: true });
+    }
+    for (const entry of prepared) {
+      if (entry.hadPrevious && existsSync(entry.backup)) {
+        renameSync(entry.backup, entry.final);
+      }
+    }
+    throw error;
+  }
+}
+
 export async function exportDocument(inputPath, typst) {
   const raw0 = readFileSync(inputPath, "utf8");
   const kind = pickKind(inputPath);
@@ -1005,24 +1039,47 @@ export async function exportDocument(inputPath, typst) {
   const raw = normalizeUnicode(stripFrontmatter(raw0));
   const { name, contact, body } = parseResumeSections(raw);
 
-  const written = [];
-
   const htmlPath = withSuffix(inputPath, ".html");
-  writeFileSync(htmlPath, buildHtml(name, contact, body, kind), "utf8");
-  written.push(htmlPath);
-
   const docxPath = withSuffix(inputPath, ".docx");
-  writeFileSync(docxPath, await buildDocxBuffer(name, contact, body, kind));
-  written.push(docxPath);
-
-  // One .pdf per document, always: Typst when available, pdfmake otherwise.
   const pdfPath = withSuffix(inputPath, ".pdf");
-  if (typst.present && typst.supported) {
-    compileTypstToPdf(buildTypstSource(name, contact, body, kind), pdfPath);
-  } else {
-    writeFileSync(pdfPath, await buildPdfmakeBuffer(name, contact, body, kind));
+  const written = [htmlPath, docxPath, pdfPath];
+  const stageDir = mkdtempSync(
+    join(dirname(inputPath), ".tmp-job-hunt-export-"),
+  );
+
+  try {
+    const stagedHtml = join(stageDir, basename(htmlPath));
+    const stagedDocx = join(stageDir, basename(docxPath));
+    const stagedPdf = join(stageDir, basename(pdfPath));
+
+    writeFileSync(stagedHtml, buildHtml(name, contact, body, kind), "utf8");
+    writeFileSync(
+      stagedDocx,
+      await buildDocxBuffer(name, contact, body, kind),
+    );
+
+    // One .pdf per document, always: Typst when available, pdfmake otherwise.
+    if (typst.present && typst.supported) {
+      compileTypstToPdf(
+        buildTypstSource(name, contact, body, kind),
+        stagedPdf,
+        typst.bin ?? "typst",
+      );
+    } else {
+      writeFileSync(
+        stagedPdf,
+        await buildPdfmakeBuffer(name, contact, body, kind),
+      );
+    }
+
+    commitOutputSet([
+      { staged: stagedHtml, final: htmlPath },
+      { staged: stagedDocx, final: docxPath },
+      { staged: stagedPdf, final: pdfPath },
+    ], stageDir);
+  } finally {
+    rmSync(stageDir, { recursive: true, force: true });
   }
-  written.push(pdfPath);
 
   return written;
 }

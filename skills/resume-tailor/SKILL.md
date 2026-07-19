@@ -52,8 +52,10 @@ Use this mode when invoked by `get-started`'s fast path, or whenever a first-tim
    - **One honest audit flag:** the top issue, plus any claim the pasted material doesn't support, named plainly.
 6. **Claim verification is paste-based.** There is no evidence layer to check against, so classify claims against the pasted source only and say so. Do not imply deeper verification happened than did.
 7. **Close with the unlock hook**, per [state-layer §11](../_shared/state-layer.md#11-progress-and-reward): name what a saved workspace and source document would add (verified claims instead of flagged ones, a baseline every future application starts from), then offer to save.
-   - **User wants to save** → now run step 0's preflight and scaffold, then continue through the normal save path (steps 7–9), treating the pasted resume as the source material. If no source document exists yet, offer `resume-builder` for a proper build rather than silently promoting the pasted text to a source of truth.
+   - **User wants to save** → now run step 0's preflight and scaffold, then follow the required transition below. Do not continue to steps 7–9 from pasted material alone.
    - **User is done** → that's a complete run. Do not force the save.
+
+**Resume Builder import/update transition.** After the user confirms which pasted material should become the baseline, invoke `resume-builder` for a short import/update pass. It saves or updates `my-documents/resume.md` or `my-documents/cv.md` with the user's chosen label and an integer `version`; hard claim questions must be resolved before that save. Wait for the user to confirm the versioned source. Then invoke `resume-tailor` on that saved file, rerun claim verification, and continue through steps 1–9. The tailored artifact must record the exact `source_document` and `source_version` in its frontmatter. If the user declines the source import/update, keep the result in chat and do not save a tailored artifact.
 
 Do not run the dedup check, tracker upsert, capture pass, or export in quick mode — those all assume disk. They apply only after the user opts to save and the run continues through the normal steps.
 

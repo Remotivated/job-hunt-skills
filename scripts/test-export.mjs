@@ -13,6 +13,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import {
   chmodSync,
   mkdtempSync,
+  readdirSync,
   readFileSync,
   rmSync,
   writeFileSync,
@@ -31,6 +32,7 @@ import {
   buildTypstSource,
   compileTypstToPdf,
   detectTypst,
+  exportDocument,
   findRenderBlockers,
   normalizeUnicode,
   parseResumeSections,
@@ -349,6 +351,20 @@ describe("HTML preview", () => {
     assert.ok(out.includes("A &amp; B"));
   });
 
+  test("keeps formatting tags well nested across adjacent linked text", () => {
+    const out = buildHtml(
+      "Jane Doe",
+      "jane@example.com",
+      "## Experience\n\n[**linked**](https://example.com)**unlinked**\n",
+      "resume",
+    );
+    assert.match(
+      out,
+      /<a href="https:\/\/example\.com"><strong>linked<\/strong><\/a><strong>unlinked<\/strong>/,
+    );
+    assert.doesNotMatch(out, /<a[^>]*><strong>linked<\/a><\/strong>/);
+  });
+
   test("cover letter paragraphs use cover-para class", () => {
     const sample =
       "# Jane Doe\n\njane@x.com\n\n---\n\nDear Hiring Manager,\n\nI am writing about the role.\n";
@@ -520,9 +536,49 @@ describe("CLI end-to-end", () => {
     assert.notEqual(result.status, 0);
     assert.match(result.stderr, /Failed to export/);
   });
+
+  test("failed Typst export preserves the prior complete output set", async () => {
+    const tmp = mkdtempSync(join(tmpdir(), "export-atomic-"));
+    try {
+      const mdPath = join(tmp, "resume.md");
+      writeFileSync(mdPath, SAMPLE_RESUME, "utf8");
+      const sentinels = new Map();
+      for (const ext of [".html", ".docx", ".pdf"]) {
+        const output = join(tmp, `resume${ext}`);
+        const sentinel = Buffer.from(`sentinel-${ext}`);
+        writeFileSync(output, sentinel);
+        sentinels.set(output, sentinel);
+      }
+      const failingTypst = join(tmp, "typst-fail");
+      writeFileSync(
+        failingTypst,
+        "#!/bin/sh\nif [ \"$1\" = \"--version\" ]; then echo 'typst 0.15.1'; exit 0; fi\nexit 9\n",
+      );
+      chmodSync(failingTypst, 0o755);
+      await assert.rejects(
+        exportDocument(mdPath, {
+          present: true,
+          supported: true,
+          version: "0.15.1",
+          bin: failingTypst,
+        }),
+      );
+      for (const [output, sentinel] of sentinels) {
+        assert.deepEqual(readFileSync(output), sentinel, output);
+      }
+      assert.deepEqual(
+        readdirSync(tmp).filter((name) => name.includes(".tmp-")),
+        [],
+        "failed exports must clean staged files",
+      );
+    } finally {
+      rmSync(tmp, { recursive: true, force: true });
+    }
+  });
 });
 
-describe("Typst compile (Tier 3)", { skip: !detectTypst().present }, () => {
+const detectedTypst = detectTypst();
+describe("Typst compile (Tier 3)", { skip: !(detectedTypst.present && detectedTypst.supported) }, () => {
   test("typeset PDF has PDF magic, plausible size, one page", () => {
     const normalized = normalizeUnicode(SAMPLE_RESUME);
     const { name, contact, body } = parseResumeSections(normalized);
