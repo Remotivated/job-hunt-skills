@@ -294,7 +294,7 @@ Conflating these two cases caused testers to rebuild from scratch when their act
 
 ## 11. Progress and Reward
 
-A job search is long and demoralizing, and the compounding value of the state layer is invisible if nothing surfaces it. Every skill closes by showing the user the ground they just gained. This is not decoration — it is the retention mechanic. The rules below keep it consistent and keep it honest.
+A job search is long and demoralizing, and the compounding value of the state layer is invisible if nothing surfaces it. Every skill closes by showing the user the ground they just gained. This is not decoration — it is what keeps the search sustainable. The rules below keep it consistent and keep it honest.
 
 **Reward depth and follow-through, never volume.** This product sells a *truthful* search. Progress signals celebrate evidence depth (stories banked, claims verified, proof assets) and momentum (applications advancing, next actions kept). Never invent urgency, never reward raw application count, never nudge toward spray-and-pray. A user who sends three well-evidenced applications is further ahead than one who sends thirty generic ones, and the framing must say so.
 

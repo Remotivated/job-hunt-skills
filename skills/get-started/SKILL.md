@@ -3,7 +3,7 @@ name: get-started
 description: Use when the user is new to Job Hunt Skills and wants to see what it does or set up their workspace — including "I'm new to Job Hunt Skills", "help me get started", "set me up", "first time using this", "here's my resume, tailor it for this job", "can you look at my resume", pasting a resume and a job posting together, or invoking /get-started. Also use when `my-documents/` has not been scaffolded yet. Once the user has existing source documents and is just iterating, prefer `resume-builder` or `resume-tailor` directly.
 ---
 
-The onboarding wrapper for Job Hunt Skills. A first-time user should reach real value fast, then be invited into the deeper build — not marched through a 20-minute interview before seeing anything. This skill offers two doors: a **fast path** (paste a resume + a posting, get a tailored draft and honest audit in minutes) and the **deep build** (`resume-builder`'s full source-document interview). Lead with the fast path; the deep build is the retention mechanic, offered once the user has felt the value.
+The onboarding wrapper for Job Hunt Skills. A first-time user should reach real value fast, then be invited into the deeper build — not marched through a 20-minute interview before seeing anything. This skill offers two doors: a **fast path** (paste a resume + a posting, get a tailored draft and honest audit in minutes) and the **deep build** (`resume-builder`'s full source-document interview). Lead with the fast path; the deep build is where the compounding value lives, offered once the user has felt the first win.
 
 ## Choosing the door
 
