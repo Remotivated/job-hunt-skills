@@ -22,8 +22,8 @@ Gather:
 - Company.
 - Role.
 - Application id if known.
-- Interview stage: recruiter screen, hiring manager, technical, panel, presentation, final, or other.
-- Date/time, format, interviewer names/functions, and recruiter notes if available.
+- Interview stage: recruiter screen, async or AI-conducted screen, hiring manager, technical, panel, presentation, final, or other.
+- Date/time, format, interviewer names/functions, and recruiter notes if available. If the stage is an async one-way video screen, an AI-conducted or AI-assisted interview, or a screening chatbot, record that plus the mechanics the user was given: question count, prep and answer time limits, retake policy, and deadline. Prep differs by format — see [guides/interview-framework.md](../../guides/interview-framework.md#ai-involved-interviews).
 - Job posting or application folder if available.
 
 If no tracker row exists, offer to create one directly at `status: interviewing`. This is allowed by [state-layer section 4](../_shared/state-layer.md#4-status-enum). When inserting, populate `comp_expected`, `source`, and `next_action_date` (default: the next interview date if known, otherwise today + 7 days) from conversation. See [state-layer §3](../_shared/state-layer.md#3-applicationsmd-schema) for the back-compat read/write rules.

@@ -33,6 +33,7 @@ Select the source work document using [state-layer section 6](../_shared/state-l
 - **Role title:** required.
 - **Job posting:** URL or pasted text. If unavailable, ask what the user knows about the requirements and interview loop.
 - **Interview details:** stage, date/time if known, format, interviewer names or functions, expected topics, and anything the recruiter mentioned.
+- **Interview modality:** live conversation, async one-way video screen, AI-conducted or AI-assisted interview, or screening chatbot. If it is not a live human conversation, capture the mechanics the user was given — question count, prep and answer time limits, retake policy, deadline — and tailor the brief to that format (clock-trimmed answers, audible signposting, no interviewer feedback loop). See [guides/interview-framework.md](../../guides/interview-framework.md#ai-involved-interviews), which also covers what the user can ask about AI involvement and human review.
 - **Source work document:** selected `resume.md` or `cv.md`.
 
 ### 2. Research the company
