@@ -32,6 +32,9 @@ dist/
 
 # Local-only files
 plans/
+research/
+notes/
+*.internal.md
 .claude/settings.local.json
 .superpowers/
 
@@ -39,4 +42,3 @@ plans/
 # Small motion-graphics loops (hero, cowork-setup) remain committed for inline README rendering.
 assets/launch/
 docs/launch/
-
