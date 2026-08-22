@@ -18,6 +18,27 @@ function normalizePath(path) {
   return relative(root, path).replaceAll("\\", "/");
 }
 
+// Packages whose package.json license field is an SPDX expression rather than a
+// single license. Record which arm actually governs this bundle so the notices
+// don't leave a reader to guess.
+const LICENSE_ELECTIONS = {
+  jszip: "MIT (elected from the upstream MIT OR GPL-3.0-or-later dual license)",
+  pako: "MIT AND Zlib (both apply; no election available)",
+};
+
+// Non-npm files that ship inside the plugin and carry their own license.
+const bundledAssets = [
+  {
+    name: "Gelasio",
+    version: "Regular, Italic, Bold, BoldItalic",
+    declaredLicense: "OFL-1.1",
+    notice:
+      "TrueType files embedded by the PDF exporter for the serif document theme",
+    licenseTextSource: "templates/fonts/OFL.txt",
+    licenseFiles: ["templates/fonts/OFL.txt"],
+  },
+];
+
 function packageRootForInput(input) {
   let current = dirname(resolve(root, input));
   while (current.startsWith(root)) {
@@ -48,18 +69,21 @@ function packageRecord(packageRoot) {
       licenseFiles.push(normalizePath(join(packageRoot, readme)));
     }
   }
+  // brotli ships MIT metadata but its decoder is Google's Apache-2.0 code, so
+  // the Apache text belongs in the notices. Reference a repo-owned copy rather
+  // than an unrelated package's LICENSE file, which would break the moment that
+  // package left the tree.
   if (pkg.name === "brotli") {
     licenseFiles.push(normalizePath(join(packageRoot, "dec/bit_reader.js")));
-    licenseFiles.push("node_modules/@swc/helpers/LICENSE");
-  }
-  if (pkg.name === "hash.js") {
-    licenseFiles.push(normalizePath(join(packageRoot, "lib/hash/utils.js")));
-    licenseFiles.push("node_modules/@swc/helpers/LICENSE");
+    licenseFiles.push("scripts/vendor/apache-2.0.txt");
   }
   return {
     name: pkg.name ?? basename(packageRoot),
     version: pkg.version ?? "unknown",
-    declaredLicense: pkg.license ?? "see included package license file",
+    declaredLicense:
+      LICENSE_ELECTIONS[pkg.name] ??
+      pkg.license ??
+      "see included package license file",
     licenseFiles: [...new Set(licenseFiles)].sort(),
   };
 }
@@ -199,20 +223,30 @@ for (const record of pinnedDocxNotices) {
 const embedded = [...embeddedByKey.values()].sort((a, b) =>
   `${a.name}@${a.version}`.localeCompare(`${b.name}@${b.version}`),
 );
+const assets = [...bundledAssets].sort((a, b) => a.name.localeCompare(b.name));
+for (const asset of assets) {
+  for (const path of asset.licenseFiles) {
+    if (!existsSync(join(root, path))) {
+      throw new Error(`Missing bundled-asset license file: ${path}`);
+    }
+  }
+}
+
 const unresolved = [
   ...unmappedInputs.map((input) => `unmapped build input: ${input}`),
-  ...[...packages, ...embedded]
+  ...[...packages, ...embedded, ...assets]
     .filter(
       (record) =>
         !record.licenseFiles.length ||
-        (embedded.includes(record) && !record.licenseTextSource),
+        ((embedded.includes(record) || assets.includes(record)) &&
+          !record.licenseTextSource),
     )
     .map((record) => `${record.name}@${record.version}`),
 ].sort();
 
 writeFileSync(
   join(vendorDir, "vendor-inputs.json"),
-  `${JSON.stringify({ buildInputs, packages, embedded, unresolved }, null, 2)}\n`,
+  `${JSON.stringify({ buildInputs, packages, embedded, assets, unresolved }, null, 2)}\n`,
   "utf8",
 );
 

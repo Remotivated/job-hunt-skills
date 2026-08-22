@@ -30,6 +30,8 @@ jobs:
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/embedded-docx-notices.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/export-deps.mjs.LEGAL.txt"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/vendor-inputs.json"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/apache-2.0.txt"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "templates/fonts/OFL.txt"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/agents/openai.yaml"
 
       - name: Attach ZIP to GitHub Release

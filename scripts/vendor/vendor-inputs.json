@@ -635,9 +635,9 @@
       "version": "1.3.3",
       "declaredLicense": "MIT",
       "licenseFiles": [
-        "node_modules/@swc/helpers/LICENSE",
         "node_modules/brotli/dec/bit_reader.js",
-        "node_modules/brotli/readme.md"
+        "node_modules/brotli/readme.md",
+        "scripts/vendor/apache-2.0.txt"
       ]
     },
     {
@@ -881,12 +881,10 @@
       "version": "1.1.7",
       "declaredLicense": "MIT",
       "licenseFiles": [
-        "node_modules/@swc/helpers/LICENSE",
-        "node_modules/hash.js/README.md",
-        "node_modules/hash.js/lib/hash/utils.js"
+        "node_modules/hash.js/README.md"
       ],
       "notice": "Bundled inside docx 9.7.1's distributed module",
-      "licenseTextSource": "node_modules/@swc/helpers/LICENSE, node_modules/hash.js/README.md, node_modules/hash.js/lib/hash/utils.js"
+      "licenseTextSource": "node_modules/hash.js/README.md"
     },
     {
       "name": "immediate",
@@ -921,7 +919,7 @@
     {
       "name": "jszip",
       "version": "3.10.1",
-      "declaredLicense": "(MIT OR GPL-3.0-or-later)",
+      "declaredLicense": "MIT (elected from the upstream MIT OR GPL-3.0-or-later dual license)",
       "licenseFiles": [
         "node_modules/jszip/LICENSE.markdown"
       ],
@@ -961,7 +959,7 @@
     {
       "name": "pako",
       "version": "1.0.11",
-      "declaredLicense": "(MIT AND Zlib)",
+      "declaredLicense": "MIT AND Zlib (both apply; no election available)",
       "licenseFiles": [
         "node_modules/pako/LICENSE"
       ],
@@ -1067,6 +1065,18 @@
       ],
       "notice": "Bundled inside docx 9.7.1's distributed module",
       "licenseTextSource": "node_modules/xml/LICENSE"
+    }
+  ],
+  "assets": [
+    {
+      "name": "Gelasio",
+      "version": "Regular, Italic, Bold, BoldItalic",
+      "declaredLicense": "OFL-1.1",
+      "notice": "TrueType files embedded by the PDF exporter for the serif document theme",
+      "licenseTextSource": "templates/fonts/OFL.txt",
+      "licenseFiles": [
+        "templates/fonts/OFL.txt"
+      ]
     }
   ],
   "unresolved": []

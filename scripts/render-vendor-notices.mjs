@@ -83,8 +83,25 @@ for (const record of inventory.embedded) {
   );
 }
 
+const assets = inventory.assets ?? [];
+if (assets.length) {
+  lines.push("", "## Bundled assets", "");
+  for (const record of assets) {
+    lines.push(
+      `### ${record.name} — ${record.version}`,
+      "",
+      `Declared license: ${record.declaredLicense}`,
+      "",
+      `Evidence: ${record.notice}.`,
+      "",
+      `License text source: ${record.licenseTextSource}.`,
+      "",
+    );
+  }
+}
+
 const licensePaths = [...new Set(
-  [...inventory.packages, ...inventory.embedded]
+  [...inventory.packages, ...inventory.embedded, ...assets]
     .flatMap((record) => record.licenseFiles),
 )].sort();
 
