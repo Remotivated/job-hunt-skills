@@ -58,7 +58,7 @@ Sent cold to someone you've never interacted with, this gets a **very low respon
 
 Here's where to begin:
 
-**LinkedIn.** Follow people at companies you're interested in. Follow thought leaders in your field. Start commenting before you start messaging. Your comments are **public proof** that you're thoughtful and engaged. Consider posting your own content too — your thought leadership has value, and the level of competition on LinkedIn is low. You don't need followers to get real visibility.
+**LinkedIn.** Follow people at companies you're interested in. Follow thought leaders in your field. Start commenting before you start messaging. Your comments are **public proof** that you're thoughtful and engaged. Consider posting your own content too — far more people read than post, so showing up consistently is enough to be noticed. You don't need followers to get real visibility.
 
 **Slack, Reddit and Discord communities.** Most industries have active communities. Remote work communities are particularly strong across job boards, industry groups, and niche professional Slacks. Show up, answer questions, share resources. This is networking without the awkwardness of cold DMs.
 

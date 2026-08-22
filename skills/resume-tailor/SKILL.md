@@ -33,7 +33,7 @@ Use `{label}` in all user-facing prose.
 
 ### 0.5. Quick-tailor mode (in-chat, no scaffold)
 
-Use this mode when invoked by `get-started`'s fast path, or whenever a first-time user pastes a resume and a posting and just wants to see what tailoring does before committing to setup. The point is time-to-value: a tailored draft plus an honest read in minutes, entirely in conversation, **with nothing written to disk**. The full path (steps 0–9) remains the default for users who already have a bound workspace and a source document.
+Use this mode when invoked by `get-started`'s fast path, or whenever a first-time user pastes a resume and a posting and just wants to see what tailoring does before committing to setup. The point is a useful answer fast: a tailored draft plus an honest read in minutes, entirely in conversation, **with nothing written to disk**. The full path (steps 0–9) remains the default for users who already have a bound workspace and a source document.
 
 **When to use it:**
 
@@ -46,7 +46,7 @@ Use this mode when invoked by `get-started`'s fast path, or whenever a first-tim
 2. **Analyze the posting and pick the angle** exactly as steps 3–4 describe.
 3. **Tailor from the pasted source** per step 5's rules. The never-invent rule is absolute here too — with only pasted material as evidence, be *more* conservative, not less. Anything the pasted text doesn't support gets flagged, not asserted.
 4. **Condensed audit pass.** Run a lightweight `resume-auditor` read focused on the single most callback-blocking issue, rather than a full bullet-by-bullet audit.
-5. **Output shape** — in this order, tuned for a first "wow":
+5. **Output shape** — in this order, so the most useful part lands first:
    - **60-second read-back:** one short paragraph proving you understood the material and how it maps to the posting.
    - **Two or three before/after bullet rewrites:** show the transform as a diff with the reasoning, not a wall of finished text.
    - **One honest audit flag:** the top issue, plus any claim the pasted material doesn't support, named plainly.

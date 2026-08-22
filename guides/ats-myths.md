@@ -69,7 +69,7 @@ Here's what can actually go wrong:
 
 **Poor formatting breaks parsers.** Tables, multi-column layouts, text boxes, headers/footers, embedded graphics — any of these can turn your resume into garbled data. Your work history ends up in the education field. Your name doesn't get captured. This is a real problem, but the fix is clean formatting, not keyword optimization.
 
-It's also worth noting that modern ATS systems are very flexible when it comes to formatting. We extensively researched this when building Job Hunt Skills, and the format we landed on plays well even with legacy ATS systems. But the truth is, as long as your resume uses a standard format and text instead of images, you're probably fine.
+It's also worth noting that modern ATS systems are very flexible when it comes to formatting. As long as your resume uses a standard format and text instead of images, you're probably fine.
 
 **Missing information means missing search results.** If a recruiter filters for "project management" and you wrote "PM" or "programme management," you won't appear in that search. Modern parsers are getting better at synonyms, but many still rely on close-to-exact matches. Spell it out the way the job description does.
 

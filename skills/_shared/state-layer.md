@@ -258,14 +258,14 @@ Claims sourced from priority 1-3 are supported. A match only in reports is weake
 
 ## 10. Workspace Preflight
 
-Skills that read or write `my-documents/` MUST verify the user is operating in their own bound local workspace before the first scaffold call or write. If this step is skipped, files can be written into the plugin install directory — invisible to the user, lost on the next session — which is exactly what happened to early Cowork testers.
+Skills that read or write `my-documents/` MUST verify the user is operating in their own bound local workspace before the first scaffold call or write. If this step is skipped, files can be written into the plugin install directory — invisible to the user, lost on the next session.
 
 **Applies to:** `get-started`, `resume-builder`, `resume-tailor`, `interviewing`, `interview-coach`, `company-research`, `linkedin-optimizer`, `proof-asset-creator`, `resume-auditor`, `cover-letter`, `claim-check`.
 
 **Required sequence on first state-layer touch per session:**
 
 1. Resolve where `my-documents/` would land — i.e. `process.cwd()` joined with `my-documents/`.
-2. **Confirm the path with the user before scaffolding.** Show the resolved absolute path in plain language and wait for explicit acceptance. Do not scaffold first and announce afterwards — early testers had files land in unexpected places because confirmation came too late or not at all. Handle the user's response:
+2. **Confirm the path with the user before scaffolding.** Show the resolved absolute path in plain language and wait for explicit acceptance. Do not scaffold first and announce afterwards: when confirmation comes late or not at all, files land where the user will not find them. Handle the user's response:
    - **Accepted** → proceed to step 3.
    - **Different subfolder under the same location** → adjust the target (e.g. `{cwd}/job-hunt-skills/` instead of `{cwd}/`), offer to create the subfolder, and warn that creating a new folder may require a permission prompt. Re-confirm before scaffolding.
    - **User has no folder yet / doesn't know what to pick** → guide them with the matching recovery path. Do NOT scaffold a "best guess" location on their behalf:
@@ -280,7 +280,7 @@ Skills that read or write `my-documents/` MUST verify the user is operating in t
    - Files: `my-documents/applications.md` with the empty-table template from §3; `my-documents/story-bank.md` with the schema-only scaffold from §7.
    - Do not invent example rows or example stories — both files are intentionally empty/instructional on first scaffold.
    The fallback is not a workaround — it produces the same on-disk state as the script. Skills must not branch behavior based on which path was used.
-6. **Verify the scaffold before any downstream write.** After running the script or fallback, confirm the four directories and two markdown files actually exist at the resolved path. If any are missing, create them. A skill that proceeds to write a resume, report, or tracker row into an unscaffolded workspace is the failure mode that left an early tester's resume floating in chat — verification is what makes the gate enforceable, not assumed.
+6. **Verify the scaffold before any downstream write.** After running the script or fallback, confirm the four directories and two markdown files actually exist at the resolved path. If any are missing, create them. A skill that proceeds to write a resume, report, or tracker row into an unscaffolded workspace is the failure mode this gate exists to prevent — verification is what makes it enforceable, not assumed.
 7. Subsequent skills in the same session may skip the path confirmation but MUST still run the verification check in step 6 before their first write. Verification is cheap (a directory listing); silently writing into a half-scaffolded tree is not.
 
 **Novice vocabulary:** when surfacing this to a user, prefer "folder" over "directory", "where your files live on your computer" over "working directory" or "cwd". Show the actual absolute path so the user can recognize it (e.g. `C:\Users\you\Documents\job-hunt\`).
@@ -290,7 +290,7 @@ Skills that read or write `my-documents/` MUST verify the user is operating in t
 - `my-documents/` does not exist or is empty → workspace likely not bound. Run the preflight; do not offer `resume-builder` until the workspace is confirmed.
 - `my-documents/` exists with other files but the source work document is missing → offer `resume-builder` or `get-started`.
 
-Conflating these two cases caused testers to rebuild from scratch when their actual file was sitting in the plugin dir from a prior unbound run.
+Conflating these two cases leads to rebuilding from scratch when the real file is sitting in the plugin dir from a prior unbound run.
 
 ## 11. Progress and Reward
 

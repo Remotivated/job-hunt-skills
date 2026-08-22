@@ -21,7 +21,7 @@ The fast path runs **in-chat first** and only touches disk once the user asks to
 
 Give a short orientation in plain language **before** asking for any information. You're talking to a jobseeker, not a developer. Keep it to two or three sentences, then offer the fast path. Do not open with the long interview.
 
-This step is load-bearing: a tester reported being handed a long input form first and only being told what was happening (and that fields could be skipped) afterwards — at which point the form was already filled. Orientation MUST land first, and the user MUST choose a door before any structured prompt — single question, multi-field form, or batched interview — appears.
+This step is load-bearing: hand over a long input form first and explain afterwards, and the form is already filled by the time the user knows what is happening or that fields can be skipped. Orientation MUST land first, and the user MUST choose a door before any structured prompt — single question, multi-field form, or batched interview — appears.
 
 Convey, briefly:
 
@@ -54,9 +54,9 @@ The goal: a first-timer with an existing resume reaches a tailored draft plus an
 
 1. **A 60-second read-back** — prove you understood the material before doing the slow work: "Here's what I see: eight years in B2B marketing, strongest evidence around lifecycle campaigns; this posting weights analytics experience you have but bury in bullet six." One short paragraph.
 2. **Two or three before/after bullet rewrites** — show the transform as a diff, with the reasoning ("the posting leads on X; your original buried it; here's the reframe"), not a wall of finished text.
-3. **One honest audit flag** — surface the single most callback-blocking issue, and if a claim isn't supported by the pasted material, flag it plainly. This is the differentiator; don't skip it to be nice.
+3. **One honest audit flag** — surface the single most callback-blocking issue, and if a claim isn't supported by the pasted material, flag it plainly. Don't skip it to be nice — an unflagged claim costs the user a wasted application later.
 
-**2c. Close with the unlock hook.** End the fast path by naming what a saved workspace and source document would add — this is the invitation into the deep build, per [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
+**2c. Close by naming what a saved workspace adds.** End the fast path by naming what a saved workspace and source document would add — this is the invitation into the deep build, per [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
 
 > This is what it does with zero setup. It gets much stronger once your resume lives here as a source document and you've banked a few stories — the audit could *verify* those claims instead of just flagging them, and every future application starts from this baseline. Want me to save this and build that out now?
 
@@ -118,7 +118,7 @@ Once a real workspace folder is confirmed, build the structure under that folder
 - Directories: `my-documents/`, `my-documents/applications/`, `my-documents/reports/`, `my-documents/proof-assets/`
 - Files: `my-documents/applications.md`, `my-documents/story-bank.md`
 
-If anything is missing, create it. Every downstream skill assumes this structure is in place; a half-scaffolded workspace is what stranded a tester's resume in chat. Verification is the gate, not the script's exit code.
+If anything is missing, create it. Every downstream skill assumes this structure is in place; a half-scaffolded workspace is how a generated resume ends up stranded in chat. Verification is the gate, not the script's exit code.
 
 On success, briefly recap: "Your files will live under `{absolute path}`, and I've set up the folders for resumes, applications, reports, and proof assets." One sentence, then move on to building.
 

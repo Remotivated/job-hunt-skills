@@ -31,7 +31,7 @@ Follow the [Workspace Preflight (state-layer §10)](../_shared/state-layer.md#10
 
 - **If `my-documents/` does not yet exist** at the resolved path, hand off to `get-started` for the workspace confirmation flow. Do not run the scaffolder yourself — the user needs the novice-friendly "where will my files live" conversation before any file is written.
 - **If `my-documents/` already exists**, run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` to fill in any missing pieces. If it exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop. If it fails for any other reason (Node missing, no shell access), fall back to creating any missing structure with native file tools per state-layer §10 step 5.
-- **Verify before writing.** Regardless of which path was taken, confirm the four canonical directories and two markdown files exist under `my-documents/` before producing a resume. A skill that generates a resume into an unscaffolded workspace is the failure mode that left an early tester's document floating in chat.
+- **Verify before writing.** Regardless of which path was taken, confirm the four canonical directories and two markdown files exist under `my-documents/` before producing a resume. A skill that generates a resume into an unscaffolded workspace is the failure mode this check exists to prevent.
 
 On first scaffold per session, mention the path once: "Your files will live under `{absolute path}`."
 
@@ -58,13 +58,13 @@ If provided, read and analyze it before asking follow-ups. If starting from scra
 
 **Set expectations before the first prompt.** Before any structured form, batched questionnaire, or interview-style question is presented, briefly recap in conversational prose: what's about to happen (gathering work history, accomplishments, target roles), how long it will take, that blanks are fine and gaps will be surfaced later rather than invented, and what the user will have at the end. Only after that recap may the interview begin. A batched form is acceptable; a batched form delivered *before* the user knows what it's for is what testers reported as confusing.
 
-**Run the interview as episodes, not one long form.** A 20-minute unbroken interview is where first-timers abandon. Break it into chapters, and after each chapter show visible progress so the user feels the document taking shape rather than filling out a survey:
+**Run the interview as episodes, not one long form.** A 20-minute unbroken interview is a slog, especially for a first-time user. Break it into chapters, and after each chapter show visible progress so the user feels the document taking shape rather than filling out a survey:
 
 - **Chapter 1 — work history:** current and prior roles, titles, timeframes. After it, show a *skeleton draft* — the document's structure with roles and dates in place, bullets still to come. The user sees an actual document appear.
 - **Chapter 2 — accomplishments and proof:** probe outcomes per role. After it, show the bullets sharpening on the roles already on screen.
 - **Chapter 3 — targeting and extras:** target roles, skills, education, CV-format extras, cover-letter specificity if in scope.
 
-Each chapter ends with a one-line "here's what we have so far" beat before the next begins. Keep chapters short; a user who sees the resume growing after five minutes stays for the next five. This is presentation, not a different data model — the same fields get gathered, just paced so progress is visible.
+Each chapter ends with a one-line "here's what we have so far" beat before the next begins. Keep chapters short; seeing the resume take shape after five minutes makes the next five worth it. This is presentation, not a different data model — the same fields get gathered, just paced so progress is visible.
 
 Probe for outcomes, not responsibilities.
 

@@ -63,7 +63,7 @@ If you're in design, content, marketing, or any role where the work is visual, a
 - What was your specific role?
 - What was the result?
 
-Six excellent pieces with clear context will always beat twenty screenshots and no explanation. Hiring managers typically spend only **seconds per portfolio** before deciding whether to keep reading. Act accordingly.
+Six excellent pieces with clear context will always beat twenty screenshots and no explanation. Assume whoever opens it is skimming, not studying. Act accordingly.
 
 ---
 

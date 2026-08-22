@@ -4,7 +4,7 @@
 
 LinkedIn reported in July 2023 that just **9% of job postings** advertised remote work, while those roles received **44% of applications**. That's roughly **4x their share of postings** competing for a much smaller slice of the market.
 
-Sit with that ratio for a second. Corporate job postings often attract hundreds of applications, and remote roles push that number significantly higher. Senior roles at well-known remote companies? 500+ is not unusual.
+Sit with that ratio for a second. Corporate job postings often attract hundreds of applications, and remote roles push that number significantly higher.
 
 That's not a reason to panic. It's a reason to stop winging it. When the math is this lopsided, you can't afford weak applications. Every submission needs to count.
 
