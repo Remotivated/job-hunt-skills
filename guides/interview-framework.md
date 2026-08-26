@@ -145,6 +145,81 @@ Remote interviews have their own dynamics.
 
 ---
 
+## AI-Involved Interviews
+
+More of the early interview process now runs through software. In Employ's 2025 Recruiter Nation Report — a vendor survey of more than 1,200 U.S. recruiters and hiring managers — 65% of recruiting teams said they use AI somewhere in their recruiting technology. On the candidate side, that shows up as four formats. They look similar from the outside and reward completely different preparation.
+
+**Asynchronous one-way video screens.** You get a link, a set of questions, and a recording window. Nobody is on the other end. The instruction screen typically tells you how many questions there are, how long you get to think before recording starts, how long each answer can run, and whether retakes are allowed. You record, you submit, and the review happens later without you.
+
+**AI-conducted or AI-assisted live interviews.** A conversational system asks the questions and generates follow-ups from your answers in real time — or sits alongside a human interviewer, listening and producing notes and a summary. Either way, the artifact that gets passed along is a transcript plus some structured write-up.
+
+**Chatbot screening and scheduling.** The first contact after you apply is a messaging flow that collects availability, work authorization, location, salary expectations, and start date. Functionally this is the application's knockout questions wearing a conversational interface — see [ATS myths](ats-myths.md) for why those questions deserve more of your attention than your keywords do.
+
+**Recorded interviews with automated analysis.** An ordinary live human interview that is recorded and transcribed, with software producing a summary, extracted highlights, or a rubric score for people who weren't in the room. You'll usually see a recording or transcription notice at the start, sometimes with a consent prompt.
+
+Candidates aren't uniformly hostile to any of this. In Employ's 2026 Job Seeker Nation Report — a vendor survey of more than 1,500 U.S. adults — 63% said they'd be comfortable with AI guiding them through the hiring process, and under 1% said they'd prefer a human at every step. The discomfort is specific, and it clusters on judgment calls. Asked who should extend a job offer, 38% preferred a human against 20% comfortable with AI. On conducting an initial screening interview, 35% preferred a human against 25% comfortable with AI. For assessing skills and qualifications, 33% preferred a human. Scheduling and logistics, nobody minds.
+
+Assessments in this bucket are now routine rather than an imposition: in the same survey, 73% said they had completed a skills assessment or work sample, and 79% agreed that assessments help employers evaluate what a candidate can actually do. The take-home scoping questions from the section above still apply.
+
+### Preparing for a one-way async screen
+
+This is the format that punishes people who prepare for it like a conversation. There's no interviewer nodding you along, no follow-up question to rescue a thin answer, and a hard clock.
+
+- **Read the entire instruction screen before you start.** Question count, prep timer, answer limit, retake policy. Those four facts change how you play the whole thing, and you can't go back for them once you're recording.
+- **Do a full dry run in the browser you'll actually record in.** Camera, mic, lighting, permission prompts. Platform-specific surprises are much cheaper to find ten minutes early.
+- **Rehearse to the clock.** Limits often land somewhere between one and three minutes. A STAR+R answer that runs five minutes is fine in conversation and gets guillotined here. Cut Situation and Task to two sentences each and protect the Result and the Reflection — those are the beats carrying the signal.
+- **Signpost out loud.** "There were three constraints. First…" You've lost the interviewer's feedback loop, so make your structure audible instead of relying on someone to follow you.
+- **Talk to the lens, not to your own thumbnail.** Put a sticky note next to the camera. Close the self-view if the platform lets you.
+- **Spend retakes early, then commit.** If you get a limited number, use one on question one, where nerves cost the most. Chasing a perfect take on every question burns focus you need for the ones that count.
+- **Finish the answer.** A slightly awkward complete answer beats a polished one that hit the limit mid-sentence.
+- **Treat it like a real interview room.** Same clothes, same closed door, same phone off. You're not on a call, but you are on the record.
+
+### Preparing for an AI-conducted or AI-assisted live interview
+
+- **Answer the question asked, then stop.** There's no body language telling you to wrap up, and rambling is more expensive here than it is with a person.
+- **Say the specifics out loud.** Numbers, tool names, titles, timeframes. A transcript is what moves forward, and anything you gestured at vaguely doesn't survive the trip.
+- **Expect follow-ups drawn from your last answer.** If it picks the thread you least wanted to pull, that's the mechanism working, not a trap being sprung.
+- **You're still evaluating them.** Ask your questions anyway. If the format can't answer them, that's your cue to ask for a conversation with a person on the team before you go further — not to give up on the information.
+
+### Preparing for chatbot screening
+
+- **Answer eligibility questions accurately.** Work authorization, location, start date. This is the part of the process with a documented history of rejecting people automatically, and a careless tap is a real cost.
+- **Salary prompts often block progress until you enter something.** If it's free text, the range-first approach from the compensation section still works. If it forces one number, use a figure at or above what you'd genuinely accept, and treat it as an opening position you'll reopen with the recruiter — not a commitment.
+- **Take the human handoff when it's offered** for anything consequential. Compensation, scope, and start dates are worth a person.
+
+### What you're entitled to ask
+
+You can ask whether AI is involved, how it's used, whether a human reviews the outcome, and whether you can request human review. This is a reasonable process question, not a confrontation — and the demand for it is close to universal. In the 2026 Job Seeker Nation survey of more than 1,500 U.S. adults, 91% said it matters that companies are upfront about when and how AI is used (63% very important, 28% somewhat).
+
+What actually moves candidate comfort is procedural rather than technical. Asked what would make them more comfortable with AI in hiring, the top two answers were a human reviewing AI hiring recommendations (40%) and the ability to appeal or request human review (38%), ahead of transparency about how AI is used (30%), a clear explanation of how candidates are evaluated (28%), knowing the AI is tested for bias (20%), and independent oversight or regulation (18%). So ask about the review path, not the algorithm.
+
+A version that works in email, before an async screen:
+
+> "Happy to record the screen this week. Two quick questions so I can prepare properly: are the responses assessed by software as well as by a person, and is there a way to ask for human review if I'd like one?"
+
+And live, when a recording notice appears:
+
+> "No problem on recording. Is any of this analyzed automatically, and who sees the output?"
+
+- ✅ **Green flags:** A plain, specific answer. They name what's automated and what isn't. A person reviews outcomes before decisions. They can describe an appeal or re-review path without checking whether one exists.
+- 🚩 **Red flags:** Evasion, or treating a process question as an accusation. "That's proprietary" for something as basic as whether a human sees your file. Different interviewers give you different answers.
+
+Either way you learn something. A company that can explain its own process is showing you how it will explain other things later.
+
+### The honest uncertainty
+
+Nobody can tell you whether AI decided your outcome — not a recruiter, not a LinkedIn post, and not this guide. Adoption is measurable; what the tools decide is not, and the surveys that get quoted at you were never designed to answer it. The full version of that argument, including what the evidence does and doesn't support, is in [ATS myths → What AI Changed, And What Nobody Knows](ats-myths.md#what-ai-changed-and-what-nobody-knows).
+
+The practical consequence: prepare for the format in front of you and stop trying to reverse-engineer a verdict. You can control your setup, your clock discipline, and the quality of your answers. You cannot control an inference you have no evidence for.
+
+### Your own AI use in the interview
+
+Preparing with AI is ordinary — researching the company, drilling questions, tightening stories. Generating answers in real time while a live interview is happening is a different thing. Among the 28% of candidates in the 2026 survey who use AI in their job search at all, 37% reported using it for real-time interview answers — roughly one in ten candidates overall.
+
+The line is worth understanding properly rather than memorizing a rule, and it gets its own treatment in [AI assistance boundaries](ai-assistance-boundaries.md).
+
+---
+
 ## Post-Interview Follow-Up
 
 **Same-day thank-you email.** Not generic. Reference something specific from the conversation. "I really enjoyed our discussion about how the team handles cross-functional projects -- the RFC process you described is exactly the kind of structured thinking I appreciate." Two to three sentences. Don't overthink it.
@@ -170,3 +245,5 @@ If you leave an interview feeling like you learned something real about the comp
 - **MIT CAPD** — The STAR Method for behavioral interviews. [capd.mit.edu](https://capd.mit.edu/resources/the-star-method-for-behavioral-interviews/)
 - **Indeed** — Employer guidance on keeping take-home assignments simple, relevant, and respectful of candidate time. [indeed.com](https://www.indeed.com/hire/c/info/take-home-interview-assignment)
 - **InHerSight** — Discussion of ethical concerns around unpaid take-home assignments, including excessive time commitments and unclear use of candidate work. [inhersight.com](https://www.inhersight.com/blog/interview/are-unpaid-interview-assignments-ethical)
+- **Employ** — `2026 Job Seeker Nation Report`, a vendor survey conducted by Zogby Analytics, n≈1,500 U.S. adults, March–April 2026, self-reported. Source of the 91% AI-transparency figure, the comfort factors (human review 40%, appeal or human review 38%, transparency 30%, clear explanation 28%, bias testing 20%, oversight 18%), the human-versus-AI preference splits, and the skills-assessment figures (73% completed, 79% agree). The real-time-AI-answers share of 37% is percentaged on the 28% of respondents who use AI in their job search at all, not on all candidates. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf) ([archived copy](https://web.archive.org/web/20260813191128/https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf))
+- **Employ** — `2025 Recruiter Nation Report`, a vendor survey conducted by Zogby Analytics, n>1,200 U.S. HR recruiters and hiring managers, September 2025. Source of the 65% AI adoption figure, which is an all-respondent share. Survey data, not platform data; none of its use-case options describes AI making a reject-or-advance decision, so it cannot tell you how often outcomes are automated. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2025-Employ-Recruiter-Nation-Report.pdf)

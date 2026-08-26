@@ -217,6 +217,7 @@ If you use ChatGPT, Gemini, Claude.ai, or another LLM without plugins, start wit
 | [linkedin-audit](prompts/linkedin-audit.md) | You want a five-second credibility read of your headline, then a guided profile audit. |
 | [proof-asset](prompts/proof-asset.md) | You want a case study or portfolio piece that shows how you think. |
 | [claim-check](prompts/claim-check.md) | You are about to hit send and want the truth pass first. |
+| [ai-assistance-check](prompts/ai-assistance-check.md) | You used AI on something and want to know if you can defend it in the room. |
 
 Every prompt refuses to invent metrics, tools, or experience — when a stronger output would need a fact you didn't provide, you get a question instead of a fabrication. The last word is yours: treat each prompt's verification list as a blocker, not a suggestion.
 
@@ -228,6 +229,7 @@ The guides explain the methodology behind the skills and prompts.
 | --- | --- |
 | [Resume Philosophy](guides/resume-philosophy.md) | Outcomes, angles, and honest tailoring. |
 | [ATS Myths](guides/ats-myths.md) | What ATS systems do and do not do. |
+| [AI Assistance Boundaries](guides/ai-assistance-boundaries.md) | Where AI help ends and misrepresentation starts. |
 | [Company Research](guides/company-research.md) | A practical employer vetting process. |
 | [Remote Job Market](guides/remote-job-market.md) | Why remote roles need sharper targeting. |
 | [Interview Framework](guides/interview-framework.md) | How to prepare and what to ask back. |
