@@ -90,6 +90,7 @@ Yeah, probably. But that doesn't get you off the hook. You have options:
 - **Focus on process**: Describe your approach and methodology without revealing proprietary outcomes.
 - **Use a different project**: Side projects, volunteer work, and freelance engagements all count.
 - **Create something new**: Build a proof asset specifically for your job search. A spec project for a target company or a case study of a public challenge in your industry works well.
+- **Build on public or sample data**: A template filled with invented numbers, or an analysis of a public company's filings, shows the skill with nothing to leak.
 
 > Nobody's asking you to leak trade secrets. They want to see how you think.
 
@@ -97,50 +98,100 @@ Yeah, probably. But that doesn't get you off the hook. You have options:
 
 ## Role-Specific Examples
 
+Designers have portfolios and engineers have code. If your work is neither, the hard part is knowing what to make.
+
+A rule of thumb that works for most roles: show the kind of thing you'd be asked to produce in the job. That can be something you already made, cleaned up and anonymized, or a small sample you make now. It lets a hiring manager picture your work on their team instead of guessing at it.
+
 | Role | Strong Proof Formats |
 |------|---------------------|
 | Sales | Deal narrative, cold outreach sequence with metrics, territory plan |
 | Marketing | Campaign deck with results, content samples + performance data, competitive analysis |
 | Engineering | GitHub projects with clean READMEs, technical blog posts, system design docs |
+| Data and Analytics | Public-dataset analysis, dashboard on sample data, metric definition |
+| Customer Support | Rewritten help article, sample ticket replies, bug report written for engineers |
 | Customer Success | Customer-facing documentation, process improvement case study, onboarding playbook |
-| Product Management | PRD or product spec, roadmap framework, launch retrospective |
+| Product Management | Product requirements document (PRD) or spec, roadmap framework, launch retrospective |
 | Operations | Process documentation, policy document with rationale, project plan |
+| Finance and Accounting | Month-end close checklist, analysis built from public filings, plain-language memo |
+| People and Recruiting | Remote onboarding plan, interview scorecard, policy rewritten in plain language |
+
+A reusable asset proves you've done the work. A small sample made for the company you're applying to shows how you'd do it for them, and it's the fastest route when you have no past work you can share. "Here's how I'd rewrite your refund article" hands them their own problem with your thinking already applied. Each list below ends with one way to do that.
+
+> Keep company-specific samples small: one page, a few hours at most. You're showing your approach. Don't do the job for free. Label anything you invented, like sample tickets or dummy numbers, as a sample.
+
+You're also working without their data, so write it as what you'd test or ask about first. A verdict on what they got wrong won't land.
 
 ### Sales
 
 - A deal narrative walking through how you identified, qualified, and closed a specific opportunity
 - A cold outreach sequence with anonymized response rates and conversion data
 - A territory plan showing how you prioritized accounts and allocated time
+- **Made for them:** a one-page account plan for a customer they'd want to win: why them, why now, who the buyer is, and your first three touches
 
 ### Marketing
 
 - A campaign deck with strategy, execution, and results (even with anonymized metrics)
-- Content samples paired with performance data -- impressions, engagement, conversion
+- Content samples paired with performance data: impressions, engagement, conversion
 - A competitive analysis or positioning document
+- **Made for them:** a walkthrough of their signup or landing page, with the three tests you'd want to run first and why
 
 ### Engineering
 
 - GitHub projects with clean READMEs that explain the problem, approach, and how to run the code
 - Technical blog posts that walk through your problem-solving process
 - System design documents showing how you think about architecture and tradeoffs
+- **Made for them:** if they maintain open-source code, pick up an issue they've marked as open to contributors and follow their contributing guide (let the work speak, and keep the job pitch out of the pull request)
+
+### Data and Analytics
+
+- An analysis of a public dataset, with the question, the method, and the "so what" stated at the top
+- A dashboard built on sample data, with a note on who it's for and which decision it supports
+- A metric definition: how you'd define "active user" for a product, and where the obvious definition misleads
+- **Made for them:** an analysis of something public about their product or market, such as a hundred app store reviews you read and categorized by hand, ending in one recommendation
+
+### Customer Support
+
+- A help article you rewrote, shown before and after, with a note on what you changed and why
+- Three sample replies to tickets you invent: an angry refund request, a vague bug report, and a feature request you have to decline
+- A bug report written for engineers: steps to reproduce, expected versus actual behavior, and who it affects
+- **Made for them:** go through their help center as a new user and note the five places you got stuck and what you'd try
 
 ### Customer Success
 
 - Documentation you've created for customers or internal teams
 - A process improvement case study showing before/after metrics
 - An onboarding playbook or customer health framework you developed
+- **Made for them:** a first-quarter success plan for one of their customer types, with the early signs that an account is at risk
 
 ### Product Management
 
-- A PRD or product spec for a feature you shipped (anonymized if needed)
+- A product requirements document (PRD) or product spec for a feature you shipped (anonymized if needed)
 - A roadmap framework showing how you prioritize and make tradeoffs
 - A launch retrospective with what went well, what didn't, and what you'd change
+- **Made for them:** sign up for their product and write a one-page brief on the first thing you'd look into: the problem, who has it, and how you'd know a fix worked
 
 ### Operations
 
 - Process documentation that shows your ability to systematize
 - A policy document with clear rationale for the decisions made
 - A project plan demonstrating how you scope, sequence, and manage work
+- **Made for them:** pick a process you can see from outside, like how they handle applications or returns, and write the one-page procedure you'd want a new hire to follow
+
+### Finance and Accounting
+
+- A month-end close checklist with an owner, a due day, and a review step for each task (it shows process thinking without a single confidential number)
+- A year-over-year analysis of a public company's results that explains the three biggest movements, or a three-statement model built from their annual report
+- A one-page memo explaining a technical treatment, like revenue recognition on a multi-year contract, to a founder with no finance background
+- **Made for them:** if they're public, a one-page read of their latest filing with three things you'd want to understand in your first week; if they're private, a close calendar sized for a company at their stage
+
+### People and Recruiting
+
+- A 30-day onboarding plan for a remote hire: who they meet, what they deliver, and how you'd know it's working
+- An interview scorecard for one role, with the rubric that keeps a panel consistent
+- A policy you rewrote in plain language, shown before and after
+- **Made for them:** take one of their open job descriptions and draft the version you'd post, with the reasoning behind each change
+
+If your role isn't listed, the rule of thumb still holds. Ask what you'd be expected to produce in your first month, and make a small version of it.
 
 ---
 

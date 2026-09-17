@@ -50,6 +50,14 @@ Not formats. Actual projects. Each idea should be:
 - **Fills the gap** — each idea should close a specific hole in the user's current proof set.
 - **Sized honestly** — rough effort estimate (hours or days, not weeks).
 
+**When the role has no obvious portfolio** (support, sales, finance, people, operations), don't reach for a generic case study. Ask what the user would be expected to produce in the job, and build ideas from that: a rewritten help article shown before and after, a one-page account plan, a month-end close checklist, an interview scorecard. The [guide's role-specific examples](../../guides/proof-assets.md#role-specific-examples) list three per role. Treat them as prompts for a tailored idea, not a menu to read back.
+
+**Offer at least one idea drawn from work the user has actually done** (story-bank or resume). When the user has no past work they can share, a small sample made for a target company in `applications.md` is the fastest honest route. Bound it in the brief:
+
+- One page, a few hours at most. It shows approach; it is not unpaid work.
+- Framed as what the user would test or ask about first. They don't have the company's data, so a verdict on what the company got wrong reads as presumptuous.
+- Anything invented (sample tickets, dummy numbers, a hypothetical customer) is labeled as a sample in the asset itself. A sample is a demonstration of skill, never a claim about past results.
+
 Push back when a project isn't proof-worthy. "Updated the team's onboarding doc" is a resume bullet, not a portfolio piece. Say so and offer alternatives from story-bank or the gap analysis.
 
 ### 4. Convergent — pick one

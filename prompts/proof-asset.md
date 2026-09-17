@@ -23,6 +23,7 @@ Give me exactly this, in this order:
    - Honest effort estimate in hours
    - Confidentiality risk, and the anonymization move if there is one
    - Where it works hardest: application, LinkedIn Featured, interview follow-up
+   If my role has no obvious portfolio (support, sales, finance, people, operations), build the ideas from what I'd be asked to produce in the job. At most one idea may be a small sample made for a target company: one page, a few hours, framed as what I'd test or ask about first, with anything invented labeled as a sample.
 
 3. THE PICK
    Which to build first on leverage vs. effort, and why.
