@@ -24,6 +24,8 @@ Format-specific conventions:
 > **Onboarding hand-off:** If the user appears to be on a fresh clone or is new to Job Hunt Skills, hand off to `get-started`. This skill focuses on the document itself.
 >
 > **State layer:** this skill owns source work-document version bumps. See [state-layer contract section 6](../_shared/state-layer.md#6-work-document-frontmatter-and-selection).
+>
+> **Content rules:** retracted claims stay out, use never becomes authorship, and the document sounds like the user. See the [truth and content contract](../_shared/truth-and-content.md).
 
 ### 1. First-run scaffolding
 
@@ -53,6 +55,8 @@ Ask:
 > Do you have an existing resume, CV, LinkedIn profile, or notes you'd like to work from? If not, we can build from scratch together.
 
 If provided, read and analyze it before asking follow-ups. If starting from scratch, run the structured interview below.
+
+Also read `my-documents/retracted-claims.md` when it exists. A retracted claim does not go back into the work document, even if it appears in older material the user supplies; if it does appear there, point it out.
 
 ### 4. Structured interview
 
@@ -85,7 +89,9 @@ Probe for outcomes, not responsibilities.
 
 Produce markdown for the requested documents. Do not save yet; claim verification runs first.
 
-**Resume format:** follow `{job_hunt_skills_root}/templates/resume-template.md`. Use achievement bullets: action + work + outcome. Use past tense throughout, including current role. Include remote-readiness evidence where relevant. Target path: `my-documents/resume.md`.
+**Resume format:** follow `{job_hunt_skills_root}/templates/resume-template.md`. Use achievement bullets: action + work + outcome. Keep one tense convention across the document: follow the one the user already uses; when there is none, past tense throughout (including the current role) is a common, readable default, and present tense for the current role is also widely used. Include remote-readiness evidence where relevant. Target path: `my-documents/resume.md`.
+
+Write in the user's voice: reuse their phrasing where it is already clear, match their register, and explain any convention you change rather than imposing it ([truth and content §5](../_shared/truth-and-content.md#5-the-users-voice)).
 
 **CV format:** follow `{job_hunt_skills_root}/templates/resume-eu-template.md`. Lead with a Personal Statement rather than a US-style Professional Summary. Preserve useful academic-to-industry evidence such as selected publications or talks only when it strengthens the target role. Skip photo, DOB, full address, and marital status unless the user explicitly needs a locale where they are expected. Target path: `my-documents/cv.md`.
 
@@ -201,6 +207,8 @@ After the files are saved and exported, end with the two closing beats from [sta
 - **Inventing metrics.** Use `[ASK: what was the result?]` for gaps.
 - **Dropping proficiency qualifiers.** Preserve "learning", "intermediate", "scripting only", "~1 year", or similar hedges.
 - **Inventing tool specifics.** Do not expand "AWS" into service names, "databases" into engines, or "CI/CD" into tools unless the user named them.
+- **Turning use into authorship.** "Used Jira" is not "set up Jira workflows". Ask which it was ([truth and content §2](../_shared/truth-and-content.md#2-using-a-tool-is-not-building-it)).
+- **Reintroducing a retracted claim.** Once the user withdraws a claim, it stays out of every rebuild.
 - **Over-polishing.** The document should sound like the user at their most articulate.
 - **Ignoring the angle.** Every work document needs a coherent story.
 - **Skipping remote signals.** Surface evidence of self-direction, async work, documentation, or independent delivery when relevant.

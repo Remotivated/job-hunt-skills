@@ -65,6 +65,10 @@ jobs:
       - name: Run profile-strength tests
         run: npm run test:strength
 
+      # Pure Node, no dependencies — the state helper runs on user machines as-is.
+      - name: Run state helper tests
+        run: npm run test:state
+
       - name: Run Codex plugin contract tests
         run: npm run test:codex
 

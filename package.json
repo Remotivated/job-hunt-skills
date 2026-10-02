@@ -21,7 +21,8 @@
     "build:vendor": "node scripts/build-vendor.mjs",
     "export": "node scripts/export-documents.mjs",
     "test:export": "node --test scripts/test-export.mjs",
-    "test:strength": "node --test scripts/test-profile-strength.mjs"
+    "test:strength": "node --test scripts/test-profile-strength.mjs",
+    "test:state": "node --test scripts/test-state.mjs"
   },
   "devDependencies": {
     "docx": "^9.7.1",

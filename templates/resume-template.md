@@ -35,10 +35,11 @@
 ### [Job Title] — [Company Name]
 *[Start Month Year] – [End Month Year or Present]* · Remote / City, State
 
-<!-- BULLET STRUCTURE: [Past-tense action verb] + [what you did] + [specific outcome or impact]
-     Use past tense throughout, including your current role. "Led a team of 6" frames
-     the work as an accomplishment; "Lead a team of 6" reads as a job description and
-     invites the reader to pause over tense. One tense, start to finish.
+<!-- BULLET STRUCTURE: [Action verb] + [what you did] + [specific outcome or impact]
+     Pick one tense convention and keep it. Past tense throughout, including your
+     current role, frames every bullet as an accomplishment ("Led a team of 6") and
+     is a simple default. Present tense for the current role is also common; what
+     matters is that the reader never has to pause over a tense switch.
      Aim for 3-5 bullets per role. Lead with your strongest.
      Every bullet should answer: "So what? What changed because of this?" -->
 

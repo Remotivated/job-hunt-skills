@@ -19,7 +19,7 @@ Thanks for improving Job Hunt Skills. This repo is meant to be useful to jobseek
 | `prompts/` | Copy/paste prompts for any LLM |
 | `guides/` | Job search methodology |
 | `templates/` | Resume, CV, and cover letter scaffolds |
-| `scripts/` | Export and quality-check scripts |
+| `scripts/` | State, export, and quality-check scripts |
 
 ## Local Checks
 
@@ -28,7 +28,8 @@ python3 scripts/check-content-hygiene.py
 python3 scripts/check-internal-links.py
 python3 scripts/test_skill_contracts.py
 npm run test:codex
+npm run test:state
 npm run test:export
 ```
 
-The hygiene check catches unresolved placeholders and HTML comments leaking into rendered samples. The link checker validates that internal markdown links point at files that exist. The skill contract tests catch missing skills, schema drift, and stale state-layer conventions. The Codex checks cover plugin metadata and public Codex documentation. The export tests cover the document renderer.
+The hygiene check catches unresolved placeholders and HTML comments leaking into rendered samples. The link checker validates that internal markdown links point at files that exist. The skill contract tests catch missing skills, schema drift, and stale state-layer conventions. The Codex checks cover plugin metadata and public Codex documentation. The state tests cover tracker and report writes, status transitions, and the plugin/user path split, using the fixtures in `scripts/fixtures/state/`. The export tests cover the document renderer.

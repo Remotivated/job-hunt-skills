@@ -25,10 +25,9 @@ function makePluginFixture() {
   const skillsDir = join(pluginRoot, "skills");
   mkdirSync(scriptsDir, { recursive: true });
   mkdirSync(skillsDir, { recursive: true });
-  copyFileSync(
-    join(ROOT, "scripts/scaffold-state.mjs"),
-    join(scriptsDir, "scaffold-state.mjs"),
-  );
+  for (const name of ["scaffold-state.mjs", "workspace.mjs", "state.mjs"]) {
+    copyFileSync(join(ROOT, "scripts", name), join(scriptsDir, name));
+  }
   return { tmp, pluginRoot, skillsDir };
 }
 
@@ -41,6 +40,9 @@ const RELEASE_ARCHIVE_PATHS = [
   "scripts/vendor/export-deps.mjs.LEGAL.txt",
   "scripts/vendor/vendor-inputs.json",
   "skills/get-started/agents/openai.yaml",
+  "skills/_shared/truth-and-content.md",
+  "scripts/state.mjs",
+  "scripts/workspace.mjs",
 ];
 
 function assertGitArchiveEligible(relativePath) {

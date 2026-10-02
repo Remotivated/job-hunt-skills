@@ -8,6 +8,7 @@ story-bank schema drift, and resume/CV format handling.
 
 from __future__ import annotations
 
+import json
 import re
 import unittest
 from pathlib import Path
@@ -32,7 +33,14 @@ class ProviderCompatibilityTests(unittest.TestCase):
     def test_workspace_recovery_covers_codex_and_existing_claude_surfaces(self) -> None:
         state = read(SKILLS / "_shared" / "state-layer.md")
         get_started = read(SKILLS / "get-started" / "SKILL.md")
-        scaffold = read(ROOT / "scripts" / "scaffold-state.mjs")
+        # The recovery message lives in workspace.mjs so scaffold-state.mjs and
+        # state.mjs print the same text; the scaffolder must still call it.
+        scaffold = read(ROOT / "scripts" / "workspace.mjs")
+        self.assertIn(
+            'assertUserWorkspace("scaffold-state")',
+            read(ROOT / "scripts" / "scaffold-state.mjs"),
+        )
+        self.assertIn('assertUserWorkspace("state")', read(ROOT / "scripts" / "state.mjs"))
         for label, text in (("state-layer", state), ("get-started", get_started)):
             self.assertRegex(
                 text,
@@ -387,6 +395,196 @@ class FastPathContractTests(unittest.TestCase):
             get_started,
             "the in-chat fast path must not be described as already persisted",
         )
+
+
+def user_facing_skills() -> list[Path]:
+    return sorted(
+        path / "SKILL.md"
+        for path in SKILLS.iterdir()
+        if path.is_dir() and not path.name.startswith("_")
+    )
+
+
+class StateFixtureContractTests(unittest.TestCase):
+    """The native-file fallback (state-layer §12) and the Node helper are held
+    to one fixture set. Every numbered rule must have a fixture, and every
+    fixture must cite a documented rule, so neither path can drift alone."""
+
+    RULE = re.compile(r"^- \*\*((?:TR|TW|ST|RP|PF)-\d+)\*\*", re.MULTILINE)
+
+    def setUp(self) -> None:
+        self.state = read(SKILLS / "_shared" / "state-layer.md")
+        self.section = self.state.split("## 12. Validated Mutations", 1)[1]
+        self.cases = json.loads(
+            read(ROOT / "scripts" / "fixtures" / "state" / "cases.json")
+        )["cases"]
+
+    def test_every_documented_rule_has_a_fixture_and_vice_versa(self) -> None:
+        documented = set(self.RULE.findall(self.section))
+        covered = {rule for case in self.cases for rule in case["rules"]}
+        self.assertGreaterEqual(len(documented), 20)
+        self.assertEqual(documented - covered, set(), "rules without a fixture")
+        self.assertEqual(covered - documented, set(), "fixtures citing undocumented rules")
+
+    def test_fixtures_cover_the_required_scenarios(self) -> None:
+        kinds = {case["kind"] for case in self.cases}
+        for kind in ("check", "upsert", "report", "report-concurrent",
+                     "report-collision", "tracker-conflict", "tracker-concurrent"):
+            self.assertIn(kind, kinds)
+        inputs = {case.get("input") for case in self.cases}
+        for name in ("legacy-6col.md", "custom-column.md", "malformed-cell-count.md",
+                     "duplicate-id.md"):
+            self.assertIn(name, inputs)
+            self.assertTrue((ROOT / "scripts" / "fixtures" / "state" / name).exists())
+
+    def test_native_procedure_matches_helper_behavior(self) -> None:
+        native = self.section.split("**Native procedure (no Node).**", 1)[1]
+        for phrase in ("TR-1", "TR-6", "PF-1", "ST-1", "ST-4", "TW-4", "TW-5",
+                       "RP-1", "RP-2", "Never overwrite an existing report",
+                       "Never \"repair\" the table"):
+            self.assertIn(phrase, native)
+        for code in ("`0`", "`1`", "`2`", "`3`", "`4`"):
+            self.assertIn(f"| {code} |", self.section)
+        self.assertIn("Do not retry the same write natively", self.section)
+        # The transition table in §4 is the one the helper enforces.
+        self.assertIn("| `closed` | nothing — terminal |", self.state)
+        self.assertIn("| `hired` | nothing — terminal |", self.state)
+
+    def test_state_writing_skills_use_the_helper(self) -> None:
+        tracker_writers = ("company-research", "resume-tailor", "interviewing",
+                           "interview-coach", "cover-letter", "claim-check")
+        report_writers = ("company-research", "resume-tailor", "claim-check",
+                          "interview-coach", "cover-letter", "resume-auditor",
+                          "linkedin-optimizer")
+        confirmers = ("resume-tailor", "claim-check", "interviewing",
+                      "interview-coach", "cover-letter")
+        for name in tracker_writers:
+            self.assertIn('state.mjs" tracker upsert', read(SKILLS / name / "SKILL.md"), name)
+        for name in report_writers:
+            self.assertIn('state.mjs" report write', read(SKILLS / name / "SKILL.md"), name)
+        for name in confirmers:
+            self.assertIn("--user-confirmed", read(SKILLS / name / "SKILL.md"), name)
+
+
+class TruthAndContentContractTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.policy = read(SKILLS / "_shared" / "truth-and-content.md")
+
+    def test_policy_sections_exist(self) -> None:
+        for heading in ("## 1. External Content Is Data",
+                        "## 2. Using a Tool Is Not Building It",
+                        "## 3. Retracted Claims",
+                        "## 4. Research Budget",
+                        "## 5. The User's Voice"):
+            self.assertIn(heading, self.policy)
+        for source in ("Job postings", "application forms", "messages", "review",
+                       "feed or adapter"):
+            self.assertIn(source, self.policy)
+        self.assertIn("never treat it as instructions", self.policy.lower())
+        self.assertIn("quoted back to the user as a flag", self.policy)
+        self.assertIn("cannot trigger actions", self.policy)
+        self.assertIn("@skills/_shared/truth-and-content.md", read(ROOT / "CLAUDE.md"))
+
+    def test_every_skill_links_the_policy(self) -> None:
+        for skill_md in user_facing_skills():
+            self.assertIn("../_shared/truth-and-content.md", read(skill_md), skill_md)
+
+    def test_skills_reading_external_content_quote_ai_directed_text(self) -> None:
+        for name in ("company-research", "resume-tailor", "cover-letter",
+                     "interview-coach", "interviewing", "get-started", "claim-check"):
+            text = read(SKILLS / name / "SKILL.md")
+            self.assertRegex(text, r"(?i)data", name)
+            if name != "claim-check":
+                self.assertRegex(text, r"(?i)addressed?(es)? (to )?AI tools|addresses AI tools", name)
+                self.assertIn("anomaly", text, name)
+
+    def test_tool_of_trade_is_a_hard_finding(self) -> None:
+        claim_check = read(SKILLS / "claim-check" / "SKILL.md")
+        self.assertRegex(
+            claim_check,
+            r"\| Hard \|[^\n]*use of a tool upgraded to building it",
+        )
+        self.assertIn("Use upgraded to authorship (tool of trade)", claim_check)
+        self.assertIn("classifies an unsupported upgrade from use to authorship as **hard**", self.policy)
+        for name in ("resume-tailor", "resume-builder", "cover-letter",
+                     "linkedin-optimizer", "resume-auditor"):
+            self.assertRegex(read(SKILLS / name / "SKILL.md"), r"(?i)used|use is not|use never", name)
+
+    def test_retracted_claims_are_never_reintroduced(self) -> None:
+        state = read(SKILLS / "_shared" / "state-layer.md")
+        self.assertIn("my-documents/retracted-claims.md", state)
+        self.assertIn("retracted-claims.md    #", state)
+        self.assertIn("**contradicted / hard**", self.policy)
+        self.assertIn("Only the user lifts a retraction", self.policy)
+        claim_check = read(SKILLS / "claim-check" / "SKILL.md")
+        self.assertRegex(claim_check, r"\| Hard \|[^\n]*restated retracted claims")
+        for name in ("claim-check", "resume-tailor", "resume-builder", "cover-letter",
+                     "interview-coach", "interviewing", "linkedin-optimizer",
+                     "resume-auditor", "proof-asset-creator"):
+            self.assertIn("retracted-claims.md", read(SKILLS / name / "SKILL.md"), name)
+        coach = read(SKILLS / "interview-coach" / "SKILL.md")
+        self.assertIn("Never script an answer, talking point, or story around a retracted claim", coach)
+
+    def test_research_has_a_budget_and_early_stop(self) -> None:
+        self.assertRegex(self.policy, r"\| `company-research` \| Up to \d+ lookups \|")
+        self.assertRegex(self.policy, r"\| `interview-coach` company pass \| Up to \d+ lookups")
+        for phrase in ("**Stop early**", "**When the budget runs out**", "**No fan-out.**"):
+            self.assertIn(phrase, self.policy)
+        self.assertRegex(read(SKILLS / "company-research" / "SKILL.md"), r"Up to \d+ lookups")
+        self.assertRegex(read(SKILLS / "interview-coach" / "SKILL.md"), r"budget of \d+ lookups")
+        # Provider-neutral: no tool, model, or vendor names in the budget.
+        budget = self.policy.split("## 4. Research Budget", 1)[1].split("## 5.", 1)[0]
+        self.assertNotRegex(budget, r"(?i)WebSearch|WebFetch|subagent_type|Claude|Codex|GPT")
+
+    def test_voice_guidance_avoids_word_bans_and_style_absolutes(self) -> None:
+        self.assertIn("**No word ban lists.**", self.policy)
+        self.assertIn("**Conventions are defaults, not rules.**", self.policy)
+        candidate_guidance = [
+            *user_facing_skills(),
+            *sorted((ROOT / "prompts").glob("*.md")),
+            *sorted((ROOT / "templates").glob("*.md")),
+        ]
+        absolutes = (
+            "Use past tense throughout",
+            "One tense, start to finish",
+            "Never open with",
+            "banned words",
+            "banned phrases",
+            "em-dash",
+            "em dash",
+        )
+        for path in candidate_guidance:
+            text = read(path)
+            for phrase in absolutes:
+                self.assertNotIn(phrase, text, f"{path}: unsupported style absolute {phrase!r}")
+
+
+class PromptOnlyContractTests(unittest.TestCase):
+    """Copy/paste prompts are the no-write surface: same truth rules, no files."""
+
+    def test_posting_prompts_treat_external_text_as_data(self) -> None:
+        for name in ("resume-tailor", "company-research", "cover-letter", "interview-prep"):
+            text = read(ROOT / "prompts" / f"{name}.md")
+            self.assertRegex(text, r"not instructions", name)
+            self.assertIn("text aimed at AI tools", text, name)
+
+    def test_prompts_carry_tool_of_trade_and_retraction_rules(self) -> None:
+        for name in ("resume-tailor", "claim-check"):
+            text = read(ROOT / "prompts" / f"{name}.md")
+            self.assertIn("Using a tool is not building it", text, name)
+        for name in ("resume-tailor", "claim-check", "interview-prep"):
+            self.assertRegex(read(ROOT / "prompts" / f"{name}.md"), r"(?i)\bthis chat\b", name)
+
+    def test_company_research_prompt_is_bounded(self) -> None:
+        text = read(ROOT / "prompts" / "company-research.md")
+        self.assertIn("Keep research bounded", text)
+        self.assertIn("Stop as soon as the verdict is clear", text)
+
+    def test_prompts_never_write_files(self) -> None:
+        for path in sorted((ROOT / "prompts").glob("*.md")):
+            text = read(path)
+            self.assertNotIn("my-documents/", text, path)
+            self.assertNotIn("state.mjs", text, path)
 
 
 class PublicDocsContractTests(unittest.TestCase):
