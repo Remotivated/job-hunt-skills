@@ -25,7 +25,7 @@ Read `my-documents/applications.md`. If no row exists for this company + role, w
 
 If the user confirms tracker creation, insert a new row with `status: interviewing` (`node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}" --status interviewing --user-confirmed`). This is allowed by [state-layer section 4](../_shared/state-layer.md#4-status-enum) because interviews can predate the tracker.
 
-If a row exists at `saved` or `applied`, ask whether to advance it to `interviewing`. Only advance after user confirmation, with the same command. Without Node, apply [state-layer §12](../_shared/state-layer.md#12-validated-mutations-helper-and-native-fallback) natively.
+If a row exists at another status, ask whether to move it to `interviewing`. Only move it after user confirmation, with the same command. Without Node, apply [state-layer §12](../_shared/state-layer.md#12-validated-mutations-helper-and-native-fallback) natively.
 
 Select the source work document using [state-layer section 6](../_shared/state-layer.md#6-work-document-frontmatter-and-selection). If both `resume.md` and `cv.md` exist and the user did not imply which one maps to the interview, ask. Use the selected file's `label` in user-facing prose.
 

@@ -111,7 +111,12 @@ const runners = {
     );
     for (const run of runs) assert.equal(run.status, 0, JSON.stringify(run.json));
     assertNoLeftovers(root);
-    return { ok: true, rows: parseTracker(fs.readFileSync(trackerPath(root), "utf8")).rows.length };
+    const text = fs.readFileSync(trackerPath(root), "utf8");
+    return {
+      ok: true,
+      rows: parseTracker(text).rows.length,
+      history: (text.match(/^- 2026-10-01 parallel-role-\d+: created as saved$/gm) || []).length,
+    };
   },
 
   report(c) {

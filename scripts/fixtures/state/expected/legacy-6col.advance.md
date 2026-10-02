@@ -10,3 +10,7 @@ Tracked since spring.
 ## Notes
 
 Kept verbatim | including pipes.
+
+## Status history
+
+- 2026-10-01 acme-pm: saved → applied

@@ -3,259 +3,620 @@
   "cases": [
     {
       "name": "canonical tracker parses",
-      "rules": ["TR-1"],
+      "rules": [
+        "TR-1"
+      ],
       "kind": "check",
       "input": "canonical.md",
-      "expect": { "ok": true, "rows": 3 }
+      "expect": {
+        "ok": true,
+        "rows": 3
+      }
     },
     {
       "name": "legacy header reads with missing columns as '-' and upgrades on write",
-      "rules": ["TR-7", "TW-1", "TW-2", "TW-3", "ST-2"],
+      "rules": [
+        "TR-7",
+        "TW-1",
+        "TW-2",
+        "TW-3",
+        "ST-2"
+      ],
       "kind": "upsert",
       "input": "legacy-6col.md",
       "args": {
         "id": "acme-pm",
-        "fields": { "status": "applied", "source": "referral" },
+        "fields": {
+          "status": "applied",
+          "source": "referral"
+        },
         "userConfirmed": true,
         "today": "2026-10-01"
       },
-      "expect": { "ok": true, "action": "updated", "output": "expected/legacy-6col.advance.md" }
+      "expect": {
+        "ok": true,
+        "action": "updated",
+        "output": "expected/legacy-6col.advance.md"
+      }
     },
     {
       "name": "mixed-case legacy status is read and written lowercase",
-      "rules": ["TR-5"],
+      "rules": [
+        "TR-5"
+      ],
       "kind": "check",
       "input": "legacy-6col.md",
-      "expect": { "ok": true, "rows": 2 }
+      "expect": {
+        "ok": true,
+        "rows": 2
+      }
     },
     {
       "name": "custom column and Notes survive an insert",
-      "rules": ["TR-8", "TW-1"],
+      "rules": [
+        "TR-8",
+        "TW-1"
+      ],
       "kind": "upsert",
       "input": "custom-column.md",
       "args": {
         "id": "initech-analyst",
-        "fields": { "company": "Initech", "role": "Analyst", "next_action_date": "2026-10-08" },
+        "fields": {
+          "company": "Initech",
+          "role": "Analyst",
+          "next_action_date": "2026-10-08"
+        },
         "today": "2026-10-01"
       },
-      "expect": { "ok": true, "action": "inserted", "output": "expected/custom-column.insert.md" }
+      "expect": {
+        "ok": true,
+        "action": "inserted",
+        "output": "expected/custom-column.insert.md"
+      }
     },
     {
       "name": "existing custom column can be set without touching updated",
-      "rules": ["TR-8", "TW-3"],
+      "rules": [
+        "TR-8",
+        "TW-3"
+      ],
       "kind": "upsert",
       "input": "custom-column.md",
-      "args": { "id": "acme-pm", "fields": { "priority": "low" }, "today": "2026-10-01" },
-      "expect": { "ok": true, "action": "updated", "output": "expected/custom-column.set.md" }
+      "args": {
+        "id": "acme-pm",
+        "fields": {
+          "priority": "low"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": true,
+        "action": "updated",
+        "output": "expected/custom-column.set.md"
+      }
     },
     {
       "name": "row with the wrong number of cells is refused with its line",
-      "rules": ["TR-4", "PF-1"],
+      "rules": [
+        "TR-4",
+        "PF-1"
+      ],
       "kind": "upsert",
       "input": "malformed-cell-count.md",
-      "args": { "id": "acme-pm", "fields": { "next_action_date": "2026-10-08" }, "today": "2026-10-01" },
-      "expect": { "ok": false, "error": "parse_error", "line": 6 }
+      "args": {
+        "id": "acme-pm",
+        "fields": {
+          "next_action_date": "2026-10-08"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": false,
+        "error": "parse_error",
+        "line": 6
+      }
     },
     {
       "name": "unknown status is refused",
-      "rules": ["TR-5", "PF-1"],
+      "rules": [
+        "TR-5",
+        "PF-1"
+      ],
       "kind": "check",
       "input": "malformed-status.md",
-      "expect": { "ok": false, "error": "parse_error", "line": 5 }
+      "expect": {
+        "ok": false,
+        "error": "parse_error",
+        "line": 5
+      }
     },
     {
       "name": "duplicate id is refused",
-      "rules": ["TR-6", "PF-1"],
+      "rules": [
+        "TR-6",
+        "PF-1"
+      ],
       "kind": "check",
       "input": "duplicate-id.md",
-      "expect": { "ok": false, "error": "parse_error", "line": 6 }
+      "expect": {
+        "ok": false,
+        "error": "parse_error",
+        "line": 6
+      }
     },
     {
       "name": "missing separator row is refused",
-      "rules": ["TR-3", "PF-1"],
+      "rules": [
+        "TR-3",
+        "PF-1"
+      ],
       "kind": "check",
       "input": "missing-separator.md",
-      "expect": { "ok": false, "error": "parse_error", "line": 4 }
+      "expect": {
+        "ok": false,
+        "error": "parse_error",
+        "line": 4
+      }
     },
     {
       "name": "header without a status column is refused",
-      "rules": ["TR-2", "PF-1"],
+      "rules": [
+        "TR-2",
+        "PF-1"
+      ],
       "kind": "check",
       "input": "missing-status-column.md",
-      "expect": { "ok": false, "error": "parse_error", "line": 3 }
+      "expect": {
+        "ok": false,
+        "error": "parse_error",
+        "line": 3
+      }
     },
     {
       "name": "file without a table is refused",
-      "rules": ["TR-1", "PF-1"],
+      "rules": [
+        "TR-1",
+        "PF-1"
+      ],
       "kind": "upsert",
       "input": "no-table.md",
-      "args": { "id": "acme-pm", "fields": { "company": "Acme", "role": "PM" }, "today": "2026-10-01" },
-      "expect": { "ok": false, "error": "parse_error", "line": 1 }
+      "args": {
+        "id": "acme-pm",
+        "fields": {
+          "company": "Acme",
+          "role": "PM"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": false,
+        "error": "parse_error",
+        "line": 1
+      }
     },
     {
       "name": "insert defaults to saved and stamps updated",
-      "rules": ["ST-1", "TW-2", "TW-3"],
+      "rules": [
+        "ST-1",
+        "ST-3",
+        "TW-2",
+        "TW-3"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
       "args": {
         "id": "linear-product-designer",
-        "fields": { "company": "Linear", "role": "Product Designer", "source": "watch", "link": "https://example.com/linear" },
+        "fields": {
+          "company": "Linear",
+          "role": "Product Designer",
+          "source": "watch",
+          "link": "https://example.com/linear"
+        },
         "today": "2026-10-01"
       },
-      "expect": { "ok": true, "action": "inserted", "output": "expected/canonical.insert.md" }
+      "expect": {
+        "ok": true,
+        "action": "inserted",
+        "output": "expected/canonical.insert.md"
+      }
     },
     {
       "name": "direct-to-interviewing insert needs confirmation",
-      "rules": ["ST-1"],
+      "rules": [
+        "ST-1"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
       "args": {
         "id": "linear-product-designer",
-        "fields": { "company": "Linear", "role": "Product Designer", "status": "interviewing" },
+        "fields": {
+          "company": "Linear",
+          "role": "Product Designer",
+          "status": "interviewing"
+        },
         "today": "2026-10-01"
       },
-      "expect": { "ok": false, "error": "confirmation_required" }
+      "expect": {
+        "ok": false,
+        "error": "confirmation_required"
+      }
     },
     {
-      "name": "insert cannot start at offer",
-      "rules": ["ST-1"],
+      "name": "a confirmed insert can start at any status, for someone joining mid-search",
+      "rules": [
+        "ST-1",
+        "ST-3"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
       "args": {
         "id": "linear-product-designer",
-        "fields": { "company": "Linear", "role": "Product Designer", "status": "offer" },
+        "fields": {
+          "company": "Linear",
+          "role": "Product Designer",
+          "status": "offer"
+        },
         "userConfirmed": true,
         "today": "2026-10-01"
       },
-      "expect": { "ok": false, "error": "invalid_transition" }
+      "expect": {
+        "ok": true,
+        "action": "inserted",
+        "output": "expected/canonical.insert-offer.md"
+      }
     },
     {
-      "name": "status advance without confirmation is refused",
-      "rules": ["ST-2"],
+      "name": "a status change without confirmation is refused, forward or back",
+      "rules": [
+        "ST-2"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
-      "args": { "id": "buffer-content-marketing-manager", "fields": { "status": "interviewing" }, "today": "2026-10-01" },
-      "expect": { "ok": false, "error": "confirmation_required" }
+      "args": {
+        "id": "buffer-content-marketing-manager",
+        "fields": {
+          "status": "interviewing"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": false,
+        "error": "confirmation_required"
+      }
     },
     {
-      "name": "regression is refused and nothing is written",
-      "rules": ["ST-3"],
+      "name": "a confirmed backward move corrects a mistake and is logged",
+      "rules": [
+        "ST-2",
+        "ST-3"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
-      "args": { "id": "zapier-support-lead", "fields": { "status": "applied" }, "userConfirmed": true, "today": "2026-10-01" },
-      "expect": { "ok": false, "error": "invalid_transition" }
+      "args": {
+        "id": "zapier-support-lead",
+        "fields": {
+          "status": "applied"
+        },
+        "userConfirmed": true,
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": true,
+        "action": "updated",
+        "output": "expected/canonical.correction.md"
+      }
     },
     {
-      "name": "terminal status cannot change",
-      "rules": ["ST-4"],
+      "name": "a backward move without confirmation is refused and nothing is written",
+      "rules": [
+        "ST-2"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
-      "args": { "id": "ghost-ops-manager", "fields": { "status": "hired" }, "userConfirmed": true, "today": "2026-10-01" },
-      "expect": { "ok": false, "error": "invalid_transition" }
+      "args": {
+        "id": "zapier-support-lead",
+        "fields": {
+          "status": "applied"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": false,
+        "error": "confirmation_required"
+      }
+    },
+    {
+      "name": "history lines go at the end of an existing Status history section",
+      "rules": [
+        "ST-3",
+        "TR-1"
+      ],
+      "kind": "upsert",
+      "input": "with-history.md",
+      "args": {
+        "id": "acme-pm",
+        "fields": {
+          "status": "interviewing"
+        },
+        "userConfirmed": true,
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": true,
+        "action": "updated",
+        "output": "expected/with-history.advance.md"
+      }
+    },
+    {
+      "name": "a closed row can be reopened",
+      "rules": [
+        "ST-2",
+        "ST-3"
+      ],
+      "kind": "upsert",
+      "input": "canonical.md",
+      "args": {
+        "id": "ghost-ops-manager",
+        "fields": {
+          "status": "interviewing"
+        },
+        "userConfirmed": true,
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": true,
+        "action": "updated",
+        "output": "expected/canonical.reopen.md"
+      }
     },
     {
       "name": "same status is a no-op that leaves the file byte-identical",
-      "rules": ["TW-3"],
+      "rules": [
+        "TW-3"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
-      "args": { "id": "zapier-support-lead", "fields": { "status": "interviewing" }, "today": "2026-10-01" },
-      "expect": { "ok": true, "action": "unchanged", "output": "canonical.md" }
+      "args": {
+        "id": "zapier-support-lead",
+        "fields": {
+          "status": "interviewing"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": true,
+        "action": "unchanged",
+        "output": "canonical.md"
+      }
     },
     {
       "name": "pipes in a value are escaped and round-trip",
-      "rules": ["TW-4"],
+      "rules": [
+        "TW-4"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
-      "args": { "id": "zapier-support-lead", "fields": { "comp_expected": "$95k | flexible" }, "today": "2026-10-01" },
-      "expect": { "ok": true, "action": "updated", "output": "expected/canonical.pipe.md" }
+      "args": {
+        "id": "zapier-support-lead",
+        "fields": {
+          "comp_expected": "$95k | flexible"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": true,
+        "action": "updated",
+        "output": "expected/canonical.pipe.md"
+      }
     },
     {
       "name": "invalid field values are refused",
-      "rules": ["TW-4"],
+      "rules": [
+        "TW-4"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
-      "args": { "id": "zapier-support-lead", "fields": { "source": "linkedin" }, "today": "2026-10-01" },
-      "expect": { "ok": false, "error": "invalid_field" }
+      "args": {
+        "id": "zapier-support-lead",
+        "fields": {
+          "source": "linkedin"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": false,
+        "error": "invalid_field"
+      }
     },
     {
       "name": "non-kebab id is refused",
-      "rules": ["TW-4"],
+      "rules": [
+        "TW-4"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
-      "args": { "id": "Linear Designer", "fields": { "company": "Linear", "role": "Designer" }, "today": "2026-10-01" },
-      "expect": { "ok": false, "error": "invalid_field" }
+      "args": {
+        "id": "Linear Designer",
+        "fields": {
+          "company": "Linear",
+          "role": "Designer"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": false,
+        "error": "invalid_field"
+      }
     },
     {
       "name": "second row for the same company and role warns but writes",
-      "rules": ["TW-6"],
+      "rules": [
+        "TW-6"
+      ],
       "kind": "upsert",
       "input": "canonical.md",
       "args": {
         "id": "zapier-support-lead-referral",
-        "fields": { "company": "Zapier", "role": "Support Lead", "source": "referral" },
+        "fields": {
+          "company": "Zapier",
+          "role": "Support Lead",
+          "source": "referral"
+        },
         "today": "2026-10-01"
       },
-      "expect": { "ok": true, "action": "inserted", "warnings": 1 }
+      "expect": {
+        "ok": true,
+        "action": "inserted",
+        "warnings": 1
+      }
     },
     {
       "name": "a tracker changed mid-write is not overwritten",
-      "rules": ["TW-5"],
+      "rules": [
+        "TW-5"
+      ],
       "kind": "tracker-conflict",
       "input": "canonical.md",
-      "args": { "id": "buffer-content-marketing-manager", "fields": { "next_action_date": "2026-10-09" }, "today": "2026-10-01" },
-      "expect": { "ok": false, "error": "conflict" }
+      "args": {
+        "id": "buffer-content-marketing-manager",
+        "fields": {
+          "next_action_date": "2026-10-09"
+        },
+        "today": "2026-10-01"
+      },
+      "expect": {
+        "ok": false,
+        "error": "conflict"
+      }
     },
     {
       "name": "concurrent upserts of different rows all land",
-      "rules": ["TW-5"],
+      "rules": [
+        "TW-5"
+      ],
       "kind": "tracker-concurrent",
       "input": "canonical.md",
       "writers": 6,
-      "expect": { "ok": true, "rows": 9 }
+      "expect": {
+        "ok": true,
+        "rows": 9,
+        "history": 6
+      }
     },
     {
       "name": "next number is max + 1 and ignores non-report files",
-      "rules": ["RP-1", "RP-3"],
+      "rules": [
+        "RP-1",
+        "RP-3"
+      ],
       "kind": "report",
-      "existing": ["001-acme-research-2026-01-01.md", "009-resume-audit-2026-02-01.md", "notes.md", "draft-005.md"],
+      "existing": [
+        "001-acme-research-2026-01-01.md",
+        "009-resume-audit-2026-02-01.md",
+        "notes.md",
+        "draft-005.md"
+      ],
       "slug": "acme-pm-tailor",
-      "frontmatter": { "report_id": "{###}", "company": "Acme", "role": "PM", "application_id": "acme-pm", "skill": "resume-tailor", "date": "2026-10-01", "summary": "Led with analytics." },
-      "expect": { "ok": true, "report_id": "010", "path": "my-documents/reports/010-acme-pm-tailor-2026-10-01.md" }
+      "frontmatter": {
+        "report_id": "{###}",
+        "company": "Acme",
+        "role": "PM",
+        "application_id": "acme-pm",
+        "skill": "resume-tailor",
+        "date": "2026-10-01",
+        "summary": "Led with analytics."
+      },
+      "expect": {
+        "ok": true,
+        "report_id": "010",
+        "path": "my-documents/reports/010-acme-pm-tailor-2026-10-01.md"
+      }
     },
     {
       "name": "width grows past 999 and a missing report_id is added",
-      "rules": ["RP-1", "RP-3"],
+      "rules": [
+        "RP-1",
+        "RP-3"
+      ],
       "kind": "report",
-      "existing": ["999-claim-check-2026-01-01.md"],
+      "existing": [
+        "999-claim-check-2026-01-01.md"
+      ],
       "slug": "resume-audit",
-      "frontmatter": { "company": null, "role": null, "application_id": null, "skill": "resume-auditor", "date": "2026-10-01", "summary": "Audit." },
-      "expect": { "ok": true, "report_id": "1000", "path": "my-documents/reports/1000-resume-audit-2026-10-01.md" }
+      "frontmatter": {
+        "company": null,
+        "role": null,
+        "application_id": null,
+        "skill": "resume-auditor",
+        "date": "2026-10-01",
+        "summary": "Audit."
+      },
+      "expect": {
+        "ok": true,
+        "report_id": "1000",
+        "path": "my-documents/reports/1000-resume-audit-2026-10-01.md"
+      }
     },
     {
       "name": "report without required frontmatter is refused and nothing is written",
-      "rules": ["RP-3", "RP-4"],
+      "rules": [
+        "RP-3",
+        "RP-4"
+      ],
       "kind": "report",
-      "existing": ["001-acme-research-2026-01-01.md"],
+      "existing": [
+        "001-acme-research-2026-01-01.md"
+      ],
       "slug": "acme-research",
-      "frontmatter": { "company": "Acme", "skill": "company-research", "date": "2026-10-01" },
-      "expect": { "ok": false, "error": "invalid_report" }
+      "frontmatter": {
+        "company": "Acme",
+        "skill": "company-research",
+        "date": "2026-10-01"
+      },
+      "expect": {
+        "ok": false,
+        "error": "invalid_report"
+      }
     },
     {
       "name": "concurrent report writes never share a number",
-      "rules": ["RP-2"],
+      "rules": [
+        "RP-2"
+      ],
       "kind": "report-concurrent",
-      "existing": ["001-acme-research-2026-01-01.md"],
+      "existing": [
+        "001-acme-research-2026-01-01.md"
+      ],
       "writers": 8,
-      "expect": { "ok": true, "distinct": 8 }
+      "expect": {
+        "ok": true,
+        "distinct": 8
+      }
     },
     {
       "name": "a report file that appears before commit is not overwritten",
-      "rules": ["RP-2", "RP-4"],
+      "rules": [
+        "RP-2",
+        "RP-4"
+      ],
       "kind": "report-collision",
-      "existing": ["001-acme-research-2026-01-01.md"],
+      "existing": [
+        "001-acme-research-2026-01-01.md"
+      ],
       "slug": "acme-research",
-      "frontmatter": { "report_id": "{###}", "company": "Acme", "role": null, "application_id": null, "skill": "company-research", "date": "2026-10-01", "summary": "Second look." },
-      "expect": { "ok": false, "error": "conflict" }
+      "frontmatter": {
+        "report_id": "{###}",
+        "company": "Acme",
+        "role": null,
+        "application_id": null,
+        "skill": "company-research",
+        "date": "2026-10-01",
+        "summary": "Second look."
+      },
+      "expect": {
+        "ok": false,
+        "error": "conflict"
+      }
     }
   ]
 }

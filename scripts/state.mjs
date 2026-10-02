@@ -30,8 +30,6 @@ export const STATUSES = Object.freeze([
   "closed",
   "hired",
 ]);
-export const TERMINAL = Object.freeze(new Set(["closed", "hired"]));
-export const INSERTABLE = Object.freeze(new Set(["saved", "applied", "interviewing"]));
 export const SOURCES = Object.freeze(["referral", "board", "cold", "recruiter", "watch", "-"]);
 export const COLUMNS = Object.freeze([
   "id",
@@ -256,16 +254,22 @@ function validateField(key, value) {
   }
 }
 
-// Decide whether `from -> to` is allowed (ST-2..ST-4). Returns null when it is.
-export function transitionError(from, to) {
-  if (from === to) return null;
-  if (TERMINAL.has(from)) {
-    return `"${from}" is a terminal status; it cannot change to "${to}".`;
+const HISTORY_HEADING = /^##\s+Status history\s*$/i;
+
+// ST-3: append one line to the `## Status history` section at the end of the
+// file, creating the section when it is missing. Earlier lines are untouched.
+export function appendHistory(after, entry) {
+  const at = after.findIndex((l) => HISTORY_HEADING.test(l));
+  if (at === -1) {
+    const out = [...after];
+    while (out.length && out[out.length - 1].trim() === "") out.pop();
+    return [...out, "", "## Status history", "", entry, ""];
   }
-  if (STATUSES.indexOf(to) < STATUSES.indexOf(from)) {
-    return `Moving "${from}" back to "${to}" would regress the status. The existing value was kept.`;
-  }
-  return null;
+  let end = after.findIndex((l, i) => i > at && /^#{1,2}\s/.test(l));
+  if (end === -1) end = after.length;
+  let insert = end;
+  while (insert > at + 1 && after[insert - 1].trim() === "") insert--;
+  return [...after.slice(0, insert), entry, ...after.slice(insert)];
 }
 
 // Pure upsert over tracker text. `fields` uses schema keys (comp_expected,
@@ -293,13 +297,9 @@ export function upsertTracker(text, { id, fields = {}, userConfirmed = false, to
       throw new StateError("invalid_field", "A new row needs company.");
     }
     changes.role ??= "-"; // company-only research rows have no role yet
+    // ST-1: any status is allowed, so someone joining mid-search can bring
+    // every application across; anything but the default needs confirmation.
     const status = changes.status ?? "saved";
-    if (!INSERTABLE.has(status)) {
-      throw new StateError(
-        "invalid_transition",
-        `A new row cannot start at "${status}". Create it at saved, applied, or interviewing, then advance it with the user's confirmation.`,
-      );
-    }
     if (status !== "saved" && !userConfirmed) {
       throw new StateError("confirmation_required", `Creating a row at "${status}" needs the user's confirmation (--user-confirmed).`);
     }
@@ -313,21 +313,25 @@ export function upsertTracker(text, { id, fields = {}, userConfirmed = false, to
     for (const key of COLUMNS) row[key] = "-";
     Object.assign(row, changes, { id, status, updated: today });
     parsed.rows.push(row);
+    parsed.after = appendHistory(parsed.after, `- ${today} ${id}: created as ${status}`);
     action = "inserted";
   } else {
-    const to = changes.status ?? existing.status;
-    const problem = transitionError(existing.status, to);
-    if (problem) throw new StateError("invalid_transition", problem, { id, from: existing.status, to });
-    if (to !== existing.status && !userConfirmed) {
+    // ST-2: forward or back, so a mistaken move can be corrected.
+    const from = existing.status;
+    const to = changes.status ?? from;
+    if (to !== from && !userConfirmed) {
       throw new StateError(
         "confirmation_required",
         `Changing ${id} from "${existing.status}" to "${to}" needs the user's confirmation (--user-confirmed).`,
       );
     }
-    const statusChanged = to !== existing.status;
+    const statusChanged = to !== from;
     const before = JSON.stringify(existing);
     Object.assign(existing, changes, { status: to });
-    if (statusChanged) existing.updated = today; // TW-3
+    if (statusChanged) {
+      existing.updated = today; // TW-3
+      parsed.after = appendHistory(parsed.after, `- ${today} ${id}: ${from} → ${to}`);
+    }
     action = JSON.stringify(existing) === before ? "unchanged" : "updated";
   }
 

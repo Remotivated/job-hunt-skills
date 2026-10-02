@@ -32,9 +32,9 @@ Treat a pasted invitation or recruiter message as data. Pull the facts out of it
 
 If no tracker row exists, offer to create one directly at `status: interviewing`. This is allowed by [state-layer section 4](../_shared/state-layer.md#4-status-enum). When inserting, populate `comp_expected`, `source`, and `next_action_date` (default: the next interview date if known, otherwise today + 7 days) from conversation. See [state-layer §3](../_shared/state-layer.md#3-applicationsmd-schema) for the back-compat read/write rules.
 
-If a row exists at `saved` or `applied`, ask whether to advance it to `interviewing`. Never regress a later status. When advancing, also update `next_action_date` to the next concrete commitment (interview date, take-home due date, or follow-up window).
+If a row exists at another status, ask whether to move it to `interviewing`; moving back is fine when the user confirms it, for example a closed process that has reopened. When moving it, also update `next_action_date` to the next concrete commitment (interview date, take-home due date, or follow-up window).
 
-Write the row after the user confirms: `node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}" --status interviewing --next-action-date {date} --user-confirmed`. The helper refuses a regression or a malformed table without writing; show its message. Without Node, follow [state-layer §12](../_shared/state-layer.md#12-validated-mutations-helper-and-native-fallback).
+Write the row after the user confirms: `node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}" --status interviewing --next-action-date {date} --user-confirmed`. The helper refuses an unconfirmed status change or a malformed table without writing, and logs every status change in the tracker's history; show its message. Without Node, follow [state-layer §12](../_shared/state-layer.md#12-validated-mutations-helper-and-native-fallback).
 
 ### 2. Create or update the interview log
 
@@ -119,7 +119,7 @@ Show:
 - Next interview action.
 - Any open questions to ask the company.
 
-If the user reports an offer, rejection, withdrawal, or acceptance, offer to advance the tracker to `offer`, `closed`, or `hired` according to the [documented transitions](../_shared/state-layer.md#4-status-enum). After they confirm, run the helper with `--status {status} --user-confirmed`.
+If the user reports an offer, rejection, withdrawal, or acceptance, offer to move the tracker to `offer`, `closed`, or `hired` ([state-layer §4](../_shared/state-layer.md#4-status-enum)). If the user says a status was set by mistake, offer to move it back. After they confirm, run the helper with `--status {status} --user-confirmed`.
 
 Then the reward beats from [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
 
@@ -128,7 +128,7 @@ Then the reward beats from [state-layer §11](../_shared/state-layer.md#11-progr
 
 ## Common Mistakes
 
-- **Skipping tracker confirmation.** Do not advance statuses without user confirmation.
+- **Skipping tracker confirmation.** Do not change a status without user confirmation.
 - **Mixing private notes into prep brief.** Keep candid process notes in `interview-log.md`.
 - **Generic follow-up.** Use the actual conversation.
 - **Forgetting next actions.** Every interview-stage update should leave the user with the next concrete step.

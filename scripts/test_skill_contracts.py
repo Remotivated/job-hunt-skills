@@ -439,16 +439,22 @@ class StateFixtureContractTests(unittest.TestCase):
 
     def test_native_procedure_matches_helper_behavior(self) -> None:
         native = self.section.split("**Native procedure (no Node).**", 1)[1]
-        for phrase in ("TR-1", "TR-6", "PF-1", "ST-1", "ST-4", "TW-4", "TW-5",
+        for phrase in ("TR-1", "TR-6", "PF-1", "ST-1", "ST-2", "ST-3", "TW-4", "TW-5",
                        "RP-1", "RP-2", "Never overwrite an existing report",
                        "Never \"repair\" the table"):
             self.assertIn(phrase, native)
         for code in ("`0`", "`1`", "`2`", "`3`", "`4`"):
             self.assertIn(f"| {code} |", self.section)
         self.assertIn("Do not retry the same write natively", self.section)
-        # The transition table in §4 is the one the helper enforces.
-        self.assertIn("| `closed` | nothing — terminal |", self.state)
-        self.assertIn("| `hired` | nothing — terminal |", self.state)
+        # §4: any status, either direction, always user-confirmed and logged.
+        status = self.state.split("## 4. Status Enum", 1)[1].split("## 5.", 1)[0]
+        for phrase in ("may start at any status when the user confirms it",
+                       "may move to any other status, forward or back",
+                       "`## Status history`"):
+            self.assertIn(phrase, status)
+        self.assertNotRegex(status, r"(?i)\bterminal\b|never regress")
+        for name in ("interviewing", "interview-coach", "company-research", "resume-tailor"):
+            self.assertNotRegex(read(SKILLS / name / "SKILL.md"), r"(?i)never regress", name)
 
     def test_state_writing_skills_use_the_helper(self) -> None:
         tracker_writers = ("company-research", "resume-tailor", "interviewing",
