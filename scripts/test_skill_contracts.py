@@ -693,6 +693,27 @@ class OpportunityContractTests(unittest.TestCase):
             if key != "skill: opportunity-evaluator":
                 self.assertIn(f"`{key[:-1]}`", self.section)
 
+    def test_check_runs_for_every_source_kind(self) -> None:
+        self.assertIn("run `check` for every source kind: paste, url, and record", self.skill)
+        self.assertIn("never inside `my-documents/`", self.skill)
+        self.assertIn('`"searched": false`', self.skill)
+
+    def test_same_or_new_application_is_the_users_call(self) -> None:
+        self.assertIn("**Same application or a new one?**", self.skill)
+        self.assertIn("Never decide it silently.", self.skill)
+        self.assertIn("{company-slug}-{role-slug}-2", self.skill)
+        self.assertIn("only for cells that are currently `-`", self.skill)
+        self.assertNotIn("today + 3", self.skill)
+
+    def test_hold_and_skip_reports_keep_the_posting(self) -> None:
+        self.assertIn("For a hold or skip, the report also keeps the posting", self.skill)
+        self.assertIn("untrusted source material", self.skill)
+        self.assertIn("**Coming back to an earlier evaluation.**", self.skill)
+
+    def test_tailor_frontmatter_template_has_no_inline_comment(self) -> None:
+        tailor = read(SKILLS / "resume-tailor" / "SKILL.md")
+        self.assertNotIn("opportunity-{n}.md  #", tailor)
+
 
 class PublicDocsContractTests(unittest.TestCase):
     def test_docs_expose_user_facing_wrappers(self) -> None:

@@ -1,0 +1,16 @@
+{
+  "envelope_version": 1,
+  "source": {
+    "kind": "url",
+    "name": "Acme Pay careers",
+    "url": "https://jobs.example.com/acme-pay/senior-pm-payments/?gh_src=abc123&trk=feed"
+  },
+  "observed_at": "2026-10-08T09:00:00Z",
+  "fetched_at": "2026-10-08T09:00:00Z",
+  "company": "Acme Pay",
+  "role": "Senior Product Manager, Payments",
+  "location": "Remote (US time zones)",
+  "work_model": "remote",
+  "compensation": null,
+  "posting_text": "Senior Product Manager, Payments\n\nAcme Pay is hiring a Senior Product Manager to own checkout and payouts.\n\nWhat you will do\n- Own the payouts roadmap with engineering and finance.\n- Run discovery with merchants and turn findings into specs.\n\nWhat we look for\n- 5+ years of product management, including B2B or payments.\n- Comfortable writing SQL for your own analysis.\n\nLocation: Remote (US time zones)."
+}

@@ -1,0 +1,11 @@
+{
+  "envelope_version": 1,
+  "source": {
+    "kind": "record",
+    "name": "Example Jobs Feed",
+    "external_id": 88412
+  },
+  "observed_at": "2026-10-09T09:00:00Z",
+  "company": "Globex",
+  "posting_text": "Support Operations Lead\n\nLead tooling and workflows for a 40-person support team.\nRemote within EU time zones."
+}

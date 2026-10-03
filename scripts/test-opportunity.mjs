@@ -22,6 +22,7 @@ import {
   SOURCE_KINDS,
   checkOpportunity,
   normalizeEnvelope,
+  normalizeUrl,
   parseSnapshot,
   serializeSnapshot,
   unknownFields,
@@ -101,9 +102,15 @@ const runners = {
         unknown: unknownFields(out),
         warnings: warnings.length,
         compensation: out.compensation,
-        observed_at: out.observed_at,
+        external_id: out.source.external_id,
       };
     });
+  },
+
+  "normalize-url"(c) {
+    const [a, b] = c.urls.map(normalizeUrl);
+    assert.ok(a && b, `${c.name}: both URLs parse`);
+    return { ok: true, same: a === b };
   },
 
   roundtrip(c) {
@@ -234,8 +241,8 @@ describe("opportunity helper CLI", () => {
     assert.equal(fs.existsSync(appDir(root, "acme-pay-senior-pm")), false);
   });
 
-  test("refuses to run inside the plugin with the workspace recovery message", () => {
-    const run = spawnSync(process.execPath, [HELPER, "check"], {
+  test("snapshot refuses to run inside the plugin with the workspace recovery message", () => {
+    const run = spawnSync(process.execPath, [HELPER, "snapshot", "--id", "acme-pay-senior-pm", "--user-confirmed"], {
       cwd: path.join(ROOT, "skills"),
       encoding: "utf8",
       input: JSON.stringify(envelope("paste.json")),
@@ -243,6 +250,21 @@ describe("opportunity helper CLI", () => {
     });
     assert.equal(run.status, 2);
     assert.match(run.stderr, /Claude Code:    cd into your job-hunt folder, then run 'claude' there\./);
+    assert.equal(fs.existsSync(path.join(ROOT, USER_ROOT, "applications", "acme-pay-senior-pm")), false);
+  });
+
+  test("check validates inside the plugin without searching, for an in-chat read", () => {
+    const run = spawnSync(process.execPath, [HELPER, "check"], {
+      cwd: path.join(ROOT, "skills"),
+      encoding: "utf8",
+      input: JSON.stringify(envelope("record.json")),
+      env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
+    });
+    assert.equal(run.status, 0, run.stdout + run.stderr);
+    const out = JSON.parse(run.stdout);
+    assert.equal(out.searched, false);
+    assert.deepEqual([out.snapshots, out.reports, out.unreadable], [[], [], []]);
+    assert.match(out.warnings.join(" "), /not searched/);
   });
 
   test("a scaffolded workspace accepts a snapshot and keeps it under user paths", () => {
@@ -276,6 +298,16 @@ describe("state-layer §13 and the helper describe the same envelope", () => {
     for (const key of SOURCE_FIELDS) assert.match(section, new RegExp(`\`source\\.${key}\``), key);
     for (const kind of SOURCE_KINDS) assert.match(section, new RegExp(`\`${kind}\``), kind);
     for (const key of RESERVED_KEYS) assert.match(section, new RegExp(`\`${key}\``), key);
+  });
+
+  test("the documented snapshot example reads as a snapshot", () => {
+    const example = /````markdown\n([\s\S]*?)````/.exec(section);
+    assert.ok(example, "§13 must show a snapshot example");
+    const { meta, envelope: out } = parseSnapshot(example[1]);
+    assert.equal(meta.snapshot, 1);
+    assert.equal(out.source.kind, "url");
+    assert.equal(out.compensation, null);
+    assert.deepEqual(normalizeEnvelope(out).warnings, []);
   });
 
   test("the documented example is a valid envelope", () => {

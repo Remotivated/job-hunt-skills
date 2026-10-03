@@ -168,9 +168,11 @@ source_version: {current source version}
 source_label: {label}
 tailored_date: {today ISO}
 application_id: {id}
-opportunity_snapshot: my-documents/applications/{id}/opportunity-{n}.md  # only when the posting came from a snapshot
+opportunity_snapshot: my-documents/applications/{id}/opportunity-{n}.md
 ---
 ```
+
+Include `opportunity_snapshot` only when the posting came from a snapshot.
 
 **Tailor report:** write `my-documents/reports/{###}-{id}-tailor-{YYYY-MM-DD}.md` with `node "{job_hunt_skills_root}/scripts/state.mjs" report write --slug {id}-tailor --file {draft}`, which allocates `{###}` without collisions ([state-layer §5](../_shared/state-layer.md#5-reports-convention)).
 

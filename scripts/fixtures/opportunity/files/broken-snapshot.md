@@ -1,7 +1,7 @@
 ---
 snapshot: 1
 application_id: "acme-pay-senior-pm"
-company: Acme Pay
+company Acme Pay
 ---
 
 ## Posting text
