@@ -13,7 +13,7 @@ Drafting the actual case study, building the demo, or designing the portfolio pi
 
 ## Workflow
 
-> **State layer:** reads source work documents (`resume.md`/`cv.md`), `story-bank.md`, existing `proof-assets/`, and `applications.md`. Writes one file to `my-documents/proof-assets/{slug}.md`. No tracker touch, no report. See [state-layer contract](../_shared/state-layer.md).
+> **State layer:** reads source work documents (`resume.md`/`cv.md`), `story-bank.md`, existing `proof-assets/`, and `applications.md`. Writes one file to `my-documents/proof-assets/{slug}.md`. No tracker touch, no report. Reads `retracted-claims.md` when it exists so a withdrawn claim never becomes a case study. See [state-layer contract](../_shared/state-layer.md) and the [truth and content contract](../_shared/truth-and-content.md).
 
 ### 1. Read the evidence layer
 

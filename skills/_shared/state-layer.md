@@ -4,6 +4,61 @@ Single source of truth for the `my-documents/` state layer. All skills that read
 
 **Not a skill.** The `_shared/` prefix and missing frontmatter prevent Claude from auto-activating this file.
 
+Content rules that apply to every skill — untrusted external content, truthful claims, retracted claims, research budget, and the user's voice — live in the companion [truth and content contract](truth-and-content.md).
+
+## 0. Plugin and User Paths
+
+Two path sets, disjoint by construction. `scripts/workspace.mjs` holds the same lists, and `scripts/test-state.mjs` fails if this section, that module, and the files tracked in the repository drift apart.
+
+**Plugin-owned paths** — relative to `job_hunt_skills_root`. Read-only at runtime: skills read prompts, guides, templates, and scripts from here and never write job-search files here.
+
+```text
+.agents/
+.claude/
+.claude-plugin/
+.codex-plugin/
+.gitattributes
+.github/
+.gitignore
+AGENTS.md
+CHANGELOG.md
+CLAUDE.md
+CONTRIBUTING.md
+GETTING-STARTED.md
+LICENSE
+README.md
+assets/
+examples/
+guides/
+package-lock.json
+package.json
+prompts/
+scripts/
+skills/
+templates/
+```
+
+**User-owned paths** — relative to the confirmed user workspace. Only these paths hold job-search state, and only after the workspace preflight (§10) confirms the folder.
+
+```text
+my-documents/
+my-documents/applications/
+my-documents/applications.md
+my-documents/coverletter.md
+my-documents/cv.md
+my-documents/proof-assets/
+my-documents/reports/
+my-documents/resume.md
+my-documents/retracted-claims.md
+my-documents/story-bank.md
+```
+
+- The user workspace is never the plugin root or a folder inside it, including through a symlink. `scaffold-state.mjs` and `state.mjs` both refuse with exit code 2 and the workspace-binding message in that case.
+- Installing, updating, or removing the plugin changes plugin-owned paths only. Nothing under `my-documents/` is created, moved, or rewritten by an update.
+- Skills write only under user-owned paths: the listed files, files inside the listed folders, and exported `.docx`, `.pdf`, and `.html` files next to their markdown source.
+- The repository's own `my-documents/` holds only empty `.gitkeep` placeholders. User documents are never committed.
+- The helper's lock folder (`my-documents/.state.lock/`) and `.tmp-*` files are transient and removed when a run ends.
+
 ## 1. File Layout
 
 ```text
@@ -13,6 +68,7 @@ my-documents/
 |- coverletter.md         # source letter, optional until enough specificity exists
 |- applications.md        # tracker: flat table + optional ## Notes
 |- story-bank.md          # STAR+R stories used as interview and claim evidence
+|- retracted-claims.md    # claims the user withdrew; created on first retraction
 |- applications/          # artifacts sent to employers
 |  `- {id}/
 |     |- resume.md        # tailored work document when source/output format is resume
@@ -45,7 +101,7 @@ If the active skill path is unavailable or the resolved root does not contain th
 
 If any of the following are missing when a skill needs them, the skill runs `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` once before proceeding. The script is idempotent: safe to call repeatedly and never overwrites existing files.
 
-Scaffolded paths:
+Scaffolded paths (`retracted-claims.md` is not scaffolded; it is created the first time the user retracts a claim, per the [truth and content contract](truth-and-content.md#3-retracted-claims)):
 
 | Path | Purpose |
 |------|---------|
@@ -85,6 +141,14 @@ Skills should not duplicate scaffolding logic inline.
 | `updated` | ISO `YYYY-MM-DD` | Update whenever status changes. |
 | `link` | URL or `-` | `-` if the posting is gone. |
 
+**Use the state helper for every tracker write when Node is available:**
+
+```bash
+node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}" [--status {status}] [--source {source}] [--comp-expected "{text}"] [--next-action-date {YYYY-MM-DD}] [--link {url}] [--user-confirmed]
+```
+
+It applies the rules below and in §12, writes atomically, and prints one JSON line. `node "{job_hunt_skills_root}/scripts/state.mjs" tracker check` validates the table without writing. When Node is unavailable, apply the same rules with native file tools (§12).
+
 **Parsing rules:**
 
 1. Parse the first markdown table in the file with a standard table parser or a table regex covering header, separator, and data rows.
@@ -100,23 +164,32 @@ Skills should not duplicate scaffolding logic inline.
 - **Lookup key:** the `id` column.
 - **Insert:** new row, `updated` = today in ISO format. Set `comp_expected`, `source`, `next_action_date` from caller context where known; otherwise `-`.
 - **Update:** set the specified fields. Update `updated` only when `status` changes, not on cosmetic edits.
-- **Status advancement only:** skills may only advance status forward along the enum order. Never regress. If a skill's logical result would regress status, leave the existing value untouched and warn the user.
+- **Any status, either direction, the user decides:** a row may move to any of the six statuses, forward or back, so a mistaken move can be corrected and a closed application can be reopened. Skills never change a status on their own: a skill whose work does not concern the status (tailoring, research) leaves it as it is. See §4.
+- **The user confirms every status change.** Pass `--user-confirmed` only after the user said yes in this conversation; the helper refuses a status change, or a new row that starts at anything but `saved`, without it.
+- **Every status change is logged** in a `## Status history` section at the end of the file (§12, ST-3).
 - **Schema upgrade on write:** when writing a table that was read with missing columns (back-compat case 6), emit the full schema header and fill the missing-column cells with `-` for every existing row. The next read of the file then sees the canonical schema.
 
 ## 4. Status Enum
 
-Six values, in lifecycle order:
+Six values, in the usual lifecycle order:
 
 1. `saved` - vetted, intending to apply, not yet submitted
 2. `applied` - materials submitted
 3. `interviewing` - at least one interview scheduled or completed
 4. `offer` - offer in hand
-5. `closed` - terminal non-offer: rejected, withdrawn, ghosted, or collapsed
-6. `hired` - terminal positive
+5. `closed` - ended without an offer being accepted: rejected, withdrawn, ghosted, collapsed, or an offer declined
+6. `hired` - accepted an offer (optional; many people simply stop tracking once they accept)
 
 `saved` means the user has researched or prepared the opportunity and may apply, but has not submitted yet.
 
-**Direct-to-`interviewing` creation is allowed.** `interviewing` and `interview-coach` may create a row directly at `status: interviewing` for interviews scheduled before the user started using the tracker. This is row creation, not status regression.
+**Moving between statuses.** The order above is how applications usually progress, not a rule:
+
+- **New rows start at `saved` by default**, and may start at any status when the user confirms it. Someone who starts using the tracker partway through a search can bring every application across at its real status, not only new ones. `interviewing` and `interview-coach` may create a row directly at `interviewing` for interviews that started before the tracker did.
+- **A row may move to any other status, forward or back**, when the user confirms it. That covers corrections ("I marked the wrong one"), a closed process that reopens, and skipped steps (`saved` straight to `interviewing`).
+- **Setting a row to the status it already has is a no-op.**
+- **Every new row and every status change is logged** in the tracker's `## Status history` section (§12, ST-3), so a correction stays visible.
+
+The same lifecycle, the same any-direction moves, and a per-change history are what the Remotivated in-app tracker uses, so the two can stay compatible.
 
 ## 5. Reports Convention
 
@@ -125,6 +198,14 @@ Six values, in lifecycle order:
 - `{###}` - zero-padded global counter. Width grows naturally past `999`.
 - `{slug}` - kebab-case descriptor. Includes the company for company-specific reports, plus the skill type. Examples: `buffer-research`, `zapier-interview-prep`, `resume-audit`, `linkedin-audit`, `claim-check`.
 - `{YYYY-MM-DD}` - ISO date of generation.
+
+**Allocate the number and write the report in one step with the state helper when Node is available.** Put `report_id: {###}` (or omit it) in the frontmatter, then:
+
+```bash
+node "{job_hunt_skills_root}/scripts/state.mjs" report write --slug {slug} --file {draft path}
+```
+
+The draft can also arrive on stdin. The helper takes the workspace lock, allocates the next number, stamps `report_id`, and creates `{###}-{slug}-{YYYY-MM-DD}.md` exclusively, so two sessions can never share a number and an existing report is never overwritten. It prints the final path and `report_id`. Keep the draft outside `my-documents/reports/` (for example in the system temp folder) or pipe it on stdin. When Node is unavailable, use the native procedure in §12.
 
 **Next-number algorithm:**
 
@@ -251,6 +332,8 @@ Priority order:
 
 Claims sourced from priority 1-3 are supported. A match only in reports is weaker and should be classified as unverifiable but plausible. A conflict with any higher-priority source is contradicted.
 
+`retracted-claims.md` sits above this order as a negative record: a claim that matches a retracted entry is contradicted even when an older source document, story, or report still contains it. See the [truth and content contract](truth-and-content.md#3-retracted-claims).
+
 ## 9. Dedup and Parse-Failure Rules
 
 - **Dedup behavior:** warn, never block. Users can always proceed.
@@ -273,7 +356,7 @@ Skills that read or write `my-documents/` MUST verify the user is operating in t
      - **Desktop agents with folder controls (Codex in the ChatGPT desktop app, Work mode, or Cowork):** use the app's folder/workspace control to select a folder the user owns, then start a new conversation with that folder available. Use the current product label shown in the app; do not invent a settings-menu path that was not verified.
      - **Claude Code:** exit Claude Code, `cd` into the chosen folder, then run `claude` again.
    - **Path looks like a plugin install or system temp location** → treat as "no folder yet" and instruct as above.
-3. Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"`. The script enforces the same preflight in code: it exits with a non-zero status and a surface-specific message when the working directory looks like the plugin install dir rather than a user workspace.
+3. Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"`. The script enforces the same preflight in code: it exits with a non-zero status and a surface-specific message when the working directory looks like the plugin install dir rather than a user workspace. `state.mjs` enforces the same check with the same message before any tracker or report write.
 4. If the scaffolder exits non-zero with the workspace-binding message, **surface the message verbatim to the user and stop**. Do not retry, do not silently fall back to in-context writes, and do not generate documents that have nowhere to be saved. The recovery path is user-side: follow the matching Codex CLI/IDE, desktop agent, or Claude Code branch above.
 5. **Fallback when the Node script cannot run** (Node not installed, no shell access, command not found, non-zero exit for any reason *other* than the workspace-binding refusal): scaffold manually using native file tools. Cowork users are typically not developers; Node is not a safe prerequisite. The structure to create is fixed and small:
    - Directories: `my-documents/`, `my-documents/applications/`, `my-documents/reports/`, `my-documents/proof-assets/`. Each gets an empty `.gitkeep`.
@@ -308,3 +391,66 @@ A job search is long and demoralizing, and the compounding value of the state la
 **Tracker pulse.** Any skill that writes `applications.md` prints the momentum line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs" --pulse`, or the native equivalent) after the write: in-flight count, interviewing count, and the nearest kept next action. The tracker is the user's scoreboard; surface it every time it changes. Frame it around progress and the next concrete action, never as pressure.
 
 **Vocabulary.** Keep the internal terms out of user-facing prose (`state layer`, `signal`, `score` are fine internally; to the user say "your job-hunt profile", "what this unlocked", "where things stand"). Use the work document's `label` per §6 when naming it.
+
+## 12. Validated Mutations: Helper and Native Fallback
+
+`scripts/state.mjs` is the deterministic boundary for tracker and report writes. It is a capability upgrade, not a prerequisite: when Node cannot run, the skill applies the same numbered rules with native file tools. Both paths are held to one fixture set in `scripts/fixtures/state/`: `scripts/test-state.mjs` runs every fixture against the helper, and `scripts/test_skill_contracts.py` fails if a rule below has no fixture or a fixture names a rule that is not here.
+
+**Helper exit codes.** The helper prints one JSON line and exits:
+
+| Exit | Meaning | What the skill does |
+| --- | --- | --- |
+| `0` | Written, or `"action": "unchanged"` | Continue. Show any `warnings` to the user. |
+| `2` | Workspace-binding refusal | Surface the message verbatim and stop, per §10 step 4. |
+| `3` | Refused: parse error, invalid field, missing confirmation, or conflict. Nothing was written. | Show the `message` (and `region` for a parse error) to the user and stop that write. Do not retry the same write natively, and never hand-edit around a refusal. |
+| `4` | Another session holds the workspace lock. Nothing was written. | Wait a moment and retry once; if it is still busy, tell the user. |
+| `1` | Unexpected error | Report it. Fall back to the native path only after re-reading the file and confirming it parses under the rules below. |
+
+Fall back to the native path when the helper cannot run at all: Node is missing, the command is not found, or there is no shell.
+
+**Tracker read rules**
+
+- **TR-1** The tracker is the first markdown table in `applications.md`. Everything before it and everything from the first non-table line after it (including `## Notes`) is preserved verbatim; the only addition there is the history line ST-3 appends. A file with no table is malformed.
+- **TR-2** The header must contain `id` and `status`. Column names are case-insensitive and must be unique and non-empty.
+- **TR-3** A separator row (`|---|---|`) with the same number of cells must sit directly under the header.
+- **TR-4** Every data row has exactly as many cells as the header. `\|` inside a cell is a literal pipe, not a cell boundary.
+- **TR-5** Every `status` is one of the six values in §4, compared case-insensitively and written lowercase.
+- **TR-6** Every `id` is non-empty and unique.
+- **TR-7** A header missing `comp_expected`, `source`, or `next_action_date` is the legacy layout: read those cells as `-`.
+- **TR-8** Columns the schema does not list are kept, with their header text and values, on every rewrite. An existing custom column may be set; new columns are never added.
+
+**Tracker write rules**
+
+- **TW-1** A rewrite keeps the existing column order and inserts missing schema columns, in canonical order, before `updated` (or at the end when `updated` is missing), filled with `-`.
+- **TW-2** Rows are written newest `updated` first; rows with the same date keep their order.
+- **TW-3** An insert sets `updated` to today. An update changes `updated` only when `status` changes. An update that changes nothing leaves the file byte-identical.
+- **TW-4** Written values are validated: `id` is kebab-case; `source` is one of the §3 values; `next_action_date` is `YYYY-MM-DD` or `-`; `link` is an http(s) URL or `-`; no value contains a line break or is blank (use `-`); a `|` in a value is written as `\|`. `updated` is set by the rules above, never by the caller.
+- **TW-5** The new table is written to a temporary file and moved into place. If the tracker changed between the read and the move, nothing is written and the run is reported as a conflict. The helper holds the workspace lock while it does this, so two helper runs never interleave.
+- **TW-6** A new row for a company and role that another row already tracks is written with a warning, never blocked (§9).
+
+**Status transition rules**
+
+- **ST-1** A new row starts at `saved` unless the caller names another status. Any of the six statuses is allowed; anything but `saved` needs the user's confirmation.
+- **ST-2** An existing row may move to any other status, forward or back, only with the user's confirmation. Without it, nothing is written. Setting the current status again is a no-op.
+- **ST-3** Every new row and every status change appends one line to the `## Status history` section at the end of `applications.md`, creating that section when it is missing: `- YYYY-MM-DD {id}: created as {status}` or `- YYYY-MM-DD {id}: {from} → {to}`. The line goes after the last line already in that section; earlier lines are never edited.
+
+**Report rules**
+
+- **RP-1** The next number is one more than the highest numeric prefix among files in `reports/` matching `^\d{3,}-.*\.md$`, zero-padded to at least three digits. Other files are ignored.
+- **RP-2** A report file is created exclusively: if a file with that name already exists, nothing is overwritten and the run is reported as a conflict. The helper allocates the number and creates the file under the workspace lock, so concurrent runs never share a number.
+- **RP-3** Report frontmatter must contain `company`, `role`, `application_id`, `skill`, `date` (as `YYYY-MM-DD`), and `summary` (§5). `report_id` is set to the allocated number, and added as the first field when it is missing.
+- **RP-4** A failed write leaves no partial report behind, and existing reports are never modified.
+
+**Parse failures**
+
+- **PF-1** When any read rule fails, report the line number and the surrounding lines, then stop without writing. The same applies to the story bank (§7).
+
+**Native procedure (no Node).** Apply the rules above in this order:
+
+1. Read `applications.md` and check TR-1 through TR-6. On the first failure, show the user the line number and the surrounding lines, and stop (PF-1). Never "repair" the table on your own.
+2. Compute the change and run the field checks in TW-4. If the change creates a row at anything but `saved` or changes a status, and the user has not confirmed it in this conversation, ask before writing (ST-1, ST-2).
+3. Rebuild the whole table per TW-1 and TW-2, keeping everything outside it verbatim (TR-1, TR-8), and append the history line (ST-3).
+4. Immediately before saving, re-read `applications.md`. If it differs from what you read in step 1, discard your change and start again from step 1 (TW-5).
+5. For a report, list `reports/`, compute the number (RP-1), check that the target name does not exist, and create it as a new file (RP-2). If it already exists, list again and take the next number. Never overwrite an existing report.
+
+**Known limit:** native file tools cannot take the workspace lock, so steps 4-5 narrow a concurrent-write race rather than close it. Two sessions writing the same workspace at once should use the helper.

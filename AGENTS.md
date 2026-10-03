@@ -4,8 +4,10 @@ This repository ships one shared set of Agent Skills to Codex, Claude Code, and 
 
 ## Before editing workflows
 
-- Read `skills/_shared/state-layer.md` before changing any skill that reads or writes `my-documents/`.
+- Read `skills/_shared/state-layer.md` before changing any skill that reads or writes `my-documents/`, and `skills/_shared/truth-and-content.md` before changing how a skill handles postings, claims, research, or candidate-facing wording.
 - Preserve truthful-claim rules, workspace confirmation before first write, report numbering, tracker schemas, and resume/CV selection behavior.
+- Tracker and report writes go through `scripts/state.mjs` when Node is available. Rule changes update the state-layer rule list, `scripts/fixtures/state/`, and the helper together.
+- Plugin-owned and user-owned paths are listed in `scripts/workspace.mjs` and state-layer §0. A new top-level file or folder must be added to both.
 - Keep provider-specific installation metadata in `.codex-plugin/`, `.agents/`, `.claude-plugin/`, or `.claude/`. Keep skill behavior provider-neutral unless a surface genuinely needs different recovery instructions.
 - Bundled scripts and templates come from the plugin installation root. User documents always come from the confirmed working folder.
 
@@ -19,6 +21,7 @@ python3 scripts/test_skill_contracts.py
 python3 scripts/check-content-hygiene.py
 python3 scripts/check-internal-links.py
 npm run test:strength
+npm run test:state
 npm run test:export
 ```
 

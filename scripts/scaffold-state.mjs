@@ -3,37 +3,17 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const SCRIPT_REPO_ROOT = path.resolve(__dirname, "..");
+import { assertUserWorkspace } from "./workspace.mjs";
+
 const TARGET_ROOT = process.cwd();
-
-function isWithin(candidate, parent) {
-  const relative = path.relative(parent, candidate);
-  return relative === "" ||
-    (!relative.startsWith(`..${path.sep}`) && relative !== ".." && !path.isAbsolute(relative));
-}
 
 // Workspace preflight (state-layer §10): refuse to scaffold inside the plugin
 // install dir. Early Cowork testers hit this — files landed in the plugin
 // folder, invisible to the user, and the next session "couldn't find" them.
-const canonicalRepoRoot = fs.realpathSync(SCRIPT_REPO_ROOT);
-const canonicalTargetRoot = fs.realpathSync(TARGET_ROOT);
-if (isWithin(canonicalTargetRoot, canonicalRepoRoot)) {
-  if (process.env.JOB_HUNT_SKILLS_DEV !== "1") {
-    console.error(
-      `scaffold-state: working directory is the plugin install dir, not a user workspace.\n\n` +
-      `Your job-hunt files belong in a folder you chose, not inside the plugin.\n\n` +
-      `  Codex CLI/IDE:  open or cd into your job-hunt folder, then start Codex there.\n` +
-      `  Desktop agent:  select a folder you own with the app's folder/workspace control, then start again.\n` +
-      `  Claude Code:    cd into your job-hunt folder, then run 'claude' there.\n\n` +
-      `Set JOB_HUNT_SKILLS_DEV=1 only if you are intentionally developing the plugin itself.`
-    );
-    process.exit(2);
-  }
-}
+// The recovery message lives in workspace.mjs so every state-writing script
+// gives the same Codex CLI/IDE, Desktop agent, and Claude Code instructions.
+assertUserWorkspace("scaffold-state");
 
 const ROOT = path.join(TARGET_ROOT, "my-documents");
 

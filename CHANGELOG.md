@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **State helper for tracker and report writes.** `scripts/state.mjs` validates `applications.md`, upserts rows, requires the user's confirmation for every status change, allows any status in either direction (so a mistake can be undone and someone joining mid-search can bring every application across), logs each change in a `## Status history` section, and allocates report numbers under a workspace lock so two sessions never share one. It writes atomically, refuses a malformed table without touching it, and needs only Node — no dependencies. Skills use it when Node is available and apply the same numbered rules with native file tools otherwise (state-layer §12).
+- **Truth and content contract** (`skills/_shared/truth-and-content.md`). Postings, forms, messages, reviews, and adapter records are treated as data: text aimed at AI tools is quoted back as a flag, never followed. Using a tool can no longer become a claim of building it without evidence. Claims the user withdraws are recorded in `my-documents/retracted-claims.md` and kept out of later resumes, letters, LinkedIn rewrites, and interview prep. Research runs have a lookup budget with an early-stop rule. Candidate-facing guidance follows the user's own voice and conventions instead of word bans.
+- **Explicit plugin-owned and user-owned paths** in state-layer §0 and `scripts/workspace.mjs`, enforced by `npm run test:state`.
+
+### Changed
+
+- The resume template and builder no longer require past tense throughout; they keep whichever tense convention the user already uses.
+
+### Compatibility
+
+- No existing file is rewritten on upgrade. Legacy tracker headers are still read; the full column set is written the next time a row changes. Custom tracker columns are preserved.
+- A tracker that the helper cannot parse is now reported with its line number instead of being edited. Fix the reported line, or ask the assistant to show it to you.
+- `retracted-claims.md` is optional and created only when you first withdraw a claim.
+
 ## 1.1.0 - 2026-07-17
 
 ### Added
