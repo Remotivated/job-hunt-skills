@@ -102,6 +102,7 @@ const runners = {
         unknown: unknownFields(out),
         warnings: warnings.length,
         compensation: out.compensation,
+        observed_at: out.observed_at,
         external_id: out.source.external_id,
       };
     });

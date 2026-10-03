@@ -706,7 +706,7 @@ class OpportunityContractTests(unittest.TestCase):
         self.assertNotIn("today + 3", self.skill)
 
     def test_hold_and_skip_reports_keep_the_posting(self) -> None:
-        self.assertIn("For a hold or skip, the report also keeps the posting", self.skill)
+        self.assertIn("End the body with the posting itself", self.skill)
         self.assertIn("untrusted source material", self.skill)
         self.assertIn("**Coming back to an earlier evaluation.**", self.skill)
 

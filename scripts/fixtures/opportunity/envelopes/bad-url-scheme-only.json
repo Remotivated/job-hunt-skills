@@ -1,0 +1,8 @@
+{
+  "envelope_version": 1,
+  "source": {
+    "kind": "url",
+    "url": "http:jobs.example.com/acme"
+  },
+  "posting_text": "x"
+}

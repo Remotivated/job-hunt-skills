@@ -54,9 +54,8 @@ export const TRACKING_PARAMS = Object.freeze([/^utm_/i, /^gh_src$/i, /^trk$/i, /
 // Snapshot bookkeeping; an envelope may not use these names (OP-4).
 export const RESERVED_KEYS = Object.freeze(["snapshot", "application_id", "captured", "supersedes", "unknown"]);
 
-const SNAPSHOT_FILE = /^opportunity-([1-9]\d*)\.md$/;
-const TIMESTAMP = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?)?$/;
-const HTTP_URL = /^https?:\/\/\S+$/;
+const SNAPSHOT_FILE = /^opportunity-(\d+)\.md$/;
+const TIMESTAMP = /^\d{4}-\d{2}-\d{2}(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(?:Z|[+-](\d{2}):(\d{2}))?)?$/;
 const FIELD_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
@@ -80,9 +79,26 @@ function checkObserved(where, value, { multiline = false } = {}) {
   if (!multiline && /[\r\n]/.test(value)) throw invalid(`${where} must be a single line.`);
 }
 
+// OP-2: a real calendar date, and clock and offset values in range.
+function isTimestamp(value) {
+  const match = TIMESTAMP.exec(value);
+  if (!match || !isIsoDate(value.slice(0, 10))) return false;
+  const [, hour = 0, minute = 0, second = 0, offsetHour = 0, offsetMinute = 0] = match;
+  return hour < 24 && minute < 60 && second < 60 && offsetHour < 24 && offsetMinute < 60;
+}
+
+function isHttpUrl(value) {
+  if (/\s/.test(value) || !/^https?:\/\//i.test(value)) return false;
+  try {
+    return ["http:", "https:"].includes(new URL(value).protocol);
+  } catch {
+    return false;
+  }
+}
+
 function checkTime(where, value) {
   checkObserved(where, value);
-  if (typeof value === "string" && !(TIMESTAMP.test(value) && isIsoDate(value.slice(0, 10)))) {
+  if (typeof value === "string" && !isTimestamp(value)) {
     throw invalid(`${where} "${value}" must be an ISO date or date-time.`);
   }
 }
@@ -97,7 +113,7 @@ export function normalizeEnvelope(input, { now = new Date() } = {}) {
     );
   }
   for (const key of Object.keys(input)) {
-    if (RESERVED_KEYS.includes(key)) {
+    if (RESERVED_KEYS.includes(key) || key === "__proto__") {
       throw invalid(`"${key}" is reserved for snapshot bookkeeping and cannot be an envelope field.`);
     }
     if (!FIELD_NAME.test(key)) throw invalid(`Field name "${key}" must use letters, digits, and underscores.`);
@@ -113,7 +129,7 @@ export function normalizeEnvelope(input, { now = new Date() } = {}) {
   for (const key of SOURCE_FIELDS) {
     if (key in source) checkObserved(`source.${key}`, source[key]);
   }
-  if (typeof source.url === "string" && !HTTP_URL.test(source.url)) {
+  if (typeof source.url === "string" && !isHttpUrl(source.url)) {
     throw invalid(`source.url "${source.url}" must be an http(s) URL.`);
   }
 
@@ -140,10 +156,10 @@ export function normalizeEnvelope(input, { now = new Date() } = {}) {
     if (key === "source") envelope.source = source;
     else if (key === "fingerprint") envelope.fingerprint = fingerprint;
     else if (key === "posting_text") envelope.posting_text = posting;
-    else if (key === "observed_at") envelope.observed_at = input.observed_at ?? now.toISOString();
+    else if (key === "observed_at") envelope.observed_at = "observed_at" in input ? input.observed_at : now.toISOString();
     else if (key in input) envelope[key] = input[key];
   }
-  for (const key of Object.keys(input)) if (!(key in envelope)) envelope[key] = input[key]; // OP-4
+  for (const key of Object.keys(input)) if (!Object.hasOwn(envelope, key)) envelope[key] = input[key]; // OP-4
   return { envelope, warnings };
 }
 
@@ -213,7 +229,7 @@ function parseScalar(raw) {
     const out = {};
     for (const pair of plain.slice(1, -1).split(",").filter((p) => p.trim())) {
       const kv = /^\s*([A-Za-z_][A-Za-z0-9_]*):\s*(.*)$/.exec(pair);
-      if (!kv) throw new Error(`Cannot read "${pair.trim()}".`);
+      if (!kv || kv[1] === "__proto__") throw new Error(`Cannot read "${pair.trim()}".`);
       out[kv[1]] = parseScalar(kv[2]);
     }
     return out;
@@ -245,7 +261,8 @@ function parseBlock(lines, i, end, indent) {
     }
     const kv = /^ *([A-Za-z_][A-Za-z0-9_]*):(?: (.*))?$/.exec(line);
     if (!kv) throw parseError(lines, i, "Snapshot frontmatter lines must be `key: value`.");
-    if (kv[1] in value) throw parseError(lines, i, `Duplicate frontmatter key "${kv[1]}".`);
+    if (kv[1] === "__proto__") throw parseError(lines, i, 'Snapshot frontmatter cannot use the key "__proto__".');
+    if (Object.hasOwn(value, kv[1])) throw parseError(lines, i, `Duplicate frontmatter key "${kv[1]}".`);
     if (kv[2] !== undefined && kv[2].trim() !== "") {
       value[kv[1]] = scalarAt(lines, i, kv[2]);
       continue;
@@ -307,23 +324,33 @@ function parseError(lines, index, message) {
   return new StateError("parse_error", message, { line: index + 1, region: region(lines, index) });
 }
 
-function snapshotNumbers(dir) {
+// Every opportunity-{n}.md in a folder, oldest first, by file name.
+function snapshotFiles(dir) {
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)
-    .map((name) => SNAPSHOT_FILE.exec(name)?.[1])
-    .filter(Boolean)
-    .map(Number)
-    .sort((a, b) => a - b);
+    .filter((name) => SNAPSHOT_FILE.test(name))
+    .map((name) => ({ name, n: Number(SNAPSHOT_FILE.exec(name)[1]) }))
+    .sort((a, b) => a.n - b.n || a.name.localeCompare(b.name));
 }
 
-const snapshotPath = (id, n) => `${USER_ROOT}/applications/${id}/opportunity-${n}.md`;
+const snapshotPath = (id, name) => `${USER_ROOT}/applications/${id}/${name}`;
 
-function readSnapshot(dir, n) {
+// OP-9: a name the helper would not write (opportunity-01.md, opportunity-0.md)
+// is unreadable rather than read as some other snapshot number.
+function readSnapshot(dir, { name, n }) {
+  const where = snapshotPath(path.basename(dir), name);
+  if (n < 1 || name !== `opportunity-${n}.md`) {
+    throw new StateError(
+      "parse_error",
+      `${name} is not a snapshot name: snapshots are opportunity-{n}.md, numbered from 1 with no leading zeros. Rename the file, then re-run.`,
+      { path: where },
+    );
+  }
   try {
-    return parseSnapshot(fs.readFileSync(path.join(dir, `opportunity-${n}.md`), "utf8"));
+    return parseSnapshot(fs.readFileSync(path.join(dir, name), "utf8"));
   } catch (error) {
-    if (error instanceof StateError) error.details.path = snapshotPath(path.basename(dir), n);
+    if (error instanceof StateError) error.details.path = where;
     throw error;
   }
 }
@@ -381,29 +408,38 @@ const identity = (envelope) => ({
   fingerprint: fingerprintText(envelope.posting_text ?? ""),
 });
 
-// OP-6: duplicate or changed when both sides have a fingerprint; unknown when
-// the earlier record has none (an evaluation saved without Node).
+// OP-6: observed fields both feed records state, with different values. A
+// field either side leaves unknown is not compared. For a paste or a page the
+// assistant fills these fields from the text, so a re-worded field is not a
+// changed posting; only a record carries values the source itself set.
+export function movedFields(earlier, incoming) {
+  if (earlier.source?.kind !== "record" || incoming.source?.kind !== "record") return [];
+  const comparable = (v) => (typeof v === "string" ? v.replace(/\s+/g, " ").trim() : v);
+  return OBSERVED_FIELDS.filter(
+    (k) =>
+      Object.hasOwn(earlier, k) &&
+      Object.hasOwn(incoming, k) &&
+      !isDeepStrictEqual(comparable(earlier[k]), comparable(incoming[k])),
+  );
+}
+
+// OP-6: an evaluation report is a duplicate or changed when both sides have a
+// fingerprint, and unknown when the report has none (saved without Node).
 function relation(earlier, target) {
   if (typeof earlier !== "string") return "unknown";
   return earlier === target ? "duplicate" : "changed";
 }
 
-const comparable = (v) => (typeof v === "string" ? v.replace(/\s+/g, " ").trim() : v);
-
-// OP-8: what differs between a saved snapshot and an incoming envelope. The
-// posting text compares by fingerprint; an observed field counts only when
-// both sides state it (a string or null) and the values differ, so a copy
-// that leaves a field unknown never reads as a change.
+// OP-8: what differs between a saved snapshot and an incoming envelope: the
+// posting text, compared by fingerprint, and any stated field that moved.
 export function snapshotChanges(saved, incoming) {
-  const changes = [];
-  if (identity(saved).fingerprint !== identity(incoming).fingerprint) changes.push("posting_text");
-  for (const key of OBSERVED_FIELDS) {
-    if (key in saved && key in incoming && !isDeepStrictEqual(comparable(saved[key]), comparable(incoming[key]))) {
-      changes.push(key);
-    }
-  }
-  return changes;
+  const changes = identity(saved).fingerprint === identity(incoming).fingerprint ? [] : ["posting_text"];
+  return [...changes, ...movedFields(saved, incoming)];
 }
+
+// OP-7: an evaluation report keeps the posting in a ```text fence under
+// "## Posting text", the same way a snapshot does.
+const REPORT_POSTING = /^## Posting text[ \t]*\r?\n(?:[ \t]*\r?\n)*(`{3,})text\r?\n([\s\S]*?)\r?\n\1[ \t]*$/m;
 
 // Report frontmatter is plain YAML scalars; read only the keys OP-7 defines.
 function reportIdentity(text) {
@@ -425,13 +461,14 @@ function reportIdentity(text) {
     fields[kv[1]] = value;
   }
   if (fields.skill !== "opportunity-evaluator") return null;
+  const posting = REPORT_POSTING.exec(text)?.[2];
   return {
     decision: fields.decision ?? null,
     application_id: fields.application_id ?? null,
     external_id: fields.external_id,
     source_name: fields.source_name,
     url: fields.source_url,
-    fingerprint: fields.opportunity_fingerprint,
+    fingerprint: fields.opportunity_fingerprint ?? (posting === undefined ? null : fingerprintText(posting)),
   };
 }
 
@@ -447,12 +484,12 @@ export function findMatches(workspace, envelope) {
     for (const entry of fs.readdirSync(apps, { withFileTypes: true })) {
       if (!entry.isDirectory()) continue;
       const dir = path.join(apps, entry.name);
-      const numbers = snapshotNumbers(dir);
-      if (!numbers.length) continue;
+      const files = snapshotFiles(dir);
+      if (!files.length) continue;
       const parsed = [];
-      for (const n of numbers) {
+      for (const file of files) {
         try {
-          parsed.push({ n, ...readSnapshot(dir, n) });
+          parsed.push({ ...file, ...readSnapshot(dir, file) });
         } catch (error) {
           if (!(error instanceof StateError)) throw error;
           result.unreadable.push({ path: error.details.path, message: error.message, line: error.details.line });
@@ -465,7 +502,7 @@ export function findMatches(workspace, envelope) {
       result.snapshots.push({
         application_id: entry.name,
         snapshot: latest.n,
-        path: snapshotPath(entry.name, latest.n),
+        path: snapshotPath(entry.name, latest.name),
         relation: changes.length ? "changed" : "duplicate",
         changes,
         by,
@@ -516,8 +553,8 @@ export function checkOpportunity(workspace, input, { now, search = true } = {}) 
 }
 
 // Store a confirmed snapshot in my-documents/applications/{id}/ (OP-8). An
-// existing snapshot is never modified: the same posting is a no-op, and a
-// changed posting becomes the next numbered snapshot.
+// existing snapshot is never modified: the same text and stated values are a
+// no-op, and a changed posting becomes the next numbered snapshot.
 export function writeSnapshot(workspace, { id, input, userConfirmed = false, today = todayIso(), now }, hooks = {}) {
   if (!SLUG.test(id ?? "")) throw new StateError("invalid_field", `id "${id}" must be kebab-case.`);
   if (!userConfirmed) {
@@ -536,17 +573,19 @@ export function writeSnapshot(workspace, { id, input, userConfirmed = false, tod
 
   return withWorkspaceLock(stateRoot, () => {
     const dir = path.join(apps, id);
-    const numbers = snapshotNumbers(dir);
-    const previous = numbers.length ? numbers[numbers.length - 1] : null;
+    // OP-9: refuse the folder if any snapshot in it does not parse.
+    const latest = snapshotFiles(dir)
+      .map((file) => ({ ...file, ...readSnapshot(dir, file) }))
+      .at(-1);
+    const previous = latest?.n ?? null;
     let changes;
-    if (previous !== null) {
-      const latest = readSnapshot(dir, previous); // OP-9: refuse on a broken latest
+    if (latest) {
       changes = snapshotChanges(latest.envelope, envelope);
       if (!changes.length) {
         return {
           action: "unchanged",
           snapshot: previous,
-          path: snapshotPath(id, previous),
+          path: snapshotPath(id, latest.name),
           fingerprint: envelope.fingerprint,
           changes,
           warnings,
@@ -585,7 +624,7 @@ export function writeSnapshot(workspace, { id, input, userConfirmed = false, tod
       snapshot,
       supersedes: previous,
       ...(changes ? { changes } : {}),
-      path: snapshotPath(id, snapshot),
+      path: snapshotPath(id, name),
       fingerprint: envelope.fingerprint,
       warnings,
     };
