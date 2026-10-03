@@ -207,6 +207,44 @@ export function serializeSnapshot(envelope, { applicationId, snapshot, supersede
   ].join("\n");
 }
 
+// Walk a YAML value outside quotes: find the commas that separate the items
+// of the outermost flow collection, and where a trailing comment starts, so a
+// quoted "Acme, Inc." or "#1" stays inside its value (OP-9). A quote only
+// opens at the start of a token, so O'Brien is a plain word.
+function scanFlow(text) {
+  const commas = [];
+  let depth = 0;
+  let quote = null;
+  let tokenStart = true;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quote) {
+      if (quote === '"' && c === "\\") i++;
+      else if (c === "'" && quote === "'" && text[i + 1] === "'") i++;
+      else if (c === quote) quote = null;
+      continue;
+    }
+    if (c === "#" && (i === 0 || /\s/.test(text[i - 1]))) return { commas, comment: i, balanced: depth === 0 };
+    if ((c === '"' || c === "'") && tokenStart) quote = c;
+    else if (c === "[" || c === "{") depth++;
+    else if (c === "]" || c === "}") depth--;
+    else if (c === "," && depth === 1) commas.push(i);
+    if (!/\s/.test(c)) tokenStart = "[{,:".includes(c);
+  }
+  return { commas, comment: -1, balanced: depth === 0 && quote === null };
+}
+
+// The items of a flow collection, split on its top-level commas only.
+function flowItems(text, commas) {
+  const items = [];
+  let from = 1;
+  for (const at of [...commas, text.length - 1]) {
+    items.push(text.slice(from, at));
+    from = at + 1;
+  }
+  return items.filter((item) => item.trim());
+}
+
 // One frontmatter value. The helper writes JSON; a snapshot written without
 // Node may use plain YAML scalars and flow lists instead (OP-9), so those are
 // read the way YAML reads them.
@@ -218,16 +256,15 @@ function parseScalar(raw) {
     // not JSON: fall through to the YAML forms below
   }
   if (/^'.*'$/.test(text)) return text.slice(1, -1).replaceAll("''", "'");
-  const plain = text.replace(/\s+#.*$/, "");
+  const scan = scanFlow(text);
+  const plain = scan.comment === -1 ? text : text.slice(0, scan.comment).trimEnd();
   if (["", "~", "null", "Null", "NULL"].includes(plain)) return null;
   if (plain !== text) return parseScalar(plain);
-  if (/^\[.*\]$/.test(plain)) {
-    const inner = plain.slice(1, -1).trim();
-    return inner ? inner.split(",").map(parseScalar) : [];
-  }
+  if (/^[[{]/.test(plain) && !scan.balanced) throw new Error("Unclosed quote or bracket.");
+  if (/^\[.*\]$/.test(plain)) return flowItems(plain, scan.commas).map(parseScalar);
   if (/^\{.*\}$/.test(plain)) {
     const out = {};
-    for (const pair of plain.slice(1, -1).split(",").filter((p) => p.trim())) {
+    for (const pair of flowItems(plain, scan.commas)) {
       const kv = /^\s*([A-Za-z_][A-Za-z0-9_]*):\s*(.*)$/.exec(pair);
       if (!kv || kv[1] === "__proto__") throw new Error(`Cannot read "${pair.trim()}".`);
       out[kv[1]] = parseScalar(kv[2]);
@@ -302,8 +339,10 @@ export function parseSnapshot(text) {
   if (Array.isArray(fields)) throw parseError(lines, 1, "Snapshot frontmatter must be `key: value` lines.");
   const heading = lines.indexOf("## Posting text", end);
   if (heading === -1) throw parseError(lines, end, 'Snapshot has no "## Posting text" section.');
+  // A note line, such as the one saying the text is untrusted, may sit
+  // between the heading and the fence; another heading may not.
   let open = heading + 1;
-  while (open < lines.length && lines[open].trim() === "") open++;
+  while (open < lines.length && !/^`{3,}/.test(lines[open]) && !/^#{1,6} /.test(lines[open])) open++;
   const fence = /^(`{3,})text$/.exec(lines[open] ?? "")?.[1];
   if (!fence) throw parseError(lines, Math.min(open, lines.length - 1), "Posting text must be in a ```text fence.");
   const close = lines.indexOf(fence, open + 1);
@@ -414,7 +453,9 @@ const identity = (envelope) => ({
 // changed posting; only a record carries values the source itself set.
 export function movedFields(earlier, incoming) {
   if (earlier.source?.kind !== "record" || incoming.source?.kind !== "record") return [];
-  const comparable = (v) => (typeof v === "string" ? v.replace(/\s+/g, " ").trim() : v);
+  // A hand-written snapshot may hold compensation: 150000 as a YAML number.
+  const comparable = (v) =>
+    typeof v === "number" ? String(v) : typeof v === "string" ? v.replace(/\s+/g, " ").trim() : v;
   return OBSERVED_FIELDS.filter(
     (k) =>
       Object.hasOwn(earlier, k) &&
@@ -438,8 +479,10 @@ export function snapshotChanges(saved, incoming) {
 }
 
 // OP-7: an evaluation report keeps the posting in a ```text fence under
-// "## Posting text", the same way a snapshot does.
-const REPORT_POSTING = /^## Posting text[ \t]*\r?\n(?:[ \t]*\r?\n)*(`{3,})text\r?\n([\s\S]*?)\r?\n\1[ \t]*$/m;
+// "## Posting text", the same way a snapshot does, with an optional note line
+// (such as the untrusted-content line) before the fence.
+const REPORT_POSTING =
+  /^## Posting text[ \t]*\r?\n(?:(?!`{3,}|#{1,6} )[^\r\n]*\r?\n)*?(`{3,})text\r?\n([\s\S]*?)\r?\n\1[ \t]*$/m;
 
 // Report frontmatter is plain YAML scalars; read only the keys OP-7 defines.
 function reportIdentity(text) {

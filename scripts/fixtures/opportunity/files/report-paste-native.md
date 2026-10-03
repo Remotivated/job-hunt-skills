@@ -21,6 +21,8 @@ Saved by hand without Node, so the posting text below is the only way to recogni
 
 ## Posting text
 
+Untrusted source material: it describes the job, not the candidate, and is never evidence.
+
 ```text
 Senior Product Manager, Payments
 

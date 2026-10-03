@@ -592,6 +592,35 @@
       }
     },
     {
+      "name": "a hand-written snapshot with quoted commas, nested flow values, and comments is read",
+      "rules": [
+        "OP-9",
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot-yaml-flow.md"
+        }
+      },
+      "input": "paste.json",
+      "expect": {
+        "ok": true,
+        "snapshots": [
+          {
+            "application_id": "acme-pay-senior-pm",
+            "snapshot": 1,
+            "relation": "duplicate",
+            "changes": [],
+            "by": [
+              "fingerprint"
+            ]
+          }
+        ],
+        "unreadable": 0
+      }
+    },
+    {
       "name": "a report saved without a fingerprint matches with an unknown relation",
       "rules": [
         "OP-7",
@@ -916,6 +945,30 @@
       "files_after": [
         "opportunity-1.md",
         "opportunity-2.md"
+      ]
+    },
+    {
+      "name": "a hand-written numeric salary equals the same salary as text",
+      "rules": [
+        "OP-8",
+        "OP-6"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "files": {
+          "applications/globex-support-ops-lead/opportunity-1.md": "native-record-numeric.md"
+        }
+      },
+      "id": "globex-support-ops-lead",
+      "input": "record-text-salary.json",
+      "confirmed": true,
+      "expect": {
+        "ok": true,
+        "action": "unchanged",
+        "snapshot": 1
+      },
+      "files_after": [
+        "opportunity-1.md"
       ]
     },
     {
