@@ -73,6 +73,18 @@
       }
     },
     {
+      "name": "refuses bad-url-scheme-only",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "bad-url-scheme-only.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
       "name": "refuses multiline-role",
       "rules": [
         "OP-2"
@@ -686,6 +698,33 @@
       "files_after": [
         "opportunity-1.md",
         "opportunity-2.md"
+      ]
+    },
+    {
+      "name": "the same pasted text with re-worded fields writes nothing",
+      "rules": [
+        "OP-8",
+        "OP-6"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "snapshots": [
+          {
+            "id": "acme-pay-senior-pm",
+            "input": "paste.json"
+          }
+        ]
+      },
+      "id": "acme-pay-senior-pm",
+      "input": "paste-reworded-fields.json",
+      "confirmed": true,
+      "expect": {
+        "ok": true,
+        "action": "unchanged",
+        "snapshot": 1
+      },
+      "files_after": [
+        "opportunity-1.md"
       ]
     },
     {

@@ -85,7 +85,7 @@ function isTimestamp(value) {
 }
 
 function isHttpUrl(value) {
-  if (/\s/.test(value)) return false;
+  if (/\s/.test(value) || !/^https?:\/\//i.test(value)) return false;
   try {
     return ["http:", "https:"].includes(new URL(value).protocol);
   } catch {
@@ -324,9 +324,12 @@ const identity = (envelope) => ({
   fingerprint: fingerprintText(envelope.posting_text ?? ""),
 });
 
-// OP-6: observed fields both records state, with different values. A field
-// either side leaves unknown is not compared.
+// OP-6: observed fields both feed records state, with different values. A
+// field either side leaves unknown is not compared. For a paste or a page the
+// assistant fills these fields from the text, so a re-worded field is not a
+// changed posting; only a record carries values the source itself set.
 export function movedFields(earlier, incoming) {
+  if (earlier.source?.kind !== "record" || incoming.source?.kind !== "record") return [];
   return OBSERVED_FIELDS.filter(
     (k) => Object.hasOwn(earlier, k) && Object.hasOwn(incoming, k) && earlier[k] !== incoming[k],
   );
