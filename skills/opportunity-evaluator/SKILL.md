@@ -133,7 +133,7 @@ opportunity_fingerprint: {sha256:..., or null without Node}
 ---
 ```
 
-Body: the opportunity summary (source, retrieval date, observed fields with unknown and absent marked), blocks A, B, and C, the recommendation with its drivers, the user's decision, any text addressed to AI tools that was flagged, and the number of lookups used. The report is read-only after creation; a re-evaluation writes a new one.
+Body: the opportunity summary (source, retrieval date, observed fields with unknown and absent marked), blocks A, B, and C, the recommendation with its drivers, the user's decision, any text addressed to AI tools that was flagged, and the number of lookups used. End with the posting text under a `## Posting text` heading in a ```` ```text ```` fence longer than any backtick run inside it, so the posting is recognised if it turns up again, even pasted without a link ([state-layer §13](../_shared/state-layer.md#13-opportunity-envelope-and-snapshots), OP-7). The report is read-only after creation; a re-evaluation writes a new one.
 
 **Pursue — also:**
 
@@ -143,7 +143,7 @@ Body: the opportunity summary (source, retrieval date, observed fields with unkn
    node "{job_hunt_skills_root}/scripts/opportunity.mjs" snapshot --id {id} --file {envelope.json} --user-confirmed
    ```
 
-   Pass `--user-confirmed` only because the user chose Pursue in this conversation. `"action": "unchanged"` means this exact posting is already saved; `"changed"` means a new snapshot now sits next to the earlier one, which is kept. Without Node, write the snapshot natively per the [state-layer §13](../_shared/state-layer.md#13-opportunity-envelope-and-snapshots) procedure. On exit `3`, show the message and stop the snapshot write.
+   Pass `--user-confirmed` only because the user chose Pursue in this conversation. `"action": "unchanged"` means this posting is already saved with the same text and the same stated details; `"changed"` means a new snapshot now sits next to the earlier one, which is kept, and `changed_fields` names any stated detail (such as salary or location) that moved while the text stayed the same. Without Node, write the snapshot natively per the [state-layer §13](../_shared/state-layer.md#13-opportunity-envelope-and-snapshots) procedure. On exit `3`, show the message and stop the snapshot write.
 2. **Tracker.** Run `node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}" --source {source} --next-action-date {today + 3 days}`, adding `--link {source.url}` when the posting has an address. Omit `--status`: a new row starts at `saved`, and an existing row keeps its status. For `--source`, use how the user found the role (`referral`, `board`, `cold`, `recruiter`, `watch`); ask once if it is not clear from the conversation, or use `-`. Without Node, apply the same rules natively per [state-layer §12](../_shared/state-layer.md#12-validated-mutations-helper-and-native-fallback). On exit `3`, show the message; the report and snapshot are already saved.
 
 **Hold or skip:** the report is the whole record. Do not create a tracker row. If the opportunity is already tracked and the user wants its status changed, ask, then run `node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --status {status} --user-confirmed` only after they say yes.

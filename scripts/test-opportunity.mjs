@@ -96,7 +96,13 @@ const runners = {
   normalize(c) {
     return capture(() => {
       const { envelope: out, warnings } = normalizeEnvelope(envelope(c.input), { now: NOW });
-      return { fingerprint: out.fingerprint, unknown: unknownFields(out), warnings: warnings.length, compensation: out.compensation };
+      return {
+        fingerprint: out.fingerprint,
+        unknown: unknownFields(out),
+        warnings: warnings.length,
+        compensation: out.compensation,
+        observed_at: out.observed_at,
+      };
     });
   },
 

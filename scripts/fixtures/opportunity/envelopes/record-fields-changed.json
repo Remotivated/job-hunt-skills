@@ -1,0 +1,27 @@
+{
+  "envelope_version": 1,
+  "source": {
+    "kind": "record",
+    "name": "Example Jobs Feed",
+    "url": "https://feed.example.org/jobs/88412",
+    "external_id": "88412",
+    "feed_region": "us"
+  },
+  "observed_at": "2026-10-09T09:00:00Z",
+  "fetched_at": "2026-10-01T08:55:00Z",
+  "source_updated_at": "2026-09-30",
+  "company": "Globex",
+  "role": "Support Operations Lead",
+  "location": "Remote (EU and UK)",
+  "work_model": "remote",
+  "compensation": "EUR 60,000 - 70,000",
+  "provenance": "Example Jobs Feed record 88412; attribution required when shown.",
+  "posting_text": "Support Operations Lead\n\nLead tooling and workflows for a 40-person support team.\nRemote within EU time zones.",
+  "extensions": {
+    "example_feed": {
+      "category": "support",
+      "verified_employer": true
+    }
+  },
+  "feed_rank": 7
+}
