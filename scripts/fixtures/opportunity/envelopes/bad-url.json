@@ -1,0 +1,8 @@
+{
+  "envelope_version": 1,
+  "source": {
+    "kind": "url",
+    "url": "javascript:alert(1)"
+  },
+  "posting_text": "x"
+}

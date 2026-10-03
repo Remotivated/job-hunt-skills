@@ -43,6 +43,8 @@ const RELEASE_ARCHIVE_PATHS = [
   "skills/_shared/truth-and-content.md",
   "scripts/state.mjs",
   "scripts/workspace.mjs",
+  "scripts/opportunity.mjs",
+  "skills/opportunity-evaluator/SKILL.md",
 ];
 
 function assertGitArchiveEligible(relativePath) {
@@ -294,7 +296,7 @@ describe("Codex plugin manifest", () => {
   test("declares the existing skills directory without unsupported components", () => {
     const manifest = readJson(".codex-plugin/plugin.json");
     assert.equal(manifest.name, "job-hunt-skills");
-    assert.equal(manifest.version, "1.1.0");
+    assert.equal(manifest.version, "1.2.0");
     assert.equal(manifest.skills, "./skills/");
     assert.equal(manifest.license, "MIT");
     assert.ok(existsSync(join(ROOT, manifest.skills)));
@@ -316,6 +318,21 @@ describe("Codex plugin manifest", () => {
     ]) {
       assert.deepEqual(codex[field], claude[field], field);
     }
+  });
+});
+
+describe("Release versions", () => {
+  test("package, lockfile, both plugin manifests, and the changelog name one version", () => {
+    const version = readJson("package.json").version;
+    const lock = readJson("package-lock.json");
+    assert.equal(lock.version, version, "package-lock.json version");
+    assert.equal(lock.packages[""].version, version, "package-lock.json root package version");
+    assert.equal(readJson(".claude-plugin/plugin.json").version, version, "Claude manifest");
+    assert.equal(readJson(".codex-plugin/plugin.json").version, version, "Codex manifest");
+    const changelog = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8");
+    const latest = /^## (\d+\.\d+\.\d+)\b/m.exec(changelog);
+    assert.ok(latest, "CHANGELOG.md must have a version heading");
+    assert.equal(latest[1], version, "newest CHANGELOG.md heading");
   });
 });
 
@@ -394,6 +411,12 @@ describe("OpenAI skill metadata", () => {
       shortDescription: "Audit and improve a LinkedIn profile",
       defaultPrompt:
         "Use $linkedin-optimizer to audit my LinkedIn profile and improve the sections that weaken my positioning.",
+    },
+    "opportunity-evaluator": {
+      displayName: "Opportunity Evaluator",
+      shortDescription: "Decide whether a job posting is worth pursuing",
+      defaultPrompt:
+        "Use $opportunity-evaluator to tell me whether this posting is worth pursuing, based only on my actual experience.",
     },
     "proof-asset-creator": {
       displayName: "Proof Asset Creator",

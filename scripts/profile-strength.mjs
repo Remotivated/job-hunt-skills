@@ -137,8 +137,14 @@ export function computeStrength(root = process.cwd()) {
   const proofAssets = safeList(path.join(md, "proof-assets")).filter(
     (e) => e.isFile() && e.name.endsWith(".md"),
   ).length;
+  // A folder counts once it holds tailored material; a saved posting
+  // snapshot alone (opportunity-{n}.md) is not a tailored application.
   const tailoredApps = safeList(path.join(md, "applications")).filter(
-    (e) => e.isDirectory(),
+    (e) =>
+      e.isDirectory() &&
+      ["resume.md", "cv.md", "coverletter.md"].some((name) =>
+        fs.existsSync(path.join(md, "applications", e.name, name)),
+      ),
   ).length;
 
   const label = resume ? "resume" : cv ? "CV" : "work document";

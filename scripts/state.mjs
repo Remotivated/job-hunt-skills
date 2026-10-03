@@ -52,9 +52,9 @@ export const REPORT_KEYS = Object.freeze([
   "summary",
 ]);
 
-const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+export const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
-const REPORT_FILE = /^(\d{3,})-.*\.md$/;
+export const REPORT_FILE = /^(\d{3,})-.*\.md$/;
 
 export class StateError extends Error {
   constructor(code, message, details = {}) {
@@ -102,7 +102,7 @@ function splitRow(line) {
 const unescapeCell = (cell) => cell.replaceAll("\\|", "|");
 const escapeCell = (value) => String(value).replaceAll("|", "\\|");
 
-function region(lines, index, radius = 2) {
+export function region(lines, index, radius = 2) {
   const start = Math.max(0, index - radius);
   const end = Math.min(lines.length, index + radius + 1);
   return lines
@@ -428,7 +428,7 @@ function stealIfAbandoned(lock, owner, token) {
   return true;
 }
 
-function tempPath(target) {
+export function tempPath(target) {
   return path.join(path.dirname(target), `.tmp-${path.basename(target)}-${process.pid}-${crypto.randomUUID()}`);
 }
 
@@ -493,7 +493,7 @@ export function stampReport(content, reportId) {
   };
 }
 
-function exclusiveCommit(tmp, target) {
+export function exclusiveCommit(tmp, target) {
   try {
     fs.linkSync(tmp, target); // atomic, fails with EEXIST instead of replacing
   } catch (error) {
@@ -567,7 +567,7 @@ function parseArgs(argv) {
   return opts;
 }
 
-const EXIT = { busy: 4, unexpected: 1 };
+export const EXIT = Object.freeze({ busy: 4, unexpected: 1 });
 
 export function run(argv, workspace = process.cwd()) {
   const [area, command, ...rest] = argv;

@@ -1,0 +1,621 @@
+{
+  "cases": [
+    {
+      "name": "refuses envelope bad-version",
+      "rules": [
+        "OP-1"
+      ],
+      "kind": "normalize",
+      "input": "bad-version.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "refuses envelope missing-version",
+      "rules": [
+        "OP-1"
+      ],
+      "kind": "normalize",
+      "input": "missing-version.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "refuses bad-kind",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "bad-kind.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "refuses empty-text",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "empty-text.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "refuses bad-url",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "bad-url.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "refuses multiline-role",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "multiline-role.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "refuses bad-field-name",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "bad-field-name.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "refuses bad-time",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "bad-time.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "pasted text keeps unknown fields unknown",
+      "rules": [
+        "OP-3"
+      ],
+      "kind": "normalize",
+      "input": "paste.json",
+      "expect": {
+        "ok": true,
+        "fingerprint": "sha256:547e4fe0c9a64c65ae63892228092b29bc4cea8b211c5fe52b58cd0a10033ecb",
+        "unknown": [
+          "source.name",
+          "source.url",
+          "source.external_id",
+          "fetched_at",
+          "source_updated_at",
+          "location",
+          "work_model",
+          "compensation",
+          "provenance"
+        ],
+        "warnings": 0
+      }
+    },
+    {
+      "name": "a stated-as-missing salary is absent, not unknown",
+      "rules": [
+        "OP-3"
+      ],
+      "kind": "normalize",
+      "input": "url-changed.json",
+      "expect": {
+        "ok": true,
+        "unknown": [
+          "source.external_id",
+          "source_updated_at",
+          "provenance"
+        ],
+        "compensation": null
+      }
+    },
+    {
+      "name": "reserved bookkeeping names are refused",
+      "rules": [
+        "OP-4"
+      ],
+      "kind": "normalize",
+      "input": "reserved-key.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "reformatted copy of the same posting has the same fingerprint",
+      "rules": [
+        "OP-5"
+      ],
+      "kind": "normalize",
+      "input": "paste-reformatted.json",
+      "expect": {
+        "ok": true,
+        "fingerprint": "sha256:547e4fe0c9a64c65ae63892228092b29bc4cea8b211c5fe52b58cd0a10033ecb"
+      }
+    },
+    {
+      "name": "a supplied fingerprint that does not match is replaced with a warning",
+      "rules": [
+        "OP-5"
+      ],
+      "kind": "normalize",
+      "input": "wrong-fingerprint.json",
+      "expect": {
+        "ok": true,
+        "warnings": 1
+      }
+    },
+    {
+      "name": "feed record with extensions and extra fields round-trips",
+      "rules": [
+        "OP-4",
+        "OP-3"
+      ],
+      "kind": "roundtrip",
+      "input": "record.json",
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "name": "posting text aimed at the assistant round-trips as inert data",
+      "rules": [
+        "OP-4",
+        "OP-2"
+      ],
+      "kind": "roundtrip",
+      "input": "injection.json",
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "name": "legacy workspace without snapshots has no matches",
+      "rules": [
+        "OP-10",
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "applications/initech-analyst/resume.md": "legacy-resume.md"
+        }
+      },
+      "input": "url.json",
+      "expect": {
+        "ok": true,
+        "snapshots": [],
+        "reports": [],
+        "unreadable": 0
+      }
+    },
+    {
+      "name": "same posting pasted again is a duplicate",
+      "rules": [
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "snapshots": [
+          {
+            "id": "acme-pay-senior-pm",
+            "input": "url.json"
+          }
+        ]
+      },
+      "input": "paste-reformatted.json",
+      "expect": {
+        "ok": true,
+        "snapshots": [
+          {
+            "application_id": "acme-pay-senior-pm",
+            "snapshot": 1,
+            "relation": "duplicate",
+            "by": [
+              "fingerprint"
+            ]
+          }
+        ],
+        "reports": []
+      }
+    },
+    {
+      "name": "same URL with new text is a changed posting",
+      "rules": [
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "snapshots": [
+          {
+            "id": "acme-pay-senior-pm",
+            "input": "url.json"
+          }
+        ]
+      },
+      "input": "url-changed.json",
+      "expect": {
+        "ok": true,
+        "snapshots": [
+          {
+            "application_id": "acme-pay-senior-pm",
+            "snapshot": 1,
+            "relation": "changed",
+            "by": [
+              "url"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "same feed id from the same source is a changed posting",
+      "rules": [
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "snapshots": [
+          {
+            "id": "globex-support-ops-lead",
+            "input": "record.json"
+          }
+        ]
+      },
+      "input": "record-changed.json",
+      "expect": {
+        "ok": true,
+        "snapshots": [
+          {
+            "application_id": "globex-support-ops-lead",
+            "snapshot": 1,
+            "relation": "changed",
+            "by": [
+              "external_id"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "the same id from a different source is not a match",
+      "rules": [
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "snapshots": [
+          {
+            "id": "globex-support-ops-lead",
+            "input": "record.json"
+          }
+        ]
+      },
+      "input": "record-other-source.json",
+      "expect": {
+        "ok": true,
+        "snapshots": []
+      }
+    },
+    {
+      "name": "hold and skip reports are matched; other reports are not",
+      "rules": [
+        "OP-7",
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "reports/004-acme-pay-senior-pm-evaluation-2026-10-01.md": "report-hold.md",
+          "reports/005-acme-pay-research-2026-10-01.md": "report-research.md"
+        }
+      },
+      "input": "url.json",
+      "expect": {
+        "ok": true,
+        "snapshots": [],
+        "reports": [
+          {
+            "path": "my-documents/reports/004-acme-pay-senior-pm-evaluation-2026-10-01.md",
+            "decision": "hold",
+            "application_id": null,
+            "relation": "duplicate",
+            "by": [
+              "url",
+              "fingerprint"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "a snapshot saved without Node is matched by its recomputed fingerprint",
+      "rules": [
+        "OP-6",
+        "OP-5"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot.md"
+        }
+      },
+      "input": "paste.json",
+      "expect": {
+        "ok": true,
+        "snapshots": [
+          {
+            "application_id": "acme-pay-senior-pm",
+            "snapshot": 1,
+            "relation": "duplicate",
+            "by": [
+              "fingerprint"
+            ]
+          }
+        ],
+        "unreadable": 0
+      }
+    },
+    {
+      "name": "a report saved without a fingerprint matches with an unknown relation",
+      "rules": [
+        "OP-7",
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "reports/006-acme-pay-senior-pm-evaluation-2026-10-01.md": "report-skip-native.md"
+        }
+      },
+      "input": "url-changed.json",
+      "expect": {
+        "ok": true,
+        "reports": [
+          {
+            "path": "my-documents/reports/006-acme-pay-senior-pm-evaluation-2026-10-01.md",
+            "decision": "skip",
+            "application_id": null,
+            "relation": "unknown",
+            "by": [
+              "url"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "an unreadable snapshot is listed, not repaired",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "broken-snapshot.md"
+        }
+      },
+      "input": "url.json",
+      "expect": {
+        "ok": true,
+        "snapshots": [],
+        "unreadable": 1
+      }
+    },
+    {
+      "name": "a snapshot needs the user's confirmation",
+      "rules": [
+        "OP-8"
+      ],
+      "kind": "snapshot",
+      "id": "acme-pay-senior-pm",
+      "input": "url.json",
+      "confirmed": false,
+      "expect": {
+        "ok": false,
+        "error": "confirmation_required"
+      },
+      "files_after": []
+    },
+    {
+      "name": "first confirmed snapshot creates the application folder",
+      "rules": [
+        "OP-8"
+      ],
+      "kind": "snapshot",
+      "id": "acme-pay-senior-pm",
+      "input": "url.json",
+      "confirmed": true,
+      "expect": {
+        "ok": true,
+        "action": "created",
+        "snapshot": 1,
+        "supersedes": null
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "the same posting again writes nothing",
+      "rules": [
+        "OP-8",
+        "OP-5"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "snapshots": [
+          {
+            "id": "acme-pay-senior-pm",
+            "input": "url.json"
+          }
+        ]
+      },
+      "id": "acme-pay-senior-pm",
+      "input": "paste-reformatted.json",
+      "confirmed": true,
+      "expect": {
+        "ok": true,
+        "action": "unchanged",
+        "snapshot": 1
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "a changed posting becomes the next snapshot and the prior one is untouched",
+      "rules": [
+        "OP-8"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "snapshots": [
+          {
+            "id": "acme-pay-senior-pm",
+            "input": "url.json"
+          }
+        ]
+      },
+      "id": "acme-pay-senior-pm",
+      "input": "url-changed.json",
+      "confirmed": true,
+      "expect": {
+        "ok": true,
+        "action": "changed",
+        "snapshot": 2,
+        "supersedes": 1
+      },
+      "files_after": [
+        "opportunity-1.md",
+        "opportunity-2.md"
+      ]
+    },
+    {
+      "name": "the same posting over a snapshot saved without Node writes nothing",
+      "rules": [
+        "OP-8",
+        "OP-5"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot.md"
+        }
+      },
+      "id": "acme-pay-senior-pm",
+      "input": "url.json",
+      "confirmed": true,
+      "expect": {
+        "ok": true,
+        "action": "unchanged",
+        "snapshot": 1
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "a broken latest snapshot refuses the write",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "broken-snapshot.md"
+        }
+      },
+      "id": "acme-pay-senior-pm",
+      "input": "url.json",
+      "confirmed": true,
+      "expect": {
+        "ok": false,
+        "error": "parse_error",
+        "line": 4
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "a legacy application folder gains a snapshot without other files changing",
+      "rules": [
+        "OP-10",
+        "OP-8"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "files": {
+          "applications/initech-analyst/resume.md": "legacy-resume.md"
+        }
+      },
+      "id": "initech-analyst",
+      "input": "injection.json",
+      "confirmed": true,
+      "expect": {
+        "ok": true,
+        "action": "created",
+        "snapshot": 1
+      },
+      "files_after": [
+        "opportunity-1.md",
+        "resume.md"
+      ]
+    },
+    {
+      "name": "concurrent snapshots never share a number",
+      "rules": [
+        "OP-8"
+      ],
+      "kind": "snapshot-concurrent",
+      "id": "acme-pay-senior-pm",
+      "writers": 4,
+      "expect": {
+        "ok": true,
+        "distinct": 4
+      }
+    },
+    {
+      "name": "a snapshot file that appears mid-write is never overwritten",
+      "rules": [
+        "OP-8"
+      ],
+      "kind": "snapshot-collision",
+      "id": "acme-pay-senior-pm",
+      "input": "url.json",
+      "expect": {
+        "ok": false,
+        "error": "conflict"
+      }
+    }
+  ]
+}

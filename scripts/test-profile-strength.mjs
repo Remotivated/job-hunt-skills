@@ -80,8 +80,14 @@ function makeWorkspace(spec = {}) {
   });
   for (const slug of spec.proofAssets || [])
     writeFileSync(join(md, "proof-assets", `${slug}.md`), "# asset\n");
-  for (const id of spec.tailoredApps || [])
+  for (const id of spec.tailoredApps || []) {
     mkdirSync(join(md, "applications", id), { recursive: true });
+    writeFileSync(join(md, "applications", id, "resume.md"), "# Tailored\n");
+  }
+  for (const id of spec.snapshotOnlyApps || []) {
+    mkdirSync(join(md, "applications", id), { recursive: true });
+    writeFileSync(join(md, "applications", id, "opportunity-1.md"), "---\nsnapshot: 1\n---\n");
+  }
 
   return root;
 }
@@ -191,6 +197,16 @@ describe("computeStrength", () => {
       assert.equal(s.score, 7);
       assert.equal(s.nextUnlock, null);
       assert.equal(s.label, "resume");
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  test("a saved posting snapshot alone is not a tailored application", () => {
+    const root = makeWorkspace({ resume: true, snapshotOnlyApps: ["acme-pm"] });
+    try {
+      const s = computeStrength(root);
+      assert.equal(s.signals.find((x) => x.key === "tailored_application").met, false);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }

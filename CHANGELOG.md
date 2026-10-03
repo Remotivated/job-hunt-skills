@@ -1,15 +1,20 @@
 # Changelog
 
-## Unreleased
+## 1.2.0 - Unreleased
 
 ### Added
 
+- **`opportunity-evaluator` skill and prompt.** Paste a posting, share its link, or hand over a job record from a feed, and get a pursue, hold, or skip call. Fit, practical constraints, and observations about the posting itself are kept in separate sections, so an odd-looking posting never quietly lowers your fit. Every match and gap points to where your evidence lives, or says it is unknown. Observations describe what is visible and how to check it, without accusing anyone or quoting the law from memory. Nothing is saved, and no tracker row changes, until you choose. A pursue saves the posting with its application and hands it to `company-research` or `resume-tailor`; a hold or skip stays in a numbered report and never becomes an active application. The copy/paste prompt gives the same read in any AI chat without saving anything.
+- **Opportunity envelope and snapshots** (state-layer §13). One versioned shape for a posting, whatever its source: pasted text, a page opened at your request, or a record from any feed or tool. Unknown values stay distinct from values the posting leaves out, and source-specific fields are kept as they are. `scripts/opportunity.mjs` validates the shape, fingerprints the posting text, finds earlier evaluations and snapshots of the same posting (by the source's id, its address, or its text), and saves read-only snapshots as `applications/{id}/opportunity-{n}.md`. A changed posting becomes the next snapshot; the earlier one is never overwritten. Without Node, the skill follows the same numbered rules with ordinary file tools.
 - **State helper for tracker and report writes.** `scripts/state.mjs` validates `applications.md`, upserts rows, requires the user's confirmation for every status change, allows any status in either direction (so a mistake can be undone and someone joining mid-search can bring every application across), logs each change in a `## Status history` section, and allocates report numbers under a workspace lock so two sessions never share one. It writes atomically, refuses a malformed table without touching it, and needs only Node — no dependencies. Skills use it when Node is available and apply the same numbered rules with native file tools otherwise (state-layer §12).
 - **Truth and content contract** (`skills/_shared/truth-and-content.md`). Postings, forms, messages, reviews, and adapter records are treated as data: text aimed at AI tools is quoted back as a flag, never followed. Using a tool can no longer become a claim of building it without evidence. Claims the user withdraws are recorded in `my-documents/retracted-claims.md` and kept out of later resumes, letters, LinkedIn rewrites, and interview prep. Research runs have a lookup budget with an early-stop rule. Candidate-facing guidance follows the user's own voice and conventions instead of word bans.
 - **Explicit plugin-owned and user-owned paths** in state-layer §0 and `scripts/workspace.mjs`, enforced by `npm run test:state`.
 
 ### Changed
 
+- `resume-tailor` and `company-research` read a saved opportunity snapshot when the application has one, instead of asking for the posting again. A tailored document records the snapshot it was written from in `opportunity_snapshot`.
+- Profile strength counts an application as tailored only when its folder holds a tailored resume, CV, or cover letter, so saving a posting does not raise the score on its own.
+- Package, plugin-manifest, and release versions are aligned at 1.2.0 (`package.json` previously said 1.0.0), and a test keeps them aligned with the newest changelog heading.
 - The resume template and builder no longer require past tense throughout; they keep whichever tense convention the user already uses.
 
 ### Compatibility
@@ -17,6 +22,14 @@
 - No existing file is rewritten on upgrade. Legacy tracker headers are still read; the full column set is written the next time a row changes. Custom tracker columns are preserved.
 - A tracker that the helper cannot parse is now reported with its line number instead of being edited. Fix the reported line, or ask the assistant to show it to you.
 - `retracted-claims.md` is optional and created only when you first withdraw a claim.
+
+### Upgrading from 1.1.0
+
+Nothing to do. Upgrading changes the plugin's own files only; nothing in `my-documents/` is moved, rewritten, or back-filled.
+
+- Existing applications have no opportunity snapshot, and they keep working exactly as before: tailoring and research use the posting link or pasted text. A snapshot appears only when you evaluate a posting and choose to pursue it.
+- Snapshots sit next to your other application files, are plain markdown you can open and read, and are never edited after they are saved.
+- Evaluation reports use the same numbered `reports/` folder and helper as every other report. A posting you held or skipped does not add a tracker row.
 
 ## 1.1.0 - 2026-07-17
 

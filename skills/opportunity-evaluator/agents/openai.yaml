@@ -1,0 +1,4 @@
+interface:
+  display_name: "Opportunity Evaluator"
+  short_description: "Decide whether a job posting is worth pursuing"
+  default_prompt: "Use $opportunity-evaluator to tell me whether this posting is worth pursuing, based only on my actual experience."

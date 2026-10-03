@@ -69,6 +69,10 @@ jobs:
       - name: Run state helper tests
         run: npm run test:state
 
+      # Pure Node, no dependencies — same as the state helper.
+      - name: Run opportunity snapshot tests
+        run: npm run test:opportunity
+
       - name: Run Codex plugin contract tests
         run: npm run test:codex
 

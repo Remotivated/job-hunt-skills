@@ -185,6 +185,7 @@ Cowork is best when you want the agent to work through a multi-step task while k
 | --- | --- |
 | [get-started](skills/get-started/SKILL.md) | You are new and want the fastest path to a first draft. |
 | [resume-builder](skills/resume-builder/SKILL.md) | You want to build or update a resume/CV-format work document. |
+| [opportunity-evaluator](skills/opportunity-evaluator/SKILL.md) | You found a posting and want a pursue, hold, or skip call backed by your own experience before you invest time. |
 | [resume-tailor](skills/resume-tailor/SKILL.md) | You have a specific job posting and want targeted materials. |
 | [company-research](skills/company-research/SKILL.md) | You want to decide whether a company or role is worth your time. |
 | [cover-letter](skills/cover-letter/SKILL.md) | You only need a specific cover letter. |
@@ -209,6 +210,7 @@ If you use ChatGPT, Gemini, Claude.ai, or another LLM without plugins, start wit
 | Prompt | Use it when... |
 | --- | --- |
 | [resume-audit](prompts/resume-audit.md) | You want the 30-second hiring-manager read: verdict, scorecard, worst bullets rewritten. |
+| [opportunity-evaluator](prompts/opportunity-evaluator.md) | You found a posting and want a fit table, a constraints check, and a pursue / hold / skip call. |
 | [resume-tailor](prompts/resume-tailor.md) | You found a real posting and want a repositioned resume plus a pre-send checklist. |
 | [company-research](prompts/company-research.md) | You want a verdict and graded report card before spending hours on an application. |
 | [interview-prep](prompts/interview-prep.md) | You want the make-or-break questions, then a live mock interviewer. |
