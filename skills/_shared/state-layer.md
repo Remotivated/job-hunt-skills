@@ -495,7 +495,7 @@ This section defines what the skills accept. It does not say where a record come
 | `fingerprint` | Set by the helper from `posting_text` (OP-5). |
 | `extensions` | Source-specific fields, kept verbatim. |
 
-**Snapshot.** A user-confirmed pursuit saves the envelope as `my-documents/applications/{id}/opportunity-{n}.md`: bookkeeping and envelope fields as frontmatter, a heading, a line saying the content is untrusted, and the posting text under `## Posting text` in a ```` ```text ```` fence longer than any backtick run inside it. The helper writes each value as JSON on one line, which is also valid YAML; a snapshot written without Node may use plain YAML values and indented blocks instead. The newest snapshot is the one with the highest `{n}`. Snapshots are read-only after creation, like reports.
+**Snapshot.** A user-confirmed pursuit saves the envelope as `my-documents/applications/{id}/opportunity-{n}.md`: bookkeeping and envelope fields as frontmatter, a heading, a line saying the content is untrusted, and the posting text under `## Posting text` in a ```` ```text ```` fence longer than any backtick run inside it. Each field is one line, `key: <JSON value>`, which is also valid YAML. A one-line text value may be left unquoted or in single quotes; lists, objects, and multi-line text are always JSON on that one line, as in the example. The newest snapshot is the one with the highest `{n}`. Snapshots are read-only after creation, like reports.
 
 ````markdown
 ---
@@ -504,16 +504,13 @@ application_id: acme-pay-senior-pm
 captured: 2026-10-01
 supersedes: null
 envelope_version: 1
-source:
-  kind: url
-  name: Acme Pay careers
-  url: https://jobs.example.com/acme-pay/senior-pm-payments
+source: {"kind": "url", "name": "Acme Pay careers", "url": "https://jobs.example.com/acme-pay/senior-pm-payments"}
 observed_at: 2026-10-01
 company: Acme Pay
 role: Senior Product Manager, Payments
 location: Remote (US time zones)
 compensation: null
-unknown: [source.external_id, fetched_at, source_updated_at, work_model, provenance]
+unknown: ["source.external_id", "fetched_at", "source_updated_at", "work_model", "provenance"]
 ---
 
 # Opportunity snapshot 1: Senior Product Manager, Payments at Acme Pay
@@ -552,7 +549,7 @@ node "{job_hunt_skills_root}/scripts/opportunity.mjs" snapshot --id {id} --file 
 **Snapshot rules**
 
 - **OP-8** A snapshot is written only after the user confirms they are pursuing the opportunity (`--user-confirmed`). It creates `applications/{id}/` when missing and never touches other files there. Its number is one more than the highest existing `opportunity-{n}.md` in that folder, it is created exclusively under the workspace lock, and an existing snapshot is never modified or overwritten. If nothing differs from the newest snapshot, nothing is written (`"action": "unchanged"`). Something differs when the fingerprints differ, or, when both the snapshot and the new envelope are `record` sources, when both state one of the five observed fields (a string or `null`) with different values, whitespace aside: a feed can change the salary or location without touching the text. A field either side leaves unknown is not compared, and for `paste` and `url` sources the observed fields are read from the text by hand, so they are never compared. A changed posting becomes the next snapshot, with `supersedes` naming the one before it and `changes` listing what differs (`posting_text` and any moved field).
-- **OP-9** Snapshot frontmatter is read as JSON values or plain YAML values (scalars, flow lists such as `[a, b]`, and indented blocks), so a snapshot written without Node in the format above reads the same as one the helper wrote. A snapshot that still does not parse is reported with its line number and surrounding lines (PF-1). So is a file named like a snapshot that the helper would never write, such as `opportunity-01.md` or `opportunity-0.md`. `check` lists it as unreadable; `snapshot` refuses to write into a folder holding any unreadable snapshot, not only when the newest is broken. Never repair a snapshot by hand-editing around the error. To recover, the user renames the file to its proper name, moves it out of the application folder, or deletes it; a skill does that only when the user asks. The next snapshot then saves normally.
+- **OP-9** Snapshot frontmatter is one `key: <JSON value>` line per field, with plain one-line text also accepted unquoted, so a snapshot written without Node in the format above reads the same as one the helper wrote. Indented YAML blocks, `|` or `>` text, and YAML-style lists or maps are not read: write them as JSON on one line. A snapshot that still does not parse is reported with its line number and surrounding lines (PF-1). So is a file named like a snapshot that the helper would never write, such as `opportunity-01.md` or `opportunity-0.md`. `check` lists it as unreadable; `snapshot` refuses to write into a folder holding any unreadable snapshot, not only when the newest is broken. Never repair a snapshot by hand-editing around the error. To recover, the user renames the file to its proper name, moves it out of the application folder, or deletes it; a skill does that only when the user asks. The next snapshot then saves normally.
 - **OP-10** Application folders without any snapshot are valid. Nothing is migrated or back-filled: skills keep using the posting URL or pasted text for those applications, and matching simply has nothing to compare.
 
 **Native procedure (no Node).**

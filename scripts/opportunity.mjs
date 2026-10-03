@@ -207,123 +207,22 @@ export function serializeSnapshot(envelope, { applicationId, snapshot, supersede
   ].join("\n");
 }
 
-// Walk a YAML value outside quotes: find the commas that separate the items
-// of the outermost flow collection, and where a trailing comment starts, so a
-// quoted "Acme, Inc." or "#1" stays inside its value (OP-9). A quote only
-// opens at the start of a token, so O'Brien is a plain word.
-function scanFlow(text) {
-  const commas = [];
-  let depth = 0;
-  let quote = null;
-  let tokenStart = true;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (quote) {
-      if (quote === '"' && c === "\\") i++;
-      else if (c === "'" && quote === "'" && text[i + 1] === "'") i++;
-      else if (c === quote) quote = null;
-      continue;
-    }
-    if (c === "#" && (i === 0 || /\s/.test(text[i - 1]))) return { commas, comment: i, balanced: depth === 0 };
-    if ((c === '"' || c === "'") && tokenStart) quote = c;
-    else if (c === "[" || c === "{") depth++;
-    else if (c === "]" || c === "}") depth--;
-    else if (c === "," && depth === 1) commas.push(i);
-    if (!/\s/.test(c)) tokenStart = "[{,:".includes(c);
-  }
-  return { commas, comment: -1, balanced: depth === 0 && quote === null };
-}
-
-// The items of a flow collection, split on its top-level commas only.
-function flowItems(text, commas) {
-  const items = [];
-  let from = 1;
-  for (const at of [...commas, text.length - 1]) {
-    items.push(text.slice(from, at));
-    from = at + 1;
-  }
-  return items.filter((item) => item.trim());
-}
-
-// One frontmatter value. The helper writes JSON; a snapshot written without
-// Node may use plain YAML scalars and flow lists instead (OP-9), so those are
-// read the way YAML reads them.
-function parseScalar(raw) {
+// One frontmatter value (OP-9). The helper writes every value as JSON on one
+// line; a snapshot written without Node may also leave a one-line text value
+// unquoted or in single quotes. Anything nested or multi-line must be JSON.
+function parseValue(raw) {
   const text = raw.trim();
   try {
     return JSON.parse(text);
   } catch {
-    // not JSON: fall through to the YAML forms below
+    // not JSON: only a plain one-line text value is accepted
   }
+  if (["", "~", "null", "Null", "NULL"].includes(text)) return null;
   if (/^'.*'$/.test(text)) return text.slice(1, -1).replaceAll("''", "'");
-  const scan = scanFlow(text);
-  const plain = scan.comment === -1 ? text : text.slice(0, scan.comment).trimEnd();
-  if (["", "~", "null", "Null", "NULL"].includes(plain)) return null;
-  if (plain !== text) return parseScalar(plain);
-  if (/^[[{]/.test(plain) && !scan.balanced) throw new Error("Unclosed quote or bracket.");
-  if (/^\[.*\]$/.test(plain)) return flowItems(plain, scan.commas).map(parseScalar);
-  if (/^\{.*\}$/.test(plain)) {
-    const out = {};
-    for (const pair of flowItems(plain, scan.commas)) {
-      const kv = /^\s*([A-Za-z_][A-Za-z0-9_]*):\s*(.*)$/.exec(pair);
-      if (!kv || kv[1] === "__proto__") throw new Error(`Cannot read "${pair.trim()}".`);
-      out[kv[1]] = parseScalar(kv[2]);
-    }
-    return out;
+  if (/^["'[{`|>&*!]/.test(text)) {
+    throw new Error("write lists, objects, quoted text, and multi-line text as JSON on one line.");
   }
-  if (/^["'`]/.test(plain)) throw new Error("Unclosed quote.");
-  return plain;
-}
-
-const indentOf = (line) => /^ */.exec(line)[0].length;
-const skippable = (line) => line.trim() === "" || /^\s*#/.test(line);
-
-// Read a block of `key: value` lines (or `- item` lines) indented by `indent`,
-// starting at lines[i]; nested blocks are indented further (OP-9).
-function parseBlock(lines, i, end, indent) {
-  while (i < end && skippable(lines[i])) i++;
-  const list = i < end && /^ *- /.test(lines[i]);
-  const value = list ? [] : {};
-  for (; i < end; i++) {
-    const line = lines[i];
-    if (skippable(line)) continue;
-    const depth = indentOf(line);
-    if (depth < indent) break;
-    if (depth > indent) throw parseError(lines, i, "Unexpected indentation in snapshot frontmatter.");
-    if (list) {
-      const item = /^ *- (.*)$/.exec(line);
-      if (!item) break;
-      value.push(scalarAt(lines, i, item[1]));
-      continue;
-    }
-    const kv = /^ *([A-Za-z_][A-Za-z0-9_]*):(?: (.*))?$/.exec(line);
-    if (!kv) throw parseError(lines, i, "Snapshot frontmatter lines must be `key: value`.");
-    if (kv[1] === "__proto__") throw parseError(lines, i, 'Snapshot frontmatter cannot use the key "__proto__".');
-    if (Object.hasOwn(value, kv[1])) throw parseError(lines, i, `Duplicate frontmatter key "${kv[1]}".`);
-    if (kv[2] !== undefined && kv[2].trim() !== "") {
-      value[kv[1]] = scalarAt(lines, i, kv[2]);
-      continue;
-    }
-    let next = i + 1;
-    while (next < end && skippable(lines[next])) next++;
-    const nested = next < end && (indentOf(lines[next]) > indent || (/^ *- /.test(lines[next]) && indentOf(lines[next]) === indent));
-    if (!nested) {
-      value[kv[1]] = null;
-      continue;
-    }
-    const child = parseBlock(lines, next, end, indentOf(lines[next]));
-    value[kv[1]] = child.value;
-    i = child.next - 1;
-  }
-  return { value, next: i };
-}
-
-function scalarAt(lines, i, raw) {
-  try {
-    return parseScalar(raw);
-  } catch (error) {
-    throw parseError(lines, i, `Cannot read this frontmatter value: ${error.message}`);
-  }
+  return text;
 }
 
 // Parse a snapshot back into its bookkeeping and envelope (OP-9). Anything that
@@ -333,11 +232,21 @@ export function parseSnapshot(text) {
   if (lines[0] !== "---") throw parseError(lines, 0, "Snapshot must start with --- frontmatter.");
   const end = lines.indexOf("---", 1);
   if (end === -1) throw parseError(lines, 0, "Snapshot frontmatter is not closed with ---.");
-  const block = parseBlock(lines, 1, end, 0);
-  if (block.next < end) throw parseError(lines, block.next, "Snapshot frontmatter lines must be `key: value`.");
-  const fields = block.value;
-  if (Array.isArray(fields)) throw parseError(lines, 1, "Snapshot frontmatter must be `key: value` lines.");
-  const heading = lines.indexOf("## Posting text", end);
+  const fields = {};
+  for (let i = 1; i < end; i++) {
+    if (lines[i].trim() === "") continue;
+    const match = /^([A-Za-z_][A-Za-z0-9_]*):(?: (.*))?$/.exec(lines[i]);
+    if (!match) throw parseError(lines, i, "Snapshot frontmatter lines must be `key: <JSON value>`, one field per line.");
+    if (match[1] === "__proto__") throw parseError(lines, i, 'Snapshot frontmatter cannot use the key "__proto__".');
+    if (Object.hasOwn(fields, match[1])) throw parseError(lines, i, `Duplicate frontmatter key "${match[1]}".`);
+    try {
+      fields[match[1]] = parseValue(match[2] ?? "");
+    } catch (error) {
+      throw parseError(lines, i, `Cannot read this frontmatter value: ${error.message}`);
+    }
+  }
+  // JHS39-020: a native writer may vary the heading's level or case.
+  const heading = lines.findIndex((line, i) => i > end && /^#{2,3} posting text\s*$/i.test(line.trim()));
   if (heading === -1) throw parseError(lines, end, 'Snapshot has no "## Posting text" section.');
   // A note line, such as the one saying the text is untrusted, may sit
   // between the heading and the fence; another heading may not.
@@ -482,7 +391,7 @@ export function snapshotChanges(saved, incoming) {
 // "## Posting text", the same way a snapshot does, with an optional note line
 // (such as the untrusted-content line) before the fence.
 const REPORT_POSTING =
-  /^## Posting text[ \t]*\r?\n(?:(?!`{3,}|#{1,6} )[^\r\n]*\r?\n)*?(`{3,})text\r?\n([\s\S]*?)\r?\n\1[ \t]*$/m;
+  /^#{2,3} posting text[ \t]*\r?\n(?:(?!`{3,}|#{1,6} )[^\r\n]*\r?\n)*?(`{3,})text\r?\n([\s\S]*?)\r?\n\1[ \t]*$/im;
 
 // Report frontmatter is plain YAML scalars; read only the keys OP-7 defines.
 function reportIdentity(text) {
@@ -702,7 +611,9 @@ export function run(argv, workspace = process.cwd()) {
   const [command, ...rest] = argv;
   const opts = parseArgs(rest);
   if (command === "check") {
-    const search = !isPluginLocation(workspace) || process.env.JOB_HUNT_SKILLS_DEV === "1";
+    const search =
+      (!isPluginLocation(workspace) && fs.existsSync(path.join(workspace, USER_ROOT))) ||
+      process.env.JOB_HUNT_SKILLS_DEV === "1";
     return { ok: true, ...checkOpportunity(workspace, readEnvelope(opts.file), { search }) };
   }
   if (command === "snapshot") {

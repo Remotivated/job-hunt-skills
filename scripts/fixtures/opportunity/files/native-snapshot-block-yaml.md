@@ -12,6 +12,8 @@ observed_at: 2026-10-01
 company: Acme Pay
 role: 'Senior Product Manager, Payments'
 location: Remote (US time zones)
+provenance: |
+  Copied from the careers page by hand.
 compensation: "$150,000 - $175,000"
 unknown:
   - source.external_id

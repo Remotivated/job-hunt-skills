@@ -563,7 +563,7 @@
       }
     },
     {
-      "name": "a snapshot written by hand in plain YAML is read and matched",
+      "name": "a snapshot written by hand with plain text values is read and matched",
       "rules": [
         "OP-9",
         "OP-6"
@@ -571,7 +571,7 @@
       "kind": "check",
       "setup": {
         "files": {
-          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot-yaml.md"
+          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot-plain.md"
         }
       },
       "input": "paste.json",
@@ -592,32 +592,21 @@
       }
     },
     {
-      "name": "a hand-written snapshot with quoted commas, nested flow values, and comments is read",
+      "name": "a hand-written snapshot in indented YAML blocks is unreadable, never guessed at",
       "rules": [
-        "OP-9",
-        "OP-6"
+        "OP-9"
       ],
       "kind": "check",
       "setup": {
         "files": {
-          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot-yaml-flow.md"
+          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot-block-yaml.md"
         }
       },
       "input": "paste.json",
       "expect": {
         "ok": true,
-        "snapshots": [
-          {
-            "application_id": "acme-pay-senior-pm",
-            "snapshot": 1,
-            "relation": "duplicate",
-            "changes": [],
-            "by": [
-              "fingerprint"
-            ]
-          }
-        ],
-        "unreadable": 0
+        "snapshots": [],
+        "unreadable": 1
       }
     },
     {
@@ -919,7 +908,7 @@
       ]
     },
     {
-      "name": "a plain-YAML snapshot written by hand does not block the next snapshot",
+      "name": "a plain-text snapshot written by hand does not block the next snapshot",
       "rules": [
         "OP-9",
         "OP-8"
@@ -927,7 +916,7 @@
       "kind": "snapshot",
       "setup": {
         "files": {
-          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot-yaml.md"
+          "applications/acme-pay-senior-pm/opportunity-1.md": "native-snapshot-plain.md"
         }
       },
       "id": "acme-pay-senior-pm",

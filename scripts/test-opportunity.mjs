@@ -268,6 +268,18 @@ describe("opportunity helper CLI", () => {
     assert.match(out.warnings.join(" "), /not searched/);
   });
 
+  test("check in a folder with no my-documents/ says it did not search", async () => {
+    const root = fs.mkdtempSync(path.join(tmpdir(), "job-hunt-opportunity-elsewhere-"));
+    try {
+      const run = await runCli(["check"], root, JSON.stringify(envelope("paste.json")));
+      assert.equal(run.status, 0, JSON.stringify(run.json));
+      assert.equal(run.json.searched, false);
+      assert.match(run.json.warnings.join(" "), /not searched/);
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+    }
+  });
+
   test("a scaffolded workspace accepts a snapshot and keeps it under user paths", () => {
     const root = fs.mkdtempSync(path.join(tmpdir(), "job-hunt-opportunity-scaffold-"));
     try {

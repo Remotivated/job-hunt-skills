@@ -4,7 +4,7 @@ application_id: globex-support-ops-lead
 captured: 2026-10-01
 supersedes: null
 envelope_version: 1
-source: {kind: record, name: Example Jobs Feed, url: "https://feed.example.org/jobs/88412", external_id: "88412"}
+source: {"kind": "record", "name": "Example Jobs Feed", "url": "https://feed.example.org/jobs/88412", "external_id": "88412"}
 company: Globex
 role: Support Operations Lead
 location: Remote (EU)

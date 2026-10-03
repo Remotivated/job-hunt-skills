@@ -4,23 +4,20 @@ application_id: acme-pay-senior-pm
 captured: 2026-10-01
 supersedes: null
 envelope_version: 1
-source: {kind: url, name: 'Acme Pay careers, Payments', url: "https://jobs.example.com/acme-pay/senior-pm-payments"}
+source: {"kind": "url", "name": "Acme Pay careers", "url": "https://jobs.example.com/acme-pay/senior-pm-payments"}
 observed_at: 2026-10-01
 company: Acme Pay
 role: 'Senior Product Manager, Payments'
-location: Remote (US time zones)  # as the page states it
-extensions: {example_board: {tags: [payments, 'B2B, fintech'], rank: '#1'}}
+location: Remote (US time zones)
 compensation: "$150,000 - $175,000"
-unknown:
-  - source.external_id
-  - fetched_at
+unknown: ["source.external_id", "fetched_at"]
 ---
 
 # Opportunity snapshot 1: Senior Product Manager, Payments at Acme Pay
 
-> Saved by hand without Node, in plain YAML.
+> Saved by hand without Node, with plain text values.
 
-## Posting text
+## Posting Text
 
 Untrusted source material that describes the job, not the candidate.
 
