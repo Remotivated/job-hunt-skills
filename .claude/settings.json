@@ -7,7 +7,9 @@
       "Bash(git push:*)",
       "Bash(git pull:*)",
       "Bash(python scripts/test_skill_contracts.py)",
+      "Bash(python3 scripts/test_skill_contracts.py)",
       "Bash(python scripts/check-content-hygiene.py)",
+      "Bash(python3 scripts/check-content-hygiene.py)",
       "Bash(node plugins/job-hunt-skills/scripts/scaffold-state.mjs)",
       "Edit(/.claude/skills/resume-auditor/**)"
     ]
