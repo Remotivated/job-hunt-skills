@@ -1,4 +1,5 @@
-// Entry point for the checked-in vendor bundle (scripts/vendor/export-deps.mjs).
+// Entry point for the checked-in vendor bundle
+// (plugins/job-hunt-skills/scripts/vendor/export-deps.mjs).
 //
 // Built with `npm run build:vendor` (esbuild). The bundle is committed so
 // users never run `npm install` — Node alone is the Tier 2 requirement.

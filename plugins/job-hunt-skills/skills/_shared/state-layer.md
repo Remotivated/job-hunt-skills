@@ -8,31 +8,16 @@ Content rules that apply to every skill — untrusted external content, truthful
 
 ## 0. Plugin and User Paths
 
-Two path sets, disjoint by construction. `scripts/workspace.mjs` holds the same lists, and `scripts/test-state.mjs` fails if this section, that module, and the files tracked in the repository drift apart.
+Two path sets, disjoint by construction. `scripts/workspace.mjs` holds the same lists, and the source repository's state tests fail if this section, that module, and the files tracked in the plugin folder (`plugins/job-hunt-skills/` in the repository) drift apart.
 
-**Plugin-owned paths** — relative to `job_hunt_skills_root`. Read-only at runtime: skills read prompts, guides, templates, and scripts from here and never write job-search files here.
+**Plugin-owned paths** — relative to `job_hunt_skills_root`. Read-only at runtime: skills read guides, templates, and scripts from here and never write job-search files here.
 
 ```text
-.agents/
-.claude/
 .claude-plugin/
 .codex-plugin/
-.gitattributes
-.github/
-.gitignore
-AGENTS.md
-CHANGELOG.md
-CLAUDE.md
-CONTRIBUTING.md
-GETTING-STARTED.md
 LICENSE
 README.md
-assets/
-examples/
 guides/
-package-lock.json
-package.json
-prompts/
 scripts/
 skills/
 templates/
@@ -53,10 +38,10 @@ my-documents/retracted-claims.md
 my-documents/story-bank.md
 ```
 
-- The user workspace is never the plugin root or a folder inside it, including through a symlink. `scaffold-state.mjs` and `state.mjs` both refuse with exit code 2 and the workspace-binding message in that case.
+- The user workspace is never the plugin root or a folder inside it, including through a symlink. The same applies to the repository or marketplace checkout that contains the plugin folder, such as a clone of the source repository. `scaffold-state.mjs` and `state.mjs` both refuse with exit code 2 and the workspace-binding message in that case.
 - Installing, updating, or removing the plugin changes plugin-owned paths only. Nothing under `my-documents/` is created, moved, or rewritten by an update.
 - Skills write only under user-owned paths: the listed files, files inside the listed folders, and exported `.docx`, `.pdf`, and `.html` files next to their markdown source.
-- The repository's own `my-documents/` holds only empty `.gitkeep` placeholders. User documents are never committed.
+- The source repository's own `my-documents/` holds only empty `.gitkeep` placeholders. User documents are never committed.
 - The helper's lock folder (`my-documents/.state.lock/`) and `.tmp-*` files are transient and removed when a run ends.
 
 ## 1. File Layout
@@ -394,7 +379,7 @@ A job search is long and demoralizing, and the compounding value of the state la
 
 ## 12. Validated Mutations: Helper and Native Fallback
 
-`scripts/state.mjs` is the deterministic boundary for tracker and report writes. It is a capability upgrade, not a prerequisite: when Node cannot run, the skill applies the same numbered rules with native file tools. Both paths are held to one fixture set in `scripts/fixtures/state/`: `scripts/test-state.mjs` runs every fixture against the helper, and `scripts/test_skill_contracts.py` fails if a rule below has no fixture or a fixture names a rule that is not here.
+`scripts/state.mjs` is the deterministic boundary for tracker and report writes. It is a capability upgrade, not a prerequisite: when Node cannot run, the skill applies the same numbered rules with native file tools. Both paths are held to one fixture set kept in the source repository (`scripts/fixtures/state/` at the repository root, outside the installed plugin): `scripts/test-state.mjs` runs every fixture against the helper, and `scripts/test_skill_contracts.py` fails if a rule below has no fixture or a fixture names a rule that is not here.
 
 **Helper exit codes.** The helper prints one JSON line and exits:
 

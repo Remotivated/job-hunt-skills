@@ -52,5 +52,5 @@ Section 2 runs the check most people skip: if the letter would survive a find-an
 
 ## Go deeper
 
-- The [cover-letter skill](../skills/cover-letter/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) writes from your saved resume and story bank and files the letter with the rest of that application's materials.
+- The [cover-letter skill](../plugins/job-hunt-skills/skills/cover-letter/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) writes from your saved resume and story bank and files the letter with the rest of that application's materials.
 - Tailor the resume first with [resume-tailor](resume-tailor.md) — the letter gets sharper when the resume already carries the angle.

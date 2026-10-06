@@ -65,5 +65,5 @@ The prompt forces the model to separate what it verified, what you told it, and 
 
 ## Go deeper
 
-- The [company-research skill](../skills/company-research/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves every verdict as a numbered report and tracks the company in your application pipeline. The full vetting method is in the [company research guide](../guides/company-research.md).
+- The [company-research skill](../plugins/job-hunt-skills/skills/company-research/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves every verdict as a numbered report and tracks the company in your application pipeline. The full vetting method is in the [company research guide](../plugins/job-hunt-skills/guides/company-research.md).
 - The "Remote reality" grade is Remotivated's whole thesis: [remotivated.com](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=prompts) lists remote jobs vetted to actually be remote.

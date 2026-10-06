@@ -1,10 +1,11 @@
 // Plugin-owned vs user-owned paths, and the workspace preflight shared by
 // every script that writes user state. See skills/_shared/state-layer.md §0.
 //
-// The plugin root (this repository or an installed copy of it) is read-only
-// at runtime. User state lives only under `my-documents/` inside a workspace
-// the user confirmed, and that workspace may never be the plugin root or a
-// folder inside it.
+// The plugin root (`plugins/job-hunt-skills/` in the source repository, or an
+// installed copy of that folder) is read-only at runtime. User state lives
+// only under `my-documents/` inside a workspace the user confirmed, and that
+// workspace may never be the plugin root, the repository or marketplace
+// checkout that contains it, or a folder inside either.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -17,26 +18,11 @@ export const PLUGIN_ROOT = path.resolve(
 
 // Relative to the plugin root. A trailing slash marks a directory.
 export const PLUGIN_PATHS = Object.freeze([
-  ".agents/",
-  ".claude/",
   ".claude-plugin/",
   ".codex-plugin/",
-  ".gitattributes",
-  ".github/",
-  ".gitignore",
-  "AGENTS.md",
-  "CHANGELOG.md",
-  "CLAUDE.md",
-  "CONTRIBUTING.md",
-  "GETTING-STARTED.md",
   "LICENSE",
   "README.md",
-  "assets/",
-  "examples/",
   "guides/",
-  "package-lock.json",
-  "package.json",
-  "prompts/",
   "scripts/",
   "skills/",
   "templates/",
@@ -72,9 +58,50 @@ export const WORKSPACE_REFUSAL =
   `  Claude Code:    cd into your job-hunt folder, then run 'claude' there.\n\n` +
   `Set JOB_HUNT_SKILLS_DEV=1 only if you are intentionally developing the plugin itself.`;
 
-// True when `workspace` is the plugin root or inside it (symlinks resolved).
+const MARKETPLACE_MANIFESTS = Object.freeze([
+  ".claude-plugin/marketplace.json",
+  ".agents/plugins/marketplace.json",
+]);
+
+function realpathOrNull(target) {
+  try {
+    return fs.realpathSync(target);
+  } catch {
+    return null;
+  }
+}
+
+// The checkout that publishes this plugin: a clone of the source repository
+// or a marketplace copy of it. It is recognised by a marketplace manifest two
+// levels above the plugin root whose plugin entry points back at the plugin
+// root. Returns null for an installed copy that has no such parent.
+export function marketplaceRoot(pluginRoot = PLUGIN_ROOT) {
+  const realPlugin = realpathOrNull(pluginRoot);
+  if (!realPlugin) return null;
+  const candidate = path.dirname(path.dirname(realPlugin));
+  for (const manifest of MARKETPLACE_MANIFESTS) {
+    let data;
+    try {
+      data = JSON.parse(fs.readFileSync(path.join(candidate, manifest), "utf8"));
+    } catch {
+      continue;
+    }
+    for (const entry of Array.isArray(data?.plugins) ? data.plugins : []) {
+      const source = typeof entry?.source === "string" ? entry.source : entry?.source?.path;
+      if (typeof source !== "string") continue;
+      if (realpathOrNull(path.resolve(candidate, source)) === realPlugin) return candidate;
+    }
+  }
+  return null;
+}
+
+// True when `workspace` is the plugin root, the checkout that contains it, or
+// a folder inside either (symlinks resolved).
 export function isPluginLocation(workspace, pluginRoot = PLUGIN_ROOT) {
-  return isWithin(fs.realpathSync(workspace), fs.realpathSync(pluginRoot));
+  const realWorkspace = fs.realpathSync(workspace);
+  if (isWithin(realWorkspace, fs.realpathSync(pluginRoot))) return true;
+  const checkout = marketplaceRoot(pluginRoot);
+  return checkout !== null && isWithin(realWorkspace, checkout);
 }
 
 // Exit 2 with the recovery message when the working directory is not a user

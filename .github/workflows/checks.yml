@@ -19,7 +19,7 @@ jobs:
       - name: Verify checked-in vendor bundle is up to date with the lockfile
         run: |
           npm run build:vendor
-          git diff --exit-code scripts/vendor
+          git diff --exit-code plugins/job-hunt-skills/scripts/vendor
 
   content-and-export:
     runs-on: ubuntu-latest
@@ -71,6 +71,10 @@ jobs:
 
       - name: Run Codex plugin contract tests
         run: npm run test:codex
+
+      # The plugin folder is what installers and the plugin directory receive.
+      - name: Run plugin package tests
+        run: npm run test:plugin
 
       - name: Run skill contract tests
         run: python scripts/test_skill_contracts.py
