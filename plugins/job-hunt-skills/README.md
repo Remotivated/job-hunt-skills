@@ -1,6 +1,14 @@
 # Job Hunt Skills
 
-Skills for a practical, truthful job search. Build a resume or CV from your real experience, research employers before you spend time applying, tailor applications to specific roles, prepare for interviews, and keep track of where everything stands. Open source and free, built and maintained by [Remotivated](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=plugin-readme).
+Skills for a practical, human led, AI assisted job search. Build a resume or CV from your real experience, research employers before you spend time applying, tailor applications to specific roles, prepare for interviews, and keep track of where everything stands.
+
+**A Job Search System that Compounds**
+
+- Every application is checked for AI hallucinations against your canonical documents
+- Applications are automatically tracked locally so you can measure progress and see what you sent the employer when preparing for interviews or responding to offers
+- Every approved bullet point, anecdote and statistic is saved for later use so every resume and CV you send gets better and better with less effort.
+
+Open source and free, built and maintained by [Remotivated](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=plugin-readme).
 
 The skills work from your own material and do not invent experience. When a stronger line would need a fact you have not given, you get a question instead of a guess, and a final claim check flags anything in an application your saved evidence does not support.
 
@@ -18,19 +26,18 @@ The core sequence is: build one accurate source document, research one company, 
 
 ## The skills
 
-| Skill | Use it when |
-| --- | --- |
-| [get-started](skills/get-started/SKILL.md) | You are new and want the fastest path to a first useful draft. |
-| [resume-builder](skills/resume-builder/SKILL.md) | You want to build or update your source resume or CV (US resume or UK/EU CV format). |
-| [resume-tailor](skills/resume-tailor/SKILL.md) | You have a specific posting and want a tailored resume or CV, and a cover letter if needed. |
-| [company-research](skills/company-research/SKILL.md) | You want to decide whether a company or role is worth your time. |
-| [cover-letter](skills/cover-letter/SKILL.md) | You only need a cover letter for a specific role. |
-| [resume-auditor](skills/resume-auditor/SKILL.md) | You want direct, evidence-based feedback on your resume or CV. |
-| [claim-check](skills/claim-check/SKILL.md) | You are about to send something and want a truth pass first. |
-| [interview-coach](skills/interview-coach/SKILL.md) | You have an interview coming up and want a prep brief built from your actual experience. |
-| [interviewing](skills/interviewing/SKILL.md) | You want to track interview stages, notes, and follow-ups. |
-| [linkedin-optimizer](skills/linkedin-optimizer/SKILL.md) | You want to audit and rewrite LinkedIn sections. |
-| [proof-asset-creator](skills/proof-asset-creator/SKILL.md) | You want to choose and scope a case study or portfolio piece. |
+| Skill                                                      | Use it when                                                                                 |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| [get-started](skills/get-started/SKILL.md)                 | You are new and want the fastest path to a first useful draft.                              |
+| [resume-builder](skills/resume-builder/SKILL.md)           | You want to build or update your source resume or CV (US resume or UK/EU CV format).        |
+| [resume-tailor](skills/resume-tailor/SKILL.md)             | You have a specific posting and want a tailored resume or CV, and a cover letter if needed. |
+| [company-research](skills/company-research/SKILL.md)       | You want to decide whether a company or role is worth your time.                            |
+| [cover-letter](skills/cover-letter/SKILL.md)               | You only need a cover letter for a specific role.                                           |
+| [resume-auditor](skills/resume-auditor/SKILL.md)           | You want direct, evidence-based feedback on your resume or CV.                              |
+| [claim-check](skills/claim-check/SKILL.md)                 | You are about to send something and want a truth pass first.                                |
+| [interview-coach](skills/interview-coach/SKILL.md)         | You have an interview coming up and want a prep brief X [interviewing](skills/interviewing/SKILL.md)               | You want to track interview stages, notes, and follow-ups.                                  |
+| [linkedin-optimizer](skills/linkedin-optimizer/SKILL.md)   | You want to audit and rewrite LinkedIn sections.                                            |
+| [proof-asset-creator](skills/proof-asset-creator/SKILL.md) | You want to choose and scope a case study or portfolio piece.                               |
 
 Skills also activate from ordinary requests such as "audit my resume", "research this company", or "I have an interview at X".
 
