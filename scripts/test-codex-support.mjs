@@ -563,4 +563,31 @@ describe("Release archive configuration", () => {
     );
     assert.doesNotMatch(builder, /--worktree-attributes/);
   });
+
+  test("gitattributes stays acceptable to the plugin directory", () => {
+    const attributes = readFileSync(join(ROOT, ".gitattributes"), "utf8");
+    const rules = attributes
+      .split("\n")
+      .filter((line) => line.trim() && !line.trimStart().startsWith("#"));
+    for (const rule of rules) {
+      assert.doesNotMatch(
+        rule,
+        /\b(export-ignore|export-subst|filter)\b/,
+        `.gitattributes rule "${rule}" makes the plugin directory refuse to validate the repository`,
+      );
+    }
+  });
+
+  test("builder leaves contributor-only files out of the archive", () => {
+    const builder = readFileSync(
+      join(ROOT, "scripts/build-cowork-zip.mjs"),
+      "utf8",
+    );
+    for (const path of [".gitattributes", ".gitignore", ".github"]) {
+      assert.ok(
+        builder.includes(`"${path}"`),
+        `build-cowork-zip.mjs must exclude ${path}`,
+      );
+    }
+  });
 });
