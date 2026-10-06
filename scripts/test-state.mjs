@@ -15,7 +15,7 @@ import path from "node:path";
 import { describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { StateError, upsertTrackerFile, writeReport, parseTracker } from "../plugins/job-hunt-skills/scripts/state.mjs";
+import { EXIT, StateError, upsertTrackerFile, writeReport, parseTracker } from "../plugins/job-hunt-skills/scripts/state.mjs";
 import {
   PLUGIN_PATHS,
   USER_PATHS,
@@ -217,12 +217,15 @@ describe("state helper CLI", () => {
     const lock = path.join(root, USER_ROOT, ".state.lock");
     fs.mkdirSync(lock);
     fs.writeFileSync(path.join(lock, "owner.json"), JSON.stringify({ pid: process.pid, token: "live" }));
-    const run = spawnSync(process.execPath, [STATE, "tracker", "upsert", "--id", "ghost-ops-manager", "--link", "https://example.com/g"], {
-      cwd: root,
-      encoding: "utf8",
-      env: { ...process.env, JOB_HUNT_STATE_LOCK_TIMEOUT_MS: "200" },
-    });
-    assert.equal(run.status, 4, run.stdout);
+    const result = capture(() =>
+      upsertTrackerFile(
+        root,
+        { id: "ghost-ops-manager", fields: { link: "https://example.com/g" } },
+        { lockTimeoutMs: 200 },
+      ),
+    );
+    assert.equal(result.error, "busy", JSON.stringify(result));
+    assert.equal(EXIT.busy, 4);
     assert.equal(fs.readFileSync(trackerPath(root), "utf8"), fixture("canonical.md"));
   });
 

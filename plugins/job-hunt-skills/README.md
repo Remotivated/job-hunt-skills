@@ -54,6 +54,13 @@ Before saving anything, the skills show you the folder they will use and wait fo
 
 The plugin has no hooks, no MCP servers, no telemetry, and no account to create.
 
+## Privacy
+
+- **Remotivated receives nothing from the plugin.** It sends no data to Remotivated or to any server Remotivated runs, and it has no analytics.
+- **Your job-search files stay where you put them.** They are plain markdown in the folder you chose, and you can read, edit, move, or delete them at any time.
+- **No credentials are read.** The plugin does not read API keys, tokens, passwords, or other credentials from your computer.
+- **Your assistant's own terms still apply.** What you share in the conversation, and any web research the assistant does, is handled by your AI provider (for example Anthropic for Claude) under its terms. The plugin does not change that.
+
 ## More
 
 - Getting started walkthrough, prompts for any LLM, example outputs, and the full guide set: [github.com/Remotivated/job-hunt-skills](https://github.com/Remotivated/job-hunt-skills)

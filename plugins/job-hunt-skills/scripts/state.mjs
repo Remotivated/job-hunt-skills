@@ -359,7 +359,7 @@ function pidAlive(pid) {
 export function withWorkspaceLock(
   stateRoot,
   fn,
-  { timeoutMs = Number(process.env.JOB_HUNT_STATE_LOCK_TIMEOUT_MS) || 10000 } = {},
+  { timeoutMs = 10000 } = {},
 ) {
   const lock = path.join(stateRoot, LOCK_NAME);
   const owner = path.join(lock, "owner.json");
@@ -457,7 +457,7 @@ export function upsertTrackerFile(workspace, options, hooks = {}) {
       fs.rmSync(tmp, { force: true });
     }
     return result;
-  });
+  }, { timeoutMs: hooks.lockTimeoutMs });
 }
 
 // --- Reports -----------------------------------------------------------------
@@ -530,7 +530,7 @@ export function writeReport(workspace, { slug, content, date }, hooks = {}) {
       fs.rmSync(tmp, { force: true });
     }
     return { report_id: reportId, path: `${USER_ROOT}/reports/${name}` };
-  });
+  }, { timeoutMs: hooks.lockTimeoutMs });
 }
 
 // --- CLI ---------------------------------------------------------------------
@@ -567,7 +567,7 @@ function parseArgs(argv) {
   return opts;
 }
 
-const EXIT = { busy: 4, unexpected: 1 };
+export const EXIT = { busy: 4, unexpected: 1 };
 
 export function run(argv, workspace = process.cwd()) {
   const [area, command, ...rest] = argv;
