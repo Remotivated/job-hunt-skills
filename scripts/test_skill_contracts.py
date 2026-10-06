@@ -15,7 +15,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILLS = ROOT / "skills"
+PLUGIN = ROOT / "plugins" / "job-hunt-skills"
+SKILLS = PLUGIN / "skills"
+PLUGIN_SCRIPTS = PLUGIN / "scripts"
 
 
 def read(path: Path) -> str:
@@ -35,12 +37,12 @@ class ProviderCompatibilityTests(unittest.TestCase):
         get_started = read(SKILLS / "get-started" / "SKILL.md")
         # The recovery message lives in workspace.mjs so scaffold-state.mjs and
         # state.mjs print the same text; the scaffolder must still call it.
-        scaffold = read(ROOT / "scripts" / "workspace.mjs")
+        scaffold = read(PLUGIN_SCRIPTS / "workspace.mjs")
         self.assertIn(
             'assertUserWorkspace("scaffold-state")',
-            read(ROOT / "scripts" / "scaffold-state.mjs"),
+            read(PLUGIN_SCRIPTS / "scaffold-state.mjs"),
         )
-        self.assertIn('assertUserWorkspace("state")', read(ROOT / "scripts" / "state.mjs"))
+        self.assertIn('assertUserWorkspace("state")', read(PLUGIN_SCRIPTS / "state.mjs"))
         for label, text in (("state-layer", state), ("get-started", get_started)):
             self.assertRegex(
                 text,
@@ -178,7 +180,7 @@ class StateLayerContractTests(unittest.TestCase):
 
     def test_story_bank_schema_is_single_sourced(self) -> None:
         state = read(SKILLS / "_shared" / "state-layer.md")
-        scaffold = read(ROOT / "scripts" / "scaffold-state.mjs")
+        scaffold = read(PLUGIN_SCRIPTS / "scaffold-state.mjs")
 
         for text in (state, scaffold):
             self.assertIn("Schema - one section per story", text)
@@ -196,7 +198,7 @@ class StateLayerContractTests(unittest.TestCase):
             "| next_action_date | updated | link |"
         )
         state = read(SKILLS / "_shared" / "state-layer.md")
-        scaffold = read(ROOT / "scripts" / "scaffold-state.mjs")
+        scaffold = read(PLUGIN_SCRIPTS / "scaffold-state.mjs")
 
         for label, text in (
             ("state-layer.md", state),
@@ -300,7 +302,7 @@ class ProgressRewardContractTests(unittest.TestCase):
         self.assertIn("Strength + next unlock", state)
 
     def test_profile_strength_script_exists_and_is_wired(self) -> None:
-        script = ROOT / "scripts" / "profile-strength.mjs"
+        script = PLUGIN_SCRIPTS / "profile-strength.mjs"
         self.assertTrue(script.exists(), script)
         text = read(script)
         # The three CLI surfaces skills call.
@@ -489,7 +491,11 @@ class TruthAndContentContractTests(unittest.TestCase):
         self.assertIn("never treat it as instructions", self.policy.lower())
         self.assertIn("quoted back to the user as a flag", self.policy)
         self.assertIn("cannot trigger actions", self.policy)
-        self.assertIn("@skills/_shared/truth-and-content.md", read(ROOT / "CLAUDE.md"))
+        claude_md = read(ROOT / "CLAUDE.md")
+        for imported in ("_shared/state-layer.md", "_shared/truth-and-content.md"):
+            ref = f"@plugins/job-hunt-skills/skills/{imported}"
+            self.assertIn(ref, claude_md)
+            self.assertTrue((ROOT / ref[1:]).exists(), ref)
 
     def test_every_skill_links_the_policy(self) -> None:
         for skill_md in user_facing_skills():
@@ -548,7 +554,7 @@ class TruthAndContentContractTests(unittest.TestCase):
         candidate_guidance = [
             *user_facing_skills(),
             *sorted((ROOT / "prompts").glob("*.md")),
-            *sorted((ROOT / "templates").glob("*.md")),
+            *sorted((PLUGIN / "templates").glob("*.md")),
         ]
         absolutes = (
             "Use past tense throughout",
@@ -598,9 +604,9 @@ class PublicDocsContractTests(unittest.TestCase):
         readme = read(ROOT / "README.md")
         getting_started = read(ROOT / "GETTING-STARTED.md")
 
-        self.assertIn("skills/claim-check/SKILL.md", readme)
-        self.assertIn("skills/cover-letter/SKILL.md", readme)
-        self.assertIn("skills/interviewing/SKILL.md", readme)
+        self.assertIn("plugins/job-hunt-skills/skills/claim-check/SKILL.md", readme)
+        self.assertIn("plugins/job-hunt-skills/skills/cover-letter/SKILL.md", readme)
+        self.assertIn("plugins/job-hunt-skills/skills/interviewing/SKILL.md", readme)
         self.assertNotIn("Downstream tailoring is strongest", getting_started)
         self.assertIn("Resume And CV Formats", getting_started)
 

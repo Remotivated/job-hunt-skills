@@ -11,8 +11,13 @@ import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
+// `root` is the repository (node_modules, the vendor entry point). The bundle
+// and its notices ship inside the plugin folder, and the license paths they
+// record are relative to the plugin root, except node_modules/ paths, which
+// stay relative to the repository.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const vendorDir = join(root, "scripts/vendor");
+const pluginRoot = join(root, "plugins/job-hunt-skills");
+const vendorDir = join(pluginRoot, "scripts/vendor");
 
 function normalizePath(path) {
   return relative(root, path).replaceAll("\\", "/");
@@ -226,7 +231,7 @@ const embedded = [...embeddedByKey.values()].sort((a, b) =>
 const assets = [...bundledAssets].sort((a, b) => a.name.localeCompare(b.name));
 for (const asset of assets) {
   for (const path of asset.licenseFiles) {
-    if (!existsSync(join(root, path))) {
+    if (!existsSync(join(pluginRoot, path))) {
       throw new Error(`Missing bundled-asset license file: ${path}`);
     }
   }

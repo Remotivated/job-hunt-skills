@@ -1,4 +1,4 @@
-// Unit tests for scripts/profile-strength.mjs.
+// Unit tests for plugins/job-hunt-skills/scripts/profile-strength.mjs.
 //
 // Run with:  node --test scripts/test-profile-strength.mjs
 //            (or: npm run test:strength)
@@ -21,7 +21,7 @@ import {
   computeStrength,
   strengthLine,
   pulseLine,
-} from "./profile-strength.mjs";
+} from "../plugins/job-hunt-skills/scripts/profile-strength.mjs";
 
 // --- Fixtures --------------------------------------------------------------
 

@@ -63,4 +63,4 @@ The mock's feedback loop only ever strengthens answers with facts you've given i
 
 ## Go deeper
 
-- The [interview-coach skill](../skills/interview-coach/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) preps from your saved story bank and company research, and the [interviewing skill](../skills/interviewing/SKILL.md) tracks every stage to offer. The method is in the [interview framework guide](../guides/interview-framework.md).
+- The [interview-coach skill](../plugins/job-hunt-skills/skills/interview-coach/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) preps from your saved story bank and company research, and the [interviewing skill](../plugins/job-hunt-skills/skills/interviewing/SKILL.md) tracks every stage to offer. The method is in the [interview framework guide](../plugins/job-hunt-skills/guides/interview-framework.md).

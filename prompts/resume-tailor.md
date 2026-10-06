@@ -62,5 +62,5 @@ Section 4 is what separates this from every AI resume tool that quietly upgrades
 
 ## Go deeper
 
-- The [resume-tailor skill](../skills/resume-tailor/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) does this from your saved resume and story bank, keeps a folder per application, and exports submission-ready DOCX/PDF.
+- The [resume-tailor skill](../plugins/job-hunt-skills/skills/resume-tailor/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) does this from your saved resume and story bank, keeps a folder per application, and exports submission-ready DOCX/PDF.
 - Targeting remote roles? [Remotivated](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=prompts) lists roles vetted to be genuinely remote — worth tailoring for.

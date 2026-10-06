@@ -25,6 +25,8 @@ jobs:
         run: |
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".claude-plugin/plugin.json"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".codex-plugin/plugin.json"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "LICENSE"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "README.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".agents/plugins/marketplace.json"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/LICENSES.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/embedded-docx-notices.md"
@@ -36,6 +38,10 @@ jobs:
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/_shared/truth-and-content.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/state.mjs"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/workspace.mjs"
+          if unzip -Z1 dist/job-hunt-skills.zip | grep -E '^(plugins|examples|prompts|assets|\.github)/'; then
+            echo "repository-only files leaked into the plugin ZIP" >&2
+            exit 1
+          fi
 
       - name: Attach ZIP to GitHub Release
         uses: softprops/action-gh-release@v2

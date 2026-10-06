@@ -1,6 +1,6 @@
 # Generated release artifacts are binary or mechanically bundled.
 *.pdf binary
-scripts/vendor/export-deps.mjs -whitespace
+plugins/job-hunt-skills/scripts/vendor/export-deps.mjs -whitespace
 
 # No export-ignore or export-subst here: Anthropic's plugin directory refuses
 # to validate a repository that uses them. scripts/build-cowork-zip.mjs leaves

@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
+PLUGIN = ROOT / "plugins" / "job-hunt-skills"
 
 CHANGELOG = ROOT / "CHANGELOG.md"
 
@@ -16,11 +17,12 @@ PUBLIC_RENDER_TARGETS = [
     ROOT / "README.md",
     ROOT / "GETTING-STARTED.md",
     ROOT / "CONTRIBUTING.md",
+    PLUGIN / "README.md",
     *sorted((ROOT / "examples").rglob("*.md")),
 ]
 
 PUBLIC_GUIDE_TARGETS = [
-    *sorted((ROOT / "guides").rglob("*.md")),
+    *sorted((PLUGIN / "guides").rglob("*.md")),
 ]
 
 PROMPT_TARGETS = [
@@ -28,7 +30,7 @@ PROMPT_TARGETS = [
 ]
 
 TEMPLATE_TARGETS = [
-    *sorted((ROOT / "templates").rglob("*.md")),
+    *sorted((PLUGIN / "templates").rglob("*.md")),
 ]
 
 PUBLIC_CONTENT_TARGETS = (

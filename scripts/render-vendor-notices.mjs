@@ -5,7 +5,13 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const vendorDir = join(root, "scripts/vendor");
+const pluginRoot = join(root, "plugins/job-hunt-skills");
+const vendorDir = join(pluginRoot, "scripts/vendor");
+
+// Recorded license paths are relative to the plugin root, except packages
+// read from the repository's node_modules/.
+const licensePath = (relativePath) =>
+  join(relativePath.startsWith("node_modules/") ? root : pluginRoot, relativePath);
 const output = join(vendorDir, "LICENSES.md");
 
 function normalizeGeneratedText(text) {
@@ -111,7 +117,7 @@ for (const relativePath of licensePaths) {
     `### ${relativePath}`,
     "",
     "```text",
-    readFileSync(join(root, relativePath), "utf8").trim(),
+    readFileSync(licensePath(relativePath), "utf8").trim(),
     "```",
     "",
   );
