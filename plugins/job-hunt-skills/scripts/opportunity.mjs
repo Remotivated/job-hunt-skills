@@ -344,7 +344,8 @@ function readSnapshot(dir, { name, n }) {
 
 // OP-6: one posting seen twice. Hosts and schemes are case-insensitive;
 // fragments, trailing slashes, tracking parameters, and the order and encoding
-// of the remaining query parameters do not count.
+// of the remaining query parameters do not count. Repeated values for the
+// same key retain their order.
 export function normalizeUrl(value) {
   if (typeof value !== "string") return null;
   try {

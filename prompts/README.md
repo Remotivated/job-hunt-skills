@@ -1,6 +1,6 @@
 # Prompt Library
 
-Ten copy-paste prompts that turn ChatGPT, Claude, Gemini — whatever AI you already pay for — into an honest job-search partner. No install, no signup, no files to set up. Each prompt is built to deliver something genuinely useful in its **first response**, and to get sharper as you follow up.
+Copy-paste prompts that turn ChatGPT, Claude, Gemini — whatever AI you already pay for — into an honest job-search partner. No install, no signup, no files to set up. Each prompt is built to deliver something genuinely useful in its **first response**, and to get sharper as you follow up.
 
 ## Start with one of these
 
