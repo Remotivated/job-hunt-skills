@@ -9,9 +9,10 @@ Start small. Build one accurate source work document in resume or CV format, res
 ## The Core Sequence
 
 1. **Build your source document** with `get-started` or `resume-builder`.
-2. **Research the company** with `company-research`.
-3. **Tailor for the role** with `resume-tailor`.
-4. **Prepare for interview** with `interview-coach`.
+2. **Decide whether a posting is worth it** with `opportunity-evaluator`. It checks the posting against your saved experience, keeps fit, practical constraints, and anything odd about the posting in separate sections, and gives a pursue, hold, or skip call. Nothing is saved until you choose; a pursued posting is saved with its application so the next steps use the same text.
+3. **Research the company** with `company-research`.
+4. **Tailor for the role** with `resume-tailor`.
+5. **Prepare for interview** with `interview-coach`.
 
 That sequence is the heart of the repo. Everything else is useful, but optional.
 
@@ -23,6 +24,7 @@ In Codex CLI or the ChatGPT desktop app, ask in plain language or explicitly cho
 
 - A source work document in US resume or UK/EU-style CV format.
 - A cover letter when you have a specific role, company, or tightly defined target lane.
+- A pursue, hold, or skip evaluation of a posting, tied to your own evidence.
 - A company research brief that covers role fit, remote/hybrid signals, and red flags.
 - A tailored resume and cover letter for one real posting.
 - Interview-stage notes, follow-ups, and a prep brief grounded in your actual experience.

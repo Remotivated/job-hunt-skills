@@ -80,8 +80,19 @@ function makeWorkspace(spec = {}) {
   });
   for (const slug of spec.proofAssets || [])
     writeFileSync(join(md, "proof-assets", `${slug}.md`), "# asset\n");
-  for (const id of spec.tailoredApps || [])
+  for (const id of spec.tailoredApps || []) {
     mkdirSync(join(md, "applications", id), { recursive: true });
+    writeFileSync(join(md, "applications", id, "resume.md"), "# Tailored\n");
+  }
+  for (const id of spec.snapshotOnlyApps || []) {
+    mkdirSync(join(md, "applications", id), { recursive: true });
+    writeFileSync(join(md, "applications", id, "opportunity-1.md"), "---\nsnapshot: 1\n---\n");
+  }
+  // { id: [file names] } — application folders holding exactly these files.
+  for (const [id, files] of Object.entries(spec.appFiles || {})) {
+    mkdirSync(join(md, "applications", id), { recursive: true });
+    for (const name of files) writeFileSync(join(md, "applications", id, name), "x\n");
+  }
 
   return root;
 }
@@ -191,6 +202,58 @@ describe("computeStrength", () => {
       assert.equal(s.score, 7);
       assert.equal(s.nextUnlock, null);
       assert.equal(s.label, "resume");
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  test("a saved posting snapshot alone is not a tailored application", () => {
+    const root = makeWorkspace({ resume: true, snapshotOnlyApps: ["acme-pm"] });
+    try {
+      const s = computeStrength(root);
+      assert.equal(s.signals.find((x) => x.key === "tailored_application").met, false);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  for (const file of ["interview-prep.md", "interview-log.md", "follow-up.md"]) {
+    test(`a folder holding only ${file} still counts, as in 1.1.0`, () => {
+      const root = makeWorkspace({ resume: true, appFiles: { "acme-pm": [file] } });
+      try {
+        const s = computeStrength(root);
+        assert.equal(s.signals.find((x) => x.key === "tailored_application").met, true);
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    });
+  }
+
+  test("a snapshot next to interview prep counts", () => {
+    const root = makeWorkspace({
+      resume: true,
+      appFiles: { "acme-pm": ["opportunity-1.md", "interview-prep.md"] },
+    });
+    try {
+      const s = computeStrength(root);
+      assert.equal(s.signals.find((x) => x.key === "tailored_application").met, true);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  test("a folder holding only .gitkeep or transient .tmp-* files does not count", () => {
+    const root = makeWorkspace({
+      resume: true,
+      appFiles: {
+        "acme-pm": [".gitkeep"],
+        "beta-pm": [".tmp-resume.md-123-abc", "opportunity-2.md"],
+        "gamma-pm": [],
+      },
+    });
+    try {
+      const s = computeStrength(root);
+      assert.equal(s.signals.find((x) => x.key === "tailored_application").met, false);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }

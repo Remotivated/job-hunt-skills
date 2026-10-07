@@ -30,12 +30,14 @@ The core sequence is: build one accurate source document, research one company, 
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | [get-started](skills/get-started/SKILL.md)                 | You are new and want the fastest path to a first useful draft.                              |
 | [resume-builder](skills/resume-builder/SKILL.md)           | You want to build or update your source resume or CV (US resume or UK/EU CV format).        |
+| [opportunity-evaluator](skills/opportunity-evaluator/SKILL.md) | You found a posting and want a pursue, hold, or skip read before investing time. |
 | [resume-tailor](skills/resume-tailor/SKILL.md)             | You have a specific posting and want a tailored resume or CV, and a cover letter if needed. |
 | [company-research](skills/company-research/SKILL.md)       | You want to decide whether a company or role is worth your time.                            |
 | [cover-letter](skills/cover-letter/SKILL.md)               | You only need a cover letter for a specific role.                                           |
 | [resume-auditor](skills/resume-auditor/SKILL.md)           | You want direct, evidence-based feedback on your resume or CV.                              |
 | [claim-check](skills/claim-check/SKILL.md)                 | You are about to send something and want a truth pass first.                                |
-| [interview-coach](skills/interview-coach/SKILL.md)         | You have an interview coming up and want a prep brief X [interviewing](skills/interviewing/SKILL.md)               | You want to track interview stages, notes, and follow-ups.                                  |
+| [interview-coach](skills/interview-coach/SKILL.md)         | You have an interview coming up and want a prep brief. |
+| [interviewing](skills/interviewing/SKILL.md)               | You want to track interview stages, notes, and follow-ups.                                  |
 | [linkedin-optimizer](skills/linkedin-optimizer/SKILL.md)   | You want to audit and rewrite LinkedIn sections.                                            |
 | [proof-asset-creator](skills/proof-asset-creator/SKILL.md) | You want to choose and scope a case study or portfolio piece.                               |
 

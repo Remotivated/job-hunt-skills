@@ -37,6 +37,8 @@ jobs:
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/_shared/truth-and-content.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/state.mjs"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/workspace.mjs"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/opportunity.mjs"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/opportunity-evaluator/SKILL.md"
           if unzip -Z1 dist/job-hunt-skills.zip | grep -E '^(plugins|examples|prompts|assets|\.github)/'; then
             echo "repository-only files leaked into the plugin ZIP" >&2
             exit 1
