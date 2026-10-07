@@ -14,6 +14,8 @@ Truth-check this draft before I send it. Compare it only against the source mate
 Rules:
 - Use no outside knowledge. Do not assume typical tools, likely metrics, or common responsibilities.
 - A claim that might be true but is not in my source material is unverified. Flag it; do not excuse it.
+- Using a tool is not building it. If my source says I used something and the draft says I built, set up, or implemented it, that claim would not survive a follow-up.
+- If I tell you a claim is untrue, treat it as withdrawn for the rest of this chat.
 - Do not overcorrect truthful strength into vague mush. The goal is the strongest version of what is real.
 
 Deliver exactly this, in this order:
@@ -60,4 +62,4 @@ AI wrote your draft faster than you could — and somewhere in that speed, "help
 
 ## Go deeper
 
-- The [claim-check skill](../skills/claim-check/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) checks tailored documents against your entire saved evidence base — source resume, story bank, proof assets — and knows which version each draft came from.
+- The [claim-check skill](../plugins/job-hunt-skills/skills/claim-check/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) checks tailored documents against your entire saved evidence base — source resume, story bank, proof assets — and knows which version each draft came from.

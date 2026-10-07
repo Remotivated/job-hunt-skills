@@ -42,7 +42,7 @@ Choose the path that matches how you want to work.
 | Claude Code plugin | You are comfortable opening a terminal and want Claude to read and write local job-search files. | [Install the plugin](#use-the-claude-code-plugin), then ask `Help me get started.` |
 | Cowork plugin | You want the same guided workflows in Claude Desktop without living in the terminal. | [Install the plugin in Cowork](#use-the-cowork-plugin), choose a local folder, then ask `Help me get started.` |
 | Prompt library | You want to use ChatGPT, Gemini, Claude.ai, or another LLM without plugin access. | Jump to [Use The Prompts](#use-the-prompts) or open [prompts/README.md](prompts/README.md). |
-| Manual clone | You want to inspect the repo, run scripts, or use Claude Code from a local checkout. | See the [clone fallback](#use-the-claude-code-plugin) and start Claude Code from the repo folder. |
+| Manual clone | You want to inspect the repo, run scripts, or use Claude Code from a local checkout. | See the [clone fallback](#use-the-claude-code-plugin) and load the plugin folder from your clone. |
 
 After installation, [Getting Started](GETTING-STARTED.md) walks through the first useful week: build one source work document, research one real company, tailor one application, and prepare for one interview.
 
@@ -157,13 +157,15 @@ Help me get started.
 
 If you prefer explicit commands, use `/job-hunt-skills:get-started`. The plugin also includes quick slash commands such as `/job-hunt-skills:resume-builder` and `/job-hunt-skills:cover-letter`.
 
-Clone fallback:
+Clone fallback: clone the repository anywhere, then start Claude Code from your job-search folder with the plugin folder from your clone. The installable plugin lives in `plugins/job-hunt-skills/`; the rest of the repository is examples, prompts, and contributor tooling.
 
 ```bash
-git clone https://github.com/Remotivated/job-hunt-skills.git
-cd job-hunt-skills
-claude
+git clone https://github.com/Remotivated/job-hunt-skills.git ~/job-hunt-skills
+cd ~/Documents/job-hunt   # your job-search folder, not the clone
+claude --plugin-dir ~/job-hunt-skills/plugins/job-hunt-skills
 ```
+
+The skills will not save job-search files inside the clone itself; they ask you to use a folder of your own instead.
 
 ## Use The Cowork Plugin
 
@@ -183,24 +185,24 @@ Cowork is best when you want the agent to work through a multi-step task while k
 
 | Skill | Use it when... |
 | --- | --- |
-| [get-started](skills/get-started/SKILL.md) | You are new and want the fastest path to a first draft. |
-| [resume-builder](skills/resume-builder/SKILL.md) | You want to build or update a resume/CV-format work document. |
-| [resume-tailor](skills/resume-tailor/SKILL.md) | You have a specific job posting and want targeted materials. |
-| [company-research](skills/company-research/SKILL.md) | You want to decide whether a company or role is worth your time. |
-| [cover-letter](skills/cover-letter/SKILL.md) | You only need a specific cover letter. |
+| [get-started](plugins/job-hunt-skills/skills/get-started/SKILL.md) | You are new and want the fastest path to a first draft. |
+| [resume-builder](plugins/job-hunt-skills/skills/resume-builder/SKILL.md) | You want to build or update a resume/CV-format work document. |
+| [resume-tailor](plugins/job-hunt-skills/skills/resume-tailor/SKILL.md) | You have a specific job posting and want targeted materials. |
+| [company-research](plugins/job-hunt-skills/skills/company-research/SKILL.md) | You want to decide whether a company or role is worth your time. |
+| [cover-letter](plugins/job-hunt-skills/skills/cover-letter/SKILL.md) | You only need a specific cover letter. |
 
-Once you have traction, add [interviewing](skills/interviewing/SKILL.md) to manage interview-stage notes, [interview-coach](skills/interview-coach/SKILL.md) for deep prep, and [resume-auditor](skills/resume-auditor/SKILL.md) for a harder critique.
+Once you have traction, add [interviewing](plugins/job-hunt-skills/skills/interviewing/SKILL.md) to manage interview-stage notes, [interview-coach](plugins/job-hunt-skills/skills/interview-coach/SKILL.md) for deep prep, and [resume-auditor](plugins/job-hunt-skills/skills/resume-auditor/SKILL.md) for a harder critique.
 
 ### Optional Skills
 
 | Skill | What it does |
 | --- | --- |
-| [resume-auditor](skills/resume-auditor/SKILL.md) | Gives direct resume feedback instead of generic praise. |
-| [interview-coach](skills/interview-coach/SKILL.md) | Builds an interview prep brief from your actual experience. |
-| [interviewing](skills/interviewing/SKILL.md) | Tracks interview stages, notes, and follow-ups. |
-| [linkedin-optimizer](skills/linkedin-optimizer/SKILL.md) | Audits and rewrites LinkedIn sections. |
-| [proof-asset-creator](skills/proof-asset-creator/SKILL.md) | Helps turn experience into case studies and portfolio proof. |
-| [claim-check](skills/claim-check/SKILL.md) | Checks final materials for unsupported or inflated claims. |
+| [resume-auditor](plugins/job-hunt-skills/skills/resume-auditor/SKILL.md) | Gives direct resume feedback instead of generic praise. |
+| [interview-coach](plugins/job-hunt-skills/skills/interview-coach/SKILL.md) | Builds an interview prep brief from your actual experience. |
+| [interviewing](plugins/job-hunt-skills/skills/interviewing/SKILL.md) | Tracks interview stages, notes, and follow-ups. |
+| [linkedin-optimizer](plugins/job-hunt-skills/skills/linkedin-optimizer/SKILL.md) | Audits and rewrites LinkedIn sections. |
+| [proof-asset-creator](plugins/job-hunt-skills/skills/proof-asset-creator/SKILL.md) | Helps turn experience into case studies and portfolio proof. |
+| [claim-check](plugins/job-hunt-skills/skills/claim-check/SKILL.md) | Checks final materials for unsupported or inflated claims. |
 
 ## Use The Prompts
 
@@ -227,16 +229,16 @@ The guides explain the methodology behind the skills and prompts.
 
 | Guide | What it covers |
 | --- | --- |
-| [Resume Philosophy](guides/resume-philosophy.md) | Outcomes, angles, and honest tailoring. |
-| [ATS Myths](guides/ats-myths.md) | What ATS systems do and do not do. |
-| [AI Assistance Boundaries](guides/ai-assistance-boundaries.md) | Where AI help ends and misrepresentation starts. |
-| [Company Research](guides/company-research.md) | A practical employer vetting process. |
-| [Remote Job Market](guides/remote-job-market.md) | Why remote roles need sharper targeting. |
-| [Interview Framework](guides/interview-framework.md) | How to prepare and what to ask back. |
-| [Networking](guides/networking-guide.md) | A low-cringe relationship-building rhythm. |
-| [Proof Assets](guides/proof-assets.md) | How to show evidence beyond a resume. |
-| [Negotiation](guides/negotiation-guide.md) | How to handle offers and tradeoffs. |
-| [Sustainable Search](guides/sustainable-search.md) | Weekly pacing that does not burn you out. |
+| [Resume Philosophy](plugins/job-hunt-skills/guides/resume-philosophy.md) | Outcomes, angles, and honest tailoring. |
+| [ATS Myths](plugins/job-hunt-skills/guides/ats-myths.md) | What ATS systems do and do not do. |
+| [AI Assistance Boundaries](plugins/job-hunt-skills/guides/ai-assistance-boundaries.md) | Where AI help ends and misrepresentation starts. |
+| [Company Research](plugins/job-hunt-skills/guides/company-research.md) | A practical employer vetting process. |
+| [Remote Job Market](plugins/job-hunt-skills/guides/remote-job-market.md) | Why remote roles need sharper targeting. |
+| [Interview Framework](plugins/job-hunt-skills/guides/interview-framework.md) | How to prepare and what to ask back. |
+| [Networking](plugins/job-hunt-skills/guides/networking-guide.md) | A low-cringe relationship-building rhythm. |
+| [Proof Assets](plugins/job-hunt-skills/guides/proof-assets.md) | How to show evidence beyond a resume. |
+| [Negotiation](plugins/job-hunt-skills/guides/negotiation-guide.md) | How to handle offers and tradeoffs. |
+| [Sustainable Search](plugins/job-hunt-skills/guides/sustainable-search.md) | Weekly pacing that does not burn you out. |
 
 ## Example Outputs
 
@@ -252,15 +254,15 @@ Source markdown and rendered PDFs for each example live in [examples/](examples/
 
 ## Real Submission-Ready Files
 
-Most AI job-search tools stop at copy-paste output. This one produces real files you can attach. The skills save markdown first, then `scripts/export-documents.mjs` renders resumes, CVs, and cover letters to `.docx`, `.pdf`, and a `.html` preview next to each input. All JavaScript dependencies ship bundled in the repo — Node is the only requirement, with no `npm install` step.
+Most AI job-search tools stop at copy-paste output. This one produces real files you can attach. The skills save markdown first, then the plugin's `scripts/export-documents.mjs` renders resumes, CVs, and cover letters to `.docx`, `.pdf`, and a `.html` preview next to each input. All JavaScript dependencies ship bundled in the plugin — Node is the only requirement, with no `npm install` step.
 
 ```bash
-node scripts/export-documents.mjs my-documents/resume.md my-documents/coverletter.md
+node plugins/job-hunt-skills/scripts/export-documents.mjs my-documents/resume.md my-documents/coverletter.md
 ```
 
 Output scales with what's installed, and each step up is an unlock:
 
-- **Nothing installed** — the markdown is submission-ready, and the skills can still write the `.html` preview from `templates/preview-template.html`. The HTML mirrors page geometry, so you can open it in any browser to eyeball formatting.
+- **Nothing installed** — the markdown is submission-ready, and the skills can still write the `.html` preview from the plugin's `templates/preview-template.html`. The HTML mirrors page geometry, so you can open it in any browser to eyeball formatting.
 - **Node** — adds the `.docx` and a `.pdf` from the built-in renderer, fonts embedded.
 - **Node + [Typst](https://typst.app)** (`brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) — the `.pdf` is typeset by Typst from a vendored template instead. One PDF per document, always.
 
@@ -270,12 +272,14 @@ PDFs embed the vendored [Gelasio](https://fonts.google.com/specimen/Gelasio) fon
 
 | Path | What it contains |
 | --- | --- |
-| [skills/](skills/) | Shared Codex, Claude Code, and Cowork skills. |
+| [plugins/job-hunt-skills/](plugins/job-hunt-skills/) | The installable plugin: everything Codex, Claude Code, and Cowork load. |
+| [plugins/job-hunt-skills/skills/](plugins/job-hunt-skills/skills/) | Shared Codex, Claude Code, and Cowork skills. |
+| [plugins/job-hunt-skills/guides/](plugins/job-hunt-skills/guides/) | Job-search methodology and decision support. |
+| [plugins/job-hunt-skills/templates/](plugins/job-hunt-skills/templates/) | Resume, CV, and cover letter scaffolds. |
+| [plugins/job-hunt-skills/scripts/](plugins/job-hunt-skills/scripts/) | Tracker, report, and document export scripts the skills run. |
 | [prompts/](prompts/) | Copy/paste prompts for any LLM. |
-| [guides/](guides/) | Job-search methodology and decision support. |
-| [templates/](templates/) | Resume, CV, and cover letter scaffolds. |
 | [examples/](examples/) | Synthetic sample outputs with rendered files. |
-| [scripts/](scripts/) | Export and quality-check scripts. |
+| [scripts/](scripts/) | Tests, quality checks, and build scripts for contributors. |
 
 ## Philosophy
 

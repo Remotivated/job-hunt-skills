@@ -17,6 +17,8 @@ import { describe, test } from "node:test";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SCRIPT_DIR, "..");
+const PLUGIN_DIR = "plugins/job-hunt-skills";
+const PLUGIN = join(ROOT, PLUGIN_DIR);
 
 function makePluginFixture() {
   const tmp = mkdtempSync(join(tmpdir(), "job-hunt-plugin-fixture-"));
@@ -25,29 +27,41 @@ function makePluginFixture() {
   const skillsDir = join(pluginRoot, "skills");
   mkdirSync(scriptsDir, { recursive: true });
   mkdirSync(skillsDir, { recursive: true });
-  copyFileSync(
-    join(ROOT, "scripts/scaffold-state.mjs"),
-    join(scriptsDir, "scaffold-state.mjs"),
-  );
+  for (const name of ["scaffold-state.mjs", "workspace.mjs", "state.mjs"]) {
+    copyFileSync(join(PLUGIN, "scripts", name), join(scriptsDir, name));
+  }
   return { tmp, pluginRoot, skillsDir };
 }
 
-const RELEASE_ARCHIVE_PATHS = [
+// Entries the release ZIP must contain, relative to the ZIP root. The ZIP is
+// the plugin folder, so each of these is tracked under plugins/job-hunt-skills/.
+const PLUGIN_ARCHIVE_PATHS = [
   ".claude-plugin/plugin.json",
   ".codex-plugin/plugin.json",
-  ".agents/plugins/marketplace.json",
+  "LICENSE",
+  "README.md",
   "scripts/vendor/LICENSES.md",
-  "scripts/vendor/embedded-docx-notices.md",
-  "scripts/vendor/export-deps.mjs.LEGAL.txt",
+  "scripts/vendor/LEGAL.txt",
+  "scripts/vendor/SOURCE-NOTICES.md",
   "scripts/vendor/vendor-inputs.json",
   "skills/get-started/agents/openai.yaml",
+  "skills/_shared/truth-and-content.md",
+  "scripts/state.mjs",
+  "scripts/workspace.mjs",
 ];
+
+// Added to the ZIP by scripts/build-cowork-zip.mjs rather than tracked in the
+// plugin folder: a Codex marketplace pointing at the ZIP root, so an unpacked
+// release can be added with `codex plugin marketplace add <folder>`.
+const GENERATED_ARCHIVE_PATHS = [".agents/plugins/marketplace.json"];
+
+const RELEASE_ARCHIVE_PATHS = [...PLUGIN_ARCHIVE_PATHS, ...GENERATED_ARCHIVE_PATHS];
 
 function assertGitArchiveEligible(relativePath) {
   const tracked = spawnSync(
     "git",
     ["ls-files", "--error-unmatch", "--", relativePath],
-    { cwd: ROOT, encoding: "utf8" },
+    { cwd: PLUGIN, encoding: "utf8" },
   );
   assert.equal(
     tracked.status,
@@ -58,7 +72,7 @@ function assertGitArchiveEligible(relativePath) {
   const attribute = spawnSync(
     "git",
     ["check-attr", "export-ignore", "--", relativePath],
-    { cwd: ROOT, encoding: "utf8" },
+    { cwd: PLUGIN, encoding: "utf8" },
   );
   assert.equal(attribute.status, 0, attribute.stderr);
   assert.equal(
@@ -73,7 +87,7 @@ function readJson(relativePath) {
 }
 
 function skillDirectoryNames() {
-  return readdirSync(join(ROOT, "skills"), { withFileTypes: true })
+  return readdirSync(join(PLUGIN, "skills"), { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && entry.name !== "_shared")
     .map((entry) => entry.name)
     .sort();
@@ -81,19 +95,19 @@ function skillDirectoryNames() {
 
 function userFacingSkillNames() {
   return skillDirectoryNames().filter((name) =>
-    existsSync(join(ROOT, "skills", name, "SKILL.md")),
+    existsSync(join(PLUGIN, "skills", name, "SKILL.md")),
   );
 }
 
 function userFacingSkillFiles() {
   return userFacingSkillNames().map((name) =>
-    join(ROOT, "skills", name, "SKILL.md"),
+    join(PLUGIN, "skills", name, "SKILL.md"),
   );
 }
 
 function openAiMetadataSkillNames() {
   return skillDirectoryNames().filter((name) =>
-    existsSync(join(ROOT, "skills", name, "agents/openai.yaml")),
+    existsSync(join(PLUGIN, "skills", name, "agents/openai.yaml")),
   );
 }
 
@@ -101,7 +115,7 @@ describe("Installed-plugin resource resolution", () => {
   test("skills never assume bundled scripts live in the user workspace", () => {
     const files = [
       ...userFacingSkillFiles(),
-      join(ROOT, "skills/_shared/state-layer.md"),
+      join(PLUGIN, "skills/_shared/state-layer.md"),
     ];
     for (const file of files) {
       const text = readFileSync(file, "utf8");
@@ -109,7 +123,7 @@ describe("Installed-plugin resource resolution", () => {
     }
 
     const state = readFileSync(
-      join(ROOT, "skills/_shared/state-layer.md"),
+      join(PLUGIN, "skills/_shared/state-layer.md"),
       "utf8",
     );
     assert.match(state, /job_hunt_skills_root/);
@@ -121,7 +135,7 @@ describe("Installed-plugin resource resolution", () => {
     try {
       const scaffold = spawnSync(
         process.execPath,
-        [join(ROOT, "scripts/scaffold-state.mjs")],
+        [join(PLUGIN, "scripts/scaffold-state.mjs")],
         { cwd: workspace, encoding: "utf8" },
       );
       assert.equal(scaffold.status, 0, scaffold.stderr);
@@ -130,7 +144,7 @@ describe("Installed-plugin resource resolution", () => {
 
       const strength = spawnSync(
         process.execPath,
-        [join(ROOT, "scripts/profile-strength.mjs")],
+        [join(PLUGIN, "scripts/profile-strength.mjs")],
         { cwd: workspace, encoding: "utf8" },
       );
       assert.equal(strength.status, 0, strength.stderr);
@@ -151,7 +165,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: fixture.pluginRoot,
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
 
@@ -189,7 +202,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: fixture.skillsDir,
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
       assert.equal(scaffold.status, 2, scaffold.stderr);
@@ -216,7 +228,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: join(linkedRoot, "skills"),
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
       assert.equal(scaffold.status, 2, scaffold.stderr);
@@ -241,22 +252,21 @@ describe("Vendor licensing", () => {
     assert.doesNotMatch(buildSource, /legalComments:\s*["']none["']/);
     assert.match(buildSource, /target:\s*["']node18["']/);
     assert.match(buildSource, /metafile:\s*true/);
+    assert.match(buildSource, /minify:\s*false/);
 
     const notices = readFileSync(
-      join(ROOT, "scripts/vendor/LICENSES.md"),
+      join(PLUGIN, "scripts/vendor/LICENSES.md"),
       "utf8",
     );
-    assert.match(notices, /Copyright 2013 Google Inc\./i);
-    assert.match(notices, /Apache License, Version 2\.0/);
-    assert.match(notices, /BSD[- ]3-Clause/i);
+    assert.match(notices, /fontkit/);
+    assert.match(notices, /BSD[- ]2-Clause/i);
     assert.doesNotMatch(notices, /All bundled code is MIT-licensed/i);
 
     const legal = readFileSync(
-      join(ROOT, "scripts/vendor/export-deps.mjs.LEGAL.txt"),
+      join(PLUGIN, "scripts/vendor/LEGAL.txt"),
       "utf8",
     );
-    assert.match(legal, /ieee754\. BSD-3-Clause License/);
-    assert.match(legal, /JSZip v3\.10\.1/);
+    assert.ok(legal.length > 0, "preserved upstream legal comments");
     for (const [name, text] of [["LICENSES.md", notices], ["LEGAL.txt", legal]]) {
       assert.doesNotMatch(text, /\r/, `${name} must use LF line endings`);
       assert.doesNotMatch(text, /[ \t]+$/m, `${name} must not have trailing whitespace`);
@@ -269,16 +279,32 @@ describe("Vendor licensing", () => {
       "do not redistribute pdfmake's opaque prebuilt browser dependency graph",
     );
 
-    const inventory = readJson("scripts/vendor/vendor-inputs.json");
+    const inventory = readJson(`${PLUGIN_DIR}/scripts/vendor/vendor-inputs.json`);
     assert.deepEqual(inventory.unresolved, [], "vendor inputs need zero silent omissions");
     assert.ok(inventory.packages.length > 5);
     for (const record of inventory.packages) {
       assert.ok(record.name && record.version && record.declaredLicense, JSON.stringify(record));
       assert.ok(record.licenseFiles.length > 0, `${record.name} lacks a license file`);
     }
-    assert.ok(inventory.embedded.length > 0, "opaque docx notices must be explicit");
-    for (const record of inventory.embedded) {
-      assert.ok(record.name && record.notice && record.licenseTextSource, JSON.stringify(record));
+    assert.deepEqual(inventory.embedded.map((record) => record.name).sort(), ["fontkit-base64-arraybuffer", "fontkit-harfbuzz"]);
+    assert.match(notices, /Copyright \(c\) 2012 Niklas von Hertzen/);
+    assert.match(notices, /Copyright © 2010,2012,2013  Google, Inc\./);
+    for (const name of ["fontkit", "dfa"]) {
+      const record = inventory.packages.find((record) => record.name === name);
+      assert.ok(record.licenseFiles.includes("scripts/vendor/SOURCE-NOTICES.md"), `${name} needs full MIT terms beyond its README label`);
+    }
+    for (const name of ["docx", "brotli", "jszip", "svg-to-pdfkit", "xmldoc", "sax"]) {
+      assert.ok(!inventory.packages.some((record) => record.name === name), `${name} must not ship`);
+    }
+    assert.ok(inventory.buildInputs.some((input) => input.path.startsWith("node_modules/fontkit/src/")));
+    assert.ok(!inventory.buildInputs.some((input) => input.path.includes("fontkit/dist/")));
+    for (const style of ["Regular", "Bold", "Italic", "BoldItalic"]) {
+      const font = readFileSync(join(PLUGIN, "templates/fonts", `Gelasio-${style}.ttf`));
+      assert.equal(font.readUInt32BE(0), 0x00010000, `${style} must be TrueType; WOFF2 decoding is unsupported`);
+    }
+    assert.ok(inventory.outputs.length > 20, "dependencies must remain separate readable modules");
+    for (const output of inventory.outputs) {
+      assert.ok(readFileSync(join(PLUGIN, output.path)).length < 256 * 1024, output.path);
     }
 
     assert.match(notices, /Zero unresolved build-input packages: yes/);
@@ -290,20 +316,20 @@ describe("Vendor licensing", () => {
 
 describe("Codex plugin manifest", () => {
   test("declares the existing skills directory without unsupported components", () => {
-    const manifest = readJson(".codex-plugin/plugin.json");
+    const manifest = readJson(`${PLUGIN_DIR}/.codex-plugin/plugin.json`);
     assert.equal(manifest.name, "job-hunt-skills");
     assert.equal(manifest.version, "1.1.0");
     assert.equal(manifest.skills, "./skills/");
     assert.equal(manifest.license, "MIT");
-    assert.ok(existsSync(join(ROOT, manifest.skills)));
+    assert.ok(existsSync(join(PLUGIN, manifest.skills)));
     assert.equal("apps" in manifest, false);
     assert.equal("mcpServers" in manifest, false);
     assert.equal("hooks" in manifest, false);
   });
 
   test("keeps shared identity fields aligned with the Claude manifest", () => {
-    const codex = readJson(".codex-plugin/plugin.json");
-    const claude = readJson(".claude-plugin/plugin.json");
+    const codex = readJson(`${PLUGIN_DIR}/.codex-plugin/plugin.json`);
+    const claude = readJson(`${PLUGIN_DIR}/.claude-plugin/plugin.json`);
     for (const field of [
       "name",
       "version",
@@ -318,7 +344,7 @@ describe("Codex plugin manifest", () => {
 });
 
 describe("Codex marketplace", () => {
-  test("exposes the repository-root plugin with required policy metadata", () => {
+  test("exposes the plugin folder with required policy metadata", () => {
     const marketplace = readJson(".agents/plugins/marketplace.json");
     assert.equal(marketplace.name, "remotivated");
     assert.equal(marketplace.interface.displayName, "Remotivated");
@@ -328,8 +354,9 @@ describe("Codex marketplace", () => {
     assert.equal(plugin.name, "job-hunt-skills");
     assert.deepEqual(plugin.source, {
       source: "local",
-      path: "./",
+      path: `./${PLUGIN_DIR}`,
     });
+    assert.ok(existsSync(join(ROOT, plugin.source.path, ".codex-plugin/plugin.json")));
     assert.deepEqual(plugin.policy, {
       installation: "AVAILABLE",
       authentication: "ON_INSTALL",
@@ -452,7 +479,7 @@ describe("OpenAI skill metadata", () => {
 
     for (const skillName of expectedSkillNames) {
       const metadataPath = join(
-        ROOT,
+        PLUGIN,
         "skills",
         skillName,
         "agents/openai.yaml",
@@ -527,8 +554,8 @@ describe("Public Codex documentation", () => {
 });
 
 describe("Release archive configuration", () => {
-  test("release metadata is tracked and not effectively export-ignored", () => {
-    for (const relativePath of RELEASE_ARCHIVE_PATHS) {
+  test("release metadata is tracked in the plugin folder and not export-ignored", () => {
+    for (const relativePath of PLUGIN_ARCHIVE_PATHS) {
       assertGitArchiveEligible(relativePath);
     }
   });
@@ -560,5 +587,24 @@ describe("Release archive configuration", () => {
       "utf8",
     );
     assert.doesNotMatch(builder, /--worktree-attributes/);
+  });
+
+  test("no .gitattributes uses rules the plugin directory refuses", () => {
+    const files = spawnSync("git", ["ls-files", "--", ":(glob)**/.gitattributes"], {
+      cwd: ROOT,
+      encoding: "utf8",
+    }).stdout.trim().split("\n").filter(Boolean);
+    for (const file of files) {
+      const rules = readFileSync(join(ROOT, file), "utf8")
+        .split("\n")
+        .filter((line) => line.trim() && !line.trimStart().startsWith("#"));
+      for (const rule of rules) {
+        assert.doesNotMatch(
+          rule,
+          /\b(export-ignore|export-subst|filter)\b/,
+          `${file} rule "${rule}" makes the plugin directory refuse to validate the repository`,
+        );
+      }
+    }
   });
 });

@@ -1,14 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Edit(skills/**)",
+      "Edit(plugins/job-hunt-skills/skills/**)",
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
       "Bash(git pull:*)",
       "Bash(python scripts/test_skill_contracts.py)",
+      "Bash(python3 scripts/test_skill_contracts.py)",
       "Bash(python scripts/check-content-hygiene.py)",
-      "Bash(node scripts/scaffold-state.mjs)",
+      "Bash(python3 scripts/check-content-hygiene.py)",
+      "Bash(node plugins/job-hunt-skills/scripts/scaffold-state.mjs)",
       "Edit(/.claude/skills/resume-auditor/**)"
     ]
   }

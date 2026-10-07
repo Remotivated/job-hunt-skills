@@ -8,6 +8,10 @@ Verifies that every relative file/anchor link in tracked markdown resolves:
   Anchors are matched against GitHub-style slugs of the file's headings.
 
 External schemes (http, https, mailto, tel, ftp, ssh, file, data) are not checked.
+
+Markdown inside the plugin folder (plugins/job-hunt-skills/) ships to users
+on its own, so its relative links must also stay inside that folder. Links to
+repository-only material there use absolute https URLs instead.
 """
 
 from __future__ import annotations
@@ -21,6 +25,7 @@ from markdown_it import MarkdownIt
 
 
 ROOT = Path(__file__).resolve().parent.parent
+PLUGIN = (ROOT / "plugins" / "job-hunt-skills").resolve()
 
 SKIP_DIRS = {
     ".git",
@@ -167,6 +172,8 @@ def check_link(source: Path, line: int, href: str) -> str | None:
         target_file = resolve_target(source, raw_path)
         if not target_file.exists():
             return f"missing file: {href}"
+        if source.resolve().is_relative_to(PLUGIN) and not target_file.is_relative_to(PLUGIN):
+            return f"plugin file links outside the plugin folder: {href}"
 
     if fragment:
         if target_file.is_dir():

@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **State helper for tracker and report writes.** `scripts/state.mjs` validates `applications.md`, upserts rows, requires the user's confirmation for every status change, allows any status in either direction (so a mistake can be undone and someone joining mid-search can bring every application across), logs each change in a `## Status history` section, and allocates report numbers under a workspace lock so two sessions never share one. It writes atomically, refuses a malformed table without touching it, and needs only Node — no dependencies. Skills use it when Node is available and apply the same numbered rules with native file tools otherwise (state-layer §12).
+- **Truth and content contract** (`skills/_shared/truth-and-content.md`). Postings, forms, messages, reviews, and adapter records are treated as data: text aimed at AI tools is quoted back as a flag, never followed. Using a tool can no longer become a claim of building it without evidence. Claims the user withdraws are recorded in `my-documents/retracted-claims.md` and kept out of later resumes, letters, LinkedIn rewrites, and interview prep. Research runs have a lookup budget with an early-stop rule. Candidate-facing guidance follows the user's own voice and conventions instead of word bans.
+- **Explicit plugin-owned and user-owned paths** in state-layer §0 and `scripts/workspace.mjs`, enforced by `npm run test:state`.
+
+### Changed
+
+- **The installable plugin now lives in `plugins/job-hunt-skills/`.** Skills, guides, templates, and the scripts the skills run moved there together, with the Claude and Codex manifests, a copy of the license, and a README that describes what the plugin does and everything it runs on your computer. Installs, the release ZIP, and plugin directories now receive only that folder; examples, prompts, tests, and contributor tooling stay in the repository. The `remotivated` marketplaces for Claude Code and Codex point at the new folder, so `/plugin install job-hunt-skills@remotivated` and `codex plugin add job-hunt-skills@remotivated` work as before.
+- The resume template and builder no longer require past tense throughout; they keep whichever tense convention the user already uses.
+
+### Compatibility
+
+- Installed plugins pick up the new layout on their next marketplace update; nothing in `my-documents/` moves or changes. From a clone, run the bundled scripts from `plugins/job-hunt-skills/scripts/` (for example `node plugins/job-hunt-skills/scripts/export-documents.mjs`), or load the plugin with `claude --plugin-dir <clone>/plugins/job-hunt-skills`. A clone's own folder is still refused as a job-search workspace.
+- No existing file is rewritten on upgrade. Legacy tracker headers are still read; the full column set is written the next time a row changes. Custom tracker columns are preserved.
+- A tracker that the helper cannot parse is now reported with its line number instead of being edited. Fix the reported line, or ask the assistant to show it to you.
+- `retracted-claims.md` is optional and created only when you first withdraw a claim.
+
 ## 1.1.0 - 2026-07-17
 
 ### Added
