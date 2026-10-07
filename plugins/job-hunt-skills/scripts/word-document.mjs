@@ -8,8 +8,12 @@ const WORD_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
 const REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships";
 const OFFICE_REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
 
+// Characters XML 1.0 forbids (most C0 controls, U+FFFE, U+FFFF). Word refuses
+// a package that contains them, so drop them before escaping.
+const INVALID_XML_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g;
+
 function escapeXml(value) {
-  return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+  return String(value).replace(INVALID_XML_CHARS, "").replaceAll("&", "&amp;").replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&apos;");
 }
 
@@ -47,7 +51,7 @@ function paragraphXml(paragraph, font, hyperlinks) {
     const xml = `<w:r><w:rPr>${runProperties(run, font)}</w:rPr>${content}</w:r>`;
     if (run.link == null) return xml;
     // Reuse a relationship when adjacent styled runs share a destination.
-    if (!hyperlinks.has(run.link)) hyperlinks.set(run.link, `rId${hyperlinks.size + 3}`);
+    if (!hyperlinks.has(run.link)) hyperlinks.set(run.link, `rId${hyperlinks.size + 4}`);
     return `<w:hyperlink r:id="${hyperlinks.get(run.link)}">${xml}</w:hyperlink>`;
   }).join("");
   return `<w:p><w:pPr>${properties.join("")}</w:pPr>${runs}</w:p>`;
@@ -132,14 +136,20 @@ export function buildWordDocument({ paragraphs, font, size, color, lineSpacing, 
     + '<w:multiLevelType w:val="singleLevel"/><w:lvl w:ilvl="0"><w:start w:val="1"/><w:numFmt w:val="bullet"/><w:lvlText w:val="•"/><w:lvlJc w:val="left"/>'
     + `<w:pPr><w:tabs><w:tab w:val="num" w:pos="${bulletIndent.left}"/></w:tabs><w:ind${attributes(bulletIndent)}/></w:pPr>`
     + `<w:rPr>${fontXml(font)}</w:rPr></w:lvl></w:abstractNum><w:num w:numId="1"><w:abstractNumId w:val="0"/></w:num></w:numbering>`;
+  // compatibilityMode 15 marks the file as a current Word document; without it
+  // Word opens the export in Compatibility Mode.
+  const settings = `${XML}<w:settings xmlns:w="${WORD_NS}"><w:compat>`
+    + '<w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/>'
+    + "</w:compat></w:settings>";
   const documentRelationships = relationshipsXml([
     { Id: "rId1", Type: `${OFFICE_REL_NS}/styles`, Target: "styles.xml" },
     { Id: "rId2", Type: `${OFFICE_REL_NS}/numbering`, Target: "numbering.xml" },
+    { Id: "rId3", Type: `${OFFICE_REL_NS}/settings`, Target: "settings.xml" },
     ...[...hyperlinks].map(([Target, Id]) => ({ Id, Type: `${OFFICE_REL_NS}/hyperlink`, Target, TargetMode: "External" })),
   ]);
   const contentTypes = `${XML}<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">`
     + '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>'
-    + [ ["document", "document.main"], ["styles", "styles"], ["numbering", "numbering"] ]
+    + [ ["document", "document.main"], ["styles", "styles"], ["numbering", "numbering"], ["settings", "settings"] ]
       .map(([name, type]) => `<Override PartName="/word/${name}.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.${type}+xml"/>`).join("")
     + "</Types>";
   return zipXmlParts([
@@ -148,6 +158,7 @@ export function buildWordDocument({ paragraphs, font, size, color, lineSpacing, 
     ["word/document.xml", document],
     ["word/styles.xml", styles],
     ["word/numbering.xml", numbering],
+    ["word/settings.xml", settings],
     ["word/_rels/document.xml.rels", documentRelationships],
   ]);
 }

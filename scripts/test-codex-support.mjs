@@ -165,7 +165,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: fixture.pluginRoot,
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
 
@@ -203,7 +202,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: fixture.skillsDir,
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
       assert.equal(scaffold.status, 2, scaffold.stderr);
@@ -230,7 +228,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: join(linkedRoot, "skills"),
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
       assert.equal(scaffold.status, 2, scaffold.stderr);

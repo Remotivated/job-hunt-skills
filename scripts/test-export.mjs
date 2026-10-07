@@ -344,10 +344,28 @@ describe("DOCX build", () => {
     const entries = checkedZipEntries(buffer);
     assert.deepEqual([...entries.keys()].sort(), [
       "[Content_Types].xml", "_rels/.rels", "word/_rels/document.xml.rels",
-      "word/document.xml", "word/numbering.xml", "word/styles.xml",
+      "word/document.xml", "word/numbering.xml", "word/settings.xml", "word/styles.xml",
     ].sort());
     assert.match(entries.get("[Content_Types].xml"), /wordprocessingml\.document\.main\+xml/);
     assert.match(entries.get("_rels/.rels"), /Target="word\/document.xml"/);
+  });
+
+  test("declares current Word compatibility so Word does not open it in Compatibility Mode", async () => {
+    const { buffer } = await docxXml(SAMPLE_RESUME);
+    const entries = checkedZipEntries(buffer);
+    assert.match(entries.get("word/settings.xml"), /<w:compatSetting w:name="compatibilityMode" w:uri="http:\/\/schemas\.microsoft\.com\/office\/word" w:val="15"\/>/);
+    assert.match(entries.get("word/_rels/document.xml.rels"), /Id="rId3" Type="[^"]*\/settings" Target="settings.xml"/);
+    assert.match(entries.get("[Content_Types].xml"), /PartName="\/word\/settings.xml" ContentType="application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.settings\+xml"/);
+  });
+
+  test("drops characters XML forbids instead of writing a package Word cannot open", async () => {
+    const buffer = await buildDocxBuffer(
+      "Jane\u0001 Doe", "jane@example.com", "Page\u000Cbreak and tab\u000Bhere\n", "resume",
+    );
+    const xml = readZipEntry(buffer, "word/document.xml").toString("utf8");
+    assert.doesNotMatch(xml, /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/);
+    assert.match(xml, /Jane Doe/);
+    assert.match(xml, /Pagebreak/);
   });
 
   test("preserves defaults, all font slots, page geometry and heading tracking", async () => {
@@ -396,7 +414,7 @@ describe("DOCX build", () => {
     assert.match(xml, /<w:i\/>/);
     assert.match(xml, /xml:space="preserve"/);
     for (const id of [...xml.matchAll(/<w:hyperlink r:id="([^"]+)"/g)].map((m) => m[1])) {
-      assert.match(rels, new RegExp(`Id="${id}"`));
+      assert.match(rels, new RegExp(`Id="${id}"[^>]*TargetMode="External"`));
     }
     assert.match(rels, /Target="https:\/\/example.com\/\?a=1&amp;b=2"/);
     assert.match(rels, /Target="mailto:zoe@example.com"/);

@@ -106,13 +106,29 @@ const licensePaths = [...new Set(
     .flatMap((record) => record.licenseFiles),
 )].sort();
 
+// A package without a LICENSE file declares its license in a README section.
+// Keep only that section: the rest of a README is API documentation (with
+// remote images and example code) that does not belong in a notices file.
+function licenseSection(readme, relativePath) {
+  const lines = readme.replaceAll("\r\n", "\n").split("\n");
+  const start = lines.findIndex((line) => /^#{1,4}\s+licen[cs]e\b/i.test(line));
+  if (start === -1) throw new Error(`No License section in ${relativePath}`);
+  const level = lines[start].match(/^#+/)[0].length;
+  let end = lines.findIndex((line, i) => i > start && /^#+\s/.test(line)
+    && line.match(/^#+/)[0].length <= level);
+  if (end === -1) end = lines.length;
+  return lines.slice(start, end).join("\n").trim();
+}
+
 lines.push("## Complete license texts", "");
 for (const relativePath of licensePaths) {
+  const text = readFileSync(licensePath(relativePath), "utf8");
+  const isReadme = /(^|\/)readme(?:[.\-_]|$)/i.test(relativePath);
   lines.push(
-    `### ${relativePath}`,
+    isReadme ? `### ${relativePath} (License section)` : `### ${relativePath}`,
     "",
     "```text",
-    readFileSync(licensePath(relativePath), "utf8").trim(),
+    isReadme ? licenseSection(text, relativePath) : text.trim(),
     "```",
     "",
   );

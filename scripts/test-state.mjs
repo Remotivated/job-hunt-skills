@@ -233,7 +233,6 @@ describe("state helper CLI", () => {
     const run = spawnSync(process.execPath, [STATE, "tracker", "check"], {
       cwd: path.join(PLUGIN, "skills"),
       encoding: "utf8",
-      env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
     });
     assert.equal(run.status, 2);
     assert.match(run.stderr, /Claude Code:    cd into your job-hunt folder, then run 'claude' there\./);
@@ -247,7 +246,6 @@ describe("state helper CLI", () => {
         const run = spawnSync(process.execPath, [script, ...args], {
           cwd,
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         });
         assert.equal(run.status, 2, `${path.basename(script)} from ${cwd}: ${run.stderr}`);
         assert.match(run.stderr, /working directory is the plugin install dir, not a user workspace\./);
@@ -277,7 +275,7 @@ describe("checkout detection", () => {
     return { root, scaffold: path.join(scripts, "scaffold-state.mjs") };
   }
   const scaffoldIn = (cwd, scaffold) =>
-    spawnSync(process.execPath, [scaffold], { cwd, encoding: "utf8", env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" } });
+    spawnSync(process.execPath, [scaffold], { cwd, encoding: "utf8" });
 
   for (const [manifestPath, source] of [
     [".claude-plugin/marketplace.json", "./plugins/job-hunt-skills"],

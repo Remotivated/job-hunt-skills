@@ -55,8 +55,7 @@ export const WORKSPACE_REFUSAL =
   `Your job-hunt files belong in a folder you chose, not inside the plugin.\n\n` +
   `  Codex CLI/IDE:  open or cd into your job-hunt folder, then start Codex there.\n` +
   `  Desktop agent:  select a folder you own with the app's folder/workspace control, then start again.\n` +
-  `  Claude Code:    cd into your job-hunt folder, then run 'claude' there.\n\n` +
-  `Set JOB_HUNT_SKILLS_DEV=1 only if you are intentionally developing the plugin itself.`;
+  `  Claude Code:    cd into your job-hunt folder, then run 'claude' there.`;
 
 const MARKETPLACE_MANIFESTS = Object.freeze([
   ".claude-plugin/marketplace.json",
@@ -107,7 +106,7 @@ export function isPluginLocation(workspace, pluginRoot = PLUGIN_ROOT) {
 // Exit 2 with the recovery message when the working directory is not a user
 // workspace. Every state-writing script calls this before its first write.
 export function assertUserWorkspace(scriptName, workspace = process.cwd()) {
-  if (isPluginLocation(workspace) && process.env.JOB_HUNT_SKILLS_DEV !== "1") {
+  if (isPluginLocation(workspace)) {
     console.error(`${scriptName}: ${WORKSPACE_REFUSAL}`);
     process.exit(2);
   }
