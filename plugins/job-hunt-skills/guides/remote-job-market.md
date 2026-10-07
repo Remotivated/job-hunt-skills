@@ -16,7 +16,21 @@ The most common job search strategy is volume-based: open a job board, filter fo
 
 When you have a smaller pool to draw from and more competition for each role, standing out matters.
 
-The good news is that many applications are low quality. People apply to remote jobs they aren't qualified for, or use spammy AI apply tools and easy-apply features with generic resumes.
+Automated mass applications can also increase the workload for hiring teams. Employ offers that explanation for declining communication; its survey measures candidate experiences, not the causal effect of application volume.
+
+**Volume rises faster than the headcount reading it.** Employ's 2026 Job Seeker Nation Report describes what recruiting teams are absorbing: "As AI-driven fraud and mass applications rise, teams are facing an applicant avalanche… When every req is flooded, consistent communication becomes harder to maintain."
+
+**A flooded requisition gets more screening and less communication.** Those are the two levers a team has when the queue outgrows the hours available to read it — more filters at the front, fewer replies at the back. (What those added filters actually do, and the things they're wrongly blamed for, is the subject of the [ATS myths guide](ats-myths.md).)
+
+**Candidates report more ghosting.** In the same survey, 32% of candidates said an employer ghosted them in the past year, up from 30%, and 42% of those said it happened more than three times. Candidates are not returning the favour — only 14% reported ghosting an employer. The silence runs mostly one direction.
+
+**And silence is already the thing candidates hate most.** The top job-search challenge named in that survey was not hearing back after applying (44%), followed by not hearing back after interviews (36%) and competing with a high number of applicants (34%). Those complaints are consistent with overloaded queues, but the survey does not establish that volume caused them.
+
+The proposed mechanism is that mass applications add volume, volume strains screening and communication, and everyone in the queue experiences the resulting delays. It is a plausible explanation, not a measured causal finding or a guarantee about any particular application.
+
+**Adoption is not automated-application prevalence.** In the same survey, 28% reported using AI for any part of their search, down three points year over year. That includes editing and practice. It does not tell us how many candidates automate applications, whether that group is growing, or how many applications they send.
+
+The practical read: invest in a specific, well-evidenced application for a role you actually match. The survey does not measure the quality of competing applications or promise that tailoring will get a reply.
 
 If you follow the advice in this guide, you're not really competing against hundreds of people for the job — you're competing against the much smaller number who put together thoughtful applications and have relevant backgrounds.
 
@@ -69,3 +83,4 @@ Company directories, job boards, and your own research can help you classify how
 - **NBER Working Paper 32320** (Davis & Samaniego de la Parra) — Analysis of 125M applications on Dice.com. 45% of applications arrive within 48 hours; median posting duration is 7 days. [nber.org](https://www.nber.org/papers/w32320)
 - **LinkedIn / Andrew Seaman** — Summary of LinkedIn Economic Graph data: remote jobs were 9% of postings and drew 44% of applications in July 2023. [linkedin.com](https://www.linkedin.com/pulse/ads-remote-jobs-disappearing-andrew-seaman)
 - **Remotivated Work Models** — Five-tier framework for classifying how companies actually structure work around location. [remotivated.com](https://remotivated.com/resources/work-models?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=guide)
+- **Employ** — `2026 Job Seeker Nation Report` — vendor survey, Zogby Analytics, March–April 2026, n≈1,500 U.S. adults, self-reported. Source of the "applicant avalanche" quote, the employer-ghosting figures (32%, up from 30%; 42% of those more than three times; 14% candidate-side), the top job-search challenges, and the 28% candidate AI adoption figure (down three points year over year). Adoption shares are of surveyed candidates and say nothing about application volume per person. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf) ([archived copy](https://web.archive.org/web/20260813191128/https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf))

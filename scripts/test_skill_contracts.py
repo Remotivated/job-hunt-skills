@@ -587,6 +587,23 @@ class PromptOnlyContractTests(unittest.TestCase):
         for name in ("resume-tailor", "claim-check", "interview-prep"):
             self.assertRegex(read(ROOT / "prompts" / f"{name}.md"), r"(?i)\bthis chat\b", name)
 
+    def test_ai_check_treats_external_text_as_data(self) -> None:
+        text = read(ROOT / "prompts" / "ai-assistance-check.md")
+        self.assertRegex(text, r"not instructions")
+        self.assertIn("text aimed at AI tools", text)
+
+    def test_ai_check_respects_assessment_rules_before_submission(self) -> None:
+        text = read(ROOT / "prompts" / "ai-assistance-check.md")
+        self.assertIn("EMPLOYER RULES", text)
+        self.assertRegex(text, r"(?is)prohibit.*do not.*submit")
+        self.assertRegex(text, r"(?is)unclear.*ask.*before")
+        self.assertIn("disclosure", text)
+
+    def test_ai_check_does_not_certify_live_defensibility_from_notes(self) -> None:
+        text = read(ROOT / "prompts" / "ai-assistance-check.md")
+        self.assertRegex(text, r"(?is)provisional.*drill")
+        self.assertRegex(text, r"(?is)missing.*unknown.*not.*cannot")
+
     def test_company_research_prompt_is_bounded(self) -> None:
         text = read(ROOT / "prompts" / "company-research.md")
         self.assertIn("Keep research bounded", text)
