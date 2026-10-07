@@ -26,7 +26,6 @@
     "test:plugin": "node --test scripts/test-plugin-package.mjs"
   },
   "devDependencies": {
-    "docx": "^9.7.1",
     "esbuild": "^0.28.1",
     "markdown-it": "^14.3.0",
     "pdfmake": "^0.3.11"

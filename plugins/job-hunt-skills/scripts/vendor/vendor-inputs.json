@@ -33,56 +33,8 @@
       "package": "@noble/hashes@1.8.0"
     },
     {
-      "path": "node_modules/@swc/helpers/cjs/_define_property.cjs",
-      "package": "@swc/helpers@0.5.23"
-    },
-    {
-      "path": "node_modules/@swc/helpers/cjs/_ts_decorate.cjs",
-      "package": "@swc/helpers@0.5.23"
-    },
-    {
       "path": "node_modules/base64-js/lib/b64.js",
       "package": "base64-js@0.0.8"
-    },
-    {
-      "path": "node_modules/brotli/dec/bit_reader.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/dec/context.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/dec/decode.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/dec/dictionary-data.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/dec/dictionary.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/dec/huffman.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/dec/prefix.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/dec/streams.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/dec/transform.js",
-      "package": "brotli@1.3.3"
-    },
-    {
-      "path": "node_modules/brotli/decompress.js",
-      "package": "brotli@1.3.3"
     },
     {
       "path": "node_modules/clone/clone.js",
@@ -91,10 +43,6 @@
     {
       "path": "node_modules/dfa/index.js",
       "package": "dfa@1.2.0"
-    },
-    {
-      "path": "node_modules/docx/dist/index.mjs",
-      "package": "docx@9.7.1"
     },
     {
       "path": "node_modules/entities/lib/esm/decode_codepoint.js",
@@ -133,7 +81,459 @@
       "package": "fast-deep-equal@3.1.3"
     },
     {
-      "path": "node_modules/fontkit/dist/main.cjs",
+      "path": "node_modules/fontkit/src/aat/AATFeatureMap.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/aat/AATLayoutEngine.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/aat/AATLookupTable.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/aat/AATMorxProcessor.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/aat/AATStateMachine.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/base.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFCharsets.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFDict.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFEncodings.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFFont.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFIndex.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFOperand.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFPointer.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFPrivateDict.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFStandardStrings.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/cff/CFFTop.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/CmapProcessor.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/decorators.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/DFont.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/encodings.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/BBox.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/CFFGlyph.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/COLRGlyph.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/Glyph.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/GlyphVariationProcessor.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/Path.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/SBIXGlyph.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/StandardNames.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/TTFGlyph.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/TTFGlyphEncoder.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/glyph/WOFF2Glyph.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/index.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/layout/GlyphPosition.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/layout/GlyphRun.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/layout/KernProcessor.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/layout/LayoutEngine.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/layout/Script.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/layout/UnicodeLayoutEngine.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/GlyphInfo.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/GlyphIterator.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/GPOSProcessor.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/GSUBProcessor.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/OTLayoutEngine.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/OTProcessor.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/ArabicShaper.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/data.trie",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/DefaultShaper.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/HangulShaper.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/index.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/indic-data.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/indic.json",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/indic.trie",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/IndicShaper.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/UniversalShaper.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/use.json",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/shapers/use.trie",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/opentype/ShapingPlan.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/subset/CFFSubset.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/subset/Subset.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/subset/TTFSubset.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/aat.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/avar.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/BASE.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/bsln.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/cmap.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/COLR.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/CPAL.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/cvt.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/directory.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/DSIG.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/EBDT.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/EBLC.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/feat.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/fpgm.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/fvar.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/gasp.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/GDEF.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/glyf.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/GPOS.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/GSUB.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/gvar.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/hdmx.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/head.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/hhea.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/hmtx.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/HVAR.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/index.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/JSTF.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/just.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/kern.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/loca.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/LTSH.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/maxp.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/morx.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/name.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/opbd.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/opentype.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/OS2.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/PCLT.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/post.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/prep.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/sbix.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/variations.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/VDMX.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/vhea.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/vmtx.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/VORG.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/WOFF2Directory.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/tables/WOFFDirectory.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/TrueTypeCollection.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/TTFFont.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/utils.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/WOFF2Font.js",
+      "package": "fontkit@2.0.4"
+    },
+    {
+      "path": "node_modules/fontkit/src/WOFFFont.js",
       "package": "fontkit@2.0.4"
     },
     {
@@ -389,14 +789,6 @@
       "package": "pdfkit@0.19.1"
     },
     {
-      "path": "node_modules/pdfmake/js/3rd-party/svg-to-pdfkit.js",
-      "package": "pdfmake@0.3.11"
-    },
-    {
-      "path": "node_modules/pdfmake/js/3rd-party/svg-to-pdfkit/source.js",
-      "package": "pdfmake@0.3.11"
-    },
-    {
       "path": "node_modules/pdfmake/js/base.js",
       "package": "pdfmake@0.3.11"
     },
@@ -485,10 +877,6 @@
       "package": "pdfmake@0.3.11"
     },
     {
-      "path": "node_modules/pdfmake/js/SVGMeasure.js",
-      "package": "pdfmake@0.3.11"
-    },
-    {
       "path": "node_modules/pdfmake/js/tableLayouts.js",
       "package": "pdfmake@0.3.11"
     },
@@ -525,20 +913,80 @@
       "package": "punycode.js@2.3.1"
     },
     {
-      "path": "node_modules/restructure/dist/main.cjs",
+      "path": "node_modules/restructure/index.js",
       "package": "restructure@3.0.2"
     },
     {
-      "path": "node_modules/sax/lib/sax.js",
-      "package": "sax@1.6.0"
+      "path": "node_modules/restructure/src/Array.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Base.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Bitfield.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Boolean.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Buffer.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/DecodeStream.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/EncodeStream.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Enum.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/LazyArray.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Number.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Optional.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Pointer.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Reserved.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/String.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/Struct.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/utils.js",
+      "package": "restructure@3.0.2"
+    },
+    {
+      "path": "node_modules/restructure/src/VersionedStruct.js",
+      "package": "restructure@3.0.2"
     },
     {
       "path": "node_modules/tiny-inflate/index.js",
       "package": "tiny-inflate@1.0.3"
-    },
-    {
-      "path": "node_modules/tslib/tslib.es6.mjs",
-      "package": "tslib@2.8.1"
     },
     {
       "path": "node_modules/uc.micro/categories/Cc/regex.mjs",
@@ -569,7 +1017,7 @@
       "package": "uc.micro@2.1.0"
     },
     {
-      "path": "node_modules/unicode-properties/dist/main.cjs",
+      "path": "node_modules/unicode-properties/dist/module.mjs",
       "package": "unicode-properties@1.4.1"
     },
     {
@@ -583,10 +1031,1566 @@
     {
       "path": "node_modules/unicode-trie/swap.js",
       "package": "unicode-trie@2.0.0"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "scripts/vendor/export-deps.mjs",
+      "inputs": [
+        "scripts/vendor-entry.mjs"
+      ]
     },
     {
-      "path": "node_modules/xmldoc/lib/xmldoc.js",
-      "package": "xmldoc@2.0.3"
+      "path": "scripts/vendor/modules/chunk-26GL66HE.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/aat/AATLookupTable.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-2F2F7LPU.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/loca.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-2FAS3ON4.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Struct.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-2J453HR5.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/PageSize.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-2RP73DIA.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-32NVCR7Y.mjs",
+      "inputs": [
+        "node_modules/restructure/src/DecodeStream.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-32OZQJIF.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/indic.json"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-3C72HI3A.mjs",
+      "inputs": [
+        "node_modules/pdfkit/js/pdfkit.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-3EKV4EBJ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/directory.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-3GLG45F3.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/WOFF2Directory.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-3IOWCSJB.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/common/html_blocks.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-3IPMLLIF.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/indic-data.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-3ORHKHLF.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/VORG.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-3SYJ6GZQ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/encodings.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-3W5UVUMY.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/opentype.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-43OKHIEW.mjs",
+      "inputs": [
+        "node_modules/unicode-properties/node_modules/base64-js/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4DECDPU2.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/fvar.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4FMDM3LH.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/sbix.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4H2QNLEU.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/helpers/parse_link_destination.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4HGGCMH7.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/TextDecorator.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4ILCTRPY.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/ElementWriter.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4LO37POG.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFDict.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4MUPQXXN.mjs",
+      "inputs": [
+        "node_modules/entities/lib/esm/generated/decode-data-html.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4O2SCYHW.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/hmtx.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4VXOOVYP.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/entity.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4XWUM42K.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/standardPageSizes.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-4YBXPNG3.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/parser_core.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-53O3QVLN.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/lheading.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-5AJOID3U.mjs",
+      "inputs": [
+        "node_modules/restructure/src/utils.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-5BVTYXMT.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/COLRGlyph.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-5CFV63QE.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/emphasis.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-5EQA3QEB.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/LTSH.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-5NFZCSK7.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFCharsets.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-65J7443F.mjs",
+      "inputs": [
+        "node_modules/entities/lib/esm/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-6DFOTVBL.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/hr.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-6EEYY5I5.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/heading.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-6RG7E3YS.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/TextInlines.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-6SSAVDBG.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/OutputDocumentServer.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-7C5MXO2B.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFTop.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-7I6F5TFK.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/CmapProcessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-7MCZKIYI.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/DFont.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-7QFNITNT.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/ArabicShaper.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-7THQZIKP.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/layout/GlyphRun.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-7YHDYY5Z.mjs",
+      "inputs": [
+        "node_modules/uc.micro/categories/Cc/regex.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-AAJFILJ4.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/BASE.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-AC2DTGMP.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/GlyphVariationProcessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-AKHFFQYG.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/WOFF2Glyph.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-AMSJODTL.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/morx.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-AN2AOMN2.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/maxp.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ANACA5GP.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/WOFFFont.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-AQH3X5EA.mjs",
+      "inputs": [
+        "node_modules/entities/lib/esm/encode.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ATTK635T.mjs",
+      "inputs": [
+        "node_modules/js-md5/src/md5.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-B3N4OK46.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/head.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-BD6JWDC6.mjs",
+      "inputs": [
+        "node_modules/unicode-trie/swap.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-BFOML5MD.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/base.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-BHLZH5DQ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/vmtx.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-BI36N666.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/gasp.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-BNQ6KEAD.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Enum.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-BOR5MOPT.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/cvt.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-BQ7PUQNL.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/common/utils.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-BQNDTM62.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/subset/TTFSubset.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-C3GI7XTO.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/HVAR.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-C4XDTOTE.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/base.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-CFRTZINT.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/bsln.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-CJLFWYXH.mjs",
+      "inputs": [
+        "node_modules/restructure/src/String.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-CKZ2ATBE.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/prep.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-CLEYAMHK.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/WOFF2Font.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-CLYK53RW.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/vhea.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-COKAYHCX.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/PageElementWriter.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-CUEG4YKE.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/GDEF.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-CVCXGCJ2.mjs",
+      "inputs": [
+        "node_modules/base64-js/lib/b64.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-DC434XNT.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/PCLT.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-DCBC6YOO.mjs",
+      "inputs": [
+        "node_modules/restructure/src/VersionedStruct.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-DDPYBZPE.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/DefaultShaper.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-DH5NZV5D.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/autolink.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-DRQKZZU5.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/columnCalculator.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-DXKIFMQI.mjs",
+      "inputs": [
+        "node_modules/mdurl/lib/encode.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-E6KCJGYP.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/StandardNames.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-E6UPHL5P.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/state_inline.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-E7OFJSP2.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/TrueTypeCollection.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-EKH6KFFQ.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/OutputDocument.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ETHVAYUP.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Pointer.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ETZSNTCH.mjs",
+      "inputs": [
+        "node_modules/@noble/ciphers/_polyval.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-EWLEWE3C.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/DocMeasure.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-EXTHJCDF.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_core/smartquotes.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FBAZ6BJA.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/layout/LayoutEngine.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FCDHSOKK.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/HangulShaper.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FDWSCWK2.mjs",
+      "inputs": []
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FIR6EFTM.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Base.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FMG6BLKJ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/subset/CFFSubset.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FOS76R7N.mjs",
+      "inputs": [
+        "node_modules/tiny-inflate/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FSLSYBKI.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/common/html_re.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FSMB5DQ7.mjs",
+      "inputs": [
+        "scripts/vendor-stubs/svg-measure.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FTWGS5KP.mjs",
+      "inputs": [
+        "node_modules/unicode-trie/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FXAF5R3K.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/OS2.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FXNCBV2B.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Buffer.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-FXOPHPTI.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/ruler.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-G6GM5O2W.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/just.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-G7K25AR4.mjs",
+      "inputs": [
+        "node_modules/dfa/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-GAFCJP4H.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/layout/UnicodeLayoutEngine.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-GH75ZAFQ.mjs",
+      "inputs": [
+        "node_modules/@noble/hashes/sha2.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-GHNXQI74.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/WOFFDirectory.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-GNV4IILC.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/use.json"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-GRUEJY7V.mjs",
+      "inputs": [
+        "node_modules/linkify-it/index.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-GZ2VFG2Z.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/GPOSProcessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-H6JJXTYS.mjs",
+      "inputs": [
+        "node_modules/uc.micro/categories/S/regex.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-HC5FQQCL.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/StyleContextStack.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-HES4T3ZO.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/aat/AATFeatureMap.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-HGHQZUV7.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/helpers/tools.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-HUGIIJXI.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/name.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-IDWQNXLJ.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/qrEnc.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-IHVOMSN4.mjs",
+      "inputs": [
+        "scripts/vendor-stubs/brotli.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-IQQOVWPB.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/OTProcessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ISDP5FX3.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFPrivateDict.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-IXPFFGA7.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_core/state_core.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-IZJ6WEUF.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_core/replacements.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-J24G3U52.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/newline.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-J2RWRTXZ.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_core/text_join.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-J5NTJBTY.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/OTLayoutEngine.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-JOA42TCZ.mjs",
+      "inputs": [
+        "node_modules/entities/lib/esm/escape.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-JOXGRR3E.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/helpers/parse_link_title.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-JPDEDYLC.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/opbd.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-K5IRNB7C.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/URLResolver.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-K7FTFT27.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_core/linkify.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KAU47WJD.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFFont.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KK4YWIEC.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/presets/zero.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KM4TAG6K.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Array.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KNKVIYLI.mjs",
+      "inputs": [
+        "node_modules/uc.micro/categories/Z/regex.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KRBZOOWP.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/VDMX.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KS6OINTL.mjs",
+      "inputs": [
+        "node_modules/entities/lib/esm/generated/encode-html.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KU55WHJH.mjs",
+      "inputs": [
+        "node_modules/@noble/ciphers/aes.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KVGUF47D.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/virtual-fs.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KW2FFRNO.mjs",
+      "inputs": [
+        "node_modules/restructure/src/LazyArray.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KWEHWRBY.mjs",
+      "inputs": [
+        "node_modules/mdurl/lib/parse.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KYP5IW3P.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/kern.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-KZ6X7NMB.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/EBDT.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-LGRD22FT.mjs",
+      "inputs": [
+        "node_modules/linkify-it/lib/re.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-LH7B4FUQ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/CPAL.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-LLKXMTI2.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/DSIG.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-LTK5372D.mjs",
+      "inputs": [
+        "node_modules/linebreak/dist/main.cjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-LTV4DDVQ.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/LayoutBuilder.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-LX5FJC7O.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/gvar.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-M4YS46KH.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/strikethrough.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-MAOTFXUN.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/list.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-MFFTTOL4.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/image.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-MLQOYC2P.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/feat.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-MOSTJ2SC.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/TextBreaker.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-MSBKH4RS.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/ShapingPlan.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-MTPVXKUP.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFEncodings.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-MVKZE5YB.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/blockquote.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-N3ZXKKGP.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/text.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-N4VTTGJD.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NCNX7SGZ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/decorators.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NCZU26V2.mjs",
+      "inputs": [
+        "node_modules/@noble/hashes/cryptoNode.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NEJA5XWT.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/parser_block.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NGWKTQKB.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/index.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NINAK6YJ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFOperand.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NJQSVP4A.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFIndex.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NMFAFIWV.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/layout/GlyphPosition.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NNOYNLW4.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/aat/AATStateMachine.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NUDRTGFJ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/GSUB.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-NWMMPX4A.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/TTFGlyph.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-O372ZRV6.mjs",
+      "inputs": [
+        "node_modules/restructure/src/EncodeStream.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-O4CPZA5F.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/aat/AATMorxProcessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-OA6RGDZF.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/code.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-OJWRV64D.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/hdmx.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-OMQ2PNFR.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/CFFGlyph.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-OOFK27NI.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/renderer.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-OT7MJ2F7.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_core/normalize.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-OTPXM3I3.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFStandardStrings.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-PAL3HDC5.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/token.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-PCGJAFH4.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_core/block.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-PIOLQYHA.mjs",
+      "inputs": [
+        "node_modules/uc.micro/index.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-PIRVMG3F.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/post.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-PRNP7443.mjs",
+      "inputs": [
+        "node_modules/@noble/hashes/_u64.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-PULH4LZO.mjs",
+      "inputs": [
+        "node_modules/clone/clone.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-PVJYUOYS.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/html_inline.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-PWQC2HM2.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/GlyphIterator.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-Q6ISBTLZ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/BBox.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-QCWCWXTF.mjs",
+      "inputs": [
+        "node_modules/uc.micro/properties/Any/regex.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-QD3E4IVL.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/DocPreprocessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-QH3WJ33E.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/GSUBProcessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-QH6B2KVW.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/state_block.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-QKFOGNY2.mjs",
+      "inputs": [
+        "node_modules/entities/lib/esm/decode_codepoint.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-QUOINUGZ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-R3ELOAJE.mjs",
+      "inputs": [
+        "node_modules/uc.micro/categories/P/regex.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-RADCVHKQ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/aat.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-RGG6SKXQ.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/aat/AATLayoutEngine.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-RK2F5G2B.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-RKR3SPQ3.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/parser_inline.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-S2N2F4C2.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/UniversalShaper.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-S2ULSDRG.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/Path.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-SETU3TKE.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/linkify.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-SNNDT6ZF.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/layout/Script.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-SPZOCPRY.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Bitfield.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-SQKXITZR.mjs",
+      "inputs": [
+        "node_modules/@noble/hashes/utils.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-SQXLLHUE.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/TableProcessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-SYUILWXM.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/layout/KernProcessor.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-T57UCXEK.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/Glyph.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TIGPEHOQ.mjs",
+      "inputs": [
+        "node_modules/fast-deep-equal/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TJVX2N2B.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/SBIXGlyph.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TKNXLAAS.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/PDFDocument.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TSASLJV5.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Reserved.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TTSBCHQJ.mjs",
+      "inputs": [
+        "node_modules/uc.micro/categories/Cf/regex.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TV2VLRB7.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/GlyphInfo.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TXOQG3TN.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/cff/CFFPointer.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TXWX2CMZ.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Number.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TZGOUXTS.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/balance_pairs.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TZLQ4SKB.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Boolean.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-TZT7A6FD.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/presets/commonmark.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-U3AKHFIA.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/EBLC.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-U3SV4VWU.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/avar.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-UEVGAD52.mjs",
+      "inputs": [
+        "node_modules/@noble/hashes/_md.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-UHQWOCVJ.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/fence.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-UKOAYGHS.mjs",
+      "inputs": [
+        "scripts/vendor-stubs/svg.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ULUG6VVW.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/backticks.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ULZJWXEB.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/fragments_join.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-USXMTPKQ.mjs",
+      "inputs": [
+        "node_modules/entities/lib/esm/generated/decode-data-xml.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-UULUL7OE.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/TTFFont.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-UWMDC7IC.mjs",
+      "inputs": [
+        "node_modules/mdurl/lib/format.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-V4CW5J23.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/subset/Subset.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-V6ZTE74B.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/helpers/parse_link_label.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VAU2DLV3.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_core/inline.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VBPPBDTJ.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/link.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VEYRURPE.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/helpers/node.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VFVK5HQB.mjs",
+      "inputs": [
+        "node_modules/unicode-properties/dist/module.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VGLHKEMU.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/Line.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VS4NVQMK.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/Renderer.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VSZ3OKNP.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/Printer.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VTFDEV2C.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/DocumentContext.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VTOYGDRI.mjs",
+      "inputs": [
+        "node_modules/restructure/src/Optional.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VTQZ5OJJ.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_inline/escape.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VTZJYUFY.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/opentype/shapers/IndicShaper.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VW54MTT7.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/tableLayouts.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VWEYS2VR.mjs",
+      "inputs": [
+        "node_modules/png-js/lib/png-js.cjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VZJBNP2K.mjs",
+      "inputs": [
+        "node_modules/mdurl/lib/decode.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-VZQRPZZP.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/glyph/TTFGlyphEncoder.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-W2JHFIYT.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/paragraph.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-W6HLH5WX.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/hhea.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-WES3HXYY.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/presets/default.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-WLP4UAZF.mjs",
+      "inputs": [
+        "node_modules/pdfmake/js/helpers/variableType.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-WSMCHLIT.mjs",
+      "inputs": [
+        "node_modules/punycode.js/punycode.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-XAYCFU4U.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/glyf.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-XB3AZB4F.mjs",
+      "inputs": [
+        "node_modules/mdurl/index.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-XKEHZP6G.mjs",
+      "inputs": [
+        "node_modules/@noble/ciphers/utils.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-XKNP2TW5.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/html_block.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-XUYKFBVX.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/table.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-XYB6TAYX.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/COLR.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-Y3MBHX64.mjs",
+      "inputs": [
+        "node_modules/markdown-it/index.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-Y5YO2PMO.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/helpers/index.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-Y6GWYN54.mjs",
+      "inputs": [
+        "node_modules/entities/lib/esm/decode.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-YFRH6662.mjs",
+      "inputs": [
+        "node_modules/restructure/index.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-YK43B6RM.mjs",
+      "inputs": [
+        "node_modules/markdown-it/lib/rules_block/reference.mjs"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-YOYKROTC.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/utils.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-YZVRUOWI.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/fpgm.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-Z6RSXPQE.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/cmap.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ZQOIF36D.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/variations.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ZXL6CB7G.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/GPOS.js"
+      ]
+    },
+    {
+      "path": "scripts/vendor/modules/chunk-ZXR5YLWY.mjs",
+      "inputs": [
+        "node_modules/fontkit/src/tables/JSTF.js"
+      ]
     }
   ],
   "packages": [
@@ -607,14 +2611,6 @@
       ]
     },
     {
-      "name": "@swc/helpers",
-      "version": "0.5.23",
-      "declaredLicense": "Apache-2.0",
-      "licenseFiles": [
-        "node_modules/@swc/helpers/LICENSE"
-      ]
-    },
-    {
       "name": "base64-js",
       "version": "0.0.8",
       "declaredLicense": "MIT",
@@ -631,16 +2627,6 @@
       ]
     },
     {
-      "name": "brotli",
-      "version": "1.3.3",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/brotli/dec/bit_reader.js",
-        "node_modules/brotli/readme.md",
-        "scripts/vendor/apache-2.0.txt"
-      ]
-    },
-    {
       "name": "clone",
       "version": "2.1.2",
       "declaredLicense": "MIT",
@@ -653,15 +2639,8 @@
       "version": "1.2.0",
       "declaredLicense": "MIT",
       "licenseFiles": [
-        "node_modules/dfa/README.md"
-      ]
-    },
-    {
-      "name": "docx",
-      "version": "9.7.1",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/docx/LICENSE"
+        "node_modules/dfa/README.md",
+        "scripts/vendor/SOURCE-NOTICES.md"
       ]
     },
     {
@@ -685,7 +2664,8 @@
       "version": "2.0.4",
       "declaredLicense": "MIT",
       "licenseFiles": [
-        "node_modules/fontkit/README.md"
+        "node_modules/fontkit/README.md",
+        "scripts/vendor/SOURCE-NOTICES.md"
       ]
     },
     {
@@ -769,27 +2749,11 @@
       ]
     },
     {
-      "name": "sax",
-      "version": "1.6.0",
-      "declaredLicense": "BlueOak-1.0.0",
-      "licenseFiles": [
-        "node_modules/sax/LICENSE.md"
-      ]
-    },
-    {
       "name": "tiny-inflate",
       "version": "1.0.3",
       "declaredLicense": "MIT",
       "licenseFiles": [
         "node_modules/tiny-inflate/LICENSE"
-      ]
-    },
-    {
-      "name": "tslib",
-      "version": "2.8.1",
-      "declaredLicense": "0BSD",
-      "licenseFiles": [
-        "node_modules/tslib/LICENSE.txt"
       ]
     },
     {
@@ -815,256 +2779,28 @@
       "licenseFiles": [
         "node_modules/unicode-trie/LICENSE"
       ]
-    },
-    {
-      "name": "xmldoc",
-      "version": "2.0.3",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/xmldoc/LICENSE"
-      ]
     }
   ],
   "embedded": [
     {
-      "name": "@types/node",
-      "version": "25.9.5",
+      "name": "fontkit-base64-arraybuffer",
+      "version": "embedded in fontkit 2.0.4; upstream version not encoded",
       "declaredLicense": "MIT",
+      "notice": "fontkit/src/utils.js identifies its decoder as adapted from niklasvh/base64-arraybuffer",
+      "licenseTextSource": "scripts/vendor/SOURCE-NOTICES.md#base64-decoder-adapted-by-fontkit",
       "licenseFiles": [
-        "node_modules/@types/node/LICENSE"
-      ],
-      "notice": "Bundled inside docx 9.7.1's distributed module",
-      "licenseTextSource": "node_modules/@types/node/LICENSE"
-    },
-    {
-      "name": "core-util-is",
-      "version": "1.0.3",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/core-util-is/LICENSE"
-      ],
-      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
-      "licenseTextSource": "node_modules/core-util-is/LICENSE"
-    },
-    {
-      "name": "docx-browser-buffer",
-      "version": "embedded in docx 9.7.1; upstream version not encoded",
-      "declaredLicense": "MIT",
-      "notice": "Buffer browser shim attribution preserved by esbuild",
-      "licenseTextSource": "scripts/vendor/embedded-docx-notices.md#buffer-browser-shim",
-      "licenseFiles": [
-        "scripts/vendor/embedded-docx-notices.md"
+        "scripts/vendor/SOURCE-NOTICES.md"
       ]
     },
     {
-      "name": "docx-browser-fromcodepoint",
-      "version": "0.1.0",
-      "declaredLicense": "MIT",
-      "notice": "fromcodepoint attribution preserved by esbuild",
-      "licenseTextSource": "scripts/vendor/embedded-docx-notices.md#fromcodepoint",
+      "name": "fontkit-harfbuzz",
+      "version": "adapted by fontkit 2.0.4; original port versions not encoded",
+      "declaredLicense": "HarfBuzz Old MIT (see included text)",
+      "notice": "Fontkit identifies HarfBuzz adaptations in ArabicShaper, IndicShaper, UnicodeLayoutEngine, GPOSProcessor and GSUBProcessor",
+      "licenseTextSource": "scripts/vendor/SOURCE-NOTICES.md#shaping-logic-adapted-by-fontkit",
       "licenseFiles": [
-        "scripts/vendor/embedded-docx-notices.md"
+        "scripts/vendor/SOURCE-NOTICES.md"
       ]
-    },
-    {
-      "name": "docx-browser-ieee754",
-      "version": "embedded in docx 9.7.1; upstream version not encoded",
-      "declaredLicense": "BSD-3-Clause",
-      "notice": "ieee754 attribution preserved by esbuild",
-      "licenseTextSource": "scripts/vendor/embedded-docx-notices.md#ieee754",
-      "licenseFiles": [
-        "scripts/vendor/embedded-docx-notices.md"
-      ]
-    },
-    {
-      "name": "hash.js",
-      "version": "1.1.7",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/hash.js/README.md"
-      ],
-      "notice": "Bundled inside docx 9.7.1's distributed module",
-      "licenseTextSource": "node_modules/hash.js/README.md"
-    },
-    {
-      "name": "immediate",
-      "version": "3.0.6",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/immediate/LICENSE.txt"
-      ],
-      "notice": "Bundled inside lie 3.3.0's distributed module",
-      "licenseTextSource": "node_modules/immediate/LICENSE.txt"
-    },
-    {
-      "name": "inherits",
-      "version": "2.0.4",
-      "declaredLicense": "ISC",
-      "licenseFiles": [
-        "node_modules/inherits/LICENSE"
-      ],
-      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
-      "licenseTextSource": "node_modules/inherits/LICENSE"
-    },
-    {
-      "name": "isarray",
-      "version": "1.0.0",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/isarray/README.md"
-      ],
-      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
-      "licenseTextSource": "node_modules/isarray/README.md"
-    },
-    {
-      "name": "jszip",
-      "version": "3.10.1",
-      "declaredLicense": "MIT (elected from the upstream MIT OR GPL-3.0-or-later dual license)",
-      "licenseFiles": [
-        "node_modules/jszip/LICENSE.markdown"
-      ],
-      "notice": "Bundled inside docx 9.7.1's distributed module",
-      "licenseTextSource": "node_modules/jszip/LICENSE.markdown"
-    },
-    {
-      "name": "lie",
-      "version": "3.3.0",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/lie/license.md"
-      ],
-      "notice": "Bundled inside jszip 3.10.1's distributed module",
-      "licenseTextSource": "node_modules/lie/license.md"
-    },
-    {
-      "name": "minimalistic-assert",
-      "version": "1.0.1",
-      "declaredLicense": "ISC",
-      "licenseFiles": [
-        "node_modules/minimalistic-assert/LICENSE"
-      ],
-      "notice": "Bundled inside hash.js 1.1.7's distributed module",
-      "licenseTextSource": "node_modules/minimalistic-assert/LICENSE"
-    },
-    {
-      "name": "nanoid",
-      "version": "5.1.16",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/nanoid/LICENSE"
-      ],
-      "notice": "Bundled inside docx 9.7.1's distributed module",
-      "licenseTextSource": "node_modules/nanoid/LICENSE"
-    },
-    {
-      "name": "pako",
-      "version": "1.0.11",
-      "declaredLicense": "MIT AND Zlib (both apply; no election available)",
-      "licenseFiles": [
-        "node_modules/pako/LICENSE"
-      ],
-      "notice": "Bundled inside jszip 3.10.1's distributed module",
-      "licenseTextSource": "node_modules/pako/LICENSE"
-    },
-    {
-      "name": "process-nextick-args",
-      "version": "2.0.1",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/process-nextick-args/license.md"
-      ],
-      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
-      "licenseTextSource": "node_modules/process-nextick-args/license.md"
-    },
-    {
-      "name": "readable-stream",
-      "version": "2.3.8",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/readable-stream/LICENSE"
-      ],
-      "notice": "Bundled inside jszip 3.10.1's distributed module",
-      "licenseTextSource": "node_modules/readable-stream/LICENSE"
-    },
-    {
-      "name": "safe-buffer",
-      "version": "5.1.2",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/safe-buffer/LICENSE"
-      ],
-      "notice": "Bundled inside string_decoder 1.1.1's distributed module",
-      "licenseTextSource": "node_modules/safe-buffer/LICENSE"
-    },
-    {
-      "name": "sax",
-      "version": "1.6.0",
-      "declaredLicense": "BlueOak-1.0.0",
-      "licenseFiles": [
-        "node_modules/sax/LICENSE.md"
-      ],
-      "notice": "Bundled inside xml-js 1.6.11's distributed module",
-      "licenseTextSource": "node_modules/sax/LICENSE.md"
-    },
-    {
-      "name": "setimmediate",
-      "version": "1.0.5",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/setimmediate/LICENSE.txt"
-      ],
-      "notice": "Bundled inside jszip 3.10.1's distributed module",
-      "licenseTextSource": "node_modules/setimmediate/LICENSE.txt"
-    },
-    {
-      "name": "string_decoder",
-      "version": "1.1.1",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/string_decoder/LICENSE"
-      ],
-      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
-      "licenseTextSource": "node_modules/string_decoder/LICENSE"
-    },
-    {
-      "name": "undici-types",
-      "version": "7.24.6",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/undici-types/LICENSE"
-      ],
-      "notice": "Bundled inside @types/node 25.9.5's distributed module",
-      "licenseTextSource": "node_modules/undici-types/LICENSE"
-    },
-    {
-      "name": "util-deprecate",
-      "version": "1.0.2",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/util-deprecate/LICENSE"
-      ],
-      "notice": "Bundled inside readable-stream 2.3.8's distributed module",
-      "licenseTextSource": "node_modules/util-deprecate/LICENSE"
-    },
-    {
-      "name": "xml-js",
-      "version": "1.6.11",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/xml-js/LICENSE"
-      ],
-      "notice": "Bundled inside docx 9.7.1's distributed module",
-      "licenseTextSource": "node_modules/xml-js/LICENSE"
-    },
-    {
-      "name": "xml",
-      "version": "1.0.1",
-      "declaredLicense": "MIT",
-      "licenseFiles": [
-        "node_modules/xml/LICENSE"
-      ],
-      "notice": "Bundled inside docx 9.7.1's distributed module",
-      "licenseTextSource": "node_modules/xml/LICENSE"
     }
   ],
   "assets": [

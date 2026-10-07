@@ -1,0 +1,56 @@
+import { createRequire as __vendorCreateRequire } from "node:module";
+import { fileURLToPath as __vendorFileURLToPath } from "node:url";
+import { dirname as __vendorDirname } from "node:path";
+const require = __vendorCreateRequire(import.meta.url);
+const __filename = __vendorFileURLToPath(import.meta.url);
+const __dirname = __vendorDirname(__filename);
+import {
+  init_restructure
+} from "./chunk-YFRH6662.mjs";
+import {
+  Struct
+} from "./chunk-2FAS3ON4.mjs";
+import {
+  ArrayT
+} from "./chunk-KM4TAG6K.mjs";
+import {
+  Bitfield
+} from "./chunk-SPZOCPRY.mjs";
+import {
+  uint16
+} from "./chunk-TXWX2CMZ.mjs";
+import {
+  __esm
+} from "./chunk-FDWSCWK2.mjs";
+
+// node_modules/fontkit/src/tables/gasp.js
+var GaspRange, gasp_default;
+var init_gasp = __esm({
+  "node_modules/fontkit/src/tables/gasp.js"() {
+    init_restructure();
+    GaspRange = new Struct({
+      rangeMaxPPEM: uint16,
+      // Upper limit of range, in ppem
+      rangeGaspBehavior: new Bitfield(uint16, [
+        // Flags describing desired rasterizer behavior
+        "grayscale",
+        "gridfit",
+        "symmetricSmoothing",
+        "symmetricGridfit"
+        // only in version 1, for ClearType
+      ])
+    });
+    gasp_default = new Struct({
+      version: uint16,
+      // set to 0
+      numRanges: uint16,
+      gaspRanges: new ArrayT(GaspRange, "numRanges")
+      // Sorted by ppem
+    });
+  }
+});
+
+export {
+  gasp_default,
+  init_gasp
+};

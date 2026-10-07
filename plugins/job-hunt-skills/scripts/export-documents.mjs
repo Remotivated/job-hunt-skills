@@ -5,9 +5,9 @@
 // Tier model (capability unlocks, not failure states):
 //   Tier 1 — markdown + HTML preview (no dependencies; when Node is absent
 //            Claude fills templates/preview-template.html natively).
-//   Tier 2 — this script on Node >= 18: adds .docx (docx npm lib) and a
+//   Tier 2 — this script on Node >= 18: adds .docx (bundled Word writer) and a
 //            baseline .pdf (pdfmake). All deps are bundled in
-//            scripts/vendor/export-deps.mjs — no npm install.
+//            scripts/vendor/ as readable modules — no npm install.
 //   Tier 3 — `typst` on PATH (>= MIN_TYPST_VERSION): the .pdf is typeset
 //            from templates/resume.typ instead of pdfmake. One .pdf per
 //            document, always.
@@ -33,20 +33,8 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { MarkdownIt, docx, pdfMake } from "./vendor/export-deps.mjs";
-
-const {
-  AlignmentType,
-  BorderStyle,
-  Document,
-  ExternalHyperlink,
-  LevelFormat,
-  LineRuleType,
-  Packer,
-  Paragraph,
-  TextRun,
-  UnderlineType,
-} = docx;
+import { MarkdownIt, pdfMake } from "./vendor/export-deps.mjs";
+import { buildWordDocument } from "./word-document.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(SCRIPT_DIR, "..");
@@ -423,270 +411,86 @@ export function buildHtml(name, contact, bodyMd, kind) {
 }
 
 // --------------------------------------------------------------------------
-// DOCX — `docx` npm lib. Ports the former Python emitters: four-slot font
-// setting, navy h2 with 0.5pt bottom border + tracking + uppercase,
-// h3/company-line/bullet/cover spacing, real external hyperlinks,
-// keep-with-next.
+// DOCX — focused WordprocessingML writer. Layout choices stay here beside
+// the other renderers; word-document.mjs owns XML and ZIP serialization.
 // --------------------------------------------------------------------------
 
-// All four font slots (ascii/hAnsi/eastAsia/cs) point at Georgia. Without
-// eastAsia, some viewers fall back to Times for any character that happens
-// to land in the East-Asian Unicode range.
-const FONT_SLOTS = { ascii: FONT, hAnsi: FONT, eastAsia: FONT, cs: FONT };
-
-const PT = (n) => n * 2; // TextRun size is in half-points
+const PT = (n) => n * 2; // Word run size is in half-points
 const TWIP = (pt) => Math.round(pt * 20);
 const IN_TWIP = (inches) => Math.round(inches * 1440);
 
-function navyBottomBorder(sizeEighths = 4, color = NAVY) {
-  // Hairline bottom border — 4 eighths = 0.5pt, the value used for both
-  // the contact rule and section underlines.
-  return {
-    bottom: { style: BorderStyle.SINGLE, size: sizeEighths, space: 1, color },
-  };
+function navyBottomBorder(size = 4) {
+  // Four eighths of a point = the 0.5pt contact/section hairline.
+  return { size, color: NAVY };
 }
 
-function docxRuns(inlineTokens, { color, size, spacingTwips } = {}) {
-  const children = [];
-  walkInline(inlineTokens, {
-    text(content, { bold, italic, linkUrl }) {
-      const style = {
-        font: FONT_SLOTS,
-        bold: bold || undefined,
-        italics: italic || undefined,
-        size: size !== undefined ? PT(size) : undefined,
-        color,
-        characterSpacing: spacingTwips,
-      };
-      if (linkUrl !== null && linkUrl !== undefined) {
-        children.push(
-          new ExternalHyperlink({
-            link: linkUrl,
-            children: [
-              new TextRun({
-                ...style,
-                text: content,
-                underline: { type: UnderlineType.SINGLE },
-              }),
-            ],
-          }),
-        );
-      } else {
-        children.push(new TextRun({ ...style, text: content }));
-      }
-    },
-    hardbreak() {
-      children.push(new TextRun({ font: FONT_SLOTS, size: size !== undefined ? PT(size) : undefined, color, break: 1 }));
-    },
-  });
-  return children;
-}
-
-function buildDocxChildren(name, contact, bodyTokens, coverLetter) {
-  const children = [];
-
-  // Header: 22pt navy name, muted 10pt contact with a navy hairline.
-  children.push(
-    new Paragraph({
-      spacing: { after: TWIP(2) },
-      children: [
-        new TextRun({
-          text: name,
-          font: FONT_SLOTS,
-          size: PT(22),
-          bold: true,
-          color: NAVY,
-        }),
-      ],
-    }),
-    new Paragraph({
-      spacing: { after: TWIP(7) },
-      border: navyBottomBorder(),
-      children: docxRuns(parseContactInline(contact), {
-        color: MUTED,
-        size: 10,
-      }),
-    }),
-  );
-
-  walkBlocks(bodyTokens, coverLetter, {
-    h2(inline) {
-      children.push(
-        new Paragraph({
-          spacing: { before: TWIP(13), after: TWIP(4) },
-          keepNext: true,
-          border: navyBottomBorder(),
-          // Tracking — letter-spacing 0.06em ~= 0.65pt at 10.5pt body
-          // (13 twentieths of a point).
-          children: boldenHeadingRuns(uppercaseTextTokens(inline), {
-            color: NAVY,
-            size: 10.5,
-            spacingTwips: 13,
-          }),
-        }),
-      );
-    },
-    h3(inline) {
-      // h3 is always bold and never picks up the navy accent.
-      children.push(
-        new Paragraph({
-          spacing: { before: TWIP(7), after: TWIP(1) },
-          keepNext: true,
-          children: boldenHeadingRuns(inline, { color: TEXT, size: 11 }),
-        }),
-      );
-    },
-    companyLine(inline) {
-      // 'Jan 2022 - Present · Remote' — smaller and muted.
-      children.push(
-        new Paragraph({
-          spacing: { after: TWIP(3) },
-          children: docxRuns(inline, { color: MUTED, size: 10 }),
-        }),
-      );
-    },
-    coverPara(inline) {
-      children.push(
-        new Paragraph({ spacing: { after: TWIP(10) }, children: docxRuns(inline) }),
-      );
-    },
-    bodyPara(inline) {
-      children.push(
-        new Paragraph({ spacing: { after: TWIP(5) }, children: docxRuns(inline) }),
-      );
-    },
-    bullets(items) {
-      for (const item of items) {
-        children.push(
-          new Paragraph({
-            numbering: { reference: "resume-bullets", level: 0 },
-            spacing: { after: TWIP(2.5) },
-            children: docxRuns(item),
-          }),
-        );
-      }
-    },
-    hr() {
-      children.push(
-        new Paragraph({
-          spacing: { after: 0 },
-          border: navyBottomBorder(2),
-          children: [],
-        }),
-      );
-    },
-  });
-
-  return children;
-}
-
-// Bold overrides for h2/h3: docxRuns emits bold only when the markdown has
-// **strong**; headings are always bold. Wrap: easiest is to post-process at
-// construction time, so headings pass bold through a dedicated helper.
-function boldenHeadingRuns(inline, opts) {
+function docxRuns(inlineTokens, { color, size, spacingTwips, boldHeading } = {}) {
   const runs = [];
-  walkInline(inline, {
-    text(content, { italic, linkUrl }) {
-      const style = {
-        font: FONT_SLOTS,
-        bold: true,
-        italics: italic || undefined,
-        size: opts.size !== undefined ? PT(opts.size) : undefined,
-        color: opts.color,
-        characterSpacing: opts.spacingTwips,
-      };
-      if (linkUrl != null) {
-        runs.push(
-          new ExternalHyperlink({
-            link: linkUrl,
-            children: [
-              new TextRun({
-                ...style,
-                text: content,
-                underline: { type: UnderlineType.SINGLE },
-              }),
-            ],
-          }),
-        );
-      } else {
-        runs.push(new TextRun({ ...style, text: content }));
-      }
+  walkInline(inlineTokens, {
+    text(text, { bold, italic, linkUrl }) {
+      runs.push({ text, bold: boldHeading || bold, italic, link: linkUrl,
+        color, size: size === undefined ? undefined : PT(size), tracking: spacingTwips });
     },
     hardbreak() {
-      runs.push(new TextRun({ font: FONT_SLOTS, size: opts.size !== undefined ? PT(opts.size) : undefined, color: opts.color, break: 1 }));
+      runs.push({ break: true, color, size: size === undefined ? undefined : PT(size) });
     },
   });
   return runs;
 }
 
-export async function buildDocxBuffer(name, contact, bodyMd, kind) {
-  const bodyTokens = md.parse(bodyMd, {});
-  const children = buildDocxChildren(
-    name,
-    contact,
-    bodyTokens,
-    kind === "coverletter",
-  );
-
-  const doc = new Document({
-    styles: {
-      default: {
-        document: {
-          run: {
-            font: FONT_SLOTS,
-            size: PT(BODY_SIZE_PT),
-            color: TEXT,
-          },
-          paragraph: {
-            spacing: {
-              line: Math.round(LINE_SPACING * 240),
-              lineRule: LineRuleType.AUTO,
-              before: 0,
-              after: TWIP(5),
-            },
-          },
-        },
-      },
+function buildDocxParagraphs(name, contact, bodyTokens, coverLetter) {
+  const paragraphs = [
+    { spacing: { after: TWIP(2) },
+      runs: [{ text: name, size: PT(22), bold: true, color: NAVY }] },
+    { spacing: { after: TWIP(7) }, border: navyBottomBorder(),
+      runs: docxRuns(parseContactInline(contact), { color: MUTED, size: 10 }) },
+  ];
+  walkBlocks(bodyTokens, coverLetter, {
+    h2(inline) {
+      paragraphs.push({ spacing: { before: TWIP(13), after: TWIP(4) },
+        keepNext: true, border: navyBottomBorder(),
+        // 0.65pt tracking (13 twentieths of a point) at 10.5pt body size.
+        runs: docxRuns(uppercaseTextTokens(inline), {
+          color: NAVY, size: 10.5, spacingTwips: 13, boldHeading: true,
+        }) });
     },
-    numbering: {
-      config: [
-        {
-          reference: "resume-bullets",
-          levels: [
-            {
-              level: 0,
-              format: LevelFormat.BULLET,
-              text: "•",
-              alignment: AlignmentType.LEFT,
-              style: {
-                paragraph: {
-                  indent: { left: IN_TWIP(0.22), hanging: IN_TWIP(0.11) },
-                },
-              },
-            },
-          ],
-        },
-      ],
+    h3(inline) {
+      paragraphs.push({ spacing: { before: TWIP(7), after: TWIP(1) }, keepNext: true,
+        runs: docxRuns(inline, { color: TEXT, size: 11, boldHeading: true }) });
     },
-    sections: [
-      {
-        properties: {
-          page: {
-            size: { width: IN_TWIP(8.5), height: IN_TWIP(11) },
-            margin: {
-              top: IN_TWIP(0.5),
-              bottom: IN_TWIP(0.5),
-              left: IN_TWIP(0.55),
-              right: IN_TWIP(0.55),
-            },
-          },
-        },
-        children,
-      },
-    ],
+    companyLine(inline) {
+      paragraphs.push({ spacing: { after: TWIP(3) },
+        runs: docxRuns(inline, { color: MUTED, size: 10 }) });
+    },
+    coverPara(inline) {
+      paragraphs.push({ spacing: { after: TWIP(10) }, runs: docxRuns(inline) });
+    },
+    bodyPara(inline) {
+      paragraphs.push({ spacing: { after: TWIP(5) }, runs: docxRuns(inline) });
+    },
+    bullets(items) {
+      for (const item of items) {
+        paragraphs.push({ bullet: true, spacing: { after: TWIP(2.5) }, runs: docxRuns(item) });
+      }
+    },
+    hr() {
+      paragraphs.push({ spacing: { after: 0 }, border: navyBottomBorder(2), runs: [] });
+    },
   });
+  return paragraphs;
+}
 
-  return Packer.toBuffer(doc);
+export async function buildDocxBuffer(name, contact, bodyMd, kind) {
+  return buildWordDocument({
+    paragraphs: buildDocxParagraphs(name, contact, md.parse(bodyMd, {}), kind === "coverletter"),
+    font: FONT,
+    size: PT(BODY_SIZE_PT),
+    color: TEXT,
+    lineSpacing: Math.round(LINE_SPACING * 240),
+    bulletIndent: { left: IN_TWIP(0.22), hanging: IN_TWIP(0.11) },
+    page: { width: IN_TWIP(8.5), height: IN_TWIP(11),
+      margins: { top: IN_TWIP(0.5), bottom: IN_TWIP(0.5), left: IN_TWIP(0.55), right: IN_TWIP(0.55) } },
+  });
 }
 
 // --------------------------------------------------------------------------
