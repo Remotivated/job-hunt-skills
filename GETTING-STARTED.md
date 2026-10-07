@@ -61,8 +61,8 @@ You can then use the targeted prompts provided here to tailor those base materia
 
 ## Good First Reads
 
-- [Resume Philosophy](guides/resume-philosophy.md)
-- [ATS Myths](guides/ats-myths.md)
-- [Company Research](guides/company-research.md)
-- [Interview Framework](guides/interview-framework.md)
-- [Sustainable Search](guides/sustainable-search.md)
+- [Resume Philosophy](plugins/job-hunt-skills/guides/resume-philosophy.md)
+- [ATS Myths](plugins/job-hunt-skills/guides/ats-myths.md)
+- [Company Research](plugins/job-hunt-skills/guides/company-research.md)
+- [Interview Framework](plugins/job-hunt-skills/guides/interview-framework.md)
+- [Sustainable Search](plugins/job-hunt-skills/guides/sustainable-search.md)

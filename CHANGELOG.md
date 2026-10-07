@@ -15,10 +15,12 @@
 - `resume-tailor` and `company-research` read a saved opportunity snapshot when the application has one, instead of asking for the posting again. A tailored document records the snapshot it was written from in `opportunity_snapshot`.
 - Profile strength no longer counts an application folder that holds only a saved posting snapshot (`opportunity-{n}.md`), so saving a posting does not raise the score on its own. A folder with anything else in it, such as a tailored document or interview prep, counts as before.
 - Package, plugin-manifest, and release versions are aligned at 1.2.0 (`package.json` previously said 1.0.0), and a test keeps them aligned with the newest changelog heading.
+- **The installable plugin now lives in `plugins/job-hunt-skills/`.** Skills, guides, templates, and the scripts the skills run moved there together, with the Claude and Codex manifests, a copy of the license, and a README that describes what the plugin does and everything it runs on your computer. Installs, the release ZIP, and plugin directories now receive only that folder; examples, prompts, tests, and contributor tooling stay in the repository. The `remotivated` marketplaces for Claude Code and Codex point at the new folder, so `/plugin install job-hunt-skills@remotivated` and `codex plugin add job-hunt-skills@remotivated` work as before.
 - The resume template and builder no longer require past tense throughout; they keep whichever tense convention the user already uses.
 
 ### Compatibility
 
+- Installed plugins pick up the new layout on their next marketplace update; nothing in `my-documents/` moves or changes. From a clone, run the bundled scripts from `plugins/job-hunt-skills/scripts/` (for example `node plugins/job-hunt-skills/scripts/export-documents.mjs`), or load the plugin with `claude --plugin-dir <clone>/plugins/job-hunt-skills`. A clone's own folder is still refused as a job-search workspace.
 - No existing file is rewritten on upgrade. Legacy tracker headers are still read; the full column set is written the next time a row changes. Custom tracker columns are preserved.
 - A tracker that the helper cannot parse is now reported with its line number instead of being edited. Fix the reported line, or ask the assistant to show it to you.
 - `retracted-claims.md` is optional and created only when you first withdraw a claim.

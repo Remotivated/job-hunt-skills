@@ -52,4 +52,4 @@ Nothing enters the document that you didn't say. The trade: it will keep asking 
 
 ## Go deeper
 
-- The [resume-builder skill](../skills/resume-builder/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves this as a versioned source document and exports real DOCX/PDF files. The thinking is in [resume-philosophy](../guides/resume-philosophy.md).
+- The [resume-builder skill](../plugins/job-hunt-skills/skills/resume-builder/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves this as a versioned source document and exports real DOCX/PDF files. The thinking is in [resume-philosophy](../plugins/job-hunt-skills/guides/resume-philosophy.md).

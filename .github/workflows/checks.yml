@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  vendor-bundle:
+  vendor-modules:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,10 +16,11 @@ jobs:
 
       - run: npm ci
 
-      - name: Verify checked-in vendor bundle is up to date with the lockfile
+      - name: Verify checked-in vendor modules is up to date with the lockfile
         run: |
           npm run build:vendor
-          git diff --exit-code scripts/vendor
+          git diff --exit-code plugins/job-hunt-skills/scripts/vendor
+          test -z "$(git ls-files --others --exclude-standard plugins/job-hunt-skills/scripts/vendor)"
 
   content-and-export:
     runs-on: ubuntu-latest
@@ -55,7 +56,7 @@ jobs:
         run: python scripts/check-internal-links.py
 
       # No npm ci here on purpose: the export tests must pass against the
-      # checked-in vendor bundle alone, exactly like a user machine.
+      # checked-in vendor modules alone, exactly like a user machine.
       - name: Run export tests (Tier 2 + Tier 3)
         run: |
           typst --version
@@ -75,6 +76,10 @@ jobs:
 
       - name: Run Codex plugin contract tests
         run: npm run test:codex
+
+      # The plugin folder is what installers and the plugin directory receive.
+      - name: Run plugin package tests
+        run: npm run test:plugin
 
       - name: Run skill contract tests
         run: python scripts/test_skill_contracts.py

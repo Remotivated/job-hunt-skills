@@ -1110,6 +1110,194 @@
         "ok": true,
         "same": false
       }
+    },
+    {
+      "name": "missing-source.md is unreadable on check",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "missing-source.md"
+        }
+      },
+      "input": "url.json",
+      "expect": {
+        "ok": true,
+        "unreadable": 1,
+        "snapshots": []
+      }
+    },
+    {
+      "name": "missing-source.md is unreadable on snapshot",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "missing-source.md"
+        }
+      },
+      "input": "url.json",
+      "id": "acme-pay-senior-pm",
+      "confirmed": true,
+      "expect": {
+        "ok": false,
+        "error": "parse_error"
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "bad-envelope-version.md is unreadable on check",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "bad-envelope-version.md"
+        }
+      },
+      "input": "url.json",
+      "expect": {
+        "ok": true,
+        "unreadable": 1,
+        "snapshots": []
+      }
+    },
+    {
+      "name": "bad-envelope-version.md is unreadable on snapshot",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "bad-envelope-version.md"
+        }
+      },
+      "input": "url.json",
+      "id": "acme-pay-senior-pm",
+      "confirmed": true,
+      "expect": {
+        "ok": false,
+        "error": "parse_error"
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "wrong-snapshot-number.md is unreadable on check",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "wrong-snapshot-number.md"
+        }
+      },
+      "input": "url.json",
+      "expect": {
+        "ok": true,
+        "unreadable": 1,
+        "snapshots": []
+      }
+    },
+    {
+      "name": "wrong-snapshot-number.md is unreadable on snapshot",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "wrong-snapshot-number.md"
+        }
+      },
+      "input": "url.json",
+      "id": "acme-pay-senior-pm",
+      "confirmed": true,
+      "expect": {
+        "ok": false,
+        "error": "parse_error"
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "missing-captured.md is unreadable on check",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "missing-captured.md"
+        }
+      },
+      "input": "url.json",
+      "expect": {
+        "ok": true,
+        "unreadable": 1,
+        "snapshots": []
+      }
+    },
+    {
+      "name": "missing-captured.md is unreadable on snapshot",
+      "rules": [
+        "OP-9"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "files": {
+          "applications/acme-pay-senior-pm/opportunity-1.md": "missing-captured.md"
+        }
+      },
+      "input": "url.json",
+      "id": "acme-pay-senior-pm",
+      "confirmed": true,
+      "expect": {
+        "ok": false,
+        "error": "parse_error"
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "report posting text takes precedence over a stale fingerprint",
+      "rules": [
+        "OP-7",
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "reports/004-acme-opportunity-2026-10-01.md": "report-stale-fingerprint.md"
+        }
+      },
+      "input": "url.json",
+      "expect": {
+        "ok": true,
+        "reports": [
+          {
+            "path": "my-documents/reports/004-acme-opportunity-2026-10-01.md",
+            "decision": "hold",
+            "application_id": null,
+            "relation": "changed",
+            "by": [
+              "url"
+            ]
+          }
+        ]
+      }
     }
   ]
 }

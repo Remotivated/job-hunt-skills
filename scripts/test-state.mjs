@@ -1,5 +1,5 @@
-// Tests for the deterministic state boundary (scripts/state.mjs) and the
-// plugin/user path split (scripts/workspace.mjs).
+// Tests for the deterministic state boundary (state.mjs) and the plugin/user
+// path split (workspace.mjs), both in plugins/job-hunt-skills/scripts/.
 //
 // Run with:  node --test scripts/test-state.mjs   (or: npm run test:state)
 //
@@ -15,13 +15,20 @@ import path from "node:path";
 import { describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { StateError, upsertTrackerFile, writeReport, parseTracker } from "./state.mjs";
-import { PLUGIN_PATHS, USER_PATHS, USER_ROOT, isPluginLocation } from "./workspace.mjs";
+import { EXIT, StateError, upsertTrackerFile, writeReport, parseTracker } from "../plugins/job-hunt-skills/scripts/state.mjs";
+import {
+  PLUGIN_PATHS,
+  USER_PATHS,
+  USER_ROOT,
+  isPluginLocation,
+  marketplaceRoot,
+} from "../plugins/job-hunt-skills/scripts/workspace.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const PLUGIN = path.join(ROOT, "plugins/job-hunt-skills");
 const FIXTURES = path.join(ROOT, "scripts/fixtures/state");
-const STATE = path.join(ROOT, "scripts/state.mjs");
-const SCAFFOLD = path.join(ROOT, "scripts/scaffold-state.mjs");
+const STATE = path.join(PLUGIN, "scripts/state.mjs");
+const SCAFFOLD = path.join(PLUGIN, "scripts/scaffold-state.mjs");
 const { cases } = JSON.parse(fs.readFileSync(path.join(FIXTURES, "cases.json"), "utf8"));
 
 const fixture = (name) => fs.readFileSync(path.join(FIXTURES, name), "utf8");
@@ -210,24 +217,102 @@ describe("state helper CLI", () => {
     const lock = path.join(root, USER_ROOT, ".state.lock");
     fs.mkdirSync(lock);
     fs.writeFileSync(path.join(lock, "owner.json"), JSON.stringify({ pid: process.pid, token: "live" }));
-    const run = spawnSync(process.execPath, [STATE, "tracker", "upsert", "--id", "ghost-ops-manager", "--link", "https://example.com/g"], {
-      cwd: root,
-      encoding: "utf8",
-      env: { ...process.env, JOB_HUNT_STATE_LOCK_TIMEOUT_MS: "200" },
-    });
-    assert.equal(run.status, 4, run.stdout);
+    const result = capture(() =>
+      upsertTrackerFile(
+        root,
+        { id: "ghost-ops-manager", fields: { link: "https://example.com/g" } },
+        { lockTimeoutMs: 200 },
+      ),
+    );
+    assert.equal(result.error, "busy", JSON.stringify(result));
+    assert.equal(EXIT.busy, 4);
     assert.equal(fs.readFileSync(trackerPath(root), "utf8"), fixture("canonical.md"));
   });
 
   test("refuses to run inside the plugin with the workspace recovery message", () => {
     const run = spawnSync(process.execPath, [STATE, "tracker", "check"], {
-      cwd: path.join(ROOT, "skills"),
+      cwd: path.join(PLUGIN, "skills"),
       encoding: "utf8",
-      env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
     });
     assert.equal(run.status, 2);
     assert.match(run.stderr, /Claude Code:    cd into your job-hunt folder, then run 'claude' there\./);
-    assert.equal(fs.existsSync(path.join(ROOT, "skills", USER_ROOT)), false);
+    assert.equal(fs.existsSync(path.join(PLUGIN, "skills", USER_ROOT)), false);
+  });
+
+  test("refuses to run from a clone of the repository that contains the plugin", () => {
+    assert.equal(marketplaceRoot(PLUGIN), fs.realpathSync(ROOT));
+    for (const cwd of [ROOT, path.join(ROOT, "examples")]) {
+      for (const [script, args] of [[STATE, ["tracker", "upsert", "--id", "acme-pm", "--company", "Acme", "--role", "PM"]], [SCAFFOLD, []]]) {
+        const run = spawnSync(process.execPath, [script, ...args], {
+          cwd,
+          encoding: "utf8",
+        });
+        assert.equal(run.status, 2, `${path.basename(script)} from ${cwd}: ${run.stderr}`);
+        assert.match(run.stderr, /working directory is the plugin install dir, not a user workspace\./);
+        assert.match(run.stderr, /Claude Code:    cd into your job-hunt folder, then run 'claude' there\./);
+      }
+    }
+    assert.equal(fs.existsSync(path.join(ROOT, USER_ROOT, "applications.md")), false);
+    assert.equal(fs.existsSync(path.join(ROOT, "examples", USER_ROOT)), false);
+  });
+});
+
+describe("checkout detection", () => {
+  // A throwaway checkout: <tmp>/plugins/job-hunt-skills/scripts/*.mjs plus a
+  // marketplace manifest at <tmp>. Only the manifest decides whether <tmp>
+  // counts as the plugin's checkout.
+  function checkout(manifestPath, manifest) {
+    const root = fs.mkdtempSync(path.join(tmpdir(), "job-hunt-checkout-"));
+    const scripts = path.join(root, "plugins/job-hunt-skills/scripts");
+    fs.mkdirSync(scripts, { recursive: true });
+    for (const name of ["scaffold-state.mjs", "workspace.mjs"]) {
+      fs.copyFileSync(path.join(PLUGIN, "scripts", name), path.join(scripts, name));
+    }
+    if (manifestPath) {
+      fs.mkdirSync(path.dirname(path.join(root, manifestPath)), { recursive: true });
+      fs.writeFileSync(path.join(root, manifestPath), JSON.stringify(manifest));
+    }
+    return { root, scaffold: path.join(scripts, "scaffold-state.mjs") };
+  }
+  const scaffoldIn = (cwd, scaffold) =>
+    spawnSync(process.execPath, [scaffold], { cwd, encoding: "utf8" });
+
+  for (const [manifestPath, source] of [
+    [".claude-plugin/marketplace.json", "./plugins/job-hunt-skills"],
+    [".agents/plugins/marketplace.json", { source: "local", path: "./plugins/job-hunt-skills" }],
+  ]) {
+    test(`a ${manifestPath} that lists the plugin marks its folder as the checkout`, () => {
+      const { root, scaffold } = checkout(manifestPath, { plugins: [{ name: "job-hunt-skills", source }] });
+      try {
+        const run = scaffoldIn(root, scaffold);
+        assert.equal(run.status, 2, run.stderr);
+        assert.equal(fs.existsSync(path.join(root, USER_ROOT)), false, "refusal must not create state");
+      } finally {
+        fs.rmSync(root, { recursive: true, force: true });
+      }
+    });
+  }
+
+  test("a folder whose manifest lists a different plugin is a normal workspace", () => {
+    const { root, scaffold } = checkout(".claude-plugin/marketplace.json", {
+      plugins: [{ name: "other", source: "./plugins/other" }],
+    });
+    try {
+      assert.equal(scaffoldIn(root, scaffold).status, 0);
+      assert.ok(fs.existsSync(path.join(root, USER_ROOT, "applications.md")));
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  test("an installed copy with no checkout around it refuses only itself", () => {
+    const { root, scaffold } = checkout(null);
+    try {
+      assert.equal(scaffoldIn(path.join(root, "plugins/job-hunt-skills"), scaffold).status, 2);
+      assert.equal(scaffoldIn(root, scaffold).status, 0);
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+    }
   });
 });
 
@@ -244,19 +329,26 @@ describe("plugin and user paths", () => {
     }
   });
 
-  test("every tracked repository file is plugin-owned, except the empty my-documents/ skeleton", () => {
-    const tracked = spawnSync("git", ["ls-files"], { cwd: ROOT, encoding: "utf8" }).stdout.trim().split("\n");
+  test("every tracked file in the plugin folder is plugin-owned", () => {
+    const tracked = spawnSync("git", ["ls-files"], { cwd: PLUGIN, encoding: "utf8" }).stdout.trim().split("\n");
+    assert.ok(tracked.length > 50, "expected the plugin folder to be tracked");
     for (const file of tracked) {
-      if (file.startsWith(`${USER_ROOT}/`)) {
-        assert.equal(path.posix.basename(file), ".gitkeep", `${file}: user documents are never committed`);
-        continue;
-      }
       assert.equal(PLUGIN_PATHS.filter((p) => covers(p, file)).length, 1, `${file} must be classified exactly once`);
+    }
+    for (const entry of PLUGIN_PATHS) {
+      assert.ok(tracked.some((file) => covers(entry, file)), `${entry} is listed but has no tracked file`);
+    }
+  });
+
+  test("the repository's my-documents/ holds only the empty skeleton", () => {
+    const tracked = spawnSync("git", ["ls-files", "--", USER_ROOT], { cwd: ROOT, encoding: "utf8" }).stdout.trim().split("\n");
+    for (const file of tracked) {
+      assert.equal(path.posix.basename(file), ".gitkeep", `${file}: user documents are never committed`);
     }
   });
 
   test("state-layer.md publishes exactly the same path lists", () => {
-    const doc = fs.readFileSync(path.join(ROOT, "skills/_shared/state-layer.md"), "utf8");
+    const doc = fs.readFileSync(path.join(PLUGIN, "skills/_shared/state-layer.md"), "utf8");
     const block = (heading) => {
       const match = new RegExp(`\\*\\*${heading}\\*\\*[^\\n]*\\n+\`\`\`text\\n([\\s\\S]*?)\`\`\``).exec(doc);
       assert.ok(match, `state-layer.md must have a ${heading} block`);

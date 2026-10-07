@@ -1,10 +1,10 @@
-// Entry point for the checked-in vendor bundle (scripts/vendor/export-deps.mjs).
+// Entry point for the checked-in readable vendor modules
+// (plugins/job-hunt-skills/scripts/vendor/export-deps.mjs).
 //
-// Built with `npm run build:vendor` (esbuild). The bundle is committed so
+// Built with `npm run build:vendor` (esbuild). The modules are committed so
 // users never run `npm install` — Node alone is the Tier 2 requirement.
-// CI verifies the bundle is up to date with the lockfile.
+// CI verifies the modules are up to date with the lockfile.
 
-export * as docx from "docx";
 export { default as MarkdownIt } from "markdown-it";
 
 // Use pdfmake's server/source entry so every dependency comes from this

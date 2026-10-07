@@ -8,7 +8,7 @@
       "name": "job-hunt-skills",
       "source": {
         "source": "local",
-        "path": "./"
+        "path": "./plugins/job-hunt-skills"
       },
       "policy": {
         "installation": "AVAILABLE",

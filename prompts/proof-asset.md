@@ -55,4 +55,4 @@ An invented case study isn't a proof asset — it's a liability with formatting.
 
 ## Go deeper
 
-- The [proof-asset-creator skill](../skills/proof-asset-creator/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves finished assets into your evidence base, where they back up future resume claims automatically. The method is in the [proof assets guide](../guides/proof-assets.md).
+- The [proof-asset-creator skill](../plugins/job-hunt-skills/skills/proof-asset-creator/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) saves finished assets into your evidence base, where they back up future resume claims automatically. The method is in the [proof assets guide](../plugins/job-hunt-skills/guides/proof-assets.md).

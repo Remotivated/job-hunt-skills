@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "job-hunt-skills",
-      "source": "./",
+      "source": "./plugins/job-hunt-skills",
       "description": "Evaluate job postings, tailor resumes, cover letters, and interview prep to the roles you pursue, and organize your job search. Covers research, applications, interviews, LinkedIn, and proof assets — saved as local markdown you control."
     }
   ]

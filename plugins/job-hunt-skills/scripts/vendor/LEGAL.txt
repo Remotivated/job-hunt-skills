@@ -1,0 +1,22 @@
+Bundled license information:
+
+js-md5/src/md5.js:
+  /**
+   * [js-md5]{@link https://github.com/emn178/js-md5}
+   *
+   * @namespace md5
+   * @version 0.8.3
+   * @author Chen, Yi-Cyuan [emn178@gmail.com]
+   * @copyright Chen, Yi-Cyuan 2014-2023
+   * @license MIT
+   */
+
+Bundled license information:
+
+@noble/hashes/utils.js:
+  /*! noble-hashes - MIT License (c) 2022 Paul Miller (paulmillr.com) */
+
+Bundled license information:
+
+@noble/ciphers/utils.js:
+  /*! noble-ciphers - MIT License (c) 2023 Paul Miller (paulmillr.com) */

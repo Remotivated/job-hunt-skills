@@ -27,14 +27,15 @@ import {
   serializeSnapshot,
   unknownFields,
   writeSnapshot,
-} from "./opportunity.mjs";
-import { StateError } from "./state.mjs";
-import { USER_ROOT } from "./workspace.mjs";
+} from "../plugins/job-hunt-skills/scripts/opportunity.mjs";
+import { StateError } from "../plugins/job-hunt-skills/scripts/state.mjs";
+import { USER_ROOT } from "../plugins/job-hunt-skills/scripts/workspace.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const PLUGIN = path.join(ROOT, "plugins/job-hunt-skills");
 const FIXTURES = path.join(ROOT, "scripts/fixtures/opportunity");
-const HELPER = path.join(ROOT, "scripts/opportunity.mjs");
-const SCAFFOLD = path.join(ROOT, "scripts/scaffold-state.mjs");
+const HELPER = path.join(PLUGIN, "scripts/opportunity.mjs");
+const SCAFFOLD = path.join(PLUGIN, "scripts/scaffold-state.mjs");
 const { cases } = JSON.parse(fs.readFileSync(path.join(FIXTURES, "cases.json"), "utf8"));
 const NOW = new Date("2026-10-03T12:00:00Z");
 
@@ -232,19 +233,16 @@ describe("opportunity helper CLI", () => {
     const lock = path.join(root, USER_ROOT, ".state.lock");
     fs.mkdirSync(lock);
     fs.writeFileSync(path.join(lock, "owner.json"), JSON.stringify({ pid: process.pid, token: "live" }));
-    const run = spawnSync(process.execPath, [HELPER, "snapshot", "--id", "acme-pay-senior-pm", "--user-confirmed"], {
-      cwd: root,
-      encoding: "utf8",
-      input: JSON.stringify(envelope("url.json")),
-      env: { ...process.env, JOB_HUNT_STATE_LOCK_TIMEOUT_MS: "200" },
-    });
-    assert.equal(run.status, 4, run.stdout);
+    const result = capture(() => writeSnapshot(root, {
+      id: "acme-pay-senior-pm", userConfirmed: true, input: envelope("url.json"),
+    }, { lockTimeoutMs: 200 }));
+    assert.equal(result.error, "busy", JSON.stringify(result));
     assert.equal(fs.existsSync(appDir(root, "acme-pay-senior-pm")), false);
   });
 
   test("snapshot refuses to run inside the plugin with the workspace recovery message", () => {
     const run = spawnSync(process.execPath, [HELPER, "snapshot", "--id", "acme-pay-senior-pm", "--user-confirmed"], {
-      cwd: path.join(ROOT, "skills"),
+      cwd: path.join(PLUGIN, "skills"),
       encoding: "utf8",
       input: JSON.stringify(envelope("paste.json")),
       env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
@@ -256,7 +254,7 @@ describe("opportunity helper CLI", () => {
 
   test("check validates inside the plugin without searching, for an in-chat read", () => {
     const run = spawnSync(process.execPath, [HELPER, "check"], {
-      cwd: path.join(ROOT, "skills"),
+      cwd: path.join(PLUGIN, "skills"),
       encoding: "utf8",
       input: JSON.stringify(envelope("record.json")),
       env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
@@ -302,7 +300,7 @@ describe("opportunity helper CLI", () => {
 });
 
 describe("state-layer §13 and the helper describe the same envelope", () => {
-  const doc = fs.readFileSync(path.join(ROOT, "skills/_shared/state-layer.md"), "utf8");
+  const doc = fs.readFileSync(path.join(PLUGIN, "skills/_shared/state-layer.md"), "utf8");
   const section = doc.split("## 13. Opportunity Envelope and Snapshots")[1];
 
   test("every envelope field, source field, kind, and reserved name is documented", () => {
@@ -311,6 +309,12 @@ describe("state-layer §13 and the helper describe the same envelope", () => {
     for (const key of SOURCE_FIELDS) assert.match(section, new RegExp(`\`source\\.${key}\``), key);
     for (const kind of SOURCE_KINDS) assert.match(section, new RegExp(`\`${kind}\``), kind);
     for (const key of RESERVED_KEYS) assert.match(section, new RegExp(`\`${key}\``), key);
+  });
+
+  test("native snapshot checks include older files before writing", () => {
+    const native = section.split("**Native procedure (no Node).**")[1];
+    assert.match(native, /read every snapshot/i);
+    assert.match(native, /including older/i);
   });
 
   test("the documented snapshot example reads as a snapshot", () => {

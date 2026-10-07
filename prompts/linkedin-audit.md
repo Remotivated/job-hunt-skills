@@ -52,5 +52,5 @@ Resume inflation embarrasses you in an interview; LinkedIn inflation embarrasses
 
 ## Go deeper
 
-- The [linkedin-optimizer skill](../skills/linkedin-optimizer/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) audits the whole profile in one pass, with your saved resume and proof assets as the evidence base.
+- The [linkedin-optimizer skill](../plugins/job-hunt-skills/skills/linkedin-optimizer/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) audits the whole profile in one pass, with your saved resume and proof assets as the evidence base.
 - Hunting remote specifically? [Remotivated](https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=prompts) is where vetted-remote employers post — and where that remote-ready profile pays off.

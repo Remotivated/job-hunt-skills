@@ -62,4 +62,4 @@ AI wrote your draft faster than you could — and somewhere in that speed, "help
 
 ## Go deeper
 
-- The [claim-check skill](../skills/claim-check/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) checks tailored documents against your entire saved evidence base — source resume, story bank, proof assets — and knows which version each draft came from.
+- The [claim-check skill](../plugins/job-hunt-skills/skills/claim-check/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) checks tailored documents against your entire saved evidence base — source resume, story bank, proof assets — and knows which version each draft came from.

@@ -62,5 +62,5 @@ The prompt forbids invented metrics and quiet upgrades. If a rewrite would only 
 
 ## Go deeper
 
-- The [resume-auditor skill](../skills/resume-auditor/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) runs this critique against your saved resume file and your whole evidence base — no pasting.
-- If the audit says "rewrite, not polish," start with [resume-builder](resume-builder.md). The thinking behind the critique is in [resume-philosophy](../guides/resume-philosophy.md).
+- The [resume-auditor skill](../plugins/job-hunt-skills/skills/resume-auditor/SKILL.md) in the free [Job Hunt Skills plugin](../README.md#start-here) runs this critique against your saved resume file and your whole evidence base — no pasting.
+- If the audit says "rewrite, not polish," start with [resume-builder](resume-builder.md). The thinking behind the critique is in [resume-philosophy](../plugins/job-hunt-skills/guides/resume-philosophy.md).

@@ -16,7 +16,7 @@ my-documents/**
 Thumbs.db
 
 # Local dev: junctions that expose the plugin bundle to the VS Code extension
-# (Claude Code scans .claude/ for project commands/skills; plugin bundles live at the repo root)
+# (Claude Code scans .claude/ for project commands/skills; the plugin bundle lives in plugins/job-hunt-skills/)
 .claude/commands
 .claude/skills
 
