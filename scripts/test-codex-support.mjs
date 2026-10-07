@@ -41,8 +41,8 @@ const PLUGIN_ARCHIVE_PATHS = [
   "LICENSE",
   "README.md",
   "scripts/vendor/LICENSES.md",
-  "scripts/vendor/embedded-docx-notices.md",
-  "scripts/vendor/export-deps.mjs.LEGAL.txt",
+  "scripts/vendor/LEGAL.txt",
+  "scripts/vendor/SOURCE-NOTICES.md",
   "scripts/vendor/vendor-inputs.json",
   "skills/get-started/agents/openai.yaml",
   "skills/_shared/truth-and-content.md",
@@ -165,7 +165,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: fixture.pluginRoot,
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
 
@@ -203,7 +202,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: fixture.skillsDir,
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
       assert.equal(scaffold.status, 2, scaffold.stderr);
@@ -230,7 +228,6 @@ describe("Installed-plugin resource resolution", () => {
         {
           cwd: join(linkedRoot, "skills"),
           encoding: "utf8",
-          env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
         },
       );
       assert.equal(scaffold.status, 2, scaffold.stderr);
@@ -255,22 +252,21 @@ describe("Vendor licensing", () => {
     assert.doesNotMatch(buildSource, /legalComments:\s*["']none["']/);
     assert.match(buildSource, /target:\s*["']node18["']/);
     assert.match(buildSource, /metafile:\s*true/);
+    assert.match(buildSource, /minify:\s*false/);
 
     const notices = readFileSync(
       join(PLUGIN, "scripts/vendor/LICENSES.md"),
       "utf8",
     );
-    assert.match(notices, /Copyright 2013 Google Inc\./i);
-    assert.match(notices, /Apache License, Version 2\.0/);
-    assert.match(notices, /BSD[- ]3-Clause/i);
+    assert.match(notices, /fontkit/);
+    assert.match(notices, /BSD[- ]2-Clause/i);
     assert.doesNotMatch(notices, /All bundled code is MIT-licensed/i);
 
     const legal = readFileSync(
-      join(PLUGIN, "scripts/vendor/export-deps.mjs.LEGAL.txt"),
+      join(PLUGIN, "scripts/vendor/LEGAL.txt"),
       "utf8",
     );
-    assert.match(legal, /ieee754\. BSD-3-Clause License/);
-    assert.match(legal, /JSZip v3\.10\.1/);
+    assert.ok(legal.length > 0, "preserved upstream legal comments");
     for (const [name, text] of [["LICENSES.md", notices], ["LEGAL.txt", legal]]) {
       assert.doesNotMatch(text, /\r/, `${name} must use LF line endings`);
       assert.doesNotMatch(text, /[ \t]+$/m, `${name} must not have trailing whitespace`);
@@ -290,9 +286,25 @@ describe("Vendor licensing", () => {
       assert.ok(record.name && record.version && record.declaredLicense, JSON.stringify(record));
       assert.ok(record.licenseFiles.length > 0, `${record.name} lacks a license file`);
     }
-    assert.ok(inventory.embedded.length > 0, "opaque docx notices must be explicit");
-    for (const record of inventory.embedded) {
-      assert.ok(record.name && record.notice && record.licenseTextSource, JSON.stringify(record));
+    assert.deepEqual(inventory.embedded.map((record) => record.name).sort(), ["fontkit-base64-arraybuffer", "fontkit-harfbuzz"]);
+    assert.match(notices, /Copyright \(c\) 2012 Niklas von Hertzen/);
+    assert.match(notices, /Copyright © 2010,2012,2013  Google, Inc\./);
+    for (const name of ["fontkit", "dfa"]) {
+      const record = inventory.packages.find((record) => record.name === name);
+      assert.ok(record.licenseFiles.includes("scripts/vendor/SOURCE-NOTICES.md"), `${name} needs full MIT terms beyond its README label`);
+    }
+    for (const name of ["docx", "brotli", "jszip", "svg-to-pdfkit", "xmldoc", "sax"]) {
+      assert.ok(!inventory.packages.some((record) => record.name === name), `${name} must not ship`);
+    }
+    assert.ok(inventory.buildInputs.some((input) => input.path.startsWith("node_modules/fontkit/src/")));
+    assert.ok(!inventory.buildInputs.some((input) => input.path.includes("fontkit/dist/")));
+    for (const style of ["Regular", "Bold", "Italic", "BoldItalic"]) {
+      const font = readFileSync(join(PLUGIN, "templates/fonts", `Gelasio-${style}.ttf`));
+      assert.equal(font.readUInt32BE(0), 0x00010000, `${style} must be TrueType; WOFF2 decoding is unsupported`);
+    }
+    assert.ok(inventory.outputs.length > 20, "dependencies must remain separate readable modules");
+    for (const output of inventory.outputs) {
+      assert.ok(readFileSync(join(PLUGIN, output.path)).length < 256 * 1024, output.path);
     }
 
     assert.match(notices, /Zero unresolved build-input packages: yes/);

@@ -10,7 +10,7 @@
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, lstatSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, extname, join, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -26,28 +26,36 @@ const MAX_FILE_BYTES = 256 * KIB;
 const MAX_FILES = 512;
 const MEDIA_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".ttf", ".otf", ".woff", ".woff2"]);
 
-// Files allowed past MAX_FILE_BYTES. Keep this list explicit and short.
-const OVERSIZE_ALLOWLIST = new Map([
-  // The bundled export dependencies (markdown-it, docx, pdfmake). A separate
-  // change replaces this bundle; until then it is the one known exception.
-  ["scripts/vendor/export-deps.mjs", "bundled export dependencies"],
-]);
-
 function git(args, cwd = ROOT) {
   const run = spawnSync("git", args, { cwd, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
   assert.equal(run.status, 0, run.stderr);
   return run.stdout;
 }
 
-// [{ mode, path }] for every tracked file in the plugin folder, relative to it.
+// [{ mode, path }] for every non-ignored file currently in the plugin folder.
 function trackedPluginFiles() {
-  return git(["ls-files", "-s", "-z"], PLUGIN)
+  const tracked = git(["ls-files", "-s", "-z"], PLUGIN)
     .split("\0")
     .filter(Boolean)
     .map((line) => {
       const [meta, path] = line.split("\t");
       return { mode: meta.split(" ")[0], path };
+    })
+    .filter(({ path }) => {
+      try {
+        lstatSync(join(PLUGIN, path)); // Include dangling symlinks so the rule rejects them.
+        return true;
+      } catch (error) {
+        if (error.code === "ENOENT") return false;
+        throw error;
+      }
     });
+  const added = git(["ls-files", "--others", "--exclude-standard", "-z"], PLUGIN)
+    .split("\0")
+    .filter(Boolean)
+    .map((path) => ({ mode: lstatSync(join(PLUGIN, path)).isSymbolicLink() ? "120000" : "100644", path }));
+  // Check the working package, including generated modules before staging.
+  return [...tracked, ...added];
 }
 
 function isBinary(buffer) {
@@ -90,7 +98,7 @@ function zipEntryNames(buffer) {
 describe("plugin folder contents", () => {
   const files = trackedPluginFiles();
 
-  test("is tracked and within the file-count limit", () => {
+  test("is populated and within the file-count limit", () => {
     assert.ok(files.length > 50, `expected the plugin folder to be tracked, found ${files.length} files`);
     assert.ok(files.length <= MAX_FILES, `${files.length} files exceeds the ${MAX_FILES}-file limit`);
   });
@@ -131,16 +139,13 @@ describe("plugin folder contents", () => {
     }
   });
 
-  test(`keeps every text file under ${MAX_FILE_BYTES / KIB} KiB, except the explicit allowlist`, () => {
+  test(`keeps every text file under ${MAX_FILE_BYTES / KIB} KiB`, () => {
     for (const { path } of files) {
       if (MEDIA_EXTENSIONS.has(extname(path).toLowerCase())) continue;
       const size = statSync(join(PLUGIN, path)).size;
-      if (OVERSIZE_ALLOWLIST.has(path)) continue;
       assert.ok(size < MAX_FILE_BYTES, `${path} is ${(size / KIB).toFixed(1)} KiB`);
     }
-    for (const path of OVERSIZE_ALLOWLIST.keys()) {
-      assert.ok(files.some((file) => file.path === path), `allowlisted ${path} no longer exists; remove it from the list`);
-    }
+
   });
 
   test("LICENSE is identical to the repository LICENSE and the manifests say MIT", () => {

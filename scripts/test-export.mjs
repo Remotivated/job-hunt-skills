@@ -91,6 +91,58 @@ async function docxXml(markdown, kind = "resume") {
   };
 }
 
+// Read the central directory independently of the writer. Check offsets,
+// sizes, names and CRCs against local headers and the inflated XML bytes.
+function checkedZipEntries(buffer) {
+  const end = buffer.length - 22;
+  assert.equal(buffer.readUInt32LE(end), 0x06054b50);
+  assert.equal(buffer.readUInt16LE(end + 4), 0);
+  assert.equal(buffer.readUInt16LE(end + 6), 0);
+  const count = buffer.readUInt16LE(end + 10);
+  assert.equal(buffer.readUInt16LE(end + 8), count);
+  const centralSize = buffer.readUInt32LE(end + 12);
+  let offset = buffer.readUInt32LE(end + 16);
+  assert.equal(offset + centralSize, end);
+  const entries = new Map();
+  for (let i = 0; i < count; i += 1) {
+    assert.equal(buffer.readUInt32LE(offset), 0x02014b50);
+    const method = buffer.readUInt16LE(offset + 10);
+    const checksum = buffer.readUInt32LE(offset + 16);
+    const compressedSize = buffer.readUInt32LE(offset + 20);
+    const size = buffer.readUInt32LE(offset + 24);
+    const nameLength = buffer.readUInt16LE(offset + 28);
+    const extraLength = buffer.readUInt16LE(offset + 30);
+    const commentLength = buffer.readUInt16LE(offset + 32);
+    const local = buffer.readUInt32LE(offset + 42);
+    const name = buffer.subarray(offset + 46, offset + 46 + nameLength).toString("utf8");
+    assert.equal(buffer.readUInt32LE(local), 0x04034b50);
+    assert.equal(buffer.readUInt16LE(local + 8), method);
+    assert.equal(buffer.readUInt32LE(local + 14), checksum);
+    assert.equal(buffer.readUInt32LE(local + 18), compressedSize);
+    assert.equal(buffer.readUInt32LE(local + 22), size);
+    const localNameLength = buffer.readUInt16LE(local + 26);
+    const localExtraLength = buffer.readUInt16LE(local + 28);
+    assert.equal(buffer.subarray(local + 30, local + 30 + localNameLength).toString("utf8"), name);
+    const start = local + 30 + localNameLength + localExtraLength;
+    const compressed = buffer.subarray(start, start + compressedSize);
+    const bytes = method === 0 ? compressed : inflateRawSync(compressed);
+    assert.equal(bytes.length, size, name);
+    let crc = 0xffffffff;
+    for (const byte of bytes) {
+      crc ^= byte;
+      for (let bit = 0; bit < 8; bit += 1) {
+        crc = (crc >>> 1) ^ ((crc & 1) ? 0xedb88320 : 0);
+      }
+    }
+    assert.equal((crc ^ 0xffffffff) >>> 0, checksum, name);
+    assert.ok(!entries.has(name), `duplicate ZIP entry: ${name}`);
+    entries.set(name, bytes.toString("utf8"));
+    offset += 46 + nameLength + extraLength + commentLength;
+  }
+  assert.equal(offset, end);
+  return entries;
+}
+
 describe("normalizeUnicode", () => {
   test("em dash", () => {
     assert.equal(normalizeUnicode("a — b"), "a - b");
@@ -285,6 +337,103 @@ describe("DOCX build", () => {
     const { documentXml: xml } = await docxXml(sample, "coverletter");
     // 10pt space-after = 200 twips on cover body paragraphs.
     assert.ok(xml.includes('w:after="200"'));
+  });
+
+  test("focused package has valid ZIP headers, CRCs and only required OOXML parts", async () => {
+    const { buffer } = await docxXml(SAMPLE_RESUME);
+    const entries = checkedZipEntries(buffer);
+    assert.deepEqual([...entries.keys()].sort(), [
+      "[Content_Types].xml", "_rels/.rels", "word/_rels/document.xml.rels",
+      "word/document.xml", "word/numbering.xml", "word/settings.xml", "word/styles.xml",
+    ].sort());
+    assert.match(entries.get("[Content_Types].xml"), /wordprocessingml\.document\.main\+xml/);
+    assert.match(entries.get("_rels/.rels"), /Target="word\/document.xml"/);
+  });
+
+  test("declares current Word compatibility so Word does not open it in Compatibility Mode", async () => {
+    const { buffer } = await docxXml(SAMPLE_RESUME);
+    const entries = checkedZipEntries(buffer);
+    assert.match(entries.get("word/settings.xml"), /<w:compatSetting w:name="compatibilityMode" w:uri="http:\/\/schemas\.microsoft\.com\/office\/word" w:val="15"\/>/);
+    assert.match(entries.get("word/_rels/document.xml.rels"), /Id="rId3" Type="[^"]*\/settings" Target="settings.xml"/);
+    assert.match(entries.get("[Content_Types].xml"), /PartName="\/word\/settings.xml" ContentType="application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.settings\+xml"/);
+  });
+
+  test("drops characters XML forbids instead of writing a package Word cannot open", async () => {
+    const buffer = await buildDocxBuffer(
+      "Jane\u0001 Doe", "jane@example.com", "Page\u000Cbreak and tab\u000Bhere\n", "resume",
+    );
+    const xml = readZipEntry(buffer, "word/document.xml").toString("utf8");
+    assert.doesNotMatch(xml, /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/);
+    assert.match(xml, /Jane Doe/);
+    assert.match(xml, /Pagebreak/);
+  });
+
+  test("preserves defaults, all font slots, page geometry and heading tracking", async () => {
+    const { buffer, documentXml: xml } = await docxXml(SAMPLE_RESUME);
+    const styles = readZipEntry(buffer, "word/styles.xml").toString("utf8");
+    for (const slot of ["ascii", "hAnsi", "eastAsia", "cs"]) {
+      assert.match(styles, new RegExp(`w:${slot}="Georgia"`));
+      assert.match(xml, new RegExp(`w:${slot}="Georgia"`));
+    }
+    assert.match(styles, /<w:sz w:val="21"\/>/);
+    assert.match(styles, /w:line="324"/);
+    assert.match(styles, /w:lineRule="auto"/);
+    assert.match(xml, /w:w="12240"/);
+    assert.match(xml, /w:h="15840"/);
+    for (const [side, value] of [["top",720], ["bottom",720], ["left",792], ["right",792]]) {
+      assert.match(xml, new RegExp(`w:${side}="${value}"`));
+    }
+    assert.match(xml, /<w:spacing w:val="13"\/>/);
+    assert.match(xml, /<w:b\/>/);
+  });
+
+  test("bullets refer to an existing numbered level with matching indentation", async () => {
+    const { buffer, documentXml: xml } = await docxXml(SAMPLE_RESUME);
+    const numbering = readZipEntry(buffer, "word/numbering.xml").toString("utf8");
+    const numId = xml.match(/<w:numId w:val="(\d+)"\/>/)[1];
+    assert.match(numbering, new RegExp(`<w:num w:numId="${numId}">`));
+    assert.match(numbering, /<w:numFmt w:val="bullet"\/>/);
+    assert.match(numbering, /<w:lvlText w:val="•"\/>/);
+    assert.match(numbering, /w:left="317"/);
+    assert.match(numbering, /w:hanging="158"/);
+  });
+
+  test("escapes XML while keeping Unicode, breaks, formatting and linked text", async () => {
+    const buffer = await buildDocxBuffer(
+      "Zoë <Doe> & Co",
+      '[**Profile**](https://example.com/?a=1&b=2) · [Email](mailto:zoe@example.com)',
+      '## Experience\n\n### Lead\n*Remote*\n\nA & B <tag> "quoted" résumé 😀  \nnext **bold** and *italic*\n',
+      "resume",
+    );
+    const xml = readZipEntry(buffer, "word/document.xml").toString("utf8");
+    const rels = readZipEntry(buffer, "word/_rels/document.xml.rels").toString("utf8");
+    assert.match(xml, /Zoë &lt;Doe&gt; &amp; Co/);
+    assert.match(xml, /A &amp; B &lt;tag&gt;/);
+    assert.match(xml, /résumé 😀/);
+    assert.match(xml, /<w:br\/>/);
+    assert.match(xml, /<w:i\/>/);
+    assert.match(xml, /xml:space="preserve"/);
+    for (const id of [...xml.matchAll(/<w:hyperlink r:id="([^"]+)"/g)].map((m) => m[1])) {
+      assert.match(rels, new RegExp(`Id="${id}"[^>]*TargetMode="External"`));
+    }
+    assert.match(rels, /Target="https:\/\/example.com\/\?a=1&amp;b=2"/);
+    assert.match(rels, /Target="mailto:zoe@example.com"/);
+    assert.match(rels, /TargetMode="External"/);
+    assert.doesNotMatch(xml, /<tag>/);
+  });
+
+  test("bold and italic apply to Arabic and Hebrew complex-script runs", async () => {
+    const buffer = await buildDocxBuffer(
+      "Jane Doe", "jane@example.com", "**مرحبا** and *שלום*\n", "resume",
+    );
+    const xml = readZipEntry(buffer, "word/document.xml").toString("utf8");
+    const runs = [...xml.matchAll(/<w:r><w:rPr>(.*?)<\/w:rPr><w:t[^>]*>(.*?)<\/w:t><\/w:r>/g)];
+    const arabic = runs.find((run) => run[2] === "مرحبا")[1];
+    const hebrew = runs.find((run) => run[2] === "שלום")[1];
+    assert.match(arabic, /<w:b\/>/);
+    assert.match(arabic, /<w:bCs\/>/);
+    assert.match(hebrew, /<w:i\/>/);
+    assert.match(hebrew, /<w:iCs\/>/);
   });
 });
 

@@ -48,7 +48,7 @@ Before saving anything, the skills show you the folder they will use and wait fo
 ## What runs on your computer
 
 - **Local Node scripts, when Node is available.** Bundled scripts create the `my-documents/` folders, write tracker rows and numbered reports, show a short progress summary, and export documents. When Node is not installed, the skills do the same file work with the assistant's normal file tools.
-- **Document export.** `scripts/export-documents.mjs` turns a saved resume, CV, or cover letter into `.docx`, `.pdf`, and an `.html` preview next to the markdown file. Its JavaScript dependencies are bundled in `scripts/vendor/`, so there is no install step.
+- **Document export.** `scripts/export-documents.mjs` turns a saved resume, CV, or cover letter into `.docx`, `.pdf`, and an `.html` preview next to the markdown file. Its JavaScript dependencies ship as readable modules in `scripts/vendor/`, and its Word writer uses Node’s built-in compression, so there is no install step.
 - **Typst, only if you installed it.** If a `typst` program is already on your computer, the exporter runs it locally to typeset the PDF, using the template and fonts in `templates/`. If it is not installed, the built-in renderer makes the PDF instead.
 - **No network calls from the scripts.** None of the bundled scripts sends or fetches anything over the network. Company research uses your assistant's own web search within a set lookup budget, and the report says which sources it used and how many lookups it took.
 
