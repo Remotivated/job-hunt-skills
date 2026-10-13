@@ -992,7 +992,7 @@
       "setup": {
         "files": {
           "applications/acme-pay-senior-pm/opportunity-1.md": "broken-snapshot.md",
-          "applications/acme-pay-senior-pm/opportunity-2.md": "native-snapshot.md"
+          "applications/acme-pay-senior-pm/opportunity-2.md": "native-snapshot-2.md"
         }
       },
       "id": "acme-pay-senior-pm",
@@ -1272,7 +1272,7 @@
       ]
     },
     {
-      "name": "report posting text takes precedence over a stale fingerprint",
+      "name": "report posting text and a saved fingerprint that disagree give an unknown relation",
       "rules": [
         "OP-7",
         "OP-6"
@@ -1291,12 +1291,119 @@
             "path": "my-documents/reports/004-acme-opportunity-2026-10-01.md",
             "decision": "hold",
             "application_id": null,
-            "relation": "changed",
+            "relation": "unknown",
             "by": [
-              "url"
+              "url",
+              "fingerprint"
             ]
           }
         ]
+      }
+    },
+    {
+      "name": "a pasted posting is still found when its report text was copied with small differences",
+      "rules": [
+        "OP-7",
+        "OP-6"
+      ],
+      "kind": "check",
+      "setup": {
+        "files": {
+          "reports/007-acme-opportunity-2026-10-01.md": "report-paste-retyped.md"
+        }
+      },
+      "input": "paste.json",
+      "expect": {
+        "ok": true,
+        "reports": [
+          {
+            "path": "my-documents/reports/007-acme-opportunity-2026-10-01.md",
+            "decision": "skip",
+            "application_id": null,
+            "relation": "unknown",
+            "by": [
+              "fingerprint"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Unicode line and paragraph separators in values round-trip on one line",
+      "rules": [
+        "OP-4"
+      ],
+      "kind": "roundtrip",
+      "input": "record-line-separator.json",
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "name": "a snapshot with Unicode line separators stays readable for the next write",
+      "rules": [
+        "OP-8",
+        "OP-9"
+      ],
+      "kind": "snapshot",
+      "setup": {
+        "snapshots": [
+          {
+            "id": "acme-pay-senior-pm",
+            "input": "record-line-separator.json"
+          }
+        ]
+      },
+      "id": "acme-pay-senior-pm",
+      "input": "record-line-separator.json",
+      "confirmed": true,
+      "expect": {
+        "ok": true,
+        "action": "unchanged"
+      },
+      "files_after": [
+        "opportunity-1.md"
+      ]
+    },
+    {
+      "name": "a space separator and a colon-less offset are valid timestamps",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "time-offset-variants.json",
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "name": "a route fragment on a single-page careers site names a different posting",
+      "rules": [
+        "OP-6"
+      ],
+      "kind": "normalize-url",
+      "urls": [
+        "https://careers.example.com/#/jobs/101",
+        "https://careers.example.com/#/jobs/202"
+      ],
+      "expect": {
+        "ok": true,
+        "same": false
+      }
+    },
+    {
+      "name": "the same route fragment with tracking parameters is the same posting",
+      "rules": [
+        "OP-6"
+      ],
+      "kind": "normalize-url",
+      "urls": [
+        "https://careers.example.com/#!/jobs/101",
+        "HTTPS://careers.example.com/?utm_source=x#!/jobs/101"
+      ],
+      "expect": {
+        "ok": true,
+        "same": true
       }
     }
   ]

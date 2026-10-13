@@ -65,18 +65,13 @@ Do not run the dedup check, tracker upsert, capture pass, or export in quick mod
 
 Read `my-documents/applications.md`. Compute the target `id` as `{company-slug}-{role-slug}` unless the user supplies a specific application id.
 
-Check for both:
-
-- Existing tracker row with that `id`.
-- Existing tailored file at `my-documents/applications/{id}/{document_filename}`.
-
-If either exists, warn the user:
+Check for an existing tailored file at `my-documents/applications/{id}/{document_filename}`. A tracker row, or a folder holding only `opportunity-{n}.md` snapshots, means the posting was evaluated or saved but not yet tailored: continue without a warning, and use the snapshot in step 2. If the tailored file exists, warn the user:
 
 > You already have a tailored {label} for **{Role} at {Company}**. Iterate on that version, replace it, or create a separate variant with a suffix like `{id}-referral`?
 
 - **Iterate:** load the existing tailored file and continue from it.
 - **Replace:** write to the same path after explicit confirmation. This is usually fine because tailored documents are per job, but `my-documents/` is gitignored, so do not imply git can recover overwritten personal files.
-- **Separate variant:** use the user-confirmed suffixed id.
+- **Separate variant:** use the user-confirmed suffixed id. A saved posting stays in the original `applications/{id}/` folder; read it from there in step 2.
 
 Warn, do not block. Users can always proceed.
 

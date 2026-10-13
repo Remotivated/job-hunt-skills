@@ -33,7 +33,9 @@ python3 scripts/check-content-hygiene.py
 python3 scripts/check-internal-links.py
 python3 scripts/test_skill_contracts.py
 npm run test:codex
+npm run test:strength
 npm run test:state
+npm run test:opportunity
 npm run test:export
 npm run test:plugin
 ```

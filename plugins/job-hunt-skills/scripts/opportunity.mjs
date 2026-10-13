@@ -55,7 +55,7 @@ export const TRACKING_PARAMS = Object.freeze([/^utm_/i, /^gh_src$/i, /^trk$/i, /
 export const RESERVED_KEYS = Object.freeze(["snapshot", "application_id", "captured", "supersedes", "unknown"]);
 
 const SNAPSHOT_FILE = /^opportunity-(\d+)\.md$/;
-const TIMESTAMP = /^\d{4}-\d{2}-\d{2}(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(?:Z|[+-](\d{2}):(\d{2}))?)?$/;
+const TIMESTAMP = /^\d{4}-\d{2}-\d{2}(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(?:Z|[+-](\d{2}):?(\d{2}))?)?$/;
 const FIELD_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
@@ -178,12 +178,15 @@ export function unknownFields(envelope) {
 // round-trips exactly (OP-4). The posting sits in a fence longer than any
 // backtick run inside it.
 export function serializeSnapshot(envelope, { applicationId, snapshot, supersedes, captured }) {
+  // JSON.stringify leaves U+2028 and U+2029 raw, and YAML readers treat them
+  // as line breaks; escape them so each value stays on its own line.
+  const json = (v) => JSON.stringify(v).replace(/[\u2028\u2029]/g, (c) => `\\u${c.charCodeAt(0).toString(16)}`);
   const meta = { snapshot, application_id: applicationId, captured, supersedes };
   const fields = Object.entries(envelope).filter(([k]) => k !== "posting_text");
   const lines = [
-    ...Object.entries(meta).map(([k, v]) => `${k}: ${JSON.stringify(v)}`),
-    ...fields.map(([k, v]) => `${k}: ${JSON.stringify(v)}`),
-    `unknown: ${JSON.stringify(unknownFields(envelope))}`,
+    ...Object.entries(meta).map(([k, v]) => `${k}: ${json(v)}`),
+    ...fields.map(([k, v]) => `${k}: ${json(v)}`),
+    `unknown: ${json(unknownFields(envelope))}`,
   ];
   const longest = Math.max(0, ...(envelope.posting_text.match(/`+/g) ?? []).map((r) => r.length));
   const fence = "`".repeat(Math.max(3, longest + 1));
@@ -235,7 +238,7 @@ export function parseSnapshot(text) {
   const fields = {};
   for (let i = 1; i < end; i++) {
     if (lines[i].trim() === "") continue;
-    const match = /^([A-Za-z_][A-Za-z0-9_]*):(?: (.*))?$/.exec(lines[i]);
+    const match = /^([A-Za-z_][A-Za-z0-9_]*):(?: (.*))?$/s.exec(lines[i]);
     if (!match) throw parseError(lines, i, "Snapshot frontmatter lines must be `key: <JSON value>`, one field per line.");
     if (match[1] === "__proto__") throw parseError(lines, i, 'Snapshot frontmatter cannot use the key "__proto__".');
     if (Object.hasOwn(fields, match[1])) throw parseError(lines, i, `Duplicate frontmatter key "${match[1]}".`);
@@ -245,7 +248,7 @@ export function parseSnapshot(text) {
       throw parseError(lines, i, `Cannot read this frontmatter value: ${error.message}`);
     }
   }
-  // JHS39-020: a native writer may vary the heading's level or case.
+  // A snapshot written without Node may vary the heading's level or case.
   const heading = lines.findIndex((line, i) => i > end && /^#{2,3} posting text\s*$/i.test(line.trim()));
   if (heading === -1) throw parseError(lines, end, 'Snapshot has no "## Posting text" section.');
   // A note line, such as the one saying the text is untrusted, may sit
@@ -256,7 +259,10 @@ export function parseSnapshot(text) {
   if (!fence) throw parseError(lines, Math.min(open, lines.length - 1), "Posting text must be in a ```text fence.");
   const close = lines.indexOf(fence, open + 1);
   if (close === -1) throw parseError(lines, open, "Posting text fence is not closed.");
-  const fieldLine = (key) => Math.max(1, lines.findIndex((line) => line.startsWith(`${key}:`)));
+  const fieldLine = (key) => {
+    const at = lines.slice(0, end).findIndex((line) => line.startsWith(`${key}:`));
+    return at === -1 ? end : Math.max(1, at);
+  };
   const fail = (key, message) => { throw parseError(lines, fieldLine(key), message); };
   if (!Number.isSafeInteger(fields.snapshot) || fields.snapshot < 1) {
     fail("snapshot", "Snapshot frontmatter needs a positive safe integer `snapshot`.");
@@ -344,13 +350,14 @@ function readSnapshot(dir, { name, n }) {
 
 // OP-6: one posting seen twice. Hosts and schemes are case-insensitive;
 // fragments, trailing slashes, tracking parameters, and the order and encoding
-// of the remaining query parameters do not count. Repeated values for the
-// same key retain their order.
+// of the remaining query parameters do not count. A fragment that is a route
+// (`#/jobs/101`, `#!/jobs/101`) names the page on a single-page careers site,
+// so it does count. Repeated values for the same key retain their order.
 export function normalizeUrl(value) {
   if (typeof value !== "string") return null;
   try {
     const url = new URL(value);
-    url.hash = "";
+    if (!/^#!?\//.test(url.hash)) url.hash = "";
     for (const key of [...url.searchParams.keys()]) {
       if (TRACKING_PARAMS.some((re) => re.test(key))) url.searchParams.delete(key);
     }
@@ -411,11 +418,15 @@ export function movedFields(earlier, incoming) {
   );
 }
 
-// OP-6: an evaluation report is a duplicate or changed when both sides have a
-// fingerprint, and unknown when the report has none (saved without Node).
-function relation(earlier, target) {
-  if (typeof earlier !== "string") return "unknown";
-  return earlier === target ? "duplicate" : "changed";
+// OP-6: an evaluation report is a duplicate or changed by the fingerprint of
+// its posting text (or, for a report without text, its saved fingerprint), and
+// unknown when it has neither. The report text is copied by hand, so when it
+// and the saved fingerprint disagree and only the saved one matches, the
+// relation is unknown rather than a silent pick of either.
+function relation(report, target) {
+  if (typeof report.fingerprint !== "string") return "unknown";
+  if (report.fingerprint === target) return "duplicate";
+  return report.saved_fingerprint === target ? "unknown" : "changed";
 }
 
 // OP-8: what differs between a saved snapshot and an incoming envelope: the
@@ -452,13 +463,15 @@ function reportIdentity(text) {
   }
   if (fields.skill !== "opportunity-evaluator") return null;
   const posting = REPORT_POSTING.exec(text)?.[2];
+  const saved = typeof fields.opportunity_fingerprint === "string" ? fields.opportunity_fingerprint : null;
   return {
     decision: fields.decision ?? null,
     application_id: fields.application_id ?? null,
     external_id: fields.external_id,
     source_name: fields.source_name,
     url: fields.source_url,
-    fingerprint: posting === undefined ? (fields.opportunity_fingerprint ?? null) : fingerprintText(posting),
+    fingerprint: posting === undefined ? saved : fingerprintText(posting),
+    saved_fingerprint: saved,
   };
 }
 
@@ -507,12 +520,13 @@ export function findMatches(workspace, envelope) {
       const found = reportIdentity(fs.readFileSync(path.join(reports, name), "utf8"));
       if (!found) continue;
       const by = matchKeys(target, found);
+      if (!by.includes("fingerprint") && found.saved_fingerprint === target.fingerprint) by.push("fingerprint");
       if (!by.length) continue;
       result.reports.push({
         path: `${USER_ROOT}/reports/${name}`,
         decision: found.decision,
         application_id: found.application_id,
-        relation: relation(found.fingerprint, target.fingerprint),
+        relation: relation(found, target.fingerprint),
         by,
       });
     }
@@ -649,9 +663,7 @@ export function run(argv, workspace = process.cwd()) {
   const [command, ...rest] = argv;
   const opts = parseArgs(rest);
   if (command === "check") {
-    const search =
-      (!isPluginLocation(workspace) && fs.existsSync(path.join(workspace, USER_ROOT))) ||
-      process.env.JOB_HUNT_SKILLS_DEV === "1";
+    const search = !isPluginLocation(workspace) && fs.existsSync(path.join(workspace, USER_ROOT));
     return { ok: true, ...checkOpportunity(workspace, readEnvelope(opts.file), { search }) };
   }
   if (command === "snapshot") {

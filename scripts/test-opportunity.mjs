@@ -245,7 +245,6 @@ describe("opportunity helper CLI", () => {
       cwd: path.join(PLUGIN, "skills"),
       encoding: "utf8",
       input: JSON.stringify(envelope("paste.json")),
-      env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
     });
     assert.equal(run.status, 2);
     assert.match(run.stderr, /Claude Code:    cd into your job-hunt folder, then run 'claude' there\./);
@@ -257,7 +256,6 @@ describe("opportunity helper CLI", () => {
       cwd: path.join(PLUGIN, "skills"),
       encoding: "utf8",
       input: JSON.stringify(envelope("record.json")),
-      env: { ...process.env, JOB_HUNT_SKILLS_DEV: "" },
     });
     assert.equal(run.status, 0, run.stdout + run.stderr);
     const out = JSON.parse(run.stdout);

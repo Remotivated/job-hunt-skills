@@ -54,7 +54,7 @@ Saved mode only. With Node, use the matches from the step 1 `check`: earlier sna
 
 - **Duplicate** (same posting, same text): tell the user when and how it was evaluated, with the report or snapshot path, and offer to open that instead of re-running.
 - **Changed** (same posting, different content): say what changed before evaluating. A snapshot match's `changes` lists what differs from the newest snapshot: `posting_text` and any of `company`, `role`, `location`, `work_model`, `compensation`. Give the old and new value of each changed field, and the requirements that changed in the text. If tailored documents already exist for that application, note that they were written against the earlier version.
-- **Unknown** (the earlier record has no fingerprint): compare the posting text yourself and treat it as a duplicate or a change.
+- **Unknown** (the earlier report has no fingerprint, or its saved fingerprint and its posting text disagree): compare the posting text yourself and treat it as a duplicate or a change.
 - **Unreadable snapshot** (OP-9): show the path and line, and do not save into that folder until the user has looked at it.
 
 Warn, never block. The user can always continue.
