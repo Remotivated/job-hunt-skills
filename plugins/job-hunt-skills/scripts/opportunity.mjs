@@ -123,6 +123,10 @@ export function normalizeEnvelope(input, { now = new Date() } = {}) {
   const source = { ...input.source };
   // Feeds often number their records; an integer id is the same id as text (OP-2).
   if (Number.isSafeInteger(source.external_id)) source.external_id = String(source.external_id);
+  for (const key of Object.keys(source)) {
+    if (key === "__proto__") throw invalid('"__proto__" cannot be a source field.');
+    if (!FIELD_NAME.test(key)) throw invalid(`Field name "source.${key}" must use letters, digits, and underscores.`);
+  }
   if (!SOURCE_KINDS.includes(source.kind)) {
     throw invalid(`source.kind ${JSON.stringify(source.kind ?? null)} must be one of ${SOURCE_KINDS.join(", ")}.`);
   }
@@ -178,9 +182,11 @@ export function unknownFields(envelope) {
 // round-trips exactly (OP-4). The posting sits in a fence longer than any
 // backtick run inside it.
 export function serializeSnapshot(envelope, { applicationId, snapshot, supersedes, captured }) {
-  // JSON.stringify leaves U+2028 and U+2029 raw, and YAML readers treat them
-  // as line breaks; escape them so each value stays on its own line.
-  const json = (v) => JSON.stringify(v).replace(/[\u2028\u2029]/g, (c) => `\\u${c.charCodeAt(0).toString(16)}`);
+  // JSON.stringify leaves DEL, the C1 controls (NEL among them), U+2028, and
+  // U+2029 raw. YAML readers refuse the controls and treat NEL, U+2028, and
+  // U+2029 as line breaks; escape them so each value stays valid on one line.
+  const json = (v) =>
+    JSON.stringify(v).replace(/[\u007f-\u009f\u2028\u2029]/g, (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, "0")}`);
   const meta = { snapshot, application_id: applicationId, captured, supersedes };
   const fields = Object.entries(envelope).filter(([k]) => k !== "posting_text");
   const lines = [
@@ -329,8 +335,14 @@ function readSnapshot(dir, { name, n }) {
       { path: where },
     );
   }
+  let text;
   try {
-    const text = fs.readFileSync(path.join(dir, name), "utf8");
+    text = fs.readFileSync(path.join(dir, name), "utf8");
+  } catch (error) {
+    if (!error.code) throw error;
+    throw new StateError("parse_error", `${name} cannot be read as a file (${error.code}).`, { path: where });
+  }
+  try {
     const parsed = parseSnapshot(text);
     for (const [key, expected] of [["snapshot", n], ["application_id", path.basename(dir)]]) {
       if (parsed.meta[key] !== expected) {
@@ -517,7 +529,14 @@ export function findMatches(workspace, envelope) {
   if (fs.existsSync(reports)) {
     for (const name of fs.readdirSync(reports).sort()) {
       if (!REPORT_FILE.test(name)) continue;
-      const found = reportIdentity(fs.readFileSync(path.join(reports, name), "utf8"));
+      let text;
+      try {
+        text = fs.readFileSync(path.join(reports, name), "utf8");
+      } catch (error) {
+        if (!error.code) throw error;
+        continue; // not a readable file, so not an evaluation report
+      }
+      const found = reportIdentity(text);
       if (!found) continue;
       const by = matchKeys(target, found);
       if (!by.includes("fingerprint") && found.saved_fingerprint === target.fingerprint) by.push("fingerprint");

@@ -119,6 +119,8 @@ const runners = {
     return capture(() => {
       const { envelope: out } = normalizeEnvelope(envelope(c.input), { now: NOW });
       const text = serializeSnapshot(out, { applicationId: "fixture-role", snapshot: 1, supersedes: null, captured: "2026-10-03" });
+      const frontmatter = text.split("\n---\n")[0];
+      assert.doesNotMatch(frontmatter, /[\u007f-\u009f\u2028\u2029]/, `${c.name}: no raw control or line-break characters for YAML readers`);
       const parsed = parseSnapshot(text);
       assert.deepEqual(parsed.envelope, out, `${c.name}: every field survives`);
       assert.deepEqual(normalizeEnvelope(parsed.envelope).envelope, out, `${c.name}: a re-read snapshot is a valid envelope`);
@@ -210,6 +212,20 @@ describe("opportunity helper CLI", () => {
     assert.equal(run.json.snapshots[0].path, "my-documents/applications/acme-pay-senior-pm/opportunity-1.md");
     assert.equal(run.json.warnings.length, 1);
     assert.deepEqual(snapshotBytes(root, "acme-pay-senior-pm"), before);
+  });
+
+  test("a folder or directory named like a snapshot or report is unreadable, not a crash", async () => {
+    const root = workspace();
+    fs.mkdirSync(path.join(appDir(root, "acme-pay-senior-pm"), "opportunity-1.md"), { recursive: true });
+    fs.mkdirSync(path.join(root, USER_ROOT, "reports", "001-acme-evaluation-2026-10-01.md"));
+    const run = await runCli(["check"], root, JSON.stringify(envelope("url.json")));
+    assert.equal(run.status, 0, JSON.stringify(run.json));
+    assert.equal(run.json.unreadable.length, 1);
+    assert.equal(run.json.unreadable[0].path, "my-documents/applications/acme-pay-senior-pm/opportunity-1.md");
+    const write = capture(() => writeSnapshot(root, {
+      id: "acme-pay-senior-pm", userConfirmed: true, input: envelope("url.json"), today: "2026-10-03", now: NOW,
+    }));
+    assert.equal(write.error, "parse_error", JSON.stringify(write));
   });
 
   test("an invalid envelope exits 3 with the reason", async () => {

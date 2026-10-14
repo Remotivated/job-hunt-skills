@@ -37,6 +37,30 @@
       }
     },
     {
+      "name": "refuses a source field name with a hyphen",
+      "rules": [
+        "OP-2"
+      ],
+      "kind": "normalize",
+      "input": "source-bad-key.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
+      "name": "refuses __proto__ inside source",
+      "rules": [
+        "OP-4"
+      ],
+      "kind": "normalize",
+      "input": "source-proto-key.json",
+      "expect": {
+        "ok": false,
+        "error": "invalid_envelope"
+      }
+    },
+    {
       "name": "refuses empty-text",
       "rules": [
         "OP-2"
@@ -1335,6 +1359,17 @@
       ],
       "kind": "roundtrip",
       "input": "record-line-separator.json",
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "name": "DEL and C1 control characters in values round-trip as valid one-line YAML",
+      "rules": [
+        "OP-4"
+      ],
+      "kind": "roundtrip",
+      "input": "record-control-chars.json",
       "expect": {
         "ok": true
       }
