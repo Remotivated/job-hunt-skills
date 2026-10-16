@@ -29,7 +29,7 @@ This is the same standard the rest of this toolkit already runs on. The [claim-c
 
 Start with what the assistance actually looks like in practice.
 
-In Employ's 2026 Job Seeker Nation Report — a vendor survey run by Zogby Analytics in March–April 2026 with more than 1,500 U.S. adults, all self-reported — **28% of candidates said they use AI to assist their job search, down three points year over year**. It skews young: 38% of Gen Z, 34% of Millennials.
+In Employ's 2026 Job Seeker Nation Report — a vendor survey run by Zogby Analytics in March–April 2026 with more than 1,500 U.S. adults who were working or seeking work, all self-reported — **28% of candidates said they use AI to assist their job search, down three points year over year**. It skews young: 38% of Gen Z, 34% of Millennials.
 
 Among that 28% who use AI, here is what they use it for:
 
@@ -42,11 +42,11 @@ Among that 28% who use AI, here is what they use it for:
 | Preparing skills-assessment responses | 36% |
 | Evaluating video interview style | 28% |
 
-Read that column heading carefully. Every number in it is a share of AI users, not of all candidates, and it is the single easiest place to accidentally triple a statistic. More on that below, because the report's own publisher tripped on it.
+Read that column heading carefully. Every number in it is a share of AI users, not of all candidates, and it is the single easiest place to accidentally triple a statistic. The 37% figure below shows how.
 
 Drafting, editing, research, and practice can pass the two-question test when the output stays true and stays yours. Preparing skills-assessment responses also depends on the employer's rules: an assessment may measure unaided work before any live interview. If AI assistance is prohibited, redo that work within the rules; if the rules are unclear, ask before starting or submitting. Finding listings faster is a search problem. Reviewing a resume is editing. Drafting a cover letter is a first draft you then have to make honest. Practice questions are practice. None of it makes a claim about you that you can't stand behind.
 
-**And the panic has the direction backwards.** In Employ's 2025 Recruiter Nation Report — Zogby again, September 2025, more than 1,200 U.S. recruiters and hiring managers — **65% of recruiting teams reported using AI to augment their recruiting technology**, up from 63% in 2024 and 58% in 2023. That 65% is an all-respondent figure. These surveys cover different populations and uses, so the percentages are not a direct comparison of how much AI each side uses. They show that AI assistance appears on both sides of hiring.
+**Employers use it too.** In Employ's 2025 Recruiter Nation Report — Zogby again, September 2025, more than 1,200 U.S. HR recruiters and managers — **65% of recruiting teams reported using AI to augment their recruiting technology**, which the report calls a slight increase on the year before. That 65% is an all-respondent figure. These surveys cover different populations and uses, so the percentages are not a direct comparison of how much AI each side uses. They show that AI assistance appears on both sides of hiring.
 
 One honest caveat before anyone uses that as a rhetorical win: **adoption is not volume**. A single candidate with automation can fire off hundreds of applications, so 28% adoption does not mean employers aren't drowning. Low candidate adoption and a flooded pipeline are entirely compatible facts.
 
@@ -56,7 +56,7 @@ One honest caveat before anyone uses that as a rhetorical win: **adoption is not
 
 ## When Assistance Replaces the Work Being Evaluated
 
-One use needs particular care: **real-time AI-generated answers fed to you during a live interview without permission**. Some employers expressly allow AI in an exercise to evaluate how you use it; follow those rules and explain your contribution honestly. The survey reports real-time suggested responses among 37% of the 28% who use AI, roughly 10% of all candidates. It does not establish whether that use was permitted by the employer.
+One use needs particular care: **real-time AI-generated answers fed to you during a live interview without permission**. Some employers expressly allow AI in an exercise to evaluate how you use it; follow those rules and explain your contribution honestly. The survey reports real-time suggested responses among 37% of the 28% who use AI (more on that base below). It does not establish whether employers permitted that use.
 
 The reasoning is the same as the two-question test. A resume draft is a claim you then verify and own. An answer arriving in your ear mid-sentence is not your thinking being assisted — it is your thinking being replaced, in the exact moment the employer is trying to observe it. That's the substitution the test is built to catch.
 
@@ -70,7 +70,7 @@ Because of what the interview is for.
 
 A resume, letter, or portfolio makes claims about you. An assessment can directly test your work, with its own rules about assistance. The interview is where those claims get checked against the person who made them. Editing still needs to preserve true claims. Assistance during the checking must stay within the stated task rules.
 
-The rest of the process is moving in the same direction. In the 2026 report, **73% of candidates said they have completed a skills assessment or work sample, and 79% agreed that assessments help employers evaluate whether a candidate can do the job** — both all-candidate figures. Employ's framing of the shift: *"As resumes lose reliability, teams are putting more weight on validated skills."*
+The rest of the process is moving in the same direction. In the 2026 report, **73% of candidates said they have completed a skills assessment or work sample, and 79% agreed that assessments help employers evaluate whether a candidate can do the job** — both all-candidate figures. Employ's framing of the shift: *"As resumes lose reliability, teams are putting more weight on validated skills…"*
 
 And the advice the same report gives employers, verbatim: *"Be clear on AI use and evaluate for thinking, communication, and problem-solving—not just polished outputs."*
 
@@ -109,7 +109,7 @@ The honest edges of this, so you don't get sold certainty by someone who doesn't
 - **How often real-time interview assistance actually happens is unmeasured.** The 37%-of-28% figure is self-reported use of a category of tool, from one vendor's survey. It is not an observation of interviews.
 - **We make no claim about detection.** We have not verified any AI-detection tool's accuracy, so this guide does not tell you that anyone can or can't tell. Anyone selling you confidence in either direction — "they always know" or "it's undetectable" — is selling, not reporting. The argument here doesn't need detection to work: you still have to hold the conversation.
 - **Employer policy is patchy and mostly unpublished.** There is no reliable data on how many employers have written rules, which is precisely the gap this guide exists to help you navigate.
-- **The candidate adoption drop may not be a real drop.** Self-reported AI use falling three points in a year could be behaviour changing, or it could be people no longer counting tools they've stopped noticing they use.
+- **The candidate adoption drop may not be a real drop.** Self-reported AI use falling three points in a year could be behavior changing, or it could be people no longer counting tools they've stopped noticing they use.
 
 For the adjacent question — whether AI is auto-rejecting you on the employer's side — the evidence and its limits are in [ATS Myths](ats-myths.md).
 
@@ -127,5 +127,5 @@ The candidates who lose to AI aren't the ones who used it. They're the ones who 
 
 ## Sources
 
-- **Employ** — `2026 Job Seeker Nation Report`, a vendor survey conducted by Zogby Analytics in March–April 2026 with n≈1,500 U.S. adults, self-reported. Source of the 28% candidate AI adoption figure (down three points year over year; Gen Z 38%, Millennials 34%), the AI use-case breakdown, the 37% real-time-interview-response figure, the 91% AI-transparency figure, and the 73%/79% skills-assessment figures. Every use-case percentage in this report is a share of the 28% who use AI, not of all candidates; the 91% and 73%/79% figures are all-candidate. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf) ([archived copy](https://web.archive.org/web/20260813191128/https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf))
-- **Employ** — `2025 Recruiter Nation Report`, a vendor survey conducted by Zogby Analytics in September 2025 with more than 1,200 U.S.-based HR recruiters and hiring managers. Source of the 65% of recruiting teams using AI to augment recruiting technology (63% in 2024, 58% in 2023), which is an all-respondent figure. Survey data, not platform data. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2025-Employ-Recruiter-Nation-Report.pdf)
+- **Employ** — `2026 Job Seeker Nation Report`, a vendor survey conducted by Zogby Analytics in March–April 2026 with n≈1,500 U.S. adults working or seeking work, self-reported. Source of the 28% candidate AI adoption figure (down three points year over year; Gen Z 38%, Millennials 34%), the AI use-case breakdown, the 37% real-time-interview-response figure, the 91% AI-transparency figure, and the 73%/79% skills-assessment figures. Every use-case percentage in this report is a share of the 28% who use AI, not of all candidates; the 91% and 73%/79% figures are all-candidate. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf) ([archived copy](https://web.archive.org/web/20260813191128/https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf))
+- **Employ** — `2025 Recruiter Nation Report`, a vendor survey conducted by Zogby Analytics in September 2025 with more than 1,200 U.S.-based HR recruiters and managers. Source of the 65% of recruiting teams using AI to augment recruiting technology (described in the report as a slight increase from the previous year), which is an all-respondent figure. Survey data, not platform data. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2025-Employ-Recruiter-Nation-Report.pdf)

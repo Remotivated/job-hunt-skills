@@ -26,13 +26,15 @@ Three things, in roughly this order:
 
 ---
 
-## A Two-Minute Scam Screen
+## A Two-Minute Employer Check
 
 The first of those three questions — does the role exist as advertised? — has a checkable answer, and it is worth spending two minutes on before the other forty-three.
 
 In Employ's 2026 Job Seeker Nation Report, **53% of jobseekers said they had come across a job posting they believed was a scam**. That is a share of surveyed people reporting a suspected encounter, not the proportion of postings that are fraudulent or proof those suspicions were correct. The useful part is that the same survey asked what gave it away, and the answers are all things you can check from the posting itself, in minutes, before you write a word of a cover letter.
 
-Among respondents reporting a suspected scam posting, the red flags they named and the share naming each:
+The point is to verify, not to label. Each sign below is something to check, not proof of fraud: note what you saw, then confirm it with the employer through a channel you found yourself.
+
+Among respondents reporting a suspected scam posting, the warning signs they named and the share naming each:
 
 - **The role seems too good to be true (50%).** Pay well above the band for the title, seniority that doesn't match the requirements, a hiring process with no steps in it.
 - **A request for payment (48%).** For equipment, training, onboarding software, a background check, anything. Verify any payment request independently with the employer before proceeding; do not pay an unverified recruiter.
@@ -45,7 +47,7 @@ Among respondents reporting a suspected scam posting, the red flags they named a
 
 **On identity verification, the tell is timing, not the ask.** Being asked to prove who you are is not a scam signal by itself, and most candidates are comfortable with it: in the same survey, 50% said they were very comfortable with identity verification and 33% somewhat comfortable, while only 8% said they would abandon an application if asked to verify upfront. Employ's own summary of the finding is "The challenge isn't willingness, it's timing."
 
-Timing is where the signal actually lives. **31% of candidates reported being asked to verify their identity before even applying.** Verification timing varies, and the report does not establish which early requests are fraudulent. So the rule isn't "never verify". It's that an identity request arriving before any human contact is a red flag, not a formality. In practice that means: no Social Security number, date of birth, passport or licence scan, or bank details before you have spoken with a named person at the company, on a channel that traces back to its domain.
+Timing is where the signal actually lives. **31% of candidates reported being asked to verify their identity before even applying.** Verification timing varies, and the report does not establish which early requests are fraudulent. So the rule isn't "never verify". It's that an identity request arriving before any human contact is a reason to stop and verify, not a formality. In practice that means: no Social Security number, date of birth, passport or license scan, or bank details before you have spoken with a named person at the company, on a channel that traces back to its domain.
 
 None of this requires suspicion as a default posture. It requires reading — the same skill the [ATS myths guide](ats-myths.md) asks for when it tells you to read every application question before you answer it. The questions you answer and the details you hand over are the two places in an application where careless reading actually costs you something.
 
@@ -66,4 +68,4 @@ None of this requires suspicion as a default posture. It requires reading — th
 - **GitLab All-Remote Handbook** — Public documentation on all-remote practices, async communication, and how to evaluate a remote role. [handbook.gitlab.com](https://handbook.gitlab.com/handbook/company/culture/all-remote/guide/#how-to-evaluate-a-remote-role)
 - **Remotivated Work Models** — Five-tier framework for classifying how companies actually structure work around location. [remotivated.com](https://remotivated.com/resources/work-models?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=guide)
 - **LinkedIn / Andrew Seaman** — Summary of LinkedIn Economic Graph data: remote jobs were 9% of postings and drew 44% of applications in July 2023, illustrating the gap between what is offered and what people actually want. [linkedin.com](https://www.linkedin.com/pulse/ads-remote-jobs-disappearing-andrew-seaman)
-- **Employ** — `2026 Job Seeker Nation Report` — vendor survey, Zogby Analytics, March–April 2026, n≈1,500 U.S. adults, self-reported. Source of the 53% who encountered a suspected scam posting and the six red-flag shares, the identity-verification comfort and timing figures, and the 46% 90-day mismatch figure. The encounter figure is a share of surveyed candidates; the red-flag shares are among those reporting a suspected encounter; the mismatch figure is among respondents who left within 90 days. None measures the share of job postings that are fraudulent. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf) ([archived copy](https://web.archive.org/web/20260813191128/https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf))
+- **Employ** — `2026 Job Seeker Nation Report` — vendor survey, Zogby Analytics, March–April 2026, n≈1,500 U.S. adults working or seeking work, self-reported. Source of the 53% who encountered a suspected scam posting and the six red-flag shares, the identity-verification comfort and timing figures, and the 46% 90-day mismatch figure. The encounter figure is a share of surveyed candidates; the red-flag shares are among those reporting a suspected encounter; the mismatch figure is among respondents who left within 90 days. None measures the share of job postings that are fraudulent. [pages.employinc.com](https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf) ([archived copy](https://web.archive.org/web/20260813191128/https://pages.employinc.com/rs/659-JST-226/images/2026-Job-Seeker-Nation-Report.pdf))
