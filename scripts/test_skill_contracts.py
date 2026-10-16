@@ -109,6 +109,7 @@ class SkillDiscoveryTests(unittest.TestCase):
     def test_required_user_facing_skills_exist(self) -> None:
         expected = {
             "get-started",
+            "opportunity-evaluator",
             "resume-builder",
             "resume-tailor",
             "cover-letter",
@@ -317,6 +318,7 @@ class ProgressRewardContractTests(unittest.TestCase):
         # the loop stays consistent instead of each skill reinventing it.
         expected = {
             "get-started",
+            "opportunity-evaluator",
             "resume-builder",
             "resume-tailor",
             "resume-auditor",
@@ -336,7 +338,8 @@ class ProgressRewardContractTests(unittest.TestCase):
 
     def test_tracker_writing_skills_print_the_pulse(self) -> None:
         # Skills that upsert applications.md surface the momentum pulse.
-        for name in ("resume-tailor", "company-research", "interviewing"):
+        for name in ("resume-tailor", "company-research", "interviewing",
+                     "opportunity-evaluator"):
             text = read(SKILLS / name / "SKILL.md")
             self.assertIn(
                 "--pulse",
@@ -460,12 +463,13 @@ class StateFixtureContractTests(unittest.TestCase):
 
     def test_state_writing_skills_use_the_helper(self) -> None:
         tracker_writers = ("company-research", "resume-tailor", "interviewing",
-                           "interview-coach", "cover-letter", "claim-check")
+                           "interview-coach", "cover-letter", "claim-check",
+                           "opportunity-evaluator")
         report_writers = ("company-research", "resume-tailor", "claim-check",
                           "interview-coach", "cover-letter", "resume-auditor",
-                          "linkedin-optimizer")
+                          "linkedin-optimizer", "opportunity-evaluator")
         confirmers = ("resume-tailor", "claim-check", "interviewing",
-                      "interview-coach", "cover-letter")
+                      "interview-coach", "cover-letter", "opportunity-evaluator")
         for name in tracker_writers:
             self.assertIn('state.mjs" tracker upsert', read(SKILLS / name / "SKILL.md"), name)
         for name in report_writers:
@@ -503,7 +507,8 @@ class TruthAndContentContractTests(unittest.TestCase):
 
     def test_skills_reading_external_content_quote_ai_directed_text(self) -> None:
         for name in ("company-research", "resume-tailor", "cover-letter",
-                     "interview-coach", "interviewing", "get-started", "claim-check"):
+                     "interview-coach", "interviewing", "get-started", "claim-check",
+                     "opportunity-evaluator"):
             text = read(SKILLS / name / "SKILL.md")
             self.assertRegex(text, r"(?i)data", name)
             if name != "claim-check":
@@ -532,7 +537,7 @@ class TruthAndContentContractTests(unittest.TestCase):
         self.assertRegex(claim_check, r"\| Hard \|[^\n]*restated retracted claims")
         for name in ("claim-check", "resume-tailor", "resume-builder", "cover-letter",
                      "interview-coach", "interviewing", "linkedin-optimizer",
-                     "resume-auditor", "proof-asset-creator"):
+                     "resume-auditor", "proof-asset-creator", "opportunity-evaluator"):
             self.assertIn("retracted-claims.md", read(SKILLS / name / "SKILL.md"), name)
         coach = read(SKILLS / "interview-coach" / "SKILL.md")
         self.assertIn("Never script an answer, talking point, or story around a retracted claim", coach)
@@ -575,16 +580,17 @@ class PromptOnlyContractTests(unittest.TestCase):
     """Copy/paste prompts are the no-write surface: same truth rules, no files."""
 
     def test_posting_prompts_treat_external_text_as_data(self) -> None:
-        for name in ("resume-tailor", "company-research", "cover-letter", "interview-prep"):
+        for name in ("resume-tailor", "company-research", "cover-letter", "interview-prep",
+                     "opportunity-evaluator"):
             text = read(ROOT / "prompts" / f"{name}.md")
             self.assertRegex(text, r"not instructions", name)
             self.assertIn("text aimed at AI tools", text, name)
 
     def test_prompts_carry_tool_of_trade_and_retraction_rules(self) -> None:
-        for name in ("resume-tailor", "claim-check"):
+        for name in ("resume-tailor", "claim-check", "opportunity-evaluator"):
             text = read(ROOT / "prompts" / f"{name}.md")
             self.assertIn("Using a tool is not building it", text, name)
-        for name in ("resume-tailor", "claim-check", "interview-prep"):
+        for name in ("resume-tailor", "claim-check", "interview-prep", "opportunity-evaluator"):
             self.assertRegex(read(ROOT / "prompts" / f"{name}.md"), r"(?i)\bthis chat\b", name)
 
     def test_company_research_prompt_is_bounded(self) -> None:
@@ -597,6 +603,122 @@ class PromptOnlyContractTests(unittest.TestCase):
             text = read(path)
             self.assertNotIn("my-documents/", text, path)
             self.assertNotIn("state.mjs", text, path)
+
+
+class OpportunityContractTests(unittest.TestCase):
+    """The opportunity evaluator (state-layer §13) keeps fit, constraints, and
+    posting observations apart, writes nothing before the user decides, and
+    hands a pursued posting to the existing research and tailoring skills. The
+    Node helper and the native-file fallback share one fixture set."""
+
+    RULE = re.compile(r"^- \*\*(OP-\d+)\*\*", re.MULTILINE)
+
+    def setUp(self) -> None:
+        self.state = read(SKILLS / "_shared" / "state-layer.md")
+        self.section = self.state.split("## 13. Opportunity Envelope and Snapshots", 1)[1]
+        self.skill = read(SKILLS / "opportunity-evaluator" / "SKILL.md")
+        self.cases = json.loads(
+            read(ROOT / "scripts" / "fixtures" / "opportunity" / "cases.json")
+        )["cases"]
+
+    def test_every_op_rule_has_a_fixture_and_vice_versa(self) -> None:
+        documented = set(self.RULE.findall(self.section))
+        covered = {rule for case in self.cases for rule in case["rules"]}
+        self.assertGreaterEqual(len(documented), 10)
+        self.assertEqual(documented - covered, set(), "rules without a fixture")
+        self.assertEqual(covered - documented, set(), "fixtures citing undocumented rules")
+
+    def test_fixtures_cover_the_three_intake_paths_and_state_scenarios(self) -> None:
+        kinds = {case["kind"] for case in self.cases}
+        for kind in ("normalize", "roundtrip", "check", "snapshot",
+                     "snapshot-concurrent", "snapshot-collision"):
+            self.assertIn(kind, kinds)
+        envelopes = ROOT / "scripts" / "fixtures" / "opportunity" / "envelopes"
+        kinds_seen = {
+            json.loads(read(path))["source"]["kind"] for path in envelopes.glob("*.json")
+        }
+        self.assertTrue({"paste", "url", "record"} <= kinds_seen)
+        for case in self.cases:
+            for key in ("input",):
+                if key in case:
+                    self.assertTrue((envelopes / case[key]).exists(), case[key])
+
+    def test_native_procedure_matches_helper_behavior(self) -> None:
+        native = self.section.split("**Native procedure (no Node).**", 1)[1]
+        for phrase in ("OP-1", "OP-6", "OP-8", "OP-9", "Never overwrite or edit an existing snapshot"):
+            self.assertIn(phrase, native)
+        self.assertIn("Unknown is not absent.", self.section)
+        self.assertIn("never a block (§9)", self.section)
+        self.assertIn('assertUserWorkspace("opportunity")', read(PLUGIN / "scripts" / "opportunity.mjs"))
+
+    def test_three_blocks_stay_separate(self) -> None:
+        for heading in ("**A. Fit.**", "**B. Constraints.**", "**C. Posting and company observations.**"):
+            self.assertIn(heading, self.skill)
+        self.assertIn("**Observations never change the fit read.**", self.skill)
+        self.assertIn("or says **unknown**", self.skill)
+        self.assertIn("**Use is not authorship.**", self.skill)
+
+    def test_observations_describe_without_accusing_or_citing_law_from_memory(self) -> None:
+        self.assertIn("**Describe, do not accuse.**", self.skill)
+        self.assertIn("do not state the law from memory", self.skill)
+        prompt = read(ROOT / "prompts" / "opportunity-evaluator.md")
+        self.assertIn("Describe, do not accuse.", prompt)
+        self.assertIn("do not state the law from memory", prompt)
+
+    def test_nothing_is_written_before_the_user_decides(self) -> None:
+        self.assertIn("Do not write anything before they answer.", self.skill)
+        self.assertIn("**Don't save anything.**", self.skill)
+        self.assertRegex(self.skill, r"opportunity\.mjs\" snapshot [^\n]*--user-confirmed")
+        self.assertIn("Pass `--user-confirmed` only because the user chose Pursue", self.skill)
+        hold = self.skill.split("**Hold or skip:**", 1)[1].split("###", 1)[0]
+        self.assertIn("Do not create a tracker row.", hold)
+        self.assertIn("Nothing is written.", self.skill)  # in-chat read
+
+    def test_pursue_hands_off_to_existing_skills(self) -> None:
+        handoff = self.skill.split("### 7. Hand off a pursued opportunity", 1)[1].split("###", 1)[0]
+        self.assertIn("`company-research`", handoff)
+        self.assertIn("`resume-tailor`", handoff)
+        self.assertIn("claim-check", handoff)
+        for name in ("resume-tailor", "company-research"):
+            text = read(SKILLS / name / "SKILL.md")
+            self.assertIn("opportunity-{n}.md", text, name)
+            self.assertIn("#13-opportunity-envelope-and-snapshots", text, name)
+
+    def test_legacy_applications_keep_url_and_paste_inputs(self) -> None:
+        tailor = read(SKILLS / "resume-tailor" / "SKILL.md")
+        research = read(SKILLS / "company-research" / "SKILL.md")
+        self.assertIn("Otherwise, use a URL or pasted text as before", tailor)
+        self.assertIn("**Job posting URL or pasted posting**", research)
+        self.assertIn("Application folders without any snapshot are valid.", self.section)
+        self.assertIn("tailored files without it remain valid", self.state)
+
+    def test_evaluation_reports_carry_the_posting_identity(self) -> None:
+        for key in ("decision:", "source_kind:", "source_name:", "source_url:",
+                    "external_id:", "opportunity_fingerprint:", "skill: opportunity-evaluator"):
+            self.assertIn(key, self.skill)
+            if key != "skill: opportunity-evaluator":
+                self.assertIn(f"`{key[:-1]}`", self.section)
+
+    def test_check_runs_for_every_source_kind(self) -> None:
+        self.assertIn("run `check` for every source kind: paste, url, and record", self.skill)
+        self.assertIn("never inside `my-documents/`", self.skill)
+        self.assertIn('`"searched": false`', self.skill)
+
+    def test_same_or_new_application_is_the_users_call(self) -> None:
+        self.assertIn("**Same application or a new one?**", self.skill)
+        self.assertIn("Never decide it silently.", self.skill)
+        self.assertIn("{company-slug}-{role-slug}-2", self.skill)
+        self.assertIn("only for cells that are currently `-`", self.skill)
+        self.assertNotIn("today + 3", self.skill)
+
+    def test_hold_and_skip_reports_keep_the_posting(self) -> None:
+        self.assertIn("End the body with the posting itself", self.skill)
+        self.assertIn("untrusted source material", self.skill)
+        self.assertIn("**Coming back to an earlier evaluation.**", self.skill)
+
+    def test_tailor_frontmatter_template_has_no_inline_comment(self) -> None:
+        tailor = read(SKILLS / "resume-tailor" / "SKILL.md")
+        self.assertNotIn("opportunity-{n}.md  #", tailor)
 
 
 class PublicDocsContractTests(unittest.TestCase):

@@ -1,0 +1,8 @@
+{
+  "envelope_version": 1,
+  "source": {
+    "kind": "paste"
+  },
+  "posting_text": "Some posting.",
+  "fingerprint": "sha256:0000"
+}

@@ -1,6 +1,6 @@
 {
   "name": "job-hunt-skills",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "description": "AI-assisted job search skills, prompts, guides, and ATS-safe DOCX/PDF export (Node + Typst)",
@@ -23,6 +23,7 @@
     "test:export": "node --test scripts/test-export.mjs",
     "test:strength": "node --test scripts/test-profile-strength.mjs",
     "test:state": "node --test scripts/test-state.mjs",
+    "test:opportunity": "node --test scripts/test-opportunity.mjs",
     "test:plugin": "node --test scripts/test-plugin-package.mjs"
   },
   "devDependencies": {

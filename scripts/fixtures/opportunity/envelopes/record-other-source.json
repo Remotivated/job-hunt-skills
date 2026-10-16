@@ -1,0 +1,10 @@
+{
+  "envelope_version": 1,
+  "source": {
+    "kind": "record",
+    "name": "Another Feed",
+    "external_id": "88412"
+  },
+  "observed_at": "2026-10-09T09:00:00Z",
+  "posting_text": "A different job that happens to share an id number."
+}

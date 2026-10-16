@@ -39,6 +39,9 @@ function safeRead(filePath) {
   }
 }
 
+// A saved posting snapshot, as written by opportunity-evaluator.
+const SNAPSHOT_FILE = /^opportunity-\d+\.md$/;
+
 function safeList(dir) {
   try {
     return fs.readdirSync(dir, { withFileTypes: true });
@@ -137,8 +140,16 @@ export function computeStrength(root = process.cwd()) {
   const proofAssets = safeList(path.join(md, "proof-assets")).filter(
     (e) => e.isFile() && e.name.endsWith(".md"),
   ).length;
+  // A folder counts once it holds any work of the user's: a tailored document,
+  // interview prep or log, a follow-up, an export. A saved posting snapshot
+  // (opportunity-{n}.md) alone does not count, and neither do dotfiles such as
+  // .gitkeep or the helper's transient .tmp-* files.
   const tailoredApps = safeList(path.join(md, "applications")).filter(
-    (e) => e.isDirectory(),
+    (e) =>
+      e.isDirectory() &&
+      safeList(path.join(md, "applications", e.name)).some(
+        (f) => f.isFile() && !f.name.startsWith(".") && !SNAPSHOT_FILE.test(f.name),
+      ),
   ).length;
 
   const label = resume ? "resume" : cv ? "CV" : "work document";
