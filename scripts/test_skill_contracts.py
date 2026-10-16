@@ -503,7 +503,8 @@ class TruthAndContentContractTests(unittest.TestCase):
 
     def test_every_skill_links_the_policy(self) -> None:
         for skill_md in user_facing_skills():
-            self.assertIn("../_shared/truth-and-content.md", read(skill_md), skill_md)
+            self.assertIn("references/truth-and-content.md", read(skill_md), skill_md)
+            self.assertNotIn("../_shared/", read(skill_md), skill_md)
 
     def test_skills_reading_external_content_quote_ai_directed_text(self) -> None:
         for name in ("company-research", "resume-tailor", "cover-letter",

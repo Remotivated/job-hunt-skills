@@ -46,6 +46,8 @@ const PLUGIN_ARCHIVE_PATHS = [
   "scripts/vendor/vendor-inputs.json",
   "skills/get-started/agents/openai.yaml",
   "skills/_shared/truth-and-content.md",
+  "skills/get-started/references/state-layer.md",
+  "skills/get-started/references/truth-and-content.md",
   "scripts/state.mjs",
   "scripts/workspace.mjs",
   "scripts/opportunity.mjs",
