@@ -12,6 +12,7 @@ After orientation (step 1), route on what the user has:
 - **Has an existing resume/CV or LinkedIn profile** → fast path (step 2). This is the default; most first-timers arrive with a resume.
 - **Pasted a resume and a job posting already** → go straight into the fast path with that material.
 - **No resume yet, or explicitly wants to build the source document properly** → deep build (step 4).
+- **Asks whether a specific posting is worth pursuing, rather than for tailoring** → hand off to `opportunity-evaluator`, which gives an in-chat read first and saves nothing until the user decides.
 
 The fast path runs **in-chat first** and only touches disk once the user asks to save — so the workspace preflight (step 3) happens at save time, not before the user has seen anything. The deep build confirms the workspace up front because its whole output is files.
 

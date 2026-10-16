@@ -9,7 +9,7 @@
     {
       "name": "job-hunt-skills",
       "source": "./plugins/job-hunt-skills",
-      "description": "Tailor resumes, cover letters, and interview prep to specific roles and organize your job search. Covers research, applications, interviews, LinkedIn, and proof assets — saved as local markdown you control."
+      "description": "Evaluate job postings, tailor resumes, cover letters, and interview prep to the roles you pursue, and organize your job search. Covers research, applications, interviews, LinkedIn, and proof assets — saved as local markdown you control."
     }
   ]
 }

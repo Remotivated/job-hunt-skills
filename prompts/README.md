@@ -17,6 +17,7 @@ And the rest of the library:
 
 | Your situation | Paste this |
 | --- | --- |
+| You found a posting and aren't sure it's worth the effort | [opportunity-evaluator](opportunity-evaluator.md) — pursue, hold, or skip, with reasons |
 | No strong resume to start from | [resume-builder](resume-builder.md) — an interview, not a form |
 | The application wants a letter | [cover-letter](cover-letter.md) — proof, not flattery |
 | Your LinkedIn is stale or invisible | [linkedin-audit](linkedin-audit.md) — starts with a five-second headline read |
