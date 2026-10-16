@@ -23,6 +23,7 @@ And the rest of the library:
 | Your LinkedIn is stale or invisible | [linkedin-audit](linkedin-audit.md) — starts with a five-second headline read |
 | You want evidence beyond the resume | [proof-asset](proof-asset.md) — show, don't claim |
 | You're about to hit send | [claim-check](claim-check.md) — the truth pass |
+| You're leaning on AI and want to know where the line is | [ai-assistance-check](ai-assistance-check.md) — can you defend it live? |
 
 ## How to use them
 
