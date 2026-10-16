@@ -14,6 +14,8 @@
     "scaffold": "node plugins/job-hunt-skills/scripts/scaffold-state.mjs",
     "strength": "node plugins/job-hunt-skills/scripts/profile-strength.mjs",
     "build:zip": "node scripts/build-cowork-zip.mjs",
+    "sync:shared": "node scripts/sync-shared-references.mjs",
+    "check:shared": "node scripts/sync-shared-references.mjs --check",
     "test:skills": "node scripts/run-python.mjs scripts/test_skill_contracts.py",
     "test:codex": "node --test scripts/test-codex-support.mjs",
     "check:hygiene": "node scripts/run-python.mjs scripts/check-content-hygiene.py",

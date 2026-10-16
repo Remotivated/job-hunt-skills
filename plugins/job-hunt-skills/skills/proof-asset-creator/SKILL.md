@@ -13,11 +13,11 @@ Drafting the actual case study, building the demo, or designing the portfolio pi
 
 ## Workflow
 
-> **State layer:** reads source work documents (`resume.md`/`cv.md`), `story-bank.md`, existing `proof-assets/`, and `applications.md`. Writes one file to `my-documents/proof-assets/{slug}.md`. No tracker touch, no report. Reads `retracted-claims.md` when it exists so a withdrawn claim never becomes a case study. See [state-layer contract](../_shared/state-layer.md) and the [truth and content contract](../_shared/truth-and-content.md).
+> **State layer:** reads source work documents (`resume.md`/`cv.md`), `story-bank.md`, existing `proof-assets/`, and `applications.md`. Writes one file to `my-documents/proof-assets/{slug}.md`. No tracker touch, no report. Reads `retracted-claims.md` when it exists so a withdrawn claim never becomes a case study. See [state-layer contract](references/state-layer.md) and the [truth and content contract](references/truth-and-content.md).
 
 ### 1. Read the evidence layer
 
-Before suggesting anything, read in priority order (see [state-layer §8](../_shared/state-layer.md#8-evidence-layer)):
+Before suggesting anything, read in priority order (see [state-layer §8](references/state-layer.md#8-evidence-layer)):
 
 1. `my-documents/resume.md` or `my-documents/cv.md` — for experience and technical capability
 2. `my-documents/story-bank.md` — STAR+R stories that could expand into case studies
@@ -28,7 +28,7 @@ Before suggesting anything, read in priority order (see [state-layer §8](../_sh
 
 If source work documents are missing entirely, warn the user and offer `resume-builder` first. The skill still works on paste-only input, but evidence verification will be limited and every concrete claim will need `[ASK: ...]`.
 
-First-run scaffold `proof-assets/` if missing. See [state-layer §2](../_shared/state-layer.md#2-first-run-scaffolding).
+First-run scaffold `proof-assets/` if missing. See [state-layer §2](references/state-layer.md#2-first-run-scaffolding).
 
 ### 2. Discovery
 
@@ -98,7 +98,7 @@ Once saved, tell the user what to do with it:
 - **Resume Projects section** — cite it by filename in `resume-builder`
 - **Cover letters** — reference it from `resume-tailor` ("see my case study on X")
 
-Close with the reward beats ([state-layer §11](../_shared/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("you now have a concrete proof asset to point to across applications and on LinkedIn"), then show the **profile-strength line** (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively) so the user sees their progress and best next step.
+Close with the reward beats ([state-layer §11](references/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("you now have a concrete proof asset to point to across applications and on LinkedIn"), then show the **profile-strength line** (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively) so the user sees their progress and best next step.
 
 ## Common Mistakes
 

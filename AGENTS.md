@@ -1,12 +1,13 @@
 # Job Hunt Skills Repository Guidance
 
-This repository ships one shared set of Agent Skills to Codex, Claude Code, and Cowork. Keep `plugins/job-hunt-skills/skills/` as the single source of truth; do not duplicate skill bodies under provider-specific directories.
+This repository ships one shared set of Agent Skills to Codex, Claude Code, and Cowork. Keep `plugins/job-hunt-skills/skills/` as the single source of truth; do not duplicate skill bodies under provider-specific directories. The one generated exception is each skill's `references/` folder, described below.
 
 The installable plugin is `plugins/job-hunt-skills/`. Users and the plugin directory receive only that folder, so anything a skill needs at runtime must live inside it and must not reference files outside it. Examples, prompts, tests, CI, and build tooling stay at the repository root.
 
 ## Before editing workflows
 
 - Read `plugins/job-hunt-skills/skills/_shared/state-layer.md` before changing any skill that reads or writes `my-documents/`, and `plugins/job-hunt-skills/skills/_shared/truth-and-content.md` before changing how a skill handles postings, claims, research, or candidate-facing wording.
+- Edit the shared rule files only in `plugins/job-hunt-skills/skills/_shared/`, then run `npm run sync:shared`. It copies them into every skill's `references/` folder, because some hosts let a skill read only files inside its own folder. Skills link `references/<file>.md`, never `../_shared/`. Never edit a copy by hand; `npm run check:shared` and `npm run test:plugin` fail when a copy is missing or out of date.
 - Preserve truthful-claim rules, workspace confirmation before first write, report numbering, tracker schemas, and resume/CV selection behavior.
 - Tracker and report writes go through `plugins/job-hunt-skills/scripts/state.mjs` when Node is available. Rule changes update the state-layer rule list, `scripts/fixtures/state/`, and the helper together.
 - Opportunity envelopes and snapshots go through `plugins/job-hunt-skills/scripts/opportunity.mjs` (state-layer §13). Its OP rules, `scripts/fixtures/opportunity/`, and the helper change together.
@@ -19,6 +20,7 @@ The installable plugin is `plugins/job-hunt-skills/`. Users and the plugin direc
 Run the narrow check for the files you changed, then run the complete set before handoff:
 
 ```bash
+npm run check:shared
 npm run test:codex
 python3 scripts/test_skill_contracts.py
 python3 scripts/check-content-hygiene.py

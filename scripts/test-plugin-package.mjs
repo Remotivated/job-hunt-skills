@@ -10,13 +10,14 @@
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, lstatSync } from "node:fs";
+import { cpSync, existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, lstatSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, extname, join, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, test } from "node:test";
 
 import { CODEX_MARKETPLACE, PLUGIN_DIR, buildZip, releaseCodexMarketplace } from "./build-cowork-zip.mjs";
+import { findSharedDrift, syncSharedReferences } from "./sync-shared-references.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PLUGIN = join(ROOT, PLUGIN_DIR);
@@ -198,6 +199,69 @@ describe("plugin folder contents", () => {
       }
     }
     assert.ok(checked > 20, `expected skills to reference bundled files, found ${checked}`);
+  });
+});
+
+describe("shared rule copies", () => {
+  // Some hosts let a skill read only files inside its own folder, so every
+  // skill carries a generated copy of each skills/_shared/ file in references/.
+  test("every skill carries a current copy of each shared rule file", () => {
+    const drift = findSharedDrift(PLUGIN);
+    assert.deepEqual(
+      drift,
+      [],
+      `shared rule copies are out of date; run npm run sync:shared\n${drift.map((d) => `${d.problem}: ${d.path}`).join("\n")}`,
+    );
+  });
+
+  test("the check reports missing, edited, and orphaned copies, and sync repairs them", () => {
+    const tmp = mkdtempSync(join(tmpdir(), "job-hunt-shared-"));
+    try {
+      const plugin = join(tmp, "plugin");
+      cpSync(join(PLUGIN, "skills"), join(plugin, "skills"), { recursive: true });
+      const copy = (skill, name) => join(plugin, "skills", skill, "references", name);
+
+      rmSync(copy("claim-check", "state-layer.md"));
+      writeFileSync(copy("cover-letter", "truth-and-content.md"), "edited by hand\n");
+      const orphan = readFileSync(copy("get-started", "state-layer.md"), "utf8").replace(
+        "skills/_shared/state-layer.md",
+        "skills/_shared/removed.md",
+      );
+      writeFileSync(copy("get-started", "removed.md"), orphan);
+      writeFileSync(copy("get-started", "notes.md"), "A reference file the skill owns.\n");
+
+      assert.deepEqual(findSharedDrift(plugin), [
+        { path: "skills/claim-check/references/state-layer.md", problem: "missing" },
+        { path: "skills/cover-letter/references/truth-and-content.md", problem: "differs" },
+        { path: "skills/get-started/references/removed.md", problem: "orphaned" },
+      ]);
+
+      const result = syncSharedReferences(plugin);
+      assert.deepEqual(result.written.sort(), [
+        "skills/claim-check/references/state-layer.md",
+        "skills/cover-letter/references/truth-and-content.md",
+      ]);
+      assert.deepEqual(result.removed, ["skills/get-started/references/removed.md"]);
+      assert.deepEqual(findSharedDrift(plugin), []);
+      assert.equal(readFileSync(copy("get-started", "notes.md"), "utf8"), "A reference file the skill owns.\n");
+
+      // CRLF checkouts are not drift.
+      const crlf = copy("interviewing", "state-layer.md");
+      writeFileSync(crlf, readFileSync(crlf, "utf8").replace(/\n/g, "\r\n"));
+      assert.deepEqual(findSharedDrift(plugin), []);
+    } finally {
+      rmSync(tmp, { recursive: true, force: true });
+    }
+  });
+
+  test("a skill links its own copy, never a sibling folder", () => {
+    for (const entry of readdirSync(join(PLUGIN, "skills"), { withFileTypes: true })) {
+      const skillMd = join(PLUGIN, "skills", entry.name, "SKILL.md");
+      if (!entry.isDirectory() || !existsSync(skillMd)) continue;
+      const text = readFileSync(skillMd, "utf8");
+      assert.doesNotMatch(text, /\]\(\.\.\/_shared\//, `${entry.name}/SKILL.md links ../_shared/; link references/ instead`);
+      assert.match(text, /\]\(references\/truth-and-content\.md/, `${entry.name}/SKILL.md must link references/truth-and-content.md`);
+    }
   });
 });
 
