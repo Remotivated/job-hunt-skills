@@ -86,7 +86,7 @@ So the practical version of the ethical argument is that they point the same way
 
 It is also a standard you can't ask for and duck. If you're asked directly whether you used AI on something, answer honestly. "I drafted it with AI and then rewrote it against my actual project notes" is a completely normal answer that costs you nothing. A denial you'd have to maintain is the only version that can hurt you.
 
-Rules vary by employer, and per the quote above, plenty of hiring teams have not written theirs down yet. So when a take-home or assessment doesn't say, ask before you start. It's a two-line email, and it gives you an explicit rule to work within. Follow any required disclosure even when nobody asks a follow-up question.
+Rules vary by employer, and there is no reliable data on how many have written theirs down (see [What Nobody Has Measured](#what-nobody-has-measured)). So when a take-home or assessment doesn't say, ask before you start. It's a two-line email, and it gives you an explicit rule to work within. Follow any required disclosure even when nobody asks a follow-up question.
 
 ---
 
@@ -96,7 +96,7 @@ This toolkit does not include auto-apply, automated outreach, or bulk AI messagi
 
 **It fails the same test, just at scale.** If a bot sent the application, you can't answer "why us?" — because there is no answer. There was no decision. The first real conversation exposes that immediately, and it exposes it as a lack of interest rather than a lack of skill.
 
-**The volume math works against you.** Remember the caveat above: adoption isn't volume, and automated applicants are exactly why a role can pull hundreds of applications from a candidate pool where most people aren't automating at all. Adding your own automation to that pile buys you a slightly larger share of an increasingly ignored queue. As [ATS Myths](ats-myths.md) covers, application order and queue position do real work in high-volume roles — and the way to win there is to be worth reading, not to be numerous.
+**The volume math works against you.** Remember the caveat above: adoption isn't volume. When a minority of candidates each send hundreds of applications, the roles they reach get more applications even if most of the candidate pool isn't automating at all. The survey doesn't measure how much of any role's volume comes from automation. Adding your own automation to that pile buys you a slightly larger share of a crowded queue. As [ATS Myths](ats-myths.md) covers, application order and queue position do real work in high-volume roles — and the way to win there is to be worth reading, not to be numerous.
 
 **And it's the wrong trade.** Five minutes of tailoring against one posting you actually want beats fifty automated sends, for the same reason [Resume Philosophy](resume-philosophy.md) says to tailor rather than blast. The bottleneck in a job search has never been how fast you can submit.
 

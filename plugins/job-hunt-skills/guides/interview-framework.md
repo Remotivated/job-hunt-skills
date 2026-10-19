@@ -167,7 +167,7 @@ This is the format that punishes people who prepare for it like a conversation. 
 
 - **Read the entire instruction screen before you start.** Question count, prep timer, answer limit, retake policy. Those four facts change how you play the whole thing, and you can't go back for them once you're recording.
 - **Do a full dry run in the browser you'll actually record in.** Camera, mic, lighting, permission prompts. Platform-specific surprises are much cheaper to find ten minutes early.
-- **Rehearse to the clock.** Limits often land somewhere between one and three minutes. A STAR+R answer that runs five minutes is fine in conversation and gets guillotined here. Cut Situation and Task to two sentences each and protect the Result and the Reflection — those are the beats carrying the signal.
+- **Rehearse to the clock.** Take the answer limit from the invite or instruction screen and time each practice answer against it. A STAR+R answer that runs five minutes is fine in conversation and gets guillotined here. Cut Situation and Task to two sentences each and protect the Result and the Reflection — those are the beats carrying the signal.
 - **Signpost out loud.** "There were three constraints. First…" You've lost the interviewer's feedback loop, so make your structure audible instead of relying on someone to follow you.
 - **Talk to the lens, not to your own thumbnail.** Put a sticky note next to the camera. Close the self-view if the platform lets you.
 - **Spend retakes early, then commit.** If you get a limited number, use one on question one, where nerves cost the most. Chasing a perfect take on every question burns focus you need for the ones that count.
