@@ -401,6 +401,25 @@ class FastPathContractTests(unittest.TestCase):
             "the in-chat fast path must not be described as already persisted",
         )
 
+    def test_interview_coach_offers_in_chat_prep(self) -> None:
+        text = read(SKILLS / "interview-coach" / "SKILL.md")
+        modes = text.split("### 0. Choose the mode", 1)[1].split("###", 1)[0]
+        in_chat = modes.split("- **In-chat prep**", 1)[1].split("- **Saved prep**", 1)[0]
+        saved = modes.split("- **Saved prep**", 1)[1]
+        # In-chat prep writes nothing and runs no preflight or scaffold.
+        self.assertIn("default when there is no bound workspace", in_chat)
+        self.assertIn("Nothing is written: no preflight, no scaffold", in_chat)
+        self.assertIn("Say plainly what you could not check", in_chat)
+        # Saved prep keeps the §10 preflight and its stop rule.
+        self.assertIn("#10-workspace-preflight", saved)
+        self.assertIn("surface it verbatim and stop the saved workflow", saved)
+        self.assertIn("Do not silently fall back to in-chat writes", saved)
+        # Saving after in-chat prep runs the preflight before any write.
+        save = text.split("### 6. Save", 1)[1].split("###", 1)[0]
+        self.assertIn("Saved prep only.", save)
+        self.assertIn("run the step 0 preflight first", save)
+        self.assertIn("saved only after those writes succeed", save)
+
 
 def user_facing_skills() -> list[Path]:
     return sorted(
