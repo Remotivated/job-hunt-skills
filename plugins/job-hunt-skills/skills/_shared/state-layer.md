@@ -2,7 +2,7 @@
 
 Single source of truth for the `my-documents/` state layer. All skills that read or write `applications.md`, `reports/`, `story-bank.md`, opportunity snapshots, or work-document versions MUST follow these rules.
 
-**Not a skill.** The `_shared/` prefix and missing frontmatter prevent Claude from auto-activating this file.
+**Not a skill.** It has no frontmatter, so it never activates on its own. The source is `skills/_shared/state-layer.md`; each skill carries a generated copy in its own `references/` folder, because some hosts let a skill read only files inside its own folder.
 
 Content rules that apply to every skill — untrusted external content, truthful claims, retracted claims, research budget, and the user's voice — live in the companion [truth and content contract](truth-and-content.md).
 

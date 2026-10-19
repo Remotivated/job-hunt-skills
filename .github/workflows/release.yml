@@ -35,6 +35,8 @@ jobs:
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "templates/fonts/OFL.txt"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/agents/openai.yaml"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/_shared/truth-and-content.md"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/references/state-layer.md"
+          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/references/truth-and-content.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/state.mjs"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/workspace.mjs"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/opportunity.mjs"

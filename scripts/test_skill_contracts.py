@@ -401,6 +401,33 @@ class FastPathContractTests(unittest.TestCase):
             "the in-chat fast path must not be described as already persisted",
         )
 
+    def test_interview_coach_offers_in_chat_prep(self) -> None:
+        text = read(SKILLS / "interview-coach" / "SKILL.md")
+        modes = text.split("### 0. Choose the mode", 1)[1].split("###", 1)[0]
+        in_chat = modes.split("- **In-chat prep**", 1)[1].split("- **Saved prep**", 1)[0]
+        saved = modes.split("- **Saved prep**", 1)[1]
+        # In-chat prep writes nothing and runs no preflight or scaffold.
+        self.assertIn("default when there is no bound workspace", in_chat)
+        self.assertIn("Nothing is written: no preflight, no scaffold", in_chat)
+        self.assertIn("Say plainly what you could not check", in_chat)
+        # Saved prep keeps the §10 preflight and its stop rule.
+        self.assertIn("#10-workspace-preflight", saved)
+        self.assertIn("surface it verbatim and stop the saved workflow", saved)
+        self.assertIn("Do not silently fall back to in-chat writes", saved)
+        # Saving after in-chat prep runs the preflight before any write.
+        save = text.split("### 6. Save", 1)[1].split("\n### ", 1)[0]
+        self.assertIn("Saved prep only.", save)
+        order = [
+            "run the step 0 preflight first",
+            "then step 0.5",
+            "recheck the brief against the selected source document, the story bank, and `retracted-claims.md`",
+            "only then write",
+            "saved only after those writes succeed",
+        ]
+        positions = [save.find(phrase) for phrase in order]
+        self.assertNotIn(-1, positions, "save step must name every stage")
+        self.assertEqual(positions, sorted(positions), "save stages must run in order")
+
 
 def user_facing_skills() -> list[Path]:
     return sorted(
@@ -503,7 +530,8 @@ class TruthAndContentContractTests(unittest.TestCase):
 
     def test_every_skill_links_the_policy(self) -> None:
         for skill_md in user_facing_skills():
-            self.assertIn("../_shared/truth-and-content.md", read(skill_md), skill_md)
+            self.assertIn("references/truth-and-content.md", read(skill_md), skill_md)
+            self.assertNotIn("../_shared/", read(skill_md), skill_md)
 
     def test_skills_reading_external_content_quote_ai_directed_text(self) -> None:
         for name in ("company-research", "resume-tailor", "cover-letter",

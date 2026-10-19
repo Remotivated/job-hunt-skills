@@ -23,13 +23,13 @@ Format-specific conventions:
 
 > **Onboarding hand-off:** If the user appears to be on a fresh clone or is new to Job Hunt Skills, hand off to `get-started`. This skill focuses on the document itself.
 >
-> **State layer:** this skill owns source work-document version bumps. See [state-layer contract section 6](../_shared/state-layer.md#6-work-document-frontmatter-and-selection).
+> **State layer:** this skill owns source work-document version bumps. See [state-layer contract section 6](references/state-layer.md#6-work-document-frontmatter-and-selection).
 >
-> **Content rules:** retracted claims stay out, use never becomes authorship, and the document sounds like the user. See the [truth and content contract](../_shared/truth-and-content.md).
+> **Content rules:** retracted claims stay out, use never becomes authorship, and the document sounds like the user. See the [truth and content contract](references/truth-and-content.md).
 
 ### 1. First-run scaffolding
 
-Follow the [Workspace Preflight (state-layer §10)](../_shared/state-layer.md#10-workspace-preflight).
+Follow the [Workspace Preflight (state-layer §10)](references/state-layer.md#10-workspace-preflight).
 
 - **If `my-documents/` does not yet exist** at the resolved path, hand off to `get-started` for the workspace confirmation flow. Do not run the scaffolder yourself — the user needs the novice-friendly "where will my files live" conversation before any file is written.
 - **If `my-documents/` already exists**, run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` to fill in any missing pieces. If it exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop. If it fails for any other reason (Node missing, no shell access), fall back to creating any missing structure with native file tools per state-layer §10 step 5.
@@ -46,7 +46,7 @@ Clarify:
 - Target country/region and target roles.
 - Whether the user has an existing resume, CV, LinkedIn export, job posting, or notes.
 
-If updating, select the existing work document using [state-layer section 6](../_shared/state-layer.md#6-work-document-frontmatter-and-selection), read its frontmatter, and preserve `label`.
+If updating, select the existing work document using [state-layer section 6](references/state-layer.md#6-work-document-frontmatter-and-selection), read its frontmatter, and preserve `label`.
 
 ### 3. Gather existing materials
 
@@ -91,7 +91,7 @@ Produce markdown for the requested documents. Do not save yet; claim verificatio
 
 **Resume format:** follow `{job_hunt_skills_root}/templates/resume-template.md`. Use achievement bullets: action + work + outcome. Keep one tense convention across the document: follow the one the user already uses; when there is none, past tense throughout (including the current role) is a common, readable default, and present tense for the current role is also widely used. Include remote-readiness evidence where relevant. Target path: `my-documents/resume.md`.
 
-Write in the user's voice: reuse their phrasing where it is already clear, match their register, and explain any convention you change rather than imposing it ([truth and content §5](../_shared/truth-and-content.md#5-the-users-voice)).
+Write in the user's voice: reuse their phrasing where it is already clear, match their register, and explain any convention you change rather than imposing it ([truth and content §5](references/truth-and-content.md#5-the-users-voice)).
 
 **CV format:** follow `{job_hunt_skills_root}/templates/resume-eu-template.md`. Lead with a Personal Statement rather than a US-style Professional Summary. Preserve useful academic-to-industry evidence such as selected publications or talks only when it strengthens the target role. Skip photo, DOB, full address, and marital status unless the user explicitly needs a locale where they are expected. Target path: `my-documents/cv.md`.
 
@@ -141,7 +141,7 @@ Source work documents are space-constrained. A structured interview surfaces mor
 > 2. "Migration of legacy billing system, 6-month project, $2M cost reduction"
 >    Propose: capture as proof-asset {legacy-billing-migration} [accept / redirect / skip]
 
-**Write semantics:** story-bank entries follow [state-layer §7](../_shared/state-layer.md#7-story-bank-schema) — kebab-case `id`, themes inferred from content, `created` set to today, `usage: []`. Proof-assets use a confirmed kebab-case slug. Captures are derived from material the user just told you, validated implicitly by the conversation, so no second claim-check pass is needed. Captured artifacts are persisted in step 7 alongside the source work document.
+**Write semantics:** story-bank entries follow [state-layer §7](references/state-layer.md#7-story-bank-schema) — kebab-case `id`, themes inferred from content, `created` set to today, `usage: []`. Proof-assets use a confirmed kebab-case slug. Captures are derived from material the user just told you, validated implicitly by the conversation, so no second claim-check pass is needed. Captured artifacts are persisted in step 7 alongside the source work document.
 
 ### 7. Save and version
 
@@ -189,7 +189,7 @@ Handle failures:
 
 ### 8.5. Close the run
 
-After the files are saved and exported, end with the two closing beats from [state-layer §11](../_shared/state-layer.md#11-progress-and-reward):
+After the files are saved and exported, end with the two closing beats from [state-layer §11](references/state-layer.md#11-progress-and-reward):
 
 - **What this unlocked** — name the new capability in plain terms, e.g. "Your {label} now lives here as a source document, so tailoring to a role, honest audits, and interview prep all draw from it — and any stories we banked will back up claims automatically." Not a file count; a capability.
 - **Where things stand** — show the profile-strength line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively when Node is unavailable) so the user sees their progress and the single highest-leverage next step. Frame it as momentum, not a to-do list.
@@ -207,7 +207,7 @@ After the files are saved and exported, end with the two closing beats from [sta
 - **Inventing metrics.** Use `[ASK: what was the result?]` for gaps.
 - **Dropping proficiency qualifiers.** Preserve "learning", "intermediate", "scripting only", "~1 year", or similar hedges.
 - **Inventing tool specifics.** Do not expand "AWS" into service names, "databases" into engines, or "CI/CD" into tools unless the user named them.
-- **Turning use into authorship.** "Used Jira" is not "set up Jira workflows". Ask which it was ([truth and content §2](../_shared/truth-and-content.md#2-using-a-tool-is-not-building-it)).
+- **Turning use into authorship.** "Used Jira" is not "set up Jira workflows". Ask which it was ([truth and content §2](references/truth-and-content.md#2-using-a-tool-is-not-building-it)).
 - **Reintroducing a retracted claim.** Once the user withdraws a claim, it stays out of every rebuild.
 - **Over-polishing.** The document should sound like the user at their most articulate.
 - **Ignoring the angle.** Every work document needs a coherent story.
