@@ -415,10 +415,18 @@ class FastPathContractTests(unittest.TestCase):
         self.assertIn("surface it verbatim and stop the saved workflow", saved)
         self.assertIn("Do not silently fall back to in-chat writes", saved)
         # Saving after in-chat prep runs the preflight before any write.
-        save = text.split("### 6. Save", 1)[1].split("###", 1)[0]
+        save = text.split("### 6. Save", 1)[1].split("\n### ", 1)[0]
         self.assertIn("Saved prep only.", save)
-        self.assertIn("run the step 0 preflight first", save)
-        self.assertIn("saved only after those writes succeed", save)
+        order = [
+            "run the step 0 preflight first",
+            "then step 0.5",
+            "recheck the brief against the selected source document, the story bank, and `retracted-claims.md`",
+            "only then write",
+            "saved only after those writes succeed",
+        ]
+        positions = [save.find(phrase) for phrase in order]
+        self.assertNotIn(-1, positions, "save step must name every stage")
+        self.assertEqual(positions, sorted(positions), "save stages must run in order")
 
 
 def user_facing_skills() -> list[Path]:
