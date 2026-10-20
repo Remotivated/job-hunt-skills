@@ -43,5 +43,6 @@ git diff --exit-code plugins/job-hunt-skills/scripts/vendor
 ## Compatibility
 
 - Preserve Claude Code and Cowork support while adding or changing Codex support.
-- Do not add an MCP server, hosted service, telemetry, or user-data upload path.
+- An MCP server may be added as an optional connected path. Every skill must keep working without it, and the local and pasted-material path stays complete. The change that adds one also updates the plugin README and the package tests that currently assert the plugin ships no MCP servers.
+- Do not add telemetry or hosted service code. User data leaves the user's machine only through a connection the user explicitly chose, and only the records they selected: no implicit uploads, whole-workspace sharing, or background sync.
 - Do not write job-search files into a plugin cache or repository checkout unless the user explicitly chose that folder as their workspace.
