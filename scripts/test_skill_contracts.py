@@ -514,7 +514,8 @@ class TruthAndContentContractTests(unittest.TestCase):
                         "## 2. Using a Tool Is Not Building It",
                         "## 3. Retracted Claims",
                         "## 4. Research Budget",
-                        "## 5. The User's Voice"):
+                        "## 5. The User's Voice",
+                        "## 6. The Employer's Vocabulary"):
             self.assertIn(heading, self.policy)
         for source in ("Job postings", "application forms", "messages", "review",
                        "feed or adapter"):
@@ -603,6 +604,38 @@ class TruthAndContentContractTests(unittest.TestCase):
             for phrase in absolutes:
                 self.assertNotIn(phrase, text, f"{path}: unsupported style absolute {phrase!r}")
 
+    def test_flags_stay_out_of_candidate_documents(self) -> None:
+        self.assertIn("**Flags belong in the conversation, not the document.**", self.policy)
+        for name in ("resume-tailor", "cover-letter", "claim-check"):
+            self.assertRegex(read(SKILLS / name / "SKILL.md"),
+                             r"(?i)never (in|mentioned in) the (tailored documents|letter|checked document)",
+                             name)
+
+    def test_vocabulary_alignment_is_term_level(self) -> None:
+        section = self.policy.split("## 6. The Employer's Vocabulary", 1)[1]
+        for phrase in ("**Align vocabulary, not phrasing.**",
+                       "**Substitute terms, not sentences.**",
+                       "**Substitute only when the referent is the same.**",
+                       "**Coverage, not density.**",
+                       "**Self-test.**"):
+            self.assertIn(phrase, section)
+        tailor = read(SKILLS / "resume-tailor" / "SKILL.md")
+        self.assertIn("which language matches the posting", tailor)
+        self.assertRegex(tailor, r"\*\*Keyword stuffing\.\*\*[^\n]*#6-the-employers-vocabulary")
+        for name in ("resume-tailor", "cover-letter"):
+            self.assertIn("references/truth-and-content.md#6-the-employers-vocabulary",
+                          read(SKILLS / name / "SKILL.md"), name)
+
+    def test_claim_check_package_checks(self) -> None:
+        claim_check = read(SKILLS / "claim-check" / "SKILL.md")
+        for phrase in ("**Interview-survivable.**", "**Resume and cover letter agree.**",
+                       "**Not a near-copy of recent letters.**"):
+            self.assertIn(phrase, claim_check)
+        self.assertRegex(claim_check, r"(?i)fewer than two earlier letters.*skip.*say so")
+        cover_letter = read(SKILLS / "cover-letter" / "SKILL.md")
+        self.assertRegex(cover_letter, r"### 4\. Verify before save[^#]*up to three of the most recent cover letters")
+        self.assertRegex(cover_letter, r"(?i)fewer than two earlier letters, or no saved workspace")
+
 
 class PromptOnlyContractTests(unittest.TestCase):
     """Copy/paste prompts are the no-write surface: same truth rules, no files."""
@@ -620,6 +653,20 @@ class PromptOnlyContractTests(unittest.TestCase):
             self.assertIn("Using a tool is not building it", text, name)
         for name in ("resume-tailor", "claim-check", "interview-prep", "opportunity-evaluator"):
             self.assertRegex(read(ROOT / "prompts" / f"{name}.md"), r"(?i)\bthis chat\b", name)
+
+    def test_tailoring_prompts_carry_package_checks(self) -> None:
+        tailor = read(ROOT / "prompts" / "resume-tailor.md")
+        letter = read(ROOT / "prompts" / "cover-letter.md")
+        claim_check = read(ROOT / "prompts" / "claim-check.md")
+        for name, text in (("resume-tailor", tailor), ("cover-letter", letter)):
+            self.assertRegex(text, r"(?i)only when it is the same thing", name)
+            self.assertRegex(text, r"(?i)never copy the posting's sentences", name)
+            self.assertRegex(text, r"(?i)keep that warning out of the", name)
+        self.assertIn("MY RECENT COVER LETTERS (optional)", letter)
+        self.assertRegex(letter, r"(?i)fewer than two, say the comparison was skipped")
+        self.assertIn("RESUME AND LETTER AGREE", claim_check)
+        self.assertIn("two minutes", claim_check)
+        self.assertRegex(claim_check, r"not instructions")
 
     def test_ai_check_treats_external_text_as_data(self) -> None:
         text = read(ROOT / "prompts" / "ai-assistance-check.md")
