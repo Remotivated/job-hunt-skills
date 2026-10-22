@@ -16,6 +16,7 @@
 //   4 workspace busy (nothing written) · 1 unexpected error
 
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
@@ -342,6 +343,14 @@ export function upsertTracker(text, { id, fields = {}, userConfirmed = false, to
 // --- Locking and atomic files ------------------------------------------------
 
 const LOCK_NAME = ".state.lock";
+// A lock owned from another host is a lease, not a pid: the pid in its owner
+// file means nothing on this machine. It may only be taken over once this
+// long has passed since the owner's last heartbeat (see below).
+export const LOCK_LEASE_MS = 30000;
+const LOCK_HEARTBEAT_MS = 10000;
+// A lock left without an owner file is abandoned only once it is older than
+// any helper run takes; a live owner writes owner.json right after mkdir.
+const OWNERLESS_STALE_MS = 30000;
 const sleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 
 function pidAlive(pid) {
@@ -353,9 +362,193 @@ function pidAlive(pid) {
   }
 }
 
+// What identifies "this host" for pid purposes: the hostname, plus the boot
+// id and the pid namespace where the platform exposes them (Linux). A pid is
+// only comparable between two runs that share all three; VMs and containers
+// on one machine differ in at least one of them.
+let cachedIdentity = null;
+function hostIdentity() {
+  if (cachedIdentity) return cachedIdentity;
+  let bootId = null;
+  let pidNamespace = null;
+  try {
+    bootId = fs.readFileSync("/proc/sys/kernel/random/boot_id", "utf8").trim() || null;
+  } catch {
+    // Not Linux, or not readable: the hostname alone decides.
+  }
+  try {
+    pidNamespace = fs.readlinkSync("/proc/self/ns/pid");
+  } catch {
+    // Same as above.
+  }
+  cachedIdentity = { hostname: os.hostname(), bootId, pidNamespace };
+  return cachedIdentity;
+}
+
+// True when `owner` was written by a run whose pids this host can judge.
+// Owner files from before host identity was recorded carry none of the three
+// fields; they are judged as local, which keeps single-machine behaviour
+// (and locks left by an older helper) exactly as it was.
+export function isSameHostOwner(owner, identity = hostIdentity()) {
+  if (!owner) return false;
+  if (owner.hostname == null && owner.bootId == null && owner.pidNamespace == null) return true;
+  if (owner.hostname != null && owner.hostname !== identity.hostname) return false;
+  if (owner.bootId != null && identity.bootId != null && owner.bootId !== identity.bootId) return false;
+  if (owner.pidNamespace != null && identity.pidNamespace != null && owner.pidNamespace !== identity.pidNamespace) {
+    return false;
+  }
+  return true;
+}
+
+function leaseExpiryMs(owner, lockMtimeMs) {
+  const stated = Date.parse(owner?.leaseExpiresAt ?? "");
+  if (!Number.isNaN(stated)) return stated;
+  const heartbeat = Date.parse(owner?.heartbeatAt ?? owner?.at ?? "");
+  if (!Number.isNaN(heartbeat)) return heartbeat + LOCK_LEASE_MS;
+  return (lockMtimeMs ?? 0) + LOCK_LEASE_MS;
+}
+
+// True only when the lock at `lockPath` is provably abandoned: a dead pid for
+// a same-host owner, an expired lease for a foreign owner (its pid is never
+// consulted), or no owner file older than any helper run takes.
+function isAbandoned(owner, lockPath) {
+  let mtimeMs;
+  try {
+    mtimeMs = fs.statSync(lockPath).mtimeMs;
+  } catch {
+    return true; // released between our checks; the caller retries
+  }
+  if (!owner) return Date.now() - mtimeMs > OWNERLESS_STALE_MS;
+  if (isSameHostOwner(owner)) return !pidAlive(owner.pid);
+  return Date.now() > leaseExpiryMs(owner, mtimeMs);
+}
+
+const readOwner = (owner) => {
+  try {
+    return JSON.parse(fs.readFileSync(owner, "utf8"));
+  } catch {
+    return null; // not written yet, released, or unreadable
+  }
+};
+
+function ownerRecord(token, identity, acquiredAt, now = new Date()) {
+  return {
+    pid: process.pid,
+    token,
+    hostname: identity.hostname,
+    bootId: identity.bootId,
+    pidNamespace: identity.pidNamespace,
+    at: acquiredAt,
+    heartbeatAt: now.toISOString(),
+    leaseExpiresAt: new Date(now.getTime() + LOCK_LEASE_MS).toISOString(),
+  };
+}
+
+// Write owner.json via a temp file and a rename, so a reader never sees a
+// half-written record and judges a live lock ownerless.
+function writeOwner(owner, token, identity, acquiredAt) {
+  const tmp = `${owner}.tmp-${token}`;
+  fs.writeFileSync(tmp, JSON.stringify(ownerRecord(token, identity, acquiredAt)));
+  fs.renameSync(tmp, owner);
+}
+
+// Refresh the lease while the run works. The timer is unref'd and every
+// refresh re-checks the token, so a heartbeat can never resurrect a lock
+// that has been taken over, and it never keeps a process alive by itself.
+function startHeartbeat(owner, token, identity, acquiredAt) {
+  const timer = setInterval(() => {
+    try {
+      if (readOwner(owner)?.token !== token) return;
+      writeOwner(owner, token, identity, acquiredAt);
+    } catch {
+      // The lock is gone or the folder is read-only; the lease just expires.
+    }
+  }, LOCK_HEARTBEAT_MS);
+  timer.unref?.();
+  return timer;
+}
+
+// Put a lock folder we renamed aside back at `lock`. If another run claimed
+// the path in the meantime, the displaced folder is left where it is rather
+// than overwriting that run's live lock; its owner's token-checked release
+// (below) will not touch the new lock either.
+function restoreDisplaced(displaced, lock) {
+  try {
+    if (fs.existsSync(lock)) return false;
+    fs.renameSync(displaced, lock);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Rename `lock` to a token-named path first, then verify and delete: the
+// folder that gets removed is exactly the one whose owner was checked, never
+// whatever happens to sit at `lock` when the delete runs. With
+// `allowMissingOwner`, a folder with no owner file also counts as ours (the
+// cleanup path for a lock whose owner write just failed). Otherwise a
+// missing or foreign owner file means the lock changed hands, and the
+// folder that was renamed aside is put back untouched.
+function discardCapturedLock(lock, token, kind, { allowMissingOwner = false } = {}) {
+  const captured = `${lock}.${kind}-${token}`;
+  try {
+    fs.renameSync(lock, captured);
+  } catch {
+    return false; // already gone, or taken over and removed
+  }
+  const held = readOwner(path.join(captured, "owner.json"));
+  const ours = held ? held.token === token : allowMissingOwner;
+  if (!ours) {
+    restoreDisplaced(captured, lock);
+    return false;
+  }
+  fs.rmSync(captured, { recursive: true, force: true });
+  return true;
+}
+
+// Release deletes the lock only when it still carries this run's token.
+function releaseLock(lock, token) {
+  discardCapturedLock(lock, token, "release");
+}
+
+// Take over a lock whose owner is provably gone. The rename comes first and
+// the owner inside the renamed folder is re-judged, so a lock whose old
+// owner released it and a new run acquired it in the meantime is put back
+// instead of being deleted from under the new run. Returns true when the
+// caller should retry acquiring right away.
+export function stealIfAbandoned(lock, owner, token) {
+  const held = readOwner(owner);
+  if (!isAbandoned(held, lock)) return false;
+  const judgedToken = held?.token ?? null;
+  const stale = `${lock}.stale-${token}`;
+  try {
+    fs.renameSync(lock, stale);
+  } catch {
+    return true; // Another process released or removed it first; retry now.
+  }
+  const captured = readOwner(path.join(stale, "owner.json"));
+  if ((captured?.token ?? null) !== judgedToken || !isAbandoned(captured, stale)) {
+    restoreDisplaced(stale, lock);
+    return false; // It is a live lock again; wait on it instead of spinning.
+  }
+  fs.rmSync(stale, { recursive: true, force: true });
+  return true;
+}
+
 // One mkdir-based lock per workspace serializes helper mutations (RP-2, TW-5).
-// Known limit: a lock is stolen only when its owner pid is dead on this host; a
-// lock from another machine on a shared folder waits out the timeout instead.
+// owner.json records { pid, token, hostname, bootId, pidNamespace, at,
+// heartbeatAt, leaseExpiresAt }. A same-host lock is taken over only when its
+// owner pid is dead on this host. A lock from another machine, VM or
+// container on a shared folder is never judged by its pid: it is a lease
+// that expires LOCK_LEASE_MS after its last heartbeat, so a waiter with the
+// default timeout reports busy instead of stealing it, and a later retry
+// takes it over once the lease has truly expired. Release and takeover are
+// both rename-then-verify on the token (see discardCapturedLock and
+// stealIfAbandoned). Remaining limits: the lease compares the owner's clock
+// with this host's clock, so clock skew between machines stretches or
+// shortens it; and if a third run claims the lock path in the instant a
+// displaced lock is being put back, the displaced folder is left in its
+// token-named path rather than overwriting the new lock.
 export function withWorkspaceLock(
   stateRoot,
   fn,
@@ -364,7 +557,9 @@ export function withWorkspaceLock(
   const lock = path.join(stateRoot, LOCK_NAME);
   const owner = path.join(lock, "owner.json");
   const token = crypto.randomUUID();
+  const identity = hostIdentity();
   const deadline = Date.now() + timeoutMs;
+  let acquiredAt = new Date().toISOString();
   for (;;) {
     try {
       fs.mkdirSync(lock);
@@ -380,52 +575,22 @@ export function withWorkspaceLock(
       sleep(20 + Math.floor(Math.random() * 30));
       continue;
     }
+    acquiredAt = new Date().toISOString();
     try {
-      fs.writeFileSync(owner, JSON.stringify({ pid: process.pid, token, at: new Date().toISOString() }));
+      writeOwner(owner, token, identity, acquiredAt);
       break;
     } catch (error) {
-      fs.rmSync(lock, { recursive: true, force: true });
+      discardCapturedLock(lock, token, "discard", { allowMissingOwner: true });
       throw error;
     }
   }
+  const heartbeat = startHeartbeat(owner, token, identity, acquiredAt);
   try {
     return fn();
   } finally {
-    fs.rmSync(lock, { recursive: true, force: true });
+    clearInterval(heartbeat);
+    releaseLock(lock, token);
   }
-}
-
-const readOwner = (owner) => {
-  try {
-    return JSON.parse(fs.readFileSync(owner, "utf8"));
-  } catch {
-    return null; // not written yet, released, or unreadable
-  }
-};
-
-// Remove a lock whose owner process is gone, or one left without an owner
-// file for longer than any helper run takes. Returns true when it removed one.
-function stealIfAbandoned(lock, owner, token) {
-  const held = readOwner(owner);
-  let abandoned = held ? !pidAlive(held.pid) : false;
-  if (!held) {
-    try {
-      abandoned = Date.now() - fs.statSync(lock).mtimeMs > 30000;
-    } catch {
-      return true; // released between mkdir and stat; retry now
-    }
-  }
-  if (!abandoned) return false;
-  const again = readOwner(owner);
-  if ((held?.token ?? null) !== (again?.token ?? null)) return true; // changed hands; retry
-  try {
-    const stale = `${lock}.stale-${token}`;
-    fs.renameSync(lock, stale);
-    fs.rmSync(stale, { recursive: true, force: true });
-  } catch {
-    // Another process released or removed it first.
-  }
-  return true;
 }
 
 export function tempPath(target) {
