@@ -258,18 +258,21 @@ describe("Vendor licensing", () => {
     assert.match(buildSource, /metafile:\s*true/);
     assert.match(buildSource, /minify:\s*false/);
 
-    const notices = readFileSync(
+    // The files are generated and committed with LF; a Windows checkout
+    // converts them to CRLF by default (core.autocrlf).
+    const checkedOut = (text) => (process.platform === "win32" ? text.replace(/\r\n/g, "\n") : text);
+    const notices = checkedOut(readFileSync(
       join(PLUGIN, "scripts/vendor/LICENSES.md"),
       "utf8",
-    );
+    ));
     assert.match(notices, /fontkit/);
     assert.match(notices, /BSD[- ]2-Clause/i);
     assert.doesNotMatch(notices, /All bundled code is MIT-licensed/i);
 
-    const legal = readFileSync(
+    const legal = checkedOut(readFileSync(
       join(PLUGIN, "scripts/vendor/LEGAL.txt"),
       "utf8",
-    );
+    ));
     assert.ok(legal.length > 0, "preserved upstream legal comments");
     for (const [name, text] of [["LICENSES.md", notices], ["LEGAL.txt", legal]]) {
       assert.doesNotMatch(text, /\r/, `${name} must use LF line endings`);
@@ -509,7 +512,7 @@ describe("OpenAI skill metadata", () => {
         skillName,
         "agents/openai.yaml",
       );
-      const yaml = readFileSync(metadataPath, "utf8");
+      const yaml = readFileSync(metadataPath, "utf8").replace(/\r\n/g, "\n");
       assertOpenAiInterface(yaml, expectedInterface[skillName], metadataPath);
     }
   });
@@ -630,6 +633,203 @@ describe("Release archive configuration", () => {
           `${file} rule "${rule}" makes the plugin directory refuse to validate the repository`,
         );
       }
+    }
+  });
+});
+
+// Static checks over .github/workflows/. The cross-OS run itself is the CI
+// matrix; these keep the workflow files from drifting from the policy they
+// implement.
+const WORKFLOW_DIR = join(ROOT, ".github/workflows");
+
+// Model-run behavioural evaluations stay out of `npm test`: they need model
+// access and are run on their own.
+const NOT_IN_NPM_TEST = new Set(["eval"]);
+
+function readWorkflow(name) {
+  return readFileSync(join(WORKFLOW_DIR, name), "utf8").replace(/\r\n/g, "\n");
+}
+
+function workflowNames() {
+  return readdirSync(WORKFLOW_DIR).filter((name) => /\.ya?ml$/.test(name)).sort();
+}
+
+// Maps each `key:` at exactly `indent` spaces to its text, including the
+// deeper-indented lines under it. Enough for these workflow files; not a
+// general YAML parser.
+function yamlBlocks(text, indent) {
+  const key = new RegExp(`^ {${indent}}([A-Za-z0-9_-]+):(.*)$`);
+  const blocks = new Map();
+  let current = null;
+  for (const line of text.split("\n")) {
+    const match = key.exec(line);
+    if (match) {
+      current = [match[2]];
+      blocks.set(match[1], current);
+    } else if (current && (line.trim() === "" || line.startsWith(" ".repeat(indent + 1)) || line.trimStart().startsWith("#"))) {
+      current.push(line);
+    } else {
+      current = null;
+    }
+  }
+  return new Map([...blocks].map(([name, lines]) => [name, lines.join("\n")]));
+}
+
+function workflowJobs(text) {
+  return yamlBlocks(yamlBlocks(text, 0).get("jobs") ?? "", 2);
+}
+
+function jobNeeds(jobText) {
+  const needs = /^ {4}needs:\s*(.+)$/m.exec(jobText)?.[1].trim() ?? "";
+  return needs.replace(/^\[|\]$/g, "").split(",").map((name) => name.trim()).filter(Boolean);
+}
+
+function nodeFloor() {
+  const engines = readJson("package.json").engines?.node ?? "";
+  const floor = /^>=\s*(\d+)$/.exec(engines)?.[1];
+  assert.ok(floor, `package.json engines.node must be ">=N", got "${engines}"`);
+  return floor;
+}
+
+describe("CI and release workflows", () => {
+  test("npm test runs every check:* and test:* script", () => {
+    const { scripts } = readJson("package.json");
+    assert.ok(scripts.test, "package.json must define a test script");
+    const run = scripts.test.split("&&").map((step) => {
+      const name = /^npm run ([\w:-]+)$/.exec(step.trim())?.[1];
+      assert.ok(name, `npm test step "${step.trim()}" must be "npm run <script>"`);
+      assert.ok(scripts[name], `npm test runs "${name}", which package.json does not define`);
+      return name;
+    });
+    const expected = Object.keys(scripts).filter(
+      (name) => /^(check|test):/.test(name) && !NOT_IN_NPM_TEST.has(name.split(":").pop()),
+    );
+    assert.deepEqual([...run].sort(), expected.sort());
+  });
+
+  test("engines.node is the Node floor CI, release, and the docs use", () => {
+    const floor = nodeFloor();
+    assert.deepEqual(readJson("package-lock.json").packages[""].engines, readJson("package.json").engines);
+
+    const checks = readWorkflow("checks.yml");
+    const matrix = /^ {8}node:\s*\[([^\]]*)\]/m.exec(workflowJobs(checks).get("test") ?? "")?.[1];
+    assert.ok(matrix, "checks.yml test job must have a node matrix");
+    assert.ok(matrix.split(",").map((v) => v.trim().replace(/"/g, "")).includes(floor), `node matrix must include ${floor}`);
+
+    for (const name of workflowNames()) {
+      for (const [, version] of readWorkflow(name).matchAll(/node-version:\s*"?([^"\s]+)"?/g)) {
+        if (version.startsWith("${{")) continue;
+        assert.equal(version, floor, `${name} node-version must be the engines floor`);
+      }
+    }
+    assert.match(readFileSync(join(ROOT, "CONTRIBUTING.md"), "utf8"), new RegExp(`Node ${floor}\\b`));
+    assert.match(readFileSync(join(PLUGIN, "scripts/export-documents.mjs"), "utf8"), new RegExp(`Node >= ${floor}\\b`));
+  });
+
+  test("every third-party action is pinned to a full commit SHA", () => {
+    let pinned = 0;
+    for (const name of workflowNames()) {
+      for (const [, ref, rest] of readWorkflow(name).matchAll(/^\s*(?:-\s+)?uses:\s*(\S+)(.*)$/gm)) {
+        if (ref.startsWith("./")) continue;
+        assert.match(ref, /^[\w.-]+\/[\w./-]+@[0-9a-f]{40}$/, `${name}: ${ref} must be pinned to a commit SHA`);
+        assert.match(rest, /^\s+# v\d+\.\d+\.\d+\s*$/, `${name}: ${ref} needs a "# vX.Y.Z" comment`);
+        pinned += 1;
+      }
+    }
+    assert.ok(pinned > 0, "expected pinned actions in .github/workflows/");
+  });
+
+  test("workflows default to read-only and only the release publish job writes", () => {
+    for (const name of workflowNames()) {
+      const text = readWorkflow(name);
+      const permissions = yamlBlocks(text, 0).get("permissions");
+      assert.ok(permissions !== undefined, `${name} must set top-level permissions`);
+      assert.deepEqual(
+        permissions.split("\n").map((line) => line.trim()).filter(Boolean),
+        ["contents: read"],
+        `${name} top-level permissions must be contents: read`,
+      );
+      assert.doesNotMatch(text, /write-all/, `${name} must not grant write-all`);
+      for (const [job, body] of workflowJobs(text)) {
+        const writes = body.match(/^\s+[\w-]+:\s*write\b/gm) ?? [];
+        if (name === "release.yml" && job === "publish") {
+          assert.deepEqual(writes.map((line) => line.trim()), ["contents: write"]);
+        } else {
+          assert.deepEqual(writes, [], `${name} job ${job} must not have write permissions`);
+        }
+      }
+    }
+  });
+
+  test("a release is published only after the full checks pass", () => {
+    const checks = readWorkflow("checks.yml");
+    const on = yamlBlocks(checks, 0).get("on") ?? "";
+    assert.match(on, /^ {2}workflow_call:/m, "checks.yml must be callable");
+    assert.match(on, /^ {2}push:\n {4}branches:\s*\["\*\*"\]/m, "checks.yml push must run on branches only");
+
+    const jobs = workflowJobs(readWorkflow("release.yml"));
+    assert.match(jobs.get("checks") ?? "", /^ {4}uses:\s*\.\/\.github\/workflows\/checks\.yml\s*$/m);
+    for (const [job, body] of jobs) {
+      if (job === "checks") continue;
+      assert.ok(jobNeeds(body).includes("checks"), `release job ${job} must need the checks`);
+    }
+    assert.ok(jobs.has("publish"), "release.yml must have a publish job");
+  });
+
+  test("all-checks is the single required check and needs every other job", () => {
+    const jobs = workflowJobs(readWorkflow("checks.yml"));
+    const gate = jobs.get("all-checks");
+    assert.ok(gate, "checks.yml must have an all-checks job");
+    assert.match(gate, /^ {4}if:\s*always\(\)\s*$/m);
+    assert.deepEqual(
+      jobNeeds(gate).sort(),
+      [...jobs.keys()].filter((job) => job !== "all-checks").sort(),
+    );
+    assert.match(gate, /needs\.\*\.result/);
+    assert.match(gate, /!= "success"/);
+  });
+
+  test("the test job covers Linux, macOS, and Windows and runs npm test", () => {
+    const test = workflowJobs(readWorkflow("checks.yml")).get("test") ?? "";
+    const os = /^ {8}os:\s*\[([^\]]*)\]/m.exec(test)?.[1].split(",").map((v) => v.trim());
+    assert.deepEqual(os, ["ubuntu-latest", "macos-latest", "windows-latest"]);
+    assert.match(test, /^ {6}fail-fast:\s*false\s*$/m);
+    assert.match(test, /^ {8}shell:\s*bash\s*$/m, "POSIX run steps need shell: bash on Windows");
+    assert.match(test, /^\s+npm test\s*$/m);
+    assert.doesNotMatch(
+      test,
+      /^\s+(?:run:\s*)?npm (?:ci|install|run build:vendor)\b/m,
+      "the test job must use the checked-in vendor modules",
+    );
+  });
+
+  test("every Typst download is checked against a pinned SHA-256 before it is unpacked", () => {
+    const checks = readWorkflow("checks.yml");
+    const test = workflowJobs(checks).get("test") ?? "";
+    const version = /^ {6}TYPST_VERSION:\s*v(\d+\.\d+\.\d+)\s*$/m.exec(test)?.[1];
+    assert.ok(version, "the test job must pin TYPST_VERSION");
+    assert.match(test, /MIN_TYPST_VERSION/, "keep the comment pairing TYPST_VERSION with MIN_TYPST_VERSION");
+    const floor = /MIN_TYPST_VERSION = "(\d+\.\d+\.\d+)"/.exec(
+      readFileSync(join(PLUGIN, "scripts/export-documents.mjs"), "utf8"),
+    )?.[1];
+    const parts = (v) => v.split(".").map(Number);
+    const [a, b] = [parts(version), parts(floor)];
+    assert.ok(a[0] > b[0] || (a[0] === b[0] && (a[1] > b[1] || (a[1] === b[1] && a[2] >= b[2]))), `Typst ${version} must be >= ${floor}`);
+
+    const downloads = checks.split(/^ {6}- /m).filter((step) => step.includes("typst/typst/releases/download"));
+    assert.equal(downloads.length, 2, "expected one Typst download step for POSIX runners and one for Windows");
+    const assets = [];
+    for (const step of downloads) {
+      assert.doesNotMatch(step, /\|\s*tar\b/, "never pipe a download straight into tar");
+      const verify = step.search(/shasum -a 256 -c|sha256sum -c|Get-FileHash/);
+      const unpack = step.search(/tar -x|Expand-Archive/);
+      assert.ok(verify >= 0, "the Typst download must be checksum-verified");
+      assert.ok(unpack > verify, "the checksum must be verified before the archive is unpacked");
+      assert.match(step, /[0-9a-f]{64}/);
+      assets.push(...step.matchAll(/typst-[\w-]+/g).map(([asset]) => asset));
+    }
+    for (const asset of ["typst-x86_64-unknown-linux-musl", "typst-aarch64-apple-darwin", "typst-x86_64-pc-windows-msvc"]) {
+      assert.ok(assets.includes(asset), `missing pinned Typst asset ${asset}`);
     }
   });
 });

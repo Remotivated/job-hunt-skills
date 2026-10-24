@@ -5,7 +5,7 @@
 // Tier model (capability unlocks, not failure states):
 //   Tier 1 — markdown + HTML preview (no dependencies; when Node is absent
 //            Claude fills templates/preview-template.html natively).
-//   Tier 2 — this script on Node >= 18: adds .docx (bundled Word writer) and a
+//   Tier 2 — this script on Node >= 22: adds .docx (bundled Word writer) and a
 //            baseline .pdf (pdfmake). All deps are bundled in
 //            scripts/vendor/ as readable modules — no npm install.
 //   Tier 3 — `typst` on PATH (>= MIN_TYPST_VERSION): the .pdf is typeset
