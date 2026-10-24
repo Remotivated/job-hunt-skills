@@ -1,16 +1,26 @@
 name: Checks
 
 on:
+  # Branches only: a release tag runs these checks through release.yml instead.
   push:
+    branches: ["**"]
   pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
 
 jobs:
   vendor-modules:
+    # Ubuntu only on purpose: this checks a deterministic build, not runtime
+    # behaviour on each OS.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "22"
 
@@ -22,68 +32,102 @@ jobs:
           git diff --exit-code plugins/job-hunt-skills/scripts/vendor
           test -z "$(git ls-files --others --exclude-standard plugins/job-hunt-skills/scripts/vendor)"
 
-  content-and-export:
-    runs-on: ubuntu-latest
+  test:
+    name: test (${{ matrix.os }}, Node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        # The engines.node floor in package.json, and the newest LTS line.
+        node: ["22", "24"]
+    defaults:
+      run:
+        shell: bash
+    # Pinned so a breaking Typst release fails loudly here, not on a
+    # user's machine. Keep in sync with MIN_TYPST_VERSION in
+    # scripts/export-documents.mjs (this must be >= that floor). Each
+    # download is checked against the SHA-256 recorded below before it is
+    # unpacked; update the hashes together with the version.
+    env:
+      TYPST_VERSION: v0.15.1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: "22"
+          node-version: ${{ matrix.node }}
 
-      # Pinned so a breaking Typst release fails loudly here, not on a
-      # user's machine. Keep in sync with MIN_TYPST_VERSION in
-      # scripts/export-documents.mjs (this must be >= that floor).
-      - name: Install Typst (pinned)
+      - name: Install Typst (pinned, verified)
+        if: runner.os != 'Windows'
         run: |
-          TYPST_VERSION=v0.15.1
-          curl -fsSL "https://github.com/typst/typst/releases/download/${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" | tar -xJ
-          echo "$PWD/typst-x86_64-unknown-linux-musl" >> "$GITHUB_PATH"
+          set -euo pipefail
+          case "$RUNNER_OS-$RUNNER_ARCH" in
+            Linux-X64)
+              asset=typst-x86_64-unknown-linux-musl
+              sha256=a6d077d0a95eed5a2eba715b2dae06be954f624ccbf85758a03f389ded33118c ;;
+            macOS-ARM64)
+              asset=typst-aarch64-apple-darwin
+              sha256=48f62ed034aa3a7978309579ac6ca00045e2ef0da73114e8af27cfd8e74dc05a ;;
+            *)
+              echo "No pinned Typst build for $RUNNER_OS-$RUNNER_ARCH" >&2
+              exit 1 ;;
+          esac
+          archive="$RUNNER_TEMP/$asset.tar.xz"
+          curl -fsSL -o "$archive" "https://github.com/typst/typst/releases/download/${TYPST_VERSION}/$asset.tar.xz"
+          echo "$sha256  $archive" | shasum -a 256 -c -
+          tar -xJf "$archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/$asset" >> "$GITHUB_PATH"
+
+      - name: Install Typst (pinned, verified, Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $asset = 'typst-x86_64-pc-windows-msvc'
+          $sha256 = '19ce3551153c2fe7ee9fa2f95208310c8f4d3209fedb699e0333faf8913f6736'
+          $archive = Join-Path $env:RUNNER_TEMP "$asset.zip"
+          Invoke-WebRequest -Uri "https://github.com/typst/typst/releases/download/$env:TYPST_VERSION/$asset.zip" -OutFile $archive
+          $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath $archive).Hash.ToLowerInvariant()
+          if ($actual -ne $sha256) { throw "Typst checksum mismatch: expected $sha256, got $actual" }
+          Expand-Archive -LiteralPath $archive -DestinationPath $env:RUNNER_TEMP
+          Add-Content -LiteralPath $env:GITHUB_PATH -Value (Join-Path $env:RUNNER_TEMP $asset)
 
       # Contributor-side check scripts only — nothing here runs on a user
       # machine (markdown-it-py is needed by check-internal-links.py).
       - name: Install Python dependencies for check scripts
         run: python -m pip install markdown-it-py
 
-      - name: Run content hygiene
-        run: python scripts/check-content-hygiene.py
-
-      - name: Check internal links
-        run: python scripts/check-internal-links.py
-
       # No npm ci here on purpose: the export tests must pass against the
-      # checked-in vendor modules alone, exactly like a user machine.
-      - name: Run export tests (Tier 2 + Tier 3)
+      # checked-in vendor modules alone, exactly like a user machine. The
+      # other helpers are pure Node with no dependencies.
+      - name: Run every check (npm test)
         run: |
           typst --version
-          npm run test:export
+          npm test
 
-      # Pure Node, no dependencies — same as a user machine.
-      - name: Run profile-strength tests
-        run: npm run test:strength
-
-      # Pure Node, no dependencies — the state helper runs on user machines as-is.
-      - name: Run state helper tests
-        run: npm run test:state
-
-      # Pure Node, no dependencies — same as the state helper.
-      - name: Run opportunity snapshot tests
-        run: npm run test:opportunity
-
-      - name: Run Codex plugin contract tests
-        run: npm run test:codex
-
-      # Every skill must carry a current copy of each skills/_shared/ rule file.
-      - name: Check shared rule copies
-        run: npm run check:shared
-
-      # The plugin folder is what installers and the plugin directory receive.
-      - name: Run plugin package tests
-        run: npm run test:plugin
-
-      - name: Run skill contract tests
-        run: python scripts/test_skill_contracts.py
+  # The one check the main-branch ruleset requires. It fails unless every job
+  # above succeeded, so a skipped or cancelled matrix leg also blocks a merge,
+  # and the ruleset does not change when the matrix does.
+  all-checks:
+    if: always()
+    needs: [vendor-modules, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every check to succeed
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Job results: $RESULTS"
+          for result in $RESULTS; do
+            if [ "$result" != "success" ]; then
+              echo "A required check did not succeed." >&2
+              exit 1
+            fi
+          done

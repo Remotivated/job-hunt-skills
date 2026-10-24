@@ -314,7 +314,7 @@ describe("opportunity helper CLI", () => {
 });
 
 describe("state-layer §13 and the helper describe the same envelope", () => {
-  const doc = fs.readFileSync(path.join(PLUGIN, "skills/_shared/state-layer.md"), "utf8");
+  const doc = fs.readFileSync(path.join(PLUGIN, "skills/_shared/state-layer.md"), "utf8").replace(/\r\n/g, "\n");
   const section = doc.split("## 13. Opportunity Envelope and Snapshots")[1];
 
   test("every envelope field, source field, kind, and reserved name is documented", () => {

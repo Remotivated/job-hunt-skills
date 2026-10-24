@@ -10,7 +10,11 @@
     "url": "https://github.com/Remotivated/job-hunt-skills.git"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
+    "test": "npm run check:shared && npm run check:hygiene && npm run check:links && npm run test:skills && npm run test:codex && npm run test:strength && npm run test:state && npm run test:opportunity && npm run test:export && npm run test:plugin",
     "scaffold": "node plugins/job-hunt-skills/scripts/scaffold-state.mjs",
     "strength": "node plugins/job-hunt-skills/scripts/profile-strength.mjs",
     "build:zip": "node scripts/build-cowork-zip.mjs",

@@ -247,7 +247,7 @@ describe("shared rule copies", () => {
 
       // CRLF checkouts are not drift.
       const crlf = copy("interviewing", "state-layer.md");
-      writeFileSync(crlf, readFileSync(crlf, "utf8").replace(/\n/g, "\r\n"));
+      writeFileSync(crlf, readFileSync(crlf, "utf8").replace(/\r?\n/g, "\r\n"));
       assert.deepEqual(findSharedDrift(plugin), []);
     } finally {
       rmSync(tmp, { recursive: true, force: true });

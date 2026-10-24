@@ -29,6 +29,20 @@ The installable plugin is `plugins/job-hunt-skills/`. Installers and the plugin 
 
 ## Local Checks
 
+You need:
+
+- **Node 22 or later.** `engines.node` in `package.json` is the floor. CI runs every check on Node 22 and Node 24 (the newest LTS line), on Linux, macOS, and Windows.
+- **Python 3.12**, with `markdown-it-py` installed (`python -m pip install markdown-it-py`) for the internal link check.
+- **Typst v0.15.1** on `PATH`, optional. Without it, the export tests skip the Typst-typeset PDF tests; CI always runs them.
+
+No `npm install` is needed: the export tests run against the checked-in vendor modules, as on a user's machine. Run every check with:
+
+```bash
+npm test
+```
+
+That is the command CI runs. Each check can also be run on its own:
+
 ```bash
 npm run check:shared
 python3 scripts/check-content-hygiene.py
@@ -42,4 +56,22 @@ npm run test:export
 npm run test:plugin
 ```
 
-The shared-rules check fails when a skill's `references/` copy of a `skills/_shared/` file is missing or out of date. The hygiene check catches unresolved placeholders and HTML comments leaking into rendered samples. The link checker validates that internal markdown links point at files that exist. The skill contract tests catch missing skills, schema drift, and stale state-layer conventions. The Codex checks cover plugin metadata and public Codex documentation. The state tests cover tracker and report writes, status transitions, and the plugin/user path split, using the fixtures in `scripts/fixtures/state/`. The export tests cover the document renderer. The plugin package tests check that the plugin folder stays self-contained and within the plugin directory's limits, and that the release ZIP contains only that folder.
+The shared-rules check fails when a skill's `references/` copy of a `skills/_shared/` file is missing or out of date. The hygiene check catches unresolved placeholders and HTML comments leaking into rendered samples. The link checker validates that internal markdown links point at files that exist. The skill contract tests catch missing skills, schema drift, and stale state-layer conventions. The Codex checks cover plugin metadata, public Codex documentation, and the CI and release workflows: `npm test` runs every `check:*` and `test:*` script, actions are pinned to commit SHAs, and workflows are read-only by default. The state tests cover tracker and report writes, status transitions, and the plugin/user path split, using the fixtures in `scripts/fixtures/state/`. The export tests cover the document renderer. The plugin package tests check that the plugin folder stays self-contained and within the plugin directory's limits, and that the release ZIP contains only that folder.
+
+A new `check:*` or `test:*` script must be added to `npm test` in `package.json`; `npm run test:codex` fails until it is.
+
+When `plugins/job-hunt-skills/scripts/vendor/` or `package-lock.json` changes, also rebuild the vendor modules and confirm nothing changed. CI runs this on Linux:
+
+```bash
+npm ci
+npm run build:vendor
+git diff --exit-code plugins/job-hunt-skills/scripts/vendor
+```
+
+## Release
+
+Claude Code and Codex install the plugin from `main`, so a change reaches those users as soon as it lands there. Pull requests to `main` must pass the `all-checks` job in `.github/workflows/checks.yml`, which succeeds only when every check passed on every OS and Node version.
+
+Cowork users install the release ZIP. Pushing a `v*` tag runs `.github/workflows/release.yml`, which runs the same checks first and builds and publishes the ZIP only if they all pass. Before tagging, align the version in `package.json`, `package-lock.json`, both plugin manifests, and the newest `CHANGELOG.md` heading; `npm run test:codex` checks that they match.
+
+Workflow actions are pinned to full commit SHAs, with the version in a trailing comment, and Dependabot proposes updates monthly. The Typst download in CI is checked against the SHA-256 recorded in the workflow; when you change `TYPST_VERSION`, update each asset's hash from the release's published digests.

@@ -9,7 +9,7 @@
 // Tier 3 typeset path.
 
 import assert from "node:assert/strict";
-import { execFileSync, spawnSync } from "node:child_process";
+import childProcess, { spawnSync } from "node:child_process";
 import {
   chmodSync,
   mkdtempSync,
@@ -18,10 +18,11 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
+import { syncBuiltinESMExports } from "node:module";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { test, describe, before, after } from "node:test";
+import { test, describe, before, after, mock } from "node:test";
 import { inflateRawSync } from "node:zlib";
 
 import {
@@ -597,18 +598,30 @@ describe("Typst source generation", () => {
 });
 
 describe("tier detection", () => {
+  // Stub binaries are answered in-process: an extensionless shell script
+  // cannot be launched by execFileSync on Windows. Other paths still spawn.
   let stubDir;
+  let execMock;
+  const stubVersions = new Map();
   before(() => {
     stubDir = mkdtempSync(join(tmpdir(), "typst-stub-"));
+    const realExecFileSync = childProcess.execFileSync;
+    execMock = mock.method(childProcess, "execFileSync", (file, args, options) => {
+      if (!stubVersions.has(file)) return realExecFileSync(file, args, options);
+      assert.deepEqual(args, ["--version"]);
+      return `typst ${stubVersions.get(file)} (stub)\n`;
+    });
+    syncBuiltinESMExports();
   });
   after(() => {
+    execMock.mock.restore();
+    syncBuiltinESMExports();
     rmSync(stubDir, { recursive: true, force: true });
   });
 
   function makeStub(name, version) {
     const path = join(stubDir, name);
-    writeFileSync(path, `#!/bin/sh\necho "typst ${version} (stub)"\n`);
-    chmodSync(path, 0o755);
+    stubVersions.set(path, version);
     return path;
   }
 

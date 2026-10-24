@@ -196,7 +196,7 @@ describe("state helper CLI", () => {
   });
 
   test("preserves CRLF line endings", () => {
-    const root = workspace({ tracker: fixture("canonical.md").replaceAll("\n", "\r\n") });
+    const root = workspace({ tracker: fixture("canonical.md").replace(/\r?\n/g, "\r\n") });
     upsertTrackerFile(root, { id: "ghost-ops-manager", fields: { link: "https://example.com/ghost" }, today: "2026-10-01" });
     const text = fs.readFileSync(trackerPath(root), "utf8");
     assert.equal(text.split("\r\n").length, text.split("\n").length);
@@ -348,7 +348,7 @@ describe("plugin and user paths", () => {
   });
 
   test("state-layer.md publishes exactly the same path lists", () => {
-    const doc = fs.readFileSync(path.join(PLUGIN, "skills/_shared/state-layer.md"), "utf8");
+    const doc = fs.readFileSync(path.join(PLUGIN, "skills/_shared/state-layer.md"), "utf8").replace(/\r\n/g, "\n");
     const block = (heading) => {
       const match = new RegExp(`\\*\\*${heading}\\*\\*[^\\n]*\\n+\`\`\`text\\n([\\s\\S]*?)\`\`\``).exec(doc);
       assert.ok(match, `state-layer.md must have a ${heading} block`);
