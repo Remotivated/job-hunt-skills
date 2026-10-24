@@ -10,12 +10,21 @@
 import assert from "node:assert/strict";
 import { spawn, spawnSync } from "node:child_process";
 import fs from "node:fs";
-import { tmpdir } from "node:os";
+import os, { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { EXIT, StateError, upsertTrackerFile, writeReport, parseTracker } from "../plugins/job-hunt-skills/scripts/state.mjs";
+import {
+  EXIT,
+  LOCK_LEASE_MS,
+  StateError,
+  stealIfAbandoned,
+  upsertTrackerFile,
+  withWorkspaceLock,
+  writeReport,
+  parseTracker,
+} from "../plugins/job-hunt-skills/scripts/state.mjs";
 import {
   PLUGIN_PATHS,
   USER_PATHS,
@@ -254,6 +263,201 @@ describe("state helper CLI", () => {
     }
     assert.equal(fs.existsSync(path.join(ROOT, USER_ROOT, "applications.md")), false);
     assert.equal(fs.existsSync(path.join(ROOT, "examples", USER_ROOT)), false);
+  });
+});
+
+describe("workspace lock ownership, leases and takeover (#52)", () => {
+  const DEAD_PID = 2 ** 22 + 12345; // far above any live pid on the test host
+  const lockDir = (root) => path.join(root, USER_ROOT, ".state.lock");
+  const ownerFile = (root) => path.join(lockDir(root), "owner.json");
+  const readLockOwner = (root) => JSON.parse(fs.readFileSync(ownerFile(root), "utf8"));
+
+  function placeLock(root, owner) {
+    fs.mkdirSync(lockDir(root));
+    fs.writeFileSync(ownerFile(root), JSON.stringify(owner));
+  }
+
+  function foreignOwner(overrides = {}) {
+    const now = Date.now();
+    return {
+      pid: DEAD_PID,
+      token: "foreign-owner",
+      hostname: "some-other-host",
+      bootId: null,
+      pidNamespace: null,
+      at: new Date(now).toISOString(),
+      heartbeatAt: new Date(now).toISOString(),
+      leaseExpiresAt: new Date(now + LOCK_LEASE_MS).toISOString(),
+      ...overrides,
+    };
+  }
+
+  test("owner.json records the token, hostname and a lease expiry", () => {
+    const root = workspace({ tracker: fixture("canonical.md") });
+    const stateRoot = path.join(root, USER_ROOT);
+    const seen = withWorkspaceLock(stateRoot, () => readLockOwner(root));
+    assert.equal(seen.pid, process.pid);
+    assert.equal(seen.hostname, os.hostname());
+    assert.equal(typeof seen.token, "string");
+    assert.ok(seen.token.length > 0);
+    const leaseMs = Date.parse(seen.leaseExpiresAt) - Date.parse(seen.heartbeatAt);
+    assert.equal(leaseMs, LOCK_LEASE_MS);
+    assertNoLeftovers(root); // a normal release removes our own lock
+  });
+
+  test("a foreign owner's lock is not stolen before its lease expires, even with a locally dead pid", () => {
+    const root = workspace({ tracker: fixture("canonical.md") });
+    const owner = foreignOwner();
+    placeLock(root, owner);
+    const result = capture(() =>
+      upsertTrackerFile(
+        root,
+        { id: "ghost-ops-manager", fields: { link: "https://example.com/g" } },
+        { lockTimeoutMs: 200 },
+      ),
+    );
+    assert.equal(result.error, "busy", JSON.stringify(result));
+    assert.equal(fs.readFileSync(trackerPath(root), "utf8"), fixture("canonical.md"), "nothing was written");
+    assert.deepEqual(readLockOwner(root), owner, "the foreign lock is left exactly as it was");
+    fs.rmSync(lockDir(root), { recursive: true, force: true });
+    assertNoLeftovers(root);
+  });
+
+  test("a foreign owner's lock is taken over once its lease has expired", () => {
+    const root = workspace({ tracker: fixture("canonical.md") });
+    const now = Date.now();
+    placeLock(
+      root,
+      foreignOwner({
+        at: new Date(now - 2 * LOCK_LEASE_MS).toISOString(),
+        heartbeatAt: new Date(now - 2 * LOCK_LEASE_MS).toISOString(),
+        leaseExpiresAt: new Date(now - LOCK_LEASE_MS).toISOString(),
+      }),
+    );
+    const result = capture(() =>
+      upsertTrackerFile(root, { id: "ghost-ops-manager", fields: { link: "https://example.com/g" } }),
+    );
+    assert.equal(result.ok, true, JSON.stringify(result));
+    assertNoLeftovers(root);
+  });
+
+  test("a foreign owner without leaseExpiresAt is judged by its last heartbeat plus the lease", () => {
+    const fresh = workspace({ tracker: fixture("canonical.md") });
+    const freshOwner = foreignOwner();
+    delete freshOwner.leaseExpiresAt;
+    placeLock(fresh, freshOwner);
+    const busy = capture(() =>
+      upsertTrackerFile(
+        fresh,
+        { id: "ghost-ops-manager", fields: { link: "https://example.com/g" } },
+        { lockTimeoutMs: 200 },
+      ),
+    );
+    assert.equal(busy.error, "busy", JSON.stringify(busy));
+    fs.rmSync(lockDir(fresh), { recursive: true, force: true });
+
+    const stale = workspace({ tracker: fixture("canonical.md") });
+    const staleOwner = foreignOwner({
+      at: new Date(Date.now() - 2 * LOCK_LEASE_MS).toISOString(),
+      heartbeatAt: new Date(Date.now() - 2 * LOCK_LEASE_MS).toISOString(),
+    });
+    delete staleOwner.leaseExpiresAt;
+    placeLock(stale, staleOwner);
+    const recovered = capture(() =>
+      upsertTrackerFile(stale, { id: "ghost-ops-manager", fields: { link: "https://example.com/g" } }),
+    );
+    assert.equal(recovered.ok, true, JSON.stringify(recovered));
+    assertNoLeftovers(stale);
+  });
+
+  test("a same-host lock with a dead pid is recovered at once, lease or not", () => {
+    const root = workspace({ tracker: fixture("canonical.md") });
+    const now = Date.now();
+    placeLock(root, {
+      pid: DEAD_PID,
+      token: "dead-on-this-host",
+      hostname: os.hostname(),
+      bootId: null,
+      pidNamespace: null,
+      at: new Date(now).toISOString(),
+      heartbeatAt: new Date(now).toISOString(),
+      leaseExpiresAt: new Date(now + LOCK_LEASE_MS).toISOString(),
+    });
+    const result = capture(() =>
+      upsertTrackerFile(root, { id: "ghost-ops-manager", fields: { link: "https://example.com/g" } }),
+    );
+    assert.equal(result.ok, true, JSON.stringify(result));
+    assertNoLeftovers(root);
+  });
+
+  test("a run whose lock was taken over does not delete the new owner's lock on release", () => {
+    const root = workspace({ tracker: fixture("canonical.md") });
+    const stateRoot = path.join(root, USER_ROOT);
+    const result = withWorkspaceLock(stateRoot, () => {
+      // Takeover, deterministically and in sequence: our lock folder is
+      // removed and a new owner installs its own lock in its place.
+      fs.rmSync(lockDir(root), { recursive: true, force: true });
+      placeLock(root, { pid: process.pid, token: "new-owner", hostname: os.hostname() });
+      return "finished";
+    });
+    assert.equal(result, "finished");
+    assert.equal(readLockOwner(root).token, "new-owner", "release must leave the new owner's lock in place");
+    fs.rmSync(lockDir(root), { recursive: true, force: true });
+    assertNoLeftovers(root);
+  });
+
+  test("a lock acquired in the steal window is put back, not deleted", () => {
+    const root = workspace({ tracker: fixture("canonical.md") });
+    placeLock(root, { pid: DEAD_PID, token: "judged-dead" });
+    // Inject the exact interleaving the old code lost, deterministically:
+    // the first time stealIfAbandoned renames the lock aside, the judged
+    // owner has already released and a new live owner has acquired the lock.
+    const originalRename = fs.renameSync;
+    let swapped = false;
+    fs.renameSync = (...args) => {
+      if (!swapped && args[0] === lockDir(root)) {
+        swapped = true;
+        fs.rmSync(lockDir(root), { recursive: true, force: true });
+        placeLock(root, { pid: process.pid, token: "new-live-owner", hostname: os.hostname() });
+      }
+      return originalRename(...args);
+    };
+    let stole;
+    try {
+      stole = stealIfAbandoned(lockDir(root), ownerFile(root), "stealer-token");
+    } finally {
+      fs.renameSync = originalRename;
+    }
+    assert.equal(swapped, true, "the injected interleaving must actually run");
+    assert.equal(stole, false, "a live lock must be waited on, not stolen");
+    assert.equal(readLockOwner(root).token, "new-live-owner", "the new owner's lock is restored intact");
+    fs.rmSync(lockDir(root), { recursive: true, force: true });
+    assertNoLeftovers(root);
+  });
+
+  test("parallel report writes with different slugs never share a number", async () => {
+    const root = workspace({});
+    const content = reportContent({
+      company: null,
+      role: null,
+      application_id: null,
+      skill: "claim-check",
+      date: "2026-10-01",
+      summary: "x",
+    });
+    const slugs = ["acme", "globex", "initech", "umbrella", "stark", "wayne"];
+    const runs = await Promise.all(slugs.map((slug) => runCli(["report", "write", "--slug", slug], root, content)));
+    for (const run of runs) assert.equal(run.status, 0, JSON.stringify(run.json));
+    const ids = runs.map((r) => r.json.report_id).sort();
+    assert.deepEqual(ids, ["001", "002", "003", "004", "005", "006"], "every run gets its own number");
+    assert.equal(reportNames(root).length, slugs.length);
+    for (const slug of slugs) {
+      assert.ok(
+        reportNames(root).some((name) => name.includes(`-${slug}-`)),
+        `a report for ${slug} was written`,
+      );
+    }
+    assertNoLeftovers(root);
   });
 });
 
