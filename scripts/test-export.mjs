@@ -1,4 +1,4 @@
-// Unit tests for plugins/job-hunt-skills/scripts/export-documents.mjs.
+// Unit tests for plugins/job-hunt-skills-tools/scripts/export-documents.mjs.
 //
 // Run with:  node --test scripts/test-export.mjs   (or: npm run test:export)
 //
@@ -39,10 +39,10 @@ import {
   parseResumeSections,
   pickKind,
   stripFrontmatter,
-} from "../plugins/job-hunt-skills/scripts/export-documents.mjs";
+} from "../plugins/job-hunt-skills-tools/scripts/export-documents.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
-const EXPORT_SCRIPT = join(SCRIPT_DIR, "../plugins/job-hunt-skills/scripts/export-documents.mjs");
+const EXPORT_SCRIPT = join(SCRIPT_DIR, "../plugins/job-hunt-skills-tools/scripts/export-documents.mjs");
 
 const SAMPLE_RESUME = `# Sarah Chen
 

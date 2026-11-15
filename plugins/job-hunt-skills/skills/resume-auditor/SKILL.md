@@ -83,7 +83,7 @@ If a job description is provided, flag mismatches between the user's language an
 
 ### 7. Save the audit report
 
-Write `my-documents/reports/{###}-resume-audit-{YYYY-MM-DD}.md` with `node "{job_hunt_skills_root}/scripts/state.mjs" report write --slug resume-audit --file {draft}`, which allocates `{###}` safely; without Node, use the native procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-helper-and-native-fallback).
+Write `my-documents/reports/{###}-resume-audit-{YYYY-MM-DD}.md` with slug `resume-audit` using the report procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or hand it to the companion's `state-helper` when it is available ([§14](references/state-layer.md#14-optional-companion)); either way `{###}` is allocated without overwriting a report.
 
 Report frontmatter:
 
@@ -103,7 +103,7 @@ If the audit is role-specific and tied to a tracked application, set `company`, 
 
 **Source work documents remain untouched.** If the user wants to apply auditor suggestions, run `resume-builder` or edit manually so versioning stays correct.
 
-Close with the reward beats ([state-layer §11](references/state-layer.md#11-progress-and-reward)): the audit itself is the value, so name **what this unlocked** ("you now know exactly what's blocking callbacks and the highest-leverage fix"), then — because the run saved an audit report — show the **profile-strength line** (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively). Keep the framing honest: a critical audit is progress, not a setback.
+Close with the reward beats ([state-layer §11](references/state-layer.md#11-progress-and-reward)): the audit itself is the value, so name **what this unlocked** ("you now know exactly what's blocking callbacks and the highest-leverage fix"), then — because the run saved an audit report — show the **profile-strength line** from §11. Keep the framing honest: a critical audit is progress, not a setback.
 
 ## Common Mistakes
 

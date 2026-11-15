@@ -2,6 +2,8 @@
 
 Install Job Hunt Skills first — see the **Start Here** section of [README.md](README.md) for Codex, Claude Code, Cowork, and clone-fallback instructions, plus the prompt-library path for any LLM. This page is the "what to do this week" walkthrough once installation is done.
 
+There are two packages. **Job Hunt Skills** (`job-hunt-skills@remotivated`) is the plugin you need: text only, with nothing to run. **Job Hunt Skills Tools** (`job-hunt-skills-tools@remotivated`) is an optional companion with local Node scripts for typeset Word and PDF export and locked file writes; add it later if you want it, with `/plugin install job-hunt-skills-tools@remotivated` in Claude Code or `codex plugin add job-hunt-skills-tools@remotivated` in Codex. Without it, your assistant makes the Word and PDF files itself where it can, and otherwise gives you a print-ready page to save as PDF from your browser.
+
 Start small. Build one accurate source work document in resume or CV format, research one real company, tailor one application, and prepare for one interview.
 
 **In a hurry?** If you already have a resume and a job posting, the fastest way to see what this does is to paste both and ask `Help me get started.` — you'll get a tailored draft and an honest audit back in a few minutes, entirely in chat, before setting anything up. Saving your files and building the full source document is the next step, not a prerequisite.

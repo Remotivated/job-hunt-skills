@@ -28,6 +28,7 @@ It also compounds. Every verified bullet, story, or proof point you confirm duri
 - [Read The Guides](#read-the-guides)
 - [Example Outputs](#example-outputs)
 - [Real Submission-Ready Files](#real-submission-ready-files)
+- [Optional Scripts Companion](#optional-scripts-companion)
 - [Repository Map](#repository-map)
 - [Philosophy](#philosophy)
 - [Contributing](#contributing)
@@ -125,6 +126,8 @@ If the plugin or a newly updated skill does not appear, start a new Codex sessio
 codex plugin marketplace upgrade remotivated
 ```
 
+Optional: the [scripts companion](#optional-scripts-companion) installs from the same marketplace with `codex plugin add job-hunt-skills-tools@remotivated`.
+
 ## Use The Claude Code Plugin
 
 Use this path if you want a terminal workflow and local markdown files.
@@ -157,6 +160,8 @@ Help me get started.
 
 If you prefer explicit commands, use `/job-hunt-skills:get-started`. The plugin also includes quick slash commands such as `/job-hunt-skills:resume-builder` and `/job-hunt-skills:cover-letter`.
 
+Optional: the [scripts companion](#optional-scripts-companion) installs from the same marketplace with `/plugin install job-hunt-skills-tools@remotivated`.
+
 Clone fallback: clone the repository anywhere, then start Claude Code from your job-search folder with the plugin folder from your clone. The installable plugin lives in `plugins/job-hunt-skills/`; the rest of the repository is examples, prompts, and contributor tooling.
 
 ```bash
@@ -164,6 +169,8 @@ git clone https://github.com/Remotivated/job-hunt-skills.git ~/job-hunt-skills
 cd ~/Documents/job-hunt   # your job-search folder, not the clone
 claude --plugin-dir ~/job-hunt-skills/plugins/job-hunt-skills
 ```
+
+To load the optional companion from the clone too, add `--plugin-dir ~/job-hunt-skills/plugins/job-hunt-skills-tools`.
 
 The skills will not save job-search files inside the clone itself; they ask you to use a folder of your own instead.
 
@@ -256,19 +263,38 @@ Source markdown and rendered PDFs for each example live in [examples/](examples/
 
 ## Real Submission-Ready Files
 
-Most AI job-search tools stop at copy-paste output. This one produces real files you can attach. The skills save markdown first, then the plugin's `scripts/export-documents.mjs` renders resumes, CVs, and cover letters to `.docx`, `.pdf`, and a `.html` preview next to each input. All JavaScript dependencies ship bundled in the plugin — Node is the only requirement, with no `npm install` step.
+Most AI job-search tools stop at copy-paste output. This one produces real files you can attach. The skills save markdown first, run a pre-export check for leftover placeholders, template notes, and copy-paste characters, then produce `.docx` and `.pdf` next to each document from one written layout (single column, Georgia 10.5 pt, navy section rules, Letter or A4).
 
-```bash
-node plugins/job-hunt-skills/scripts/export-documents.mjs my-documents/resume.md my-documents/coverletter.md
+Output depends on what your assistant can do, and you are always told which you got:
+
+- **Your assistant can make Word and PDF files** — it makes both from the layout, plus an `.html` page that previews it in any browser.
+- **It can make only one, or neither** — you get what it can make, plus the markdown and a print-ready `.html` page you can print to PDF from any browser or open in Word or Google Docs.
+- **With the optional companion** — the [scripts companion](#optional-scripts-companion) typesets `.docx`, `.pdf`, and `.html` with the same layout on every computer.
+
+DOCX and PDF remain canonical for submission.
+
+## Optional Scripts Companion
+
+Job Hunt Skills itself is text only: it contains no scripts or other code and works fully on its own. [Job Hunt Skills Tools](plugins/job-hunt-skills-tools/) is a separate, optional plugin in the same marketplace for people who want local Node scripts:
+
+- **Typeset export.** `.docx`, `.pdf`, and `.html` with a consistent layout on every computer. PDFs embed the vendored [Gelasio](https://fonts.google.com/specimen/Gelasio) fonts (SIL OFL, metric-compatible with Georgia), and are typeset with [Typst](https://typst.app) when it is installed (`brew install typst` / `winget install --id Typst.Typst` / `snap install typst`).
+- **Locked tracker and report writes,** so two sessions never interleave a write.
+- **Posting fingerprints,** so a re-pasted posting is recognised without its link.
+
+Install it next to the main plugin, from the same marketplace:
+
+```text
+/plugin install job-hunt-skills-tools@remotivated          (Claude Code)
+codex plugin add job-hunt-skills-tools@remotivated         (Codex)
 ```
 
-Output scales with what's installed, and each step up is an unlock:
+It needs Node 22 or newer and no `npm install` step. Job Hunt Skills uses it when its skills are available and follows its own written procedures when they are not. The Cowork ZIP contains the main plugin only.
 
-- **Nothing installed** — the markdown is submission-ready, and the skills can still write the `.html` preview from the plugin's `templates/preview-template.html`. The HTML mirrors page geometry, so you can open it in any browser to eyeball formatting.
-- **Node** — adds the `.docx` and a `.pdf` from the built-in renderer, fonts embedded.
-- **Node + [Typst](https://typst.app)** (`brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) — the `.pdf` is typeset by Typst from a vendored template instead. One PDF per document, always.
+From a clone, the same scripts run directly:
 
-PDFs embed the vendored [Gelasio](https://fonts.google.com/specimen/Gelasio) fonts (SIL OFL, metric-compatible with Georgia), so the same bytes render identically everywhere; DOCX and HTML use Georgia. DOCX and PDF remain canonical for submission.
+```bash
+npm run export -- my-documents/resume.md my-documents/coverletter.md
+```
 
 ## Repository Map
 
@@ -278,7 +304,7 @@ PDFs embed the vendored [Gelasio](https://fonts.google.com/specimen/Gelasio) fon
 | [plugins/job-hunt-skills/skills/](plugins/job-hunt-skills/skills/) | Shared Codex, Claude Code, and Cowork skills. |
 | [plugins/job-hunt-skills/guides/](plugins/job-hunt-skills/guides/) | Job-search methodology and decision support. |
 | [plugins/job-hunt-skills/templates/](plugins/job-hunt-skills/templates/) | Resume, CV, and cover letter scaffolds. |
-| [plugins/job-hunt-skills/scripts/](plugins/job-hunt-skills/scripts/) | Tracker, report, and document export scripts the skills run. |
+| [plugins/job-hunt-skills-tools/](plugins/job-hunt-skills-tools/) | The optional companion plugin: tracker, report, and document export scripts, vendored modules, fonts, and the Typst template. |
 | [prompts/](prompts/) | Copy/paste prompts for any LLM. |
 | [examples/](examples/) | Synthetic sample outputs with rendered files. |
 | [scripts/](scripts/) | Tests, quality checks, and build scripts for contributors. |

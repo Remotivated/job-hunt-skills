@@ -18,7 +18,7 @@ For interview process tracking, post-interview notes, and follow-up drafts, use 
 ### 0. Choose the mode
 
 - **In-chat prep** — the default when there is no bound workspace, when the user pastes a resume, or when they just want quick prep, such as for an interview tomorrow. Nothing is written: no preflight, no scaffold, no tracker check, and step 6 is skipped. Steps 1 to 5 still run, and the evidence is what the user pasted or told you: their resume, the posting, and their stories. Say plainly what you could not check, such as the exact resume they submitted, their saved stories, or claims they withdrew in a saved workspace. Offer to save at the end.
-- **Saved prep** — when the user has a workspace with a source work document, or asks to keep the prep. Run the [Workspace Preflight (state-layer §10)](references/state-layer.md#10-workspace-preflight) before the first read of `my-documents/`. If `scaffold-state.mjs` exits with the workspace-binding message, surface it verbatim and stop the saved workflow per §10. Do not silently fall back to in-chat writes; resume only after the user binds and confirms their folder.
+- **Saved prep** — when the user has a workspace with a source work document, or asks to keep the prep. Run the [Workspace Preflight (state-layer §10)](references/state-layer.md#10-workspace-preflight) before the first read of `my-documents/`. If the folder is refused with the workspace-binding message, surface it verbatim and stop the saved workflow per §10. Do not silently fall back to in-chat writes; resume only after the user binds and confirms their folder.
 
 ### 0.5. Tracker check and source selection
 
@@ -28,9 +28,9 @@ Read `my-documents/applications.md`. If no row exists for this company + role, w
 
 > I don't see a tracked application for **{Role} at {Company}**. Interview prep still works. Want me to create a tracker row with `status: interviewing`, or skip the tracker?
 
-If the user confirms tracker creation, insert a new row with `status: interviewing` (`node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}" --status interviewing --user-confirmed`). This is allowed by [state-layer section 4](references/state-layer.md#4-status-enum) because interviews can predate the tracker.
+If the user confirms tracker creation, insert a new row with `status: interviewing` using the tracker procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or the companion's `state-helper` with `--user-confirmed` when it is available ([§14](references/state-layer.md#14-optional-companion)). This is allowed by [state-layer section 4](references/state-layer.md#4-status-enum) because interviews can predate the tracker.
 
-If a row exists at another status, ask whether to move it to `interviewing`. Only move it after user confirmation, with the same command. Without Node, apply [state-layer §12](references/state-layer.md#12-validated-mutations-helper-and-native-fallback) natively.
+If a row exists at another status, ask whether to move it to `interviewing`. Only move it after user confirmation, the same way ([state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion)).
 
 Select the source work document using [state-layer section 6](references/state-layer.md#6-work-document-frontmatter-and-selection). If both `resume.md` and `cv.md` exist and the user did not imply which one maps to the interview, ask. Use the selected file's `label` in user-facing prose.
 
@@ -51,7 +51,7 @@ If web browsing is available, inspect the website, careers page, recent news, re
 
 ### 3. Load the story bank
 
-In in-chat prep there is no story bank to read: use the stories the user shares in this conversation, in the same STAR+R shape. In saved prep, read `my-documents/story-bank.md`. If it does not exist, run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"`.
+In in-chat prep there is no story bank to read: use the stories the user shares in this conversation, in the same STAR+R shape. In saved prep, read `my-documents/story-bank.md`. If it does not exist, scaffold per [state-layer §10](references/state-layer.md#10-workspace-preflight) steps 3 to 6 (the companion's `workspace-scaffold` when it is available).
 
 Parse stories using the canonical schema in [state-layer section 7](references/state-layer.md#7-story-bank-schema):
 
@@ -108,7 +108,7 @@ Saved prep only. In in-chat prep, show the brief and offer to save it with any n
 Save:
 
 1. **Prep artifact:** `my-documents/applications/{id}/interview-prep.md`.
-2. **Report:** `my-documents/reports/{###}-{id}-interview-prep-{YYYY-MM-DD}.md`, written with `node "{job_hunt_skills_root}/scripts/state.mjs" report write --slug {id}-interview-prep --file {draft}` so `{###}` is allocated safely.
+2. **Report:** `my-documents/reports/{###}-{id}-interview-prep-{YYYY-MM-DD}.md`, written with slug `{id}-interview-prep` using the report procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or hand it to the companion's `state-helper` when it is available ([§14](references/state-layer.md#14-optional-companion)); either way `{###}` is allocated without overwriting a report.
 3. **Story bank updates:** append usage entries and new stories.
 4. **Conversation output:** display the brief to the user.
 
@@ -128,7 +128,7 @@ summary: One-line prep angle.
 
 The prep artifact is candidate-facing. Keep internal uncertainty, self-grading notes, and unresolved checklists out of it. Resolve uncertainty in conversation or put evidence gaps in the story bank, not in the final prep brief.
 
-Close with the reward beats ([state-layer §11](references/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("you're prepped for this interview, and any stories we banked are now reusable across future rounds"), then show the **profile-strength line** (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively). If new stories were banked, call that gain out specifically.
+Close with the reward beats ([state-layer §11](references/state-layer.md#11-progress-and-reward)): name **what this unlocked** ("you're prepped for this interview, and any stories we banked are now reusable across future rounds"), then show the **profile-strength line** from §11. If new stories were banked, call that gain out specifically.
 
 ## Common Mistakes
 

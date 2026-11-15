@@ -1,9 +1,9 @@
 {
   "name": "job-hunt-skills",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "type": "module",
-  "description": "AI-assisted job search skills, prompts, guides, and ATS-safe DOCX/PDF export (Node + Typst)",
+  "description": "AI-assisted job search skills, prompts, and guides, with an optional companion for scripted state and typeset DOCX/PDF export (Node + Typst)",
   "homepage": "https://github.com/Remotivated/job-hunt-skills#readme",
   "repository": {
     "type": "git",
@@ -14,9 +14,9 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "npm run check:shared && npm run check:hygiene && npm run check:links && npm run test:skills && npm run test:codex && npm run test:strength && npm run test:state && npm run test:opportunity && npm run test:export && npm run test:plugin",
-    "scaffold": "node plugins/job-hunt-skills/scripts/scaffold-state.mjs",
-    "strength": "node plugins/job-hunt-skills/scripts/profile-strength.mjs",
+    "test": "npm run check:shared && npm run check:hygiene && npm run check:links && npm run test:skills && npm run test:codex && npm run test:strength && npm run test:state && npm run test:opportunity && npm run test:export && npm run test:plugin && npm run test:text-only",
+    "scaffold": "node plugins/job-hunt-skills-tools/scripts/scaffold-state.mjs",
+    "strength": "node plugins/job-hunt-skills-tools/scripts/profile-strength.mjs",
     "build:zip": "node scripts/build-cowork-zip.mjs",
     "sync:shared": "node scripts/sync-shared-references.mjs",
     "check:shared": "node scripts/sync-shared-references.mjs --check",
@@ -25,16 +25,17 @@
     "check:hygiene": "node scripts/run-python.mjs scripts/check-content-hygiene.py",
     "check:links": "node scripts/run-python.mjs scripts/check-internal-links.py",
     "build:vendor": "node scripts/build-vendor.mjs",
-    "export": "node plugins/job-hunt-skills/scripts/export-documents.mjs",
+    "export": "node plugins/job-hunt-skills-tools/scripts/export-documents.mjs",
     "test:export": "node --test scripts/test-export.mjs",
     "test:strength": "node --test scripts/test-profile-strength.mjs",
     "test:state": "node --test scripts/test-state.mjs",
     "test:opportunity": "node --test scripts/test-opportunity.mjs",
-    "test:plugin": "node --test scripts/test-plugin-package.mjs"
+    "test:plugin": "node --test scripts/test-plugin-package.mjs",
+    "test:text-only": "node --test scripts/test-text-only.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.1",
-    "markdown-it": "^14.3.0",
+    "markdown-it": "^14.3.3",
     "pdfmake": "^0.3.11"
   }
 }

@@ -32,7 +32,7 @@ Format-specific conventions:
 Follow the [Workspace Preflight (state-layer §10)](references/state-layer.md#10-workspace-preflight).
 
 - **If `my-documents/` does not yet exist** at the resolved path, hand off to `get-started` for the workspace confirmation flow. Do not run the scaffolder yourself — the user needs the novice-friendly "where will my files live" conversation before any file is written.
-- **If `my-documents/` already exists**, run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` to fill in any missing pieces. If it exits with the "working directory is the plugin install dir" message, surface that message verbatim and stop. If it fails for any other reason (Node missing, no shell access), fall back to creating any missing structure with native file tools per state-layer §10 step 5.
+- **If `my-documents/` already exists**, fill in any missing pieces per [state-layer §10](references/state-layer.md#10-workspace-preflight) steps 3 to 6 (the companion's `workspace-scaffold` when it is available). If the folder is refused with the "working directory is the plugin install dir" message, surface that message verbatim and stop. If the companion cannot run, keep what exists and create only the missing structure with ordinary file tools.
 - **Verify before writing.** Regardless of which path was taken, confirm the four canonical directories and two markdown files exist under `my-documents/` before producing a resume. A skill that generates a resume into an unscaffolded workspace is the failure mode this check exists to prevent.
 
 On first scaffold per session, mention the path once: "Your files will live under `{absolute path}`."
@@ -161,38 +161,22 @@ On first build, set `version: 1`. On update, increment only the file changed and
 
 **Captured artifacts from step 6.5** (if any) are written in this step alongside the source work document — story-bank entries appended to `story-bank.md`, proof-assets created at `my-documents/proof-assets/{slug}.md`. Captures do not affect the source work document's `version`.
 
-### 8. Export DOCX, PDF, and HTML preview
+### 8. Export Word and PDF
 
-After writing markdown, invoke the export script once with all files written:
+After writing markdown, export every file this run wrote in one pass (in single-document modes, only the file written), following the [document export procedure](references/document-export.md):
 
-```bash
-node "{job_hunt_skills_root}/scripts/export-documents.mjs" my-documents/resume.md my-documents/coverletter.md
-```
+1. Run the pre-export checklist ([§2](references/document-export.md#2-pre-export-checklist)). Fix unresolved placeholders, template comments, `[ASK:]`, `[VERIFY:]`, or `year TBD` internally and save the markdown again. Ask the user only when a missing fact is required.
+2. Take the first export path that applies ([§4](references/document-export.md#4-choosing-the-path)): the companion's `typeset-export` skill when it is available; otherwise the host's own Word and PDF abilities, following the layout specification ([§3](references/document-export.md#3-layout-specification)); otherwise the print-ready HTML view ([§5](references/document-export.md#5-print-ready-html-view)). Use A4 for a UK/EU CV and Letter for a US resume unless the user says otherwise.
+3. Check the result ([§6](references/document-export.md#6-check-the-result)) and tell the user which path made the files. Report each path as what the user has now, plus the one step that gets the rest, never as a degraded run.
 
-or:
-
-```bash
-node "{job_hunt_skills_root}/scripts/export-documents.mjs" my-documents/cv.md my-documents/coverletter.md
-```
-
-In single-document modes, pass only the file written. The script writes `.docx`, `.pdf`, and `.html` next to each input. The `.html` is a browser-openable preview that mirrors the page geometry; DOCX and PDF remain canonical for submission. Every run produces a PDF — its last stdout line reports which renderer produced it:
-
-- `EXPORT_TIER=3` — the PDF was typeset with Typst. Nothing to add.
-- `EXPORT_TIER=2` — the PDF came from the built-in renderer. Mention that this is the standard render, and that installing Typst (one command, ~50MB: `brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) upgrades future PDFs to the typeset version.
-
-If Node itself is unavailable, fall back to Tier 1: fill `{job_hunt_skills_root}/templates/preview-template.html` (`{{name}}`/`{{contact}}`/`{{body}}` slots) with native file tools and tell the user their markdown and browser-openable preview are ready — installing Node unlocks the Word file and PDF. Report tiers as what the user has, plus the one command that unlocks the next tier — never as a degraded run.
-
-Handle failures:
-
-- **Content validation failure:** fix unresolved placeholders, template comments, `[ASK:]`, `[VERIFY:]`, or `year TBD` internally and rerun. Ask the user only when a missing fact is required.
-- **Infrastructure/rendering failure:** report the file, error, and exact rerun command.
+If a path stops partway, keep the files it finished and produce only the missing ones.
 
 ### 8.5. Close the run
 
 After the files are saved and exported, end with the two closing beats from [state-layer §11](references/state-layer.md#11-progress-and-reward):
 
 - **What this unlocked** — name the new capability in plain terms, e.g. "Your {label} now lives here as a source document, so tailoring to a role, honest audits, and interview prep all draw from it — and any stories we banked will back up claims automatically." Not a file count; a capability.
-- **Where things stand** — show the profile-strength line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively when Node is unavailable) so the user sees their progress and the single highest-leverage next step. Frame it as momentum, not a to-do list.
+- **Where things stand** — show the profile-strength line ([state-layer §11](references/state-layer.md#11-progress-and-reward)) so the user sees their progress and the single highest-leverage next step. Frame it as momentum, not a to-do list.
 
 ### 9. Modes
 

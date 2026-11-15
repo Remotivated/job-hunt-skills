@@ -17,7 +17,7 @@ Use `interview-coach` when the user only wants a prep brief. Use `interviewing` 
 
 ### 1. Identify the application
 
-Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` if state files are missing.
+If state files are missing, run the [Workspace Preflight (state-layer §10)](references/state-layer.md#10-workspace-preflight): on the first state-layer touch this session, confirm the folder with the user first (step 2), then scaffold per steps 3 to 6 (the companion's `workspace-scaffold` when it is available).
 
 Gather:
 
@@ -34,7 +34,7 @@ If no tracker row exists, offer to create one directly at `status: interviewing`
 
 If a row exists at another status, ask whether to move it to `interviewing`; moving back is fine when the user confirms it, for example a closed process that has reopened. When moving it, also update `next_action_date` to the next concrete commitment (interview date, take-home due date, or follow-up window).
 
-Write the row after the user confirms: `node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}" --status interviewing --next-action-date {date} --user-confirmed`. The helper refuses an unconfirmed status change or a malformed table without writing, and logs every status change in the tracker's history; show its message. Without Node, follow [state-layer §12](references/state-layer.md#12-validated-mutations-helper-and-native-fallback).
+Write the row (`status: interviewing`, `next_action_date`) only after the user confirms, with the tracker procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or the companion's `state-helper` with `--user-confirmed` when it is available ([§14](references/state-layer.md#14-optional-companion)). An unconfirmed status change or a malformed table is refused without writing, and every status change is logged in the tracker's history; show any refusal.
 
 ### 2. Create or update the interview log
 
@@ -119,12 +119,12 @@ Show:
 - Next interview action.
 - Any open questions to ask the company.
 
-If the user reports an offer, rejection, withdrawal, or acceptance, offer to move the tracker to `offer`, `closed`, or `hired` ([state-layer §4](references/state-layer.md#4-status-enum)). If the user says a status was set by mistake, offer to move it back. After they confirm, run the helper with `--status {status} --user-confirmed`.
+If the user reports an offer, rejection, withdrawal, or acceptance, offer to move the tracker to `offer`, `closed`, or `hired` ([state-layer §4](references/state-layer.md#4-status-enum)). If the user says a status was set by mistake, offer to move it back. After they confirm, write the status change the same way as above.
 
 Then the reward beats from [state-layer §11](references/state-layer.md#11-progress-and-reward):
 
 - **What this unlocked** — e.g. "Your interview notes are captured, so follow-up drafting and future prep for this company build on them."
-- **Momentum pulse** — since this run touched the tracker, print the momentum line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs" --pulse`, or derive it natively). An interviewing count on the board is real progress in a demoralizing process — surface it. If the user advanced a status, reprint the pulse so the move is visible.
+- **Momentum pulse** — since this run touched the tracker, print the momentum pulse from §11. An interviewing count on the board is real progress in a demoralizing process — surface it. If the user advanced a status, reprint the pulse so the move is visible.
 
 ## Common Mistakes
 

@@ -35,8 +35,8 @@ Then ask the routing question in plain language:
 > Do you have a resume — or a LinkedIn profile — and a job posting you're interested in? Paste both and I'll show you what this does. Or if you'd rather build your resume properly from scratch first, we can do that instead.
 
 Vocabulary:
-- Avoid internal terms in user-facing text: canonical, state layer, drift check, scaffolding, DOCX, PATH, Typst, tier, profile-strength score.
-- When describing outputs, say "Word file", "PDF", and "a preview you can open in your browser". Frame extra output capability as an unlock ("installing Node gets you the Word file and PDF automatically"), never as something missing or degraded.
+- Avoid internal terms in user-facing text: canonical, state layer, drift check, scaffolding, DOCX, PATH, Typst, companion skill, profile-strength score.
+- When describing outputs, say "Word file", "PDF", and "a preview you can open in your browser". Frame extra output capability as an unlock ("the optional Job Hunt Skills Tools companion makes the Word file and PDF automatically"), never as something missing or degraded.
 
 Route on the reply:
 
@@ -111,15 +111,15 @@ Do not try to "just save it somewhere reasonable" — that is the bug. Wait for 
 
 Once a real workspace folder is confirmed, build the structure under that folder. Two paths, same on-disk result:
 
-- **Preferred:** run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"`. The script is idempotent and creates only missing files. If it exits non-zero with the "working directory is the plugin install dir" message, surface that message verbatim and go back to 3c.
-- **Fallback** (Node not installed, no shell access, command-not-found, or any other non-zero exit *except* the workspace-binding refusal): scaffold manually with native file tools per [state-layer §10 step 5](references/state-layer.md#10-workspace-preflight). Cowork users are typically not developers; do not require them to install Node, and do not skip the scaffold because the script failed.
+- **Check the folder first** per [state-layer §10 step 3](references/state-layer.md#10-workspace-preflight). If it is a plugin folder or a checkout, surface that message verbatim and go back to 3c.
+- **Create what is missing** with ordinary file tools per [state-layer §10 step 4](references/state-layer.md#10-workspace-preflight), creating only the missing pieces and never overwriting a file. When the companion's `workspace-scaffold` skill is available, hand it this step instead ([§14](references/state-layer.md#14-optional-companion)). If it refuses with the "working directory is the plugin install dir" message, surface that message verbatim and go back to 3c; if it cannot run, keep whatever it created and create the rest yourself. Cowork users are typically not developers; nothing here needs anything installed.
 
 **Verify before continuing.** List the workspace folder and confirm all of these exist:
 
 - Directories: `my-documents/`, `my-documents/applications/`, `my-documents/reports/`, `my-documents/proof-assets/`
 - Files: `my-documents/applications.md`, `my-documents/story-bank.md`
 
-If anything is missing, create it. Every downstream skill assumes this structure is in place; a half-scaffolded workspace is how a generated resume ends up stranded in chat. Verification is the gate, not the script's exit code.
+If anything is missing, create it. Every downstream skill assumes this structure is in place; a half-scaffolded workspace is how a generated resume ends up stranded in chat. Verification is the gate, whichever path created the files.
 
 On success, briefly recap: "Your files will live under `{absolute path}`, and I've set up the folders for resumes, applications, reports, and proof assets." One sentence, then move on to building.
 
@@ -147,7 +147,7 @@ End with a short recap:
 Then the two closing beats from [state-layer §11](references/state-layer.md#11-progress-and-reward):
 
 - **What this unlocked** — name the new capability in plain terms, e.g. "Your resume now lives here as a source document, so tailoring to a role, honest audits, and interview prep all draw from it — and the stories you banked will back up claims automatically."
-- **Where things stand** — show the profile-strength line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs"`, or derive it natively) so the user sees their progress and the single best next step. Frame the next step as the natural continuation, not a chore.
+- **Where things stand** — show the profile-strength line ([state-layer §11](references/state-layer.md#11-progress-and-reward)) so the user sees their progress and the single best next step. Frame the next step as the natural continuation, not a chore.
 
 Then point to the best next action:
 

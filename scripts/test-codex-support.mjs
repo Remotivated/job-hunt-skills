@@ -19,6 +19,9 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SCRIPT_DIR, "..");
 const PLUGIN_DIR = "plugins/job-hunt-skills";
 const PLUGIN = join(ROOT, PLUGIN_DIR);
+// The optional companion that ships the scripts, vendored modules, and fonts.
+const TOOLS_DIR = "plugins/job-hunt-skills-tools";
+const TOOLS = join(ROOT, TOOLS_DIR);
 
 function makePluginFixture() {
   const tmp = mkdtempSync(join(tmpdir(), "job-hunt-plugin-fixture-"));
@@ -28,29 +31,23 @@ function makePluginFixture() {
   mkdirSync(scriptsDir, { recursive: true });
   mkdirSync(skillsDir, { recursive: true });
   for (const name of ["scaffold-state.mjs", "workspace.mjs", "state.mjs"]) {
-    copyFileSync(join(PLUGIN, "scripts", name), join(scriptsDir, name));
+    copyFileSync(join(TOOLS, "scripts", name), join(scriptsDir, name));
   }
   return { tmp, pluginRoot, skillsDir };
 }
 
 // Entries the release ZIP must contain, relative to the ZIP root. The ZIP is
-// the plugin folder, so each of these is tracked under plugins/job-hunt-skills/.
+// the text-only plugin folder, so each of these is tracked under
+// plugins/job-hunt-skills/.
 const PLUGIN_ARCHIVE_PATHS = [
   ".claude-plugin/plugin.json",
   ".codex-plugin/plugin.json",
   "LICENSE",
   "README.md",
-  "scripts/vendor/LICENSES.md",
-  "scripts/vendor/LEGAL.txt",
-  "scripts/vendor/SOURCE-NOTICES.md",
-  "scripts/vendor/vendor-inputs.json",
   "skills/get-started/agents/openai.yaml",
   "skills/_shared/truth-and-content.md",
   "skills/get-started/references/state-layer.md",
   "skills/get-started/references/truth-and-content.md",
-  "scripts/state.mjs",
-  "scripts/workspace.mjs",
-  "scripts/opportunity.mjs",
   "skills/opportunity-evaluator/SKILL.md",
 ];
 
@@ -139,7 +136,7 @@ describe("Installed-plugin resource resolution", () => {
     try {
       const scaffold = spawnSync(
         process.execPath,
-        [join(PLUGIN, "scripts/scaffold-state.mjs")],
+        [join(TOOLS, "scripts/scaffold-state.mjs")],
         { cwd: workspace, encoding: "utf8" },
       );
       assert.equal(scaffold.status, 0, scaffold.stderr);
@@ -148,7 +145,7 @@ describe("Installed-plugin resource resolution", () => {
 
       const strength = spawnSync(
         process.execPath,
-        [join(PLUGIN, "scripts/profile-strength.mjs")],
+        [join(TOOLS, "scripts/profile-strength.mjs")],
         { cwd: workspace, encoding: "utf8" },
       );
       assert.equal(strength.status, 0, strength.stderr);
@@ -262,7 +259,7 @@ describe("Vendor licensing", () => {
     // converts them to CRLF by default (core.autocrlf).
     const checkedOut = (text) => (process.platform === "win32" ? text.replace(/\r\n/g, "\n") : text);
     const notices = checkedOut(readFileSync(
-      join(PLUGIN, "scripts/vendor/LICENSES.md"),
+      join(TOOLS, "scripts/vendor/LICENSES.md"),
       "utf8",
     ));
     assert.match(notices, /fontkit/);
@@ -270,7 +267,7 @@ describe("Vendor licensing", () => {
     assert.doesNotMatch(notices, /All bundled code is MIT-licensed/i);
 
     const legal = checkedOut(readFileSync(
-      join(PLUGIN, "scripts/vendor/LEGAL.txt"),
+      join(TOOLS, "scripts/vendor/LEGAL.txt"),
       "utf8",
     ));
     assert.ok(legal.length > 0, "preserved upstream legal comments");
@@ -286,7 +283,22 @@ describe("Vendor licensing", () => {
       "do not redistribute pdfmake's opaque prebuilt browser dependency graph",
     );
 
-    const inventory = readJson(`${PLUGIN_DIR}/scripts/vendor/vendor-inputs.json`);
+    // pdfmake's URLResolver downloads remote images and fonts; the build swaps
+    // it for a stub so no network code ships.
+    assert.match(buildSource, /\[\/\\\/URLResolver\$\/, "url-resolver\.mjs"\]/);
+    const vendored = readdirSync(join(TOOLS, "scripts/vendor"), { recursive: true })
+      .filter((name) => String(name).endsWith(".mjs"))
+      .map((name) => readFileSync(join(TOOLS, "scripts/vendor", String(name)), "utf8"));
+    assert.ok(vendored.length > 20);
+    for (const text of vendored) {
+      assert.doesNotMatch(text, /\bfetch\s*\(|XMLHttpRequest|node:https?\b|require\("https?"\)/, "vendored modules must not contain network code");
+    }
+
+    const inventory = readJson(`${TOOLS_DIR}/scripts/vendor/vendor-inputs.json`);
+    const markdownIt = inventory.packages.find((record) => record.name === "markdown-it");
+    assert.ok(markdownIt, "markdown-it must be vendored");
+    const [major, minor, patch] = markdownIt.version.split(".").map(Number);
+    assert.ok(major === 14 && (minor > 3 || (minor === 3 && patch >= 3)), `markdown-it ${markdownIt.version} is affected by GHSA-gfr2-rv44-r23c; use 14.3.3 or a later 14.x`);
     assert.deepEqual(inventory.unresolved, [], "vendor inputs need zero silent omissions");
     assert.ok(inventory.packages.length > 5);
     for (const record of inventory.packages) {
@@ -306,12 +318,12 @@ describe("Vendor licensing", () => {
     assert.ok(inventory.buildInputs.some((input) => input.path.startsWith("node_modules/fontkit/src/")));
     assert.ok(!inventory.buildInputs.some((input) => input.path.includes("fontkit/dist/")));
     for (const style of ["Regular", "Bold", "Italic", "BoldItalic"]) {
-      const font = readFileSync(join(PLUGIN, "templates/fonts", `Gelasio-${style}.ttf`));
+      const font = readFileSync(join(TOOLS, "templates/fonts", `Gelasio-${style}.ttf`));
       assert.equal(font.readUInt32BE(0), 0x00010000, `${style} must be TrueType; WOFF2 decoding is unsupported`);
     }
     assert.ok(inventory.outputs.length > 20, "dependencies must remain separate readable modules");
     for (const output of inventory.outputs) {
-      assert.ok(readFileSync(join(PLUGIN, output.path)).length < 256 * 1024, output.path);
+      assert.ok(readFileSync(join(TOOLS, output.path)).length < 256 * 1024, output.path);
     }
 
     assert.match(notices, /Zero unresolved build-input packages: yes/);
@@ -325,7 +337,7 @@ describe("Codex plugin manifest", () => {
   test("declares the existing skills directory without unsupported components", () => {
     const manifest = readJson(`${PLUGIN_DIR}/.codex-plugin/plugin.json`);
     assert.equal(manifest.name, "job-hunt-skills");
-    assert.equal(manifest.version, "1.2.0");
+    assert.equal(manifest.version, readJson("package.json").version);
     assert.equal(manifest.skills, "./skills/");
     assert.equal(manifest.license, "MIT");
     assert.ok(existsSync(join(PLUGIN, manifest.skills)));
@@ -335,17 +347,29 @@ describe("Codex plugin manifest", () => {
   });
 
   test("keeps shared identity fields aligned with the Claude manifest", () => {
-    const codex = readJson(`${PLUGIN_DIR}/.codex-plugin/plugin.json`);
-    const claude = readJson(`${PLUGIN_DIR}/.claude-plugin/plugin.json`);
-    for (const field of [
-      "name",
-      "version",
-      "description",
-      "homepage",
-      "repository",
-      "license",
-    ]) {
-      assert.deepEqual(codex[field], claude[field], field);
+    for (const dir of [PLUGIN_DIR, TOOLS_DIR]) {
+      const codex = readJson(`${dir}/.codex-plugin/plugin.json`);
+      const claude = readJson(`${dir}/.claude-plugin/plugin.json`);
+      for (const field of [
+        "name",
+        "version",
+        "description",
+        "homepage",
+        "repository",
+        "license",
+      ]) {
+        assert.deepEqual(codex[field], claude[field], `${dir}: ${field}`);
+      }
+    }
+  });
+
+  test("the companion declares its skills directory without unsupported components", () => {
+    const manifest = readJson(`${TOOLS_DIR}/.codex-plugin/plugin.json`);
+    assert.equal(manifest.name, "job-hunt-skills-tools");
+    assert.equal(manifest.skills, "./skills/");
+    assert.ok(existsSync(join(TOOLS, manifest.skills)));
+    for (const key of ["apps", "mcpServers", "hooks"]) {
+      assert.equal(key in manifest, false, key);
     }
   });
 });
@@ -358,6 +382,8 @@ describe("Release versions", () => {
     assert.equal(lock.packages[""].version, version, "package-lock.json root package version");
     assert.equal(readJson(`${PLUGIN_DIR}/.claude-plugin/plugin.json`).version, version, "Claude manifest");
     assert.equal(readJson(`${PLUGIN_DIR}/.codex-plugin/plugin.json`).version, version, "Codex manifest");
+    assert.equal(readJson(`${TOOLS_DIR}/.claude-plugin/plugin.json`).version, version, "companion Claude manifest");
+    assert.equal(readJson(`${TOOLS_DIR}/.codex-plugin/plugin.json`).version, version, "companion Codex manifest");
     const changelog = readFileSync(join(ROOT, "CHANGELOG.md"), "utf8");
     const latest = /^## (\d+\.\d+\.\d+)\b/m.exec(changelog);
     assert.ok(latest, "CHANGELOG.md must have a version heading");
@@ -366,24 +392,24 @@ describe("Release versions", () => {
 });
 
 describe("Codex marketplace", () => {
-  test("exposes the plugin folder with required policy metadata", () => {
+  test("exposes the plugin and the companion with required policy metadata", () => {
     const marketplace = readJson(".agents/plugins/marketplace.json");
     assert.equal(marketplace.name, "remotivated");
     assert.equal(marketplace.interface.displayName, "Remotivated");
-    assert.equal(marketplace.plugins.length, 1);
+    assert.deepEqual(marketplace.plugins.map((plugin) => plugin.name), ["job-hunt-skills", "job-hunt-skills-tools"]);
 
-    const plugin = marketplace.plugins[0];
-    assert.equal(plugin.name, "job-hunt-skills");
-    assert.deepEqual(plugin.source, {
-      source: "local",
-      path: `./${PLUGIN_DIR}`,
-    });
-    assert.ok(existsSync(join(ROOT, plugin.source.path, ".codex-plugin/plugin.json")));
-    assert.deepEqual(plugin.policy, {
-      installation: "AVAILABLE",
-      authentication: "ON_INSTALL",
-    });
-    assert.equal(plugin.category, "Productivity");
+    for (const [plugin, dir] of [[marketplace.plugins[0], PLUGIN_DIR], [marketplace.plugins[1], TOOLS_DIR]]) {
+      assert.deepEqual(plugin.source, {
+        source: "local",
+        path: `./${dir}`,
+      });
+      assert.ok(existsSync(join(ROOT, plugin.source.path, ".codex-plugin/plugin.json")));
+      assert.deepEqual(plugin.policy, {
+        installation: "AVAILABLE",
+        authentication: "ON_INSTALL",
+      });
+      assert.equal(plugin.category, "Productivity");
+    }
   });
 });
 
@@ -607,6 +633,13 @@ describe("Release archive configuration", () => {
         `${relativePath} must use an exact archive entry check`,
       );
     }
+    // Every exact entry check names a path the ZIP really contains, so a
+    // stale check for a moved file cannot linger.
+    for (const [, relativePath] of workflow.matchAll(/grep -Fx -- "([^"]+)"/g)) {
+      assert.ok(RELEASE_ARCHIVE_PATHS.includes(relativePath), `release.yml checks ${relativePath}, which the ZIP does not contain`);
+    }
+    assert.match(workflow, /companion plugin files leaked into the plugin ZIP/);
+    assert.match(workflow, /files other than text, the icon, and the license are in the plugin ZIP/);
   });
 
   test("archive is derived only from HEAD attributes", () => {
@@ -723,7 +756,7 @@ describe("CI and release workflows", () => {
       }
     }
     assert.match(readFileSync(join(ROOT, "CONTRIBUTING.md"), "utf8"), new RegExp(`Node ${floor}\\b`));
-    assert.match(readFileSync(join(PLUGIN, "scripts/export-documents.mjs"), "utf8"), new RegExp(`Node >= ${floor}\\b`));
+    assert.match(readFileSync(join(TOOLS, "scripts/export-documents.mjs"), "utf8"), new RegExp(`Node >= ${floor}\\b`));
   });
 
   test("every third-party action is pinned to a full commit SHA", () => {
@@ -810,7 +843,7 @@ describe("CI and release workflows", () => {
     assert.ok(version, "the test job must pin TYPST_VERSION");
     assert.match(test, /MIN_TYPST_VERSION/, "keep the comment pairing TYPST_VERSION with MIN_TYPST_VERSION");
     const floor = /MIN_TYPST_VERSION = "(\d+\.\d+\.\d+)"/.exec(
-      readFileSync(join(PLUGIN, "scripts/export-documents.mjs"), "utf8"),
+      readFileSync(join(TOOLS, "scripts/export-documents.mjs"), "utf8"),
     )?.[1];
     const parts = (v) => v.split(".").map(Number);
     const [a, b] = [parts(version), parts(floor)];

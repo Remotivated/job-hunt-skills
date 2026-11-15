@@ -49,10 +49,12 @@ Before saving anything, the skills show you the folder they will use and wait fo
 
 ## What runs on your computer
 
-- **Local Node scripts, when Node is available.** Bundled scripts create the `my-documents/` folders, write tracker rows and numbered reports, save the postings you choose to pursue and check them against earlier evaluations, show a short progress summary, and export documents. When Node is not installed, the skills do the same file work with the assistant's normal file tools.
-- **Document export.** `scripts/export-documents.mjs` turns a saved resume, CV, or cover letter into `.docx`, `.pdf`, and an `.html` preview next to the markdown file. Its JavaScript dependencies ship as readable modules in `scripts/vendor/`, and its Word writer uses Node’s built-in compression, so there is no install step.
-- **Typst, only if you installed it.** If a `typst` program is already on your computer, the exporter runs it locally to typeset the PDF, using the template and fonts in `templates/`. If it is not installed, the built-in renderer makes the PDF instead.
-- **No network calls from the scripts.** None of the bundled scripts sends or fetches anything over the network. Company research uses your assistant's own web search within a set lookup budget, and the report says which sources it used and how many lookups it took.
+Nothing. This plugin is text only: skills, guides, templates, and shared rules written in Markdown, with its manifests, icon, and license. It contains no scripts or other code, and it never downloads or installs any.
+
+- **Your files are handled with your assistant's ordinary file tools.** The skills follow written procedures to create the `my-documents/` folders, write tracker rows and numbered reports, save the postings you choose to pursue, and show a short progress summary.
+- **Word and PDF files come from your assistant's own document abilities**, following a written layout. Where your assistant cannot make them, you get your markdown and a print-ready page to open in a browser, and you are told which you got.
+- **No network calls from the plugin.** Company research uses your assistant's own web search within a set lookup budget, and the report says which sources it used and how many lookups it took.
+- **Optional scripts, only if you install them.** [Job Hunt Skills Tools](https://github.com/Remotivated/job-hunt-skills/tree/main/plugins/job-hunt-skills-tools) is a separate companion plugin with Node scripts for typeset Word and PDF export, locked tracker writes, and posting fingerprints. This plugin works fully without it and never installs it for you.
 
 The plugin has no hooks, no MCP servers, no telemetry, and no account to create.
 

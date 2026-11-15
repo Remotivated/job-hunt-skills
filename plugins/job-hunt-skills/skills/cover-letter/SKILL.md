@@ -31,7 +31,7 @@ Minimum specificity:
 
 ### 2. Gather evidence
 
-Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` if needed.
+If state files are missing, run the [Workspace Preflight (state-layer §10)](references/state-layer.md#10-workspace-preflight): on the first state-layer touch this session, confirm the folder with the user first (step 2), then scaffold per steps 3 to 6 (the companion's `workspace-scaffold` when it is available).
 
 Select the source work document using [state-layer section 6](references/state-layer.md#6-work-document-frontmatter-and-selection). Read:
 
@@ -108,27 +108,17 @@ summary: Specific cover letter drafted for {role/company or lane}.
 ---
 ```
 
-Write the report with `node "{job_hunt_skills_root}/scripts/state.mjs" report write --slug {id}-cover-letter --file {draft}` (or `--slug cover-letter` for a source letter), which allocates `{###}`.
+Write the report with slug `{id}-cover-letter` using the report procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or hand it to the companion's `state-helper` when it is available ([§14](references/state-layer.md#14-optional-companion)); either way `{###}` is allocated without overwriting a report (slug `cover-letter` for a source letter).
 
-For specific applications, upsert `applications.md` with `status: saved` if no row exists, using `node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}"`. Do not advance to `applied` unless the user confirms submission; then add `--status applied --user-confirmed`. Without Node, follow [state-layer §12](references/state-layer.md#12-validated-mutations-helper-and-native-fallback). When inserting a new row, populate `comp_expected`, `source`, and `next_action_date` from the conversation if known; otherwise `-`. See [state-layer §3](references/state-layer.md#3-applicationsmd-schema) for the back-compat read/write rules.
+For specific applications, upsert `applications.md` with `status: saved` if no row exists, using the tracker procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or the companion's `state-helper` when it is available ([§14](references/state-layer.md#14-optional-companion)). Do not advance to `applied` unless the user confirms submission; only then write the status change (with `--user-confirmed` when handed to the companion). When inserting a new row, populate `comp_expected`, `source`, and `next_action_date` from the conversation if known; otherwise `-`. See [state-layer §3](references/state-layer.md#3-applicationsmd-schema) for the back-compat read/write rules.
 
 ### 6. Render
 
-Run the export script for the saved cover letter. It writes `.docx`, `.pdf`, and a `.html` preview the user can open in any browser to eyeball formatting:
+Export the saved cover letter (`my-documents/applications/{id}/coverletter.md`, or `my-documents/coverletter.md` for a source letter) with the [document export procedure](references/document-export.md):
 
-```bash
-node "{job_hunt_skills_root}/scripts/export-documents.mjs" my-documents/applications/{id}/coverletter.md
-```
-
-or:
-
-```bash
-node "{job_hunt_skills_root}/scripts/export-documents.mjs" my-documents/coverletter.md
-```
-
-Every run produces a PDF; the script's last stdout line reports the tier. On `EXPORT_TIER=2`, mention that installing Typst (one command, ~50MB) upgrades future PDFs to the typeset version. If Node itself is unavailable, fill `{job_hunt_skills_root}/templates/preview-template.html` natively (Tier 1) and tell the user markdown + preview are ready — installing Node unlocks the Word file and PDF. Tiers are capability unlocks, never degraded runs.
-
-Handle content validation failures internally when possible. Report infrastructure/rendering failures with the exact rerun command.
+1. Run the pre-export checklist ([§2](references/document-export.md#2-pre-export-checklist)). Handle content problems internally when possible and save the letter again.
+2. Take the first export path that applies ([§4](references/document-export.md#4-choosing-the-path)): the companion's `typeset-export` skill when it is available; otherwise the host's own Word and PDF abilities, following the layout specification ([§3](references/document-export.md#3-layout-specification)); otherwise the print-ready HTML view ([§5](references/document-export.md#5-print-ready-html-view)), which the user can open in any browser to eyeball formatting.
+3. Check the result ([§6](references/document-export.md#6-check-the-result)) and tell the user which path made the files and how to get anything still missing.
 
 ## Common Mistakes
 

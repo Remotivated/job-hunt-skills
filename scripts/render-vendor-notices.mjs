@@ -5,7 +5,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const pluginRoot = join(root, "plugins/job-hunt-skills");
+const pluginRoot = join(root, "plugins/job-hunt-skills-tools");
 const vendorDir = join(pluginRoot, "scripts/vendor");
 
 // Recorded license paths are relative to the plugin root, except packages
@@ -51,7 +51,7 @@ const lines = [
   "",
   "`export-deps.mjs` and `modules/` are readable modules generated from the repository lockfile.",
   "Fontkit uses its source modules; its small Unicode shaping tables are embedded as text.",
-  "WOFF2/Brotli decoding and SVG rendering are explicitly unsupported; the exporter embeds TrueType fonts.",
+  "WOFF2/Brotli decoding, SVG rendering and remote resource downloads are explicitly unsupported; the exporter embeds TrueType fonts.",
   "Word documents use the plugin's own OOXML writer and Node's built-in compression.",
   "",
   "**Zero unresolved build-input packages: yes.**",

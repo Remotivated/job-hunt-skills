@@ -71,7 +71,7 @@ Severity matters more than count. A single hard signal can outweigh several soft
 
 **Write the report:** `my-documents/reports/{###}-{company-slug}-research-{YYYY-MM-DD}.md`
 
-- `{###}` - allocated by `node "{job_hunt_skills_root}/scripts/state.mjs" report write --slug {company-slug}-research --file {draft}` per [state-layer §5](references/state-layer.md#5-reports-convention); without Node, use the native procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-helper-and-native-fallback).
+- `{###}` - allocated when the report is written with slug `{company-slug}-research` using the report procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or hand it to the companion's `state-helper` when it is available ([§14](references/state-layer.md#14-optional-companion)); either way `{###}` is allocated without overwriting a report ([state-layer §5](references/state-layer.md#5-reports-convention)).
 - Frontmatter fields: `report_id`, `company`, `role: null` (unless the research was role-specific), `application_id: null` (or the existing tracker id if one exists), `skill: company-research`, `date`, `summary` (one line capturing the headline finding).
 - Body: the 5-stage findings, role fit, work-model evidence, red flags, recommendation, and interview questions to ask if proceeding.
 
@@ -86,12 +86,12 @@ Severity matters more than count. A single hard signal can outweigh several soft
 | `next_action_date` | Today + 3 days for `Prioritize` verdicts; today + 7 days for `Proceed with caution`; `-` for `Skip for now`. |
 | `updated` | Today (ISO) |
 
-Write the row with `node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --company "{Company}" --role "{Role}" --source {source} --next-action-date {date}` (omit `--role` when the research was not role-specific). It inserts at `saved`, upgrades a legacy header to the full schema, and refuses a malformed table without writing; show any refusal to the user. If a row already exists, leave its status alone - the user may have already progressed, and only the user changes a status. Follow the upsert and status rules in [state-layer §3](references/state-layer.md#3-applicationsmd-schema). Without Node, apply the same rules natively per [state-layer §12](references/state-layer.md#12-validated-mutations-helper-and-native-fallback); if the existing table was read with the back-compat path (missing new columns), emit the full canonical schema on write.
+Write the row (`id`, `company`, `role`, `source`, `next_action_date`; leave `role` as `-` when the research was not role-specific) with the tracker procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or hand it to the companion's `state-helper` when it is available ([§14](references/state-layer.md#14-optional-companion)). A new row starts at `saved`, a legacy header is upgraded to the full schema, and a malformed table is refused without writing; show any refusal to the user. If a row already exists, leave its status alone - the user may have already progressed, and only the user changes a status. Follow the upsert and status rules in [state-layer §3](references/state-layer.md#3-applicationsmd-schema); if the existing table was read with the back-compat path (missing new columns), emit the full canonical schema on write.
 
 **Close with the reward beats** ([state-layer §11](references/state-layer.md#11-progress-and-reward)):
 
 - **What this unlocked** — e.g. "This company is now on your board with a research report behind it, so tailoring and interview prep can draw on what we found."
-- **Momentum pulse** — since this run wrote the tracker, print the momentum line (`node "{job_hunt_skills_root}/scripts/profile-strength.mjs" --pulse`, or derive it natively). Frame it as where the search stands and the next action, never as pressure to add more companies.
+- **Momentum pulse** — since this run wrote the tracker, print the momentum pulse from §11. Frame it as where the search stands and the next action, never as pressure to add more companies.
 
 ## Common Mistakes
 

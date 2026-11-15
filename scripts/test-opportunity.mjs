@@ -27,12 +27,13 @@ import {
   serializeSnapshot,
   unknownFields,
   writeSnapshot,
-} from "../plugins/job-hunt-skills/scripts/opportunity.mjs";
-import { StateError } from "../plugins/job-hunt-skills/scripts/state.mjs";
-import { USER_ROOT } from "../plugins/job-hunt-skills/scripts/workspace.mjs";
+} from "../plugins/job-hunt-skills-tools/scripts/opportunity.mjs";
+import { StateError } from "../plugins/job-hunt-skills-tools/scripts/state.mjs";
+import { USER_ROOT } from "../plugins/job-hunt-skills-tools/scripts/workspace.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const PLUGIN = path.join(ROOT, "plugins/job-hunt-skills");
+const MAIN = path.join(ROOT, "plugins/job-hunt-skills");
+const PLUGIN = path.join(ROOT, "plugins/job-hunt-skills-tools");
 const FIXTURES = path.join(ROOT, "scripts/fixtures/opportunity");
 const HELPER = path.join(PLUGIN, "scripts/opportunity.mjs");
 const SCAFFOLD = path.join(PLUGIN, "scripts/scaffold-state.mjs");
@@ -248,7 +249,7 @@ describe("opportunity helper CLI", () => {
     const root = workspace();
     const lock = path.join(root, USER_ROOT, ".state.lock");
     fs.mkdirSync(lock);
-    fs.writeFileSync(path.join(lock, "owner.json"), JSON.stringify({ pid: process.pid, token: "live" }));
+    fs.writeFileSync(path.join(lock, "owner.json"), JSON.stringify({ pid: process.pid, ownerId: "live" }));
     const result = capture(() => writeSnapshot(root, {
       id: "acme-pay-senior-pm", userConfirmed: true, input: envelope("url.json"),
     }, { lockTimeoutMs: 200 }));
@@ -314,7 +315,7 @@ describe("opportunity helper CLI", () => {
 });
 
 describe("state-layer §13 and the helper describe the same envelope", () => {
-  const doc = fs.readFileSync(path.join(PLUGIN, "skills/_shared/state-layer.md"), "utf8").replace(/\r\n/g, "\n");
+  const doc = fs.readFileSync(path.join(MAIN, "skills/_shared/state-layer.md"), "utf8").replace(/\r\n/g, "\n");
   const section = doc.split("## 13. Opportunity Envelope and Snapshots")[1];
 
   test("every envelope field, source field, kind, and reserved name is documented", () => {
@@ -326,7 +327,7 @@ describe("state-layer §13 and the helper describe the same envelope", () => {
   });
 
   test("native snapshot checks include older files before writing", () => {
-    const native = section.split("**Native procedure (no Node).**")[1];
+    const native = section.split("**Written procedure.**")[1];
     assert.match(native, /read every snapshot/i);
     assert.match(native, /including older/i);
   });
