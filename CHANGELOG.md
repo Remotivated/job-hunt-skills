@@ -1,6 +1,31 @@
 # Changelog
 
-## 1.2.0 - Unreleased
+## 1.3.0 - 2026-11-14
+
+### What changes for you
+
+- **Job Hunt Skills is now a text-only plugin.** `plugins/job-hunt-skills/` holds only skills, guides, templates, and shared rules in Markdown, with its manifests, icon, and license. It contains no scripts, fonts, or other code, and never downloads or installs any. Every skill does its job with your assistant's ordinary file tools by following written procedures.
+- **The scripts moved to an optional companion, Job Hunt Skills Tools** (`plugins/job-hunt-skills-tools/`). It keeps typeset Word and PDF export, locked tracker and report writes, posting fingerprints, and the progress lines exactly as before. Install it next to the main plugin only if you want them: `/plugin install job-hunt-skills-tools@remotivated` in Claude Code, or `codex plugin add job-hunt-skills-tools@remotivated` in Codex, from the same `remotivated` marketplace. Job Hunt Skills uses its skills by name when they are available and never installs or fetches it.
+- **Word and PDF export uses your assistant's own document abilities.** A written layout specification (Letter or A4, Georgia 10.5 pt with serif fallbacks, line height 1.35, navy rules, single column) and a pre-export checklist for placeholders, template comments, and copy-paste characters apply on every path. With the companion, export is typeset as before. An assistant that can make only one of the two files makes that one and says how to get the other. One that can make neither delivers your markdown and a print-ready HTML page to open in a browser and print to PDF. You are always told which path was used.
+
+### Changed
+
+- **Written procedures for every formerly scripted step** (state-layer §2, §10 to §14): scaffolding that creates only what is missing, the workspace location check (including symlinks and either plugin's folder), tracker and report writes, opportunity snapshots, and the profile-strength and momentum lines, whose seven signals, next-step texts, and pulse format are now written out. The procedures state plainly what is weaker without code: one writer at a time per job-hunt folder, because file tools cannot lock the workspace, and a posting fingerprint recorded as unknown rather than guessed.
+- **One contract for the companion** (state-layer §14). Skills hand a step to a companion skill only by name. When a companion skill cannot run, the skill checks what the failed step changed, keeps what landed, and finishes only what is missing. A refusal (a declined write, a missing confirmation, or a refused folder) stops the step on both paths and is never retried the other way. The same reconciliation covers a scaffold or multi-document export that stopped partway.
+- `linkedin-optimizer`, `cover-letter`, and `interview-coach` now point their report writes, and `cover-letter`, `interviewing`, and `claim-check` their scaffolding, at the written procedure.
+- The companion's workspace guard also refuses the installed folder of the main plugin, and any checkout or marketplace that lists either plugin, with symlinks resolved.
+- The companion ships `markdown-it` 14.3.3, which is not affected by [GHSA-gfr2-rv44-r23c](https://github.com/advisories/GHSA-gfr2-rv44-r23c) (#60). pdfmake's remote-download module is replaced with a stub, so the vendored modules contain no network code.
+- The release ZIP holds the text-only plugin only, and the release workflow fails if companion code or any non-text file reaches it. A new `npm run test:text-only` check, part of `npm test`, keeps code files and script invocations out of the main plugin.
+
+### Upgrading from 1.2.0
+
+- Existing workspaces keep working; nothing in `my-documents/` moves or changes, and custom tracker columns are preserved.
+- If you relied on the scripts (typeset PDF and Word export, locked writes, posting fingerprints), install the companion alongside the main plugin. Evaluation reports written without it record `opportunity_fingerprint: null`; matching then uses the posting's address, id, and text.
+- From a clone, the scripts now run from `plugins/job-hunt-skills-tools/scripts/` (for example `npm run export -- <file.md>`), and `claude --plugin-dir <clone>/plugins/job-hunt-skills-tools` loads the companion next to the main plugin.
+
+## 1.2.0 - 2026-10-16
+
+Available from main from this date; not tagged as a separate release.
 
 ### Added
 

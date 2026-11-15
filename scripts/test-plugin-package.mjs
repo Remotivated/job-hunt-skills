@@ -172,8 +172,10 @@ describe("plugin folder contents", () => {
     for (const [, src] of readme.matchAll(/<img[^>]+src="([^"]+)"/g)) {
       assert.match(src, /^https:\/\//, `README image ${src} must be an absolute https URL`);
     }
-    assert.match(readme, /typst/i, "README must disclose the optional local typst run");
-    assert.match(readme, /network/i, "README must say what the scripts send over the network");
+    assert.match(readme, /text only/i, "README must say the plugin is text only");
+    assert.match(readme, /no scripts or other code/i, "README must say the plugin contains no code");
+    assert.match(readme, /network/i, "README must say what goes over the network");
+    assert.match(readme, /Job Hunt Skills Tools/, "README must name the optional companion");
   });
 
   test("every bundled path a skill names resolves inside the plugin folder", () => {

@@ -29,8 +29,8 @@ jobs:
       - name: Verify checked-in vendor modules is up to date with the lockfile
         run: |
           npm run build:vendor
-          git diff --exit-code plugins/job-hunt-skills/scripts/vendor
-          test -z "$(git ls-files --others --exclude-standard plugins/job-hunt-skills/scripts/vendor)"
+          git diff --exit-code plugins/job-hunt-skills-tools/scripts/vendor
+          test -z "$(git ls-files --others --exclude-standard plugins/job-hunt-skills-tools/scripts/vendor)"
 
   test:
     name: test (${{ matrix.os }}, Node ${{ matrix.node }})
@@ -46,7 +46,8 @@ jobs:
         shell: bash
     # Pinned so a breaking Typst release fails loudly here, not on a
     # user's machine. Keep in sync with MIN_TYPST_VERSION in
-    # scripts/export-documents.mjs (this must be >= that floor). Each
+    # plugins/job-hunt-skills-tools/scripts/export-documents.mjs (this must
+    # be >= that floor). Each
     # download is checked against the SHA-256 recorded below before it is
     # unpacked; update the hashes together with the version.
     env:

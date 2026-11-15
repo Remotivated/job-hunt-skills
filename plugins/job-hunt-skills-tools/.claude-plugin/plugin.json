@@ -1,0 +1,19 @@
+{
+  "name": "job-hunt-skills-tools",
+  "version": "1.3.0",
+  "description": "Optional companion to Job Hunt Skills: Node scripts for locked tracker and report writes, posting fingerprints, profile strength, and typeset Word and PDF export. Job Hunt Skills works fully without it.",
+  "author": {
+    "name": "Remotivated",
+    "url": "https://remotivated.com/?utm_source=github&utm_medium=repo&utm_campaign=job-hunt-skills&utm_content=plugin-manifest"
+  },
+  "homepage": "https://github.com/Remotivated/job-hunt-skills#readme",
+  "repository": "https://github.com/Remotivated/job-hunt-skills",
+  "license": "MIT",
+  "keywords": [
+    "job-search",
+    "resume",
+    "export",
+    "pdf",
+    "docx"
+  ]
+}

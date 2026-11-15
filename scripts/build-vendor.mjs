@@ -14,11 +14,12 @@ import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
 // `root` is the repository (node_modules, the vendor entry point). Modules
-// and their notices ship inside the plugin folder, and the license paths they
+// and their notices ship inside the companion plugin folder
+// (plugins/job-hunt-skills-tools/), and the license paths they
 // record are relative to the plugin root, except node_modules/ paths, which
 // stay relative to the repository.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const pluginRoot = join(root, "plugins/job-hunt-skills");
+const pluginRoot = join(root, "plugins/job-hunt-skills-tools");
 const vendorDir = join(pluginRoot, "scripts/vendor");
 
 function normalizePath(path) {
@@ -101,6 +102,7 @@ const sourcePlugin = {
       [/^brotli\/decompress\.js$/, "brotli.mjs"],
       [/3rd-party\/svg-to-pdfkit$/, "svg.mjs"],
       [/\/SVGMeasure$/, "svg-measure.mjs"],
+      [/\/URLResolver$/, "url-resolver.mjs"],
     ];
     for (const [filter, name] of replacements) {
       builder.onResolve({ filter }, () => ({ path: join(root, "scripts/vendor-stubs", name) }));

@@ -39,21 +39,24 @@ jobs:
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "LICENSE"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "README.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- ".agents/plugins/marketplace.json"
-          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/LICENSES.md"
-          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/LEGAL.txt"
-          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/SOURCE-NOTICES.md"
-          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/vendor/vendor-inputs.json"
-          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "templates/fonts/OFL.txt"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/agents/openai.yaml"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/_shared/truth-and-content.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/references/state-layer.md"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/get-started/references/truth-and-content.md"
-          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/state.mjs"
-          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/workspace.mjs"
-          unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "scripts/opportunity.mjs"
           unzip -Z1 dist/job-hunt-skills.zip | grep -Fx -- "skills/opportunity-evaluator/SKILL.md"
           if unzip -Z1 dist/job-hunt-skills.zip | grep -E '^(plugins|examples|prompts|assets|\.github)/'; then
             echo "repository-only files leaked into the plugin ZIP" >&2
+            exit 1
+          fi
+          # The ZIP is the text-only plugin. Scripts, vendored modules, fonts,
+          # and code templates belong to the optional companion plugin
+          # (plugins/job-hunt-skills-tools/), which is never packaged here.
+          if unzip -Z1 dist/job-hunt-skills.zip | grep -Ev '(/|\.(md|txt|json|ya?ml)|^\.claude-plugin/icon\.png|^LICENSE)$'; then
+            echo "files other than text, the icon, and the license are in the plugin ZIP" >&2
+            exit 1
+          fi
+          if unzip -Z1 dist/job-hunt-skills.zip | grep -E '(^|/)(scripts|vendor|fonts)/|job-hunt-skills-tools'; then
+            echo "companion plugin files leaked into the plugin ZIP" >&2
             exit 1
           fi
 

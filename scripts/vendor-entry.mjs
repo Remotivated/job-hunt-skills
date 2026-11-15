@@ -1,8 +1,8 @@
 // Entry point for the checked-in readable vendor modules
-// (plugins/job-hunt-skills/scripts/vendor/export-deps.mjs).
+// (plugins/job-hunt-skills-tools/scripts/vendor/export-deps.mjs).
 //
 // Built with `npm run build:vendor` (esbuild). The modules are committed so
-// users never run `npm install` — Node alone is the Tier 2 requirement.
+// users never run `npm install` — Node alone is what the companion's exporter needs.
 // CI verifies the modules are up to date with the lockfile.
 
 export { default as MarkdownIt } from "markdown-it";

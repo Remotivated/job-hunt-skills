@@ -17,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PLUGIN = ROOT / "plugins" / "job-hunt-skills"
 SKILLS = PLUGIN / "skills"
-PLUGIN_SCRIPTS = PLUGIN / "scripts"
+PLUGIN_SCRIPTS = ROOT / "plugins" / "job-hunt-skills-tools" / "scripts"
 
 
 def read(path: Path) -> str:
@@ -290,7 +290,24 @@ class ProgressRewardContractTests(unittest.TestCase):
     def test_state_layer_defines_section_11(self) -> None:
         state = read(SKILLS / "_shared" / "state-layer.md")
         self.assertIn("## 11. Progress and Reward", state)
-        self.assertIn("profile-strength.mjs", state)
+        # The strength signals, their next-step texts, and the pulse format
+        # are written out in prose, so the line can be derived without code.
+        section = state.split("## 11. Progress and Reward", 1)[1].split("## 12.", 1)[0]
+        self.assertIn("`Profile strength: N/7 — {next step}`", section)
+        for text in (
+            "Build your source work document so every other skill has something to read.",
+            "Run an honest audit on your {label} to see what's blocking callbacks.",
+            "Add three STAR+R stories so claim-check can verify your top claims and interview prep has material.",
+            "Capture one reusable proof asset (a case study with metrics) you can point to across applications.",
+            "Tailor your first application to a real posting to see the transform end to end.",
+            "Run claim-check on your {label} to confirm every concrete claim is backed by evidence.",
+            "Seed a source cover letter for a target lane so tailored letters start from your voice.",
+            "every layer is in place. Keep it current as your search evolves.",
+            "No applications tracked yet — tailor your first one and it lands on the board.",
+            "{in flight} in flight",
+            "next action {date} ({id})",
+        ):
+            self.assertIn(text, section)
         # The truthful-search guardrail must be explicit: reward depth and
         # follow-through, never raw application volume.
         self.assertRegex(
@@ -342,7 +359,7 @@ class ProgressRewardContractTests(unittest.TestCase):
                      "opportunity-evaluator"):
             text = read(SKILLS / name / "SKILL.md")
             self.assertIn(
-                "--pulse",
+                "momentum pulse",
                 text,
                 f"{name}: must print the tracker momentum pulse after writing "
                 f"applications.md",
@@ -470,7 +487,7 @@ class StateFixtureContractTests(unittest.TestCase):
             self.assertTrue((ROOT / "scripts" / "fixtures" / "state" / name).exists())
 
     def test_native_procedure_matches_helper_behavior(self) -> None:
-        native = self.section.split("**Native procedure (no Node).**", 1)[1]
+        native = self.section.split("**Written procedure.**", 1)[1]
         for phrase in ("TR-1", "TR-6", "PF-1", "ST-1", "ST-2", "ST-3", "TW-4", "TW-5",
                        "RP-1", "RP-2", "Never overwrite an existing report",
                        "Never \"repair\" the table"):
@@ -488,7 +505,7 @@ class StateFixtureContractTests(unittest.TestCase):
         for name in ("interviewing", "interview-coach", "company-research", "resume-tailor"):
             self.assertNotRegex(read(SKILLS / name / "SKILL.md"), r"(?i)never regress", name)
 
-    def test_state_writing_skills_use_the_helper(self) -> None:
+    def test_state_writing_skills_use_the_written_procedure(self) -> None:
         tracker_writers = ("company-research", "resume-tailor", "interviewing",
                            "interview-coach", "cover-letter", "claim-check",
                            "opportunity-evaluator")
@@ -497,12 +514,96 @@ class StateFixtureContractTests(unittest.TestCase):
                           "linkedin-optimizer", "opportunity-evaluator")
         confirmers = ("resume-tailor", "claim-check", "interviewing",
                       "interview-coach", "cover-letter", "opportunity-evaluator")
+        procedure = "references/state-layer.md#12-validated-mutations-written-procedure-and-companion"
         for name in tracker_writers:
-            self.assertIn('state.mjs" tracker upsert', read(SKILLS / name / "SKILL.md"), name)
+            text = read(SKILLS / name / "SKILL.md")
+            self.assertIn("tracker procedure", text, name)
+            self.assertIn(procedure, text, name)
+            self.assertIn("`state-helper`", text, name)
         for name in report_writers:
-            self.assertIn('state.mjs" report write', read(SKILLS / name / "SKILL.md"), name)
+            text = read(SKILLS / name / "SKILL.md")
+            self.assertIn("report procedure", text, name)
+            self.assertIn(procedure, text, name)
         for name in confirmers:
             self.assertIn("--user-confirmed", read(SKILLS / name / "SKILL.md"), name)
+        # Every scaffold call site points at the written scaffold steps.
+        for name in ("cover-letter", "interviewing", "claim-check", "interview-coach",
+                     "resume-builder", "get-started"):
+            text = read(SKILLS / name / "SKILL.md")
+            self.assertIn("references/state-layer.md#10-workspace-preflight", text, name)
+            self.assertIn("`workspace-scaffold`", text, name)
+
+    def test_written_procedure_states_its_weaker_guarantees(self) -> None:
+        self.assertIn("**One writer at a time.**", self.section)
+        self.assertIn("cannot lock the workspace", self.section)
+        self.assertIn("**Reconcile after a failed run.**", self.section)
+        self.assertIn("do not write it again", self.section)
+        self.assertIn("Keep the outputs that are complete and produce only the missing ones.", self.section)
+        opportunity = self.state.split("## 13.", 1)[1]
+        self.assertIn("leave `fingerprint` unknown", opportunity)
+        self.assertIn("never estimate, invent, or copy one", opportunity)
+        preflight = self.state.split("## 10. Workspace Preflight", 1)[1].split("## 11.", 1)[0]
+        self.assertIn("following symlinks", preflight)
+        self.assertIn("`job-hunt-skills-tools`", preflight)
+
+    def test_companion_contract(self) -> None:
+        companion = self.state.split("## 14. Optional Companion", 1)[1]
+        for phrase in (
+            "nothing in this plugin installs, fetches, or runs the companion, looks for its files, or reads instructions from it",
+            "**Addressed by name only.**",
+            "Do not check for it any other way.",
+            "apply identically on both paths",
+            "**A refusal is final for that step.**",
+            "Never attempt the same write through the other path.",
+            "**A failure is reconciled, not repeated.**",
+            "Stop and ask when you cannot tell what happened.",
+        ):
+            self.assertIn(phrase, companion)
+        tools = ROOT / "plugins" / "job-hunt-skills-tools" / "skills"
+        for skill in ("workspace-scaffold", "state-helper", "opportunity-helper",
+                      "profile-strength", "typeset-export"):
+            self.assertIn(f"`{skill}`", companion)
+            text = read(tools / skill / "SKILL.md")
+            self.assertIn(f"name: {skill}", text)
+            self.assertIn("{tools_root}", text, skill)
+
+
+class DocumentExportContractTests(unittest.TestCase):
+    """Export runs on the host's own document abilities from a written layout,
+    with the companion as an optional upgrade and an HTML view as the floor."""
+
+    def setUp(self) -> None:
+        self.export = read(SKILLS / "_shared" / "document-export.md")
+
+    def test_layout_specification(self) -> None:
+        layout = self.export.split("## 3. Layout Specification", 1)[1].split("## 4.", 1)[0]
+        for phrase in ("US Letter", "A4", "0.5 in top and bottom, 0.55 in left and right",
+                       "Single column", "Georgia 10.5 pt", "Gelasio, Liberation Serif, Times New Roman",
+                       "Line height 1.35", "`#2C5F8A`", "navy rule"):
+            self.assertIn(phrase, layout)
+
+    def test_pre_export_checklist(self) -> None:
+        checklist = self.export.split("## 2. Pre-Export Checklist", 1)[1].split("## 3.", 1)[0]
+        for phrase in ("Frontmatter stays out", "HTML comments", "`[ASK: …]`", "`[VERIFY: …]`",
+                       "Bracket placeholders", "`year TBD`", "em dash", "zero-width", "non-breaking spaces"):
+            self.assertIn(phrase, checklist)
+
+    def test_every_host_capability_has_a_delivery(self) -> None:
+        paths = self.export.split("## 4. Choosing the Path", 1)[1].split("## 5.", 1)[0]
+        for phrase in ("`typeset-export`", "**The host can create both Word and PDF files.**",
+                       "**The host can create only one of them.**", "**The host can create neither.**",
+                       "tell the user which one was used"):
+            self.assertIn(phrase, paths)
+        html = self.export.split("## 5. Print-Ready HTML View", 1)[1].split("## 6.", 1)[0]
+        self.assertIn("write it at run time", html)
+        self.assertIn("```html", html)
+
+    def test_exporting_skills_follow_the_procedure(self) -> None:
+        for name in ("resume-builder", "resume-tailor", "cover-letter"):
+            text = read(SKILLS / name / "SKILL.md")
+            self.assertIn("references/document-export.md", text, name)
+            self.assertIn("`typeset-export`", text, name)
+            self.assertIn("pre-export checklist", text, name)
 
 
 class TruthAndContentContractTests(unittest.TestCase):
@@ -736,12 +837,12 @@ class OpportunityContractTests(unittest.TestCase):
                     self.assertTrue((envelopes / case[key]).exists(), case[key])
 
     def test_native_procedure_matches_helper_behavior(self) -> None:
-        native = self.section.split("**Native procedure (no Node).**", 1)[1]
+        native = self.section.split("**Written procedure.**", 1)[1]
         for phrase in ("OP-1", "OP-6", "OP-8", "OP-9", "Never overwrite or edit an existing snapshot"):
             self.assertIn(phrase, native)
         self.assertIn("Unknown is not absent.", self.section)
         self.assertIn("never a block (§9)", self.section)
-        self.assertIn('assertUserWorkspace("opportunity")', read(PLUGIN / "scripts" / "opportunity.mjs"))
+        self.assertIn('assertUserWorkspace("opportunity")', read(PLUGIN_SCRIPTS / "opportunity.mjs"))
 
     def test_three_blocks_stay_separate(self) -> None:
         for heading in ("**A. Fit.**", "**B. Constraints.**", "**C. Posting and company observations.**"):
@@ -760,8 +861,7 @@ class OpportunityContractTests(unittest.TestCase):
     def test_nothing_is_written_before_the_user_decides(self) -> None:
         self.assertIn("Do not write anything before they answer.", self.skill)
         self.assertIn("**Don't save anything.**", self.skill)
-        self.assertRegex(self.skill, r"opportunity\.mjs\" snapshot [^\n]*--user-confirmed")
-        self.assertIn("Pass `--user-confirmed` only because the user chose Pursue", self.skill)
+        self.assertIn("(with `--user-confirmed`), only because the user chose Pursue in this conversation", self.skill)
         hold = self.skill.split("**Hold or skip:**", 1)[1].split("###", 1)[0]
         self.assertIn("Do not create a tracker row.", hold)
         self.assertIn("Nothing is written.", self.skill)  # in-chat read

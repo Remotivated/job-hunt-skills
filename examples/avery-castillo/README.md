@@ -32,9 +32,9 @@ Synthetic example used in the Job Hunt Skills launch walkthrough video. Files in
 The committed `.docx`, `.pdf`, and `.html` files come from:
 
 ```bash
-node scripts/export-documents.mjs \
+node plugins/job-hunt-skills-tools/scripts/export-documents.mjs \
   examples/avery-castillo/my-documents/applications/polaris-data-senior-se/resume.md \
   examples/avery-castillo/my-documents/applications/polaris-data-senior-se/coverletter.md
 ```
 
-Every run writes all three files. The checked-in PDFs are the Typst-typeset renders (Tier 3) — install [Typst](https://typst.app) (`brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) before regenerating so the output matches; without it the script produces the built-in renderer's PDF instead.
+Every run writes all three files. The checked-in PDFs are the Typst-typeset renders (`EXPORT_TIER=3`) from the optional companion's exporter — install [Typst](https://typst.app) (`brew install typst` / `winget install --id Typst.Typst` / `snap install typst`) before regenerating so the output matches; without it the exporter produces the built-in renderer's PDF instead.

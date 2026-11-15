@@ -10,6 +10,11 @@
       "name": "job-hunt-skills",
       "source": "./plugins/job-hunt-skills",
       "description": "Evaluate job postings, tailor resumes, cover letters, and interview prep to the roles you pursue, and organize your job search. Covers research, applications, interviews, LinkedIn, and proof assets — saved as local markdown you control."
+    },
+    {
+      "name": "job-hunt-skills-tools",
+      "source": "./plugins/job-hunt-skills-tools",
+      "description": "Optional companion to Job Hunt Skills: Node scripts for locked tracker and report writes, posting fingerprints, profile strength, and typeset Word and PDF export. Install it alongside job-hunt-skills only if you want them; the main plugin works without it."
     }
   ]
 }

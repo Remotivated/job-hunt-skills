@@ -52,7 +52,7 @@ The caller passes the candidate tailored work document and/or cover letter befor
 
 The caller passes the generated content plus the current interview conversation. Treat the conversation transcript and any user-supplied source material (existing resume, LinkedIn export, notes) as highest-trust evidence. Skip source-version comparison because the source work document is not saved yet.
 
-Run `node "{job_hunt_skills_root}/scripts/scaffold-state.mjs"` if state files are missing.
+If state files are missing, run the [Workspace Preflight (state-layer §10)](references/state-layer.md#10-workspace-preflight): on the first state-layer touch this session, confirm the folder with the user first (step 2), then scaffold per steps 3 to 6 (the companion's `workspace-scaffold` when it is available).
 
 ### 3. Read evidence
 
@@ -171,7 +171,7 @@ In tailor and initial-build modes, return findings to the caller; the caller blo
 
 Tailor and initial-build modes do not write a standalone report — findings flow back to the caller, which records them in its own report.
 
-Write `my-documents/reports/{###}-claim-check-{YYYY-MM-DD}.md` with `node "{job_hunt_skills_root}/scripts/state.mjs" report write --slug claim-check --file {draft}`, which allocates `{###}` safely ([state-layer §5](references/state-layer.md#5-reports-convention)); use the native procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-helper-and-native-fallback) when Node is unavailable.
+Write `my-documents/reports/{###}-claim-check-{YYYY-MM-DD}.md` with slug `claim-check` using the report procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or hand it to the companion's `state-helper` when it is available ([§14](references/state-layer.md#14-optional-companion)); either way `{###}` is allocated without overwriting a report ([state-layer §5](references/state-layer.md#5-reports-convention)).
 
 Report frontmatter:
 
@@ -207,7 +207,7 @@ Report:
 
 If the user confirmed new facts during remediation, recommend adding them to the source work document or story bank so future checks pass.
 
-If the materials are clean and tied to an application, ask whether the user submitted them. If yes, advance the tracker to `applied` with `node "{job_hunt_skills_root}/scripts/state.mjs" tracker upsert --id {id} --status applied --user-confirmed` (or the native procedure in state-layer §12).
+If the materials are clean and tied to an application, ask whether the user submitted them. If yes, advance the tracker to `applied` with the tracker procedure in [state-layer §12](references/state-layer.md#12-validated-mutations-written-procedure-and-companion), or the companion's `state-helper` with `--user-confirmed` when it is available ([§14](references/state-layer.md#14-optional-companion)).
 
 ## Common Mistakes
 
