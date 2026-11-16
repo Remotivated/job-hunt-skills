@@ -30,6 +30,9 @@ __pycache__/
 # Build output
 dist/
 
+# Eval results and reports (npm run eval) stay local.
+evals/results/
+
 # Local-only files
 plans/
 research/

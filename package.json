@@ -14,9 +14,10 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "npm run check:shared && npm run check:hygiene && npm run check:links && npm run test:skills && npm run test:codex && npm run test:strength && npm run test:state && npm run test:opportunity && npm run test:export && npm run test:plugin && npm run test:text-only",
+    "test": "npm run check:shared && npm run check:hygiene && npm run check:links && npm run test:skills && npm run test:codex && npm run test:strength && npm run test:state && npm run test:opportunity && npm run test:export && npm run test:plugin && npm run test:text-only && npm run test:evals",
     "scaffold": "node plugins/job-hunt-skills-tools/scripts/scaffold-state.mjs",
     "strength": "node plugins/job-hunt-skills-tools/scripts/profile-strength.mjs",
+    "eval": "node evals/run.mjs",
     "build:zip": "node scripts/build-cowork-zip.mjs",
     "sync:shared": "node scripts/sync-shared-references.mjs",
     "check:shared": "node scripts/sync-shared-references.mjs --check",
@@ -31,7 +32,8 @@
     "test:state": "node --test scripts/test-state.mjs",
     "test:opportunity": "node --test scripts/test-opportunity.mjs",
     "test:plugin": "node --test scripts/test-plugin-package.mjs",
-    "test:text-only": "node --test scripts/test-text-only.mjs"
+    "test:text-only": "node --test scripts/test-text-only.mjs",
+    "test:evals": "node --test scripts/test-evals.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.1",
