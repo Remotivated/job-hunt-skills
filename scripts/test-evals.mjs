@@ -484,6 +484,8 @@ const REGEX_SAMPLES = {
       "- Ran a support team of six across email and chat.",
       "- Led a 6-strong support team.",
       "- Led a team of six across email and chat.",
+      "- Led six direct reports across email and chat for an outdoor-gear retailer.",
+      "- Managed 6 direct reports across email and chat.",
     ],
     fail: [
       "- Led a team of 7 support agents across email and chat.",
@@ -494,6 +496,7 @@ const REGEX_SAMPLES = {
       "- 6-plus years leading support agents.",
       "- 6 + years managing support staff.",
       "- 6+ years in support; led a team of 7 agents.",
+      "- Wrote 6 reports a week on queue health.",
     ],
   },
 };
